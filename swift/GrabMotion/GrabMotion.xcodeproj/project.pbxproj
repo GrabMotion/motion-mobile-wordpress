@@ -1,0 +1,547 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B8D99DBF6FE3E002034586D4 /* Pods_GrabMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A4ECA889A7743CAC88CFB47 /* Pods_GrabMotion.framework */; };
+		D70A62C01C52990300E759C6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70A62BF1C52990300E759C6 /* AppDelegate.swift */; };
+		D70A62C21C52990300E759C6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70A62C11C52990300E759C6 /* LoginViewController.swift */; };
+		D70A62C51C52990300E759C6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D70A62C31C52990300E759C6 /* Main.storyboard */; };
+		D70A62C71C52990300E759C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D70A62C61C52990300E759C6 /* Assets.xcassets */; };
+		D70A62CA1C52990300E759C6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D70A62C81C52990300E759C6 /* LaunchScreen.storyboard */; };
+		D70A62D21C529D1600E759C6 /* Motion.Motion.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70A62D11C529D1600E759C6 /* Motion.Motion.proto.swift */; };
+		D70A62EB1C52E32F00E759C6 /* ysocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70A62E61C52E32F00E759C6 /* ysocket.swift */; };
+		D70A62EC1C52E32F00E759C6 /* ytcpsocket.c in Sources */ = {isa = PBXBuildFile; fileRef = D70A62E71C52E32F00E759C6 /* ytcpsocket.c */; };
+		D70A62ED1C52E32F00E759C6 /* ytcpsocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70A62E81C52E32F00E759C6 /* ytcpsocket.swift */; };
+		D70A62EE1C52E32F00E759C6 /* yudpsocket.c in Sources */ = {isa = PBXBuildFile; fileRef = D70A62E91C52E32F00E759C6 /* yudpsocket.c */; };
+		D70A62EF1C52E32F00E759C6 /* yudpsocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70A62EA1C52E32F00E759C6 /* yudpsocket.swift */; };
+		D70A62F41C52E4CD00E759C6 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D70A62F11C52E4CD00E759C6 /* Bolts.framework */; };
+		D70A62F51C52E4CD00E759C6 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D70A62F21C52E4CD00E759C6 /* Parse.framework */; };
+		D70A62F61C52E4CD00E759C6 /* ParseUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D70A62F31C52E4CD00E759C6 /* ParseUI.framework */; };
+		D70A62F91C52E68A00E759C6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D70A62F81C52E68A00E759C6 /* SystemConfiguration.framework */; };
+		D70A62FB1C52E69700E759C6 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D70A62FA1C52E69700E759C6 /* StoreKit.framework */; };
+		D70A62FD1C52E6AE00E759C6 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D70A62FC1C52E6AE00E759C6 /* Security.framework */; };
+		D70A62FF1C52E6B700E759C6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D70A62FE1C52E6B700E759C6 /* QuartzCore.framework */; };
+		D70A63011C52E6C300E759C6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D70A63001C52E6C300E759C6 /* CoreLocation.framework */; };
+		D70A63031C52E6E800E759C6 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D70A63021C52E6E800E759C6 /* CFNetwork.framework */; };
+		D70A63051C52E6F000E759C6 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D70A63041C52E6F000E759C6 /* AudioToolbox.framework */; };
+		D70A63071C52E6FA00E759C6 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D70A63061C52E6FA00E759C6 /* libsqlite3.tbd */; };
+		D70A63091C52E70300E759C6 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D70A63081C52E70300E759C6 /* libz.tbd */; };
+		D70A630B1C52EE0C00E759C6 /* grabmotion_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = D70A630A1C52EE0C00E759C6 /* grabmotion_logo.png */; };
+		D75101171C55F4940001147E /* SwiftSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75101161C55F4940001147E /* SwiftSpinner.swift */; };
+		D75101191C5604950001147E /* DeviceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75101181C5604950001147E /* DeviceTableViewCell.swift */; };
+		D751011C1C5697760001147E /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = D751011B1C5697760001147E /* CheckBox.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		003A29F84F603B168D373BE5 /* Pods-GrabMotion.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GrabMotion.release.xcconfig"; path = "Pods/Target Support Files/Pods-GrabMotion/Pods-GrabMotion.release.xcconfig"; sourceTree = "<group>"; };
+		3A4ECA889A7743CAC88CFB47 /* Pods_GrabMotion.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GrabMotion.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1E92113F894BE0A768513C2 /* Pods-GrabMotion.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GrabMotion.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GrabMotion/Pods-GrabMotion.debug.xcconfig"; sourceTree = "<group>"; };
+		D70A62BC1C52990300E759C6 /* GrabMotion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GrabMotion.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D70A62BF1C52990300E759C6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D70A62C11C52990300E759C6 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = GrabMotion/LoginViewController.swift; sourceTree = "<group>"; };
+		D70A62C41C52990300E759C6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D70A62C61C52990300E759C6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D70A62C91C52990300E759C6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D70A62CB1C52990300E759C6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D70A62D11C529D1600E759C6 /* Motion.Motion.proto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Motion.Motion.proto.swift; sourceTree = "<group>"; };
+		D70A62E51C52E32E00E759C6 /* GrabMotion-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GrabMotion-Bridging-Header.h"; sourceTree = "<group>"; };
+		D70A62E61C52E32F00E759C6 /* ysocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ysocket.swift; sourceTree = "<group>"; };
+		D70A62E71C52E32F00E759C6 /* ytcpsocket.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ytcpsocket.c; sourceTree = "<group>"; };
+		D70A62E81C52E32F00E759C6 /* ytcpsocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ytcpsocket.swift; sourceTree = "<group>"; };
+		D70A62E91C52E32F00E759C6 /* yudpsocket.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = yudpsocket.c; sourceTree = "<group>"; };
+		D70A62EA1C52E32F00E759C6 /* yudpsocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = yudpsocket.swift; sourceTree = "<group>"; };
+		D70A62F11C52E4CD00E759C6 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		D70A62F21C52E4CD00E759C6 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		D70A62F31C52E4CD00E759C6 /* ParseUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ParseUI.framework; sourceTree = "<group>"; };
+		D70A62F81C52E68A00E759C6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		D70A62FA1C52E69700E759C6 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		D70A62FC1C52E6AE00E759C6 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		D70A62FE1C52E6B700E759C6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		D70A63001C52E6C300E759C6 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		D70A63021C52E6E800E759C6 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		D70A63041C52E6F000E759C6 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		D70A63061C52E6FA00E759C6 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		D70A63081C52E70300E759C6 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		D70A630A1C52EE0C00E759C6 /* grabmotion_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grabmotion_logo.png; sourceTree = "<group>"; };
+		D75101161C55F4940001147E /* SwiftSpinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftSpinner.swift; sourceTree = "<group>"; };
+		D75101181C5604950001147E /* DeviceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceTableViewCell.swift; sourceTree = "<group>"; };
+		D751011B1C5697760001147E /* CheckBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D70A62B91C52990300E759C6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D70A63091C52E70300E759C6 /* libz.tbd in Frameworks */,
+				D70A63071C52E6FA00E759C6 /* libsqlite3.tbd in Frameworks */,
+				D70A63051C52E6F000E759C6 /* AudioToolbox.framework in Frameworks */,
+				D70A63031C52E6E800E759C6 /* CFNetwork.framework in Frameworks */,
+				D70A63011C52E6C300E759C6 /* CoreLocation.framework in Frameworks */,
+				D70A62FF1C52E6B700E759C6 /* QuartzCore.framework in Frameworks */,
+				D70A62FD1C52E6AE00E759C6 /* Security.framework in Frameworks */,
+				D70A62FB1C52E69700E759C6 /* StoreKit.framework in Frameworks */,
+				D70A62F91C52E68A00E759C6 /* SystemConfiguration.framework in Frameworks */,
+				B8D99DBF6FE3E002034586D4 /* Pods_GrabMotion.framework in Frameworks */,
+				D70A62F51C52E4CD00E759C6 /* Parse.framework in Frameworks */,
+				D70A62F61C52E4CD00E759C6 /* ParseUI.framework in Frameworks */,
+				D70A62F41C52E4CD00E759C6 /* Bolts.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6B18757CFA758117148F4018 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D70A63081C52E70300E759C6 /* libz.tbd */,
+				D70A63061C52E6FA00E759C6 /* libsqlite3.tbd */,
+				D70A63041C52E6F000E759C6 /* AudioToolbox.framework */,
+				D70A63021C52E6E800E759C6 /* CFNetwork.framework */,
+				D70A63001C52E6C300E759C6 /* CoreLocation.framework */,
+				D70A62FE1C52E6B700E759C6 /* QuartzCore.framework */,
+				D70A62FC1C52E6AE00E759C6 /* Security.framework */,
+				D70A62FA1C52E69700E759C6 /* StoreKit.framework */,
+				D70A62F81C52E68A00E759C6 /* SystemConfiguration.framework */,
+				3A4ECA889A7743CAC88CFB47 /* Pods_GrabMotion.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		97D92BE6B7CA6210D2576893 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A1E92113F894BE0A768513C2 /* Pods-GrabMotion.debug.xcconfig */,
+				003A29F84F603B168D373BE5 /* Pods-GrabMotion.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		D70A62B31C52990300E759C6 = {
+			isa = PBXGroup;
+			children = (
+				D70A62BE1C52990300E759C6 /* GrabMotion */,
+				D70A62F71C52E4D100E759C6 /* ParseSDK */,
+				D70A62BD1C52990300E759C6 /* Products */,
+				97D92BE6B7CA6210D2576893 /* Pods */,
+				6B18757CFA758117148F4018 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		D70A62BD1C52990300E759C6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D70A62BC1C52990300E759C6 /* GrabMotion.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D70A62BE1C52990300E759C6 /* GrabMotion */ = {
+			isa = PBXGroup;
+			children = (
+				D75101151C55F48C0001147E /* Views */,
+				D70A630D1C53AFC100E759C6 /* ViewControllers */,
+				D70A630C1C52EE0F00E759C6 /* Images */,
+				D70A62F01C52E34400E759C6 /* Socket */,
+				D70A62BF1C52990300E759C6 /* AppDelegate.swift */,
+				D70A62D31C529D3800E759C6 /* Protobuf */,
+				D77C821F1C53B56200F8D99E /* StoryBoards */,
+				D70A62C61C52990300E759C6 /* Assets.xcassets */,
+				D70A62CB1C52990300E759C6 /* Info.plist */,
+				D70A62E51C52E32E00E759C6 /* GrabMotion-Bridging-Header.h */,
+				D751011A1C5604A10001147E /* Cells */,
+				D751011D1C5697810001147E /* Controls */,
+			);
+			path = GrabMotion;
+			sourceTree = "<group>";
+		};
+		D70A62D31C529D3800E759C6 /* Protobuf */ = {
+			isa = PBXGroup;
+			children = (
+				D70A62D11C529D1600E759C6 /* Motion.Motion.proto.swift */,
+			);
+			name = Protobuf;
+			sourceTree = "<group>";
+		};
+		D70A62F01C52E34400E759C6 /* Socket */ = {
+			isa = PBXGroup;
+			children = (
+				D70A62E61C52E32F00E759C6 /* ysocket.swift */,
+				D70A62E71C52E32F00E759C6 /* ytcpsocket.c */,
+				D70A62E81C52E32F00E759C6 /* ytcpsocket.swift */,
+				D70A62E91C52E32F00E759C6 /* yudpsocket.c */,
+				D70A62EA1C52E32F00E759C6 /* yudpsocket.swift */,
+			);
+			name = Socket;
+			sourceTree = "<group>";
+		};
+		D70A62F71C52E4D100E759C6 /* ParseSDK */ = {
+			isa = PBXGroup;
+			children = (
+				D70A62F11C52E4CD00E759C6 /* Bolts.framework */,
+				D70A62F21C52E4CD00E759C6 /* Parse.framework */,
+				D70A62F31C52E4CD00E759C6 /* ParseUI.framework */,
+			);
+			name = ParseSDK;
+			sourceTree = "<group>";
+		};
+		D70A630C1C52EE0F00E759C6 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				D70A630A1C52EE0C00E759C6 /* grabmotion_logo.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+		D70A630D1C53AFC100E759C6 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				D70A62C11C52990300E759C6 /* LoginViewController.swift */,
+			);
+			name = ViewControllers;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		D75101151C55F48C0001147E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D75101161C55F4940001147E /* SwiftSpinner.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		D751011A1C5604A10001147E /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				D75101181C5604950001147E /* DeviceTableViewCell.swift */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
+		D751011D1C5697810001147E /* Controls */ = {
+			isa = PBXGroup;
+			children = (
+				D751011B1C5697760001147E /* CheckBox.swift */,
+			);
+			name = Controls;
+			sourceTree = "<group>";
+		};
+		D77C821F1C53B56200F8D99E /* StoryBoards */ = {
+			isa = PBXGroup;
+			children = (
+				D70A62C31C52990300E759C6 /* Main.storyboard */,
+				D70A62C81C52990300E759C6 /* LaunchScreen.storyboard */,
+			);
+			name = StoryBoards;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D70A62BB1C52990300E759C6 /* GrabMotion */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D70A62CE1C52990300E759C6 /* Build configuration list for PBXNativeTarget "GrabMotion" */;
+			buildPhases = (
+				1CC1AD682D15B3A79FCE076F /* Check Pods Manifest.lock */,
+				D70A62B81C52990300E759C6 /* Sources */,
+				D70A62B91C52990300E759C6 /* Frameworks */,
+				D70A62BA1C52990300E759C6 /* Resources */,
+				FB64752F719C5A5C674F023C /* Embed Pods Frameworks */,
+				732B3E83F6357D3EDD9381BF /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GrabMotion;
+			productName = GrabMotion;
+			productReference = D70A62BC1C52990300E759C6 /* GrabMotion.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D70A62B41C52990300E759C6 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0720;
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = "GrabMotion Computer Vision";
+				TargetAttributes = {
+					D70A62BB1C52990300E759C6 = {
+						CreatedOnToolsVersion = 7.2;
+					};
+				};
+			};
+			buildConfigurationList = D70A62B71C52990300E759C6 /* Build configuration list for PBXProject "GrabMotion" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D70A62B31C52990300E759C6;
+			productRefGroup = D70A62BD1C52990300E759C6 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D70A62BB1C52990300E759C6 /* GrabMotion */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D70A62BA1C52990300E759C6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D70A630B1C52EE0C00E759C6 /* grabmotion_logo.png in Resources */,
+				D70A62CA1C52990300E759C6 /* LaunchScreen.storyboard in Resources */,
+				D70A62C71C52990300E759C6 /* Assets.xcassets in Resources */,
+				D70A62C51C52990300E759C6 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1CC1AD682D15B3A79FCE076F /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		732B3E83F6357D3EDD9381BF /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GrabMotion/Pods-GrabMotion-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FB64752F719C5A5C674F023C /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GrabMotion/Pods-GrabMotion-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D70A62B81C52990300E759C6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D70A62ED1C52E32F00E759C6 /* ytcpsocket.swift in Sources */,
+				D70A62C21C52990300E759C6 /* LoginViewController.swift in Sources */,
+				D75101171C55F4940001147E /* SwiftSpinner.swift in Sources */,
+				D751011C1C5697760001147E /* CheckBox.swift in Sources */,
+				D70A62C01C52990300E759C6 /* AppDelegate.swift in Sources */,
+				D70A62EB1C52E32F00E759C6 /* ysocket.swift in Sources */,
+				D75101191C5604950001147E /* DeviceTableViewCell.swift in Sources */,
+				D70A62D21C529D1600E759C6 /* Motion.Motion.proto.swift in Sources */,
+				D70A62EC1C52E32F00E759C6 /* ytcpsocket.c in Sources */,
+				D70A62EF1C52E32F00E759C6 /* yudpsocket.swift in Sources */,
+				D70A62EE1C52E32F00E759C6 /* yudpsocket.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		D70A62C31C52990300E759C6 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D70A62C41C52990300E759C6 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		D70A62C81C52990300E759C6 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D70A62C91C52990300E759C6 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D70A62CC1C52990300E759C6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D70A62CD1C52990300E759C6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D70A62CF1C52990300E759C6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A1E92113F894BE0A768513C2 /* Pods-GrabMotion.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = GrabMotion/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.grabmotion.GrabMotion;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "GrabMotion/GrabMotion-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		D70A62D01C52990300E759C6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 003A29F84F603B168D373BE5 /* Pods-GrabMotion.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = GrabMotion/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.grabmotion.GrabMotion;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "GrabMotion/GrabMotion-Bridging-Header.h";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D70A62B71C52990300E759C6 /* Build configuration list for PBXProject "GrabMotion" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D70A62CC1C52990300E759C6 /* Debug */,
+				D70A62CD1C52990300E759C6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D70A62CE1C52990300E759C6 /* Build configuration list for PBXNativeTarget "GrabMotion" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D70A62CF1C52990300E759C6 /* Debug */,
+				D70A62D01C52990300E759C6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D70A62B41C52990300E759C6 /* Project object */;
+}

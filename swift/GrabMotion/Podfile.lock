@@ -1,0 +1,13 @@
+PODS:
+  - Alamofire (3.1.5)
+  - ProtocolBuffers-Swift (2.4)
+
+DEPENDENCIES:
+  - Alamofire (~> 3.0)
+  - ProtocolBuffers-Swift
+
+SPEC CHECKSUMS:
+  Alamofire: 5f730ba29fd113b7ddd71c1e65d0c630acf5d7b0
+  ProtocolBuffers-Swift: b1eb0ec2e2fbd0b6650e9b080f10c8d56e20648d
+
+COCOAPODS: 0.39.0
