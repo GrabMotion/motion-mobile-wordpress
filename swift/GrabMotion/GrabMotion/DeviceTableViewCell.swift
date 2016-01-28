@@ -13,19 +13,5 @@ class DeviceTableViewCell: UITableViewCell {
     @IBOutlet weak var deviceLabel: UILabel!
     
     @IBOutlet weak var joinButton: UIButton!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        print("llega")
-        // Initialization code
-    }
-
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        print("llega")
-        // Configure the view for the selected state
-    }
 
 }

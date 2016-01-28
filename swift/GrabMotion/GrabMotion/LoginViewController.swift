@@ -29,6 +29,7 @@ class LoginViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     var delegate:RemoteIpDelegate? = nil
     
+    
     var networkaddrip = String()
     var localaddrip = String()
     var remoteServerIp = String()
@@ -56,6 +57,8 @@ class LoginViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         delegate = self
         
+        deviceTableView.delegate = self
+        
     }
     
     
@@ -71,23 +74,12 @@ class LoginViewController: UIViewController, UITableViewDataSource, UITableViewD
             self.logInViewController.fields = [.UsernameAndPassword, .LogInButton, .SignUpButton, .PasswordForgotten, .DismissButton]
             
             
-            //let logInLogoTitle = UILabel()
-            //logInLogoTitle.text = "GrabMotion"
-            
-            //self.logInViewController.logInView!.logo = logInLogoTitle
-            
             self.logInViewController.delegate = self
-            
-            //let SignUpLogoTitle = UILabel()
-            //SignUpLogoTitle.text = "GrabMotion"
             
             let logoView = UIImageView(image: UIImage(named:"grabmotion_logo.png"))
             
             self.logInViewController.logInView!.logo  = logoView
 
-            
-            //self.signUpViewController.signUpView!.logo = SignUpLogoTitle
-            
             self.signUpViewController.delegate = self
             
             self.logInViewController.signUpController = self.signUpViewController
@@ -213,38 +205,52 @@ class LoginViewController: UIViewController, UITableViewDataSource, UITableViewD
             return 0
         } else
         {
-            return self.tableviewData.count
+            let count = self.tableviewData.count
+            print(count)
+            return count
         }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
             
-       let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! DeviceTableViewCell
+        //let cell:DeviceTableView1Cell = tableView.dequeueReusableCellWithIdentifier("devicecell", forIndexPath: indexPath) as! DeviceTableViewCell
+        
+        let cell:UITableViewCell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! UITableViewCell
     
         cell.textLabel?.text = self.tableviewData[indexPath.row]
+        //cell.textLabel?.text = self.tableviewData[indexPath.row]
         
-        cell.joinButton.tag = indexPath.row
+        //cell.joinButton.tag = indexPath.row
         
-        cell.joinButton.addTarget(self, action: "joinButtonClicked:", forControlEvents: UIControlEvents.TouchUpInside)
+        //cell.joinButton.addTarget(self, action: "joinButtonClicked:", forControlEvents: UIControlEvents.TouchUpInside)
         
         
         return cell
     }
     
-    func buttonClicked(sender:UIButton) {
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
-        let buttonRow = sender.tag
-                
-                
-                
+        if segue.identifier == "SegueDeviceDetail"
+        {
+            let device = segue.destinationViewController as! DeviceViewController
+            
+            let index = self.deviceTableView.indexPathForSelectedRow!
+            
+            let selectedCell = self.deviceTableView!.cellForRowAtIndexPath(index)! as UITableViewCell
+
+            device.deviceIp = (selectedCell.textLabel?.text)!
+            
+            device.localaddrip = localaddrip
+            
+        }
     }
     
-    func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
+    {
         
-          }
-    
-    
+        print("dale")
+    }
     
     func RunUPDServer()
     {
