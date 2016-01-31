@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 typedef void(^PFImageViewImageResultBlock)(UIImage *__nullable image,  NSError *__nullable error);
 
-@class BFTask<__covariant BFGenericType>;
+@class BFTask PF_GENERIC(__covariant BFGenericType);
 @class PFFile;
 
 /**
@@ -51,7 +51,7 @@ typedef void(^PFImageViewImageResultBlock)(UIImage *__nullable image,  NSError *
 
  @return The task, that encapsulates the work being done.
  */
-- (BFTask<UIImage *> *)loadInBackground;
+- (BFTask PF_GENERIC(UIImage *)*)loadInBackground;
 
 /**
  Initiate downloading of the remote image.

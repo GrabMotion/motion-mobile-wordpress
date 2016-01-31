@@ -7,162 +7,229 @@
 //
 
 import UIKit
+import ProtocolBuffers
+import Alamofire
 
-class DeviceViewController: UIViewController {
+protocol RemoteIpDelegate
+{
+    func getServerIp(info:String)
+}
 
+class DeviceViewController: UIViewController, RemoteIpDelegate, UITableViewDataSource, UITableViewDelegate, SocketProtocolDelegate {
+
+    @IBOutlet weak var deviceTableView: UITableView!
+    
+    var delegateSocket:SocketProtocolDelegate? = nil
+    
+    var serverUrl = String()
+    
+    var delegate:RemoteIpDelegate? = nil
+    
+    var networkaddrip = String()
+    var localaddrip = String()
+    var remoteServerIp = String()
+    var remoteport:Int = Int(Motion.Message_.SocketType.UdpPort.rawValue)
+    
+    var timerUdp = NSTimer()
+    var urlserver = String()
+    var userdata = [String]()
+    
     var deviceIp = String()
     
-    var localaddrip = String()
+    var tableviewData = [String]()
     
-    var payload_holder = [String]()
+    var socket = Socket()
     
-    var remotetcpport:Int = Int(Motion.Message_.SocketType.TcpEchoPort.rawValue)
-    var bufferSize:Int    = Int(Motion.Message_.SocketType.SocketBufferNanoSize.rawValue)
-    var packagesize       = Int32(Motion.Message_.SocketType.SocketBufferRegularSize.rawValue)
-    
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
         
-        print(deviceIp)
-        print(localaddrip)
+        //UPD Fetch Ip Network Broadcast.
+        let nip = self.getWiFiAddress()!
+        localaddrip = nip
+        var iparray = nip.componentsSeparatedByString(".")
+        networkaddrip = iparray[0] + "." + iparray[1] + "." + iparray[2] + ".255"
         
-        testtcpclient()
+        delegate = self
+        delegateSocket = self
+        
+        deviceTableView.delegate = self
     }
+    
+    func getWiFiAddress() -> String? {
+        var address : String?
+        
+        // Get list of all interfaces on the local machine:
+        var ifaddr : UnsafeMutablePointer<ifaddrs> = nil
+        if getifaddrs(&ifaddr) == 0 {
+            
+            // For each interface ...
+            for (var ptr = ifaddr; ptr != nil; ptr = ptr.memory.ifa_next) {
+                let interface = ptr.memory
+                
+                // Check for IPv4 or IPv6 interface:
+                let addrFamily = interface.ifa_addr.memory.sa_family
+                if addrFamily == UInt8(AF_INET) || addrFamily == UInt8(AF_INET6) {
+                    
+                    // Check interface name:
+                    if let name = String.fromCString(interface.ifa_name) where name == "en0" {
+                        
+                        // Convert interface address to a human readable string:
+                        var addr = interface.ifa_addr.memory
+                        var hostname = [CChar](count: Int(NI_MAXHOST), repeatedValue: 0)
+                        getnameinfo(&addr, socklen_t(interface.ifa_addr.memory.sa_len),
+                            &hostname, socklen_t(hostname.count),
+                            nil, socklen_t(0), NI_NUMERICHOST)
+                        address = String.fromCString(hostname)
+                    }
+                }
+            }
+            freeifaddrs(ifaddr)
+        }
+        
+        return address
+    }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    func testtcpclient(){
+    
+    @IBAction func searchDevices(sender: AnyObject)
+    {
+        SwiftSpinner.show("Searching for devices...")
+        self.RunUPDServer()
+        self.RunUDPClient()
+    }
+    
+    func RunUDPClient()
+    {
+        let client:UDPClient = UDPClient(addr: self.localaddrip, port: remoteport)//19876)
+        print("send MYAPP_TOKEN")
+        client.send(str: "MYAPP_TOKEN")
+        client.close()
+    }
+    
+    
+    func getServerIp(info: String)
+    {
+        timerUdp.invalidate()
         
-        let client:TCPClient = TCPClient(addr: deviceIp, port: remotetcpport)
-        var (success,errmsg)=client.connect(timeout: 10)
-        if success
+        remoteServerIp = info
+        print ("llega: " + info)
+        SwiftSpinner.hide()
+        
+        self.tableviewData.append(info)
+    
+        socket.deviceIp = deviceIp
+        socket.setLocaladdrip(localaddrip)
+        
+        dispatch_async(dispatch_get_main_queue())
         {
-            
-            let message = Motion.Message_.Builder()
-            message.setTypes(Motion.Message_.ActionType.Engage)
-            message.setServerip(localaddrip)
-            message.setPackagesize(packagesize)
+            self.deviceTableView.reloadData()
+        }
 
-            var dataencoded = String()
-            
-            do
-            {
-                let m = try message.build()
-                
-                let data:NSData = m.data()
-            
-                dataencoded = data.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.Encoding64CharacterLineLength)
-                
-                print(dataencoded)
-            
-            } catch
-            {
-                print(error)
-            }
-            
-            var (success,errmsg)=client.send(str: dataencoded)
-            if success
-            {
-                print("bufferSize \(bufferSize)")
-                let data=client.read(bufferSize) //1024*10)
-                if let d=data
-                {
-                    if let str = String(bytes: d, encoding: NSUTF8StringEncoding)
-                    {
-                        print(str)
-                        
-                        print(str)
-                        
-                        print("----------------------")
-                        
-                        let filtered = splitMessage(str)
-                        
-                        print(filtered)
-                        
-                        let decodedData = NSData(base64EncodedString: filtered, options: NSDataBase64DecodingOptions(rawValue: 0))
-                        
-                        do
-                        {
-                            let mresponse = try Motion.Message_.parseFromData(decodedData!)
-                        
-                            let type = mresponse.getBuilder().types
-                            
-                            print(type)
-                        
-                        } catch
-                        {
-                            print(error)
-                        }
-                        
-                    }
-                }
-            }else{
-                print(errmsg)
-            }
-
-        
-            
-        } else {
-            print(errmsg)
+    }
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int
+    {
+        return 1
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
+        if self.tableviewData.isEmpty
+        {
+            return 0
+        } else
+        {
+            let count = self.tableviewData.count
+            print(count)
+            return count
         }
     }
     
-    func splitMessage(proto:String) -> String
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
         
-        let del_1  = "PROSTA"
-        let del_2  = "PROSTO"
+        //let cell:DeviceTableViewCell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! DeviceTableViewCell
+     
         
-        var total__packages = 0;
-        var current_package = 0;
-        var current____type = 0;
-        var proto_has_files = 0;
-        var package____size = 0;
-        
-        let protorange: Range<String.Index> = proto.rangeOfString(del_2)!
-        let del_pos: Int = proto.startIndex.distanceTo(protorange.startIndex)
-        
-        let from = del_pos+del_2.characters.count
-        print(from)
-        
-        let indexheader = proto.startIndex.advancedBy(from-1)
-        let pheader = String(proto.characters.prefixThrough(indexheader))
-        
-        print(pheader)
-        
-        var extracted = String()
-        if proto.rangeOfString(del_1) != nil
+        let cell = tableView.dequeueReusableCellWithIdentifier("cell") as? DeviceTableViewCell
+        if cell == nil
         {
-            let remove = pheader.stringByReplacingOccurrencesOfString(del_1, withString: "")
-            extracted = remove.stringByReplacingOccurrencesOfString(del_2, withString: "")
+            print("null")
         }
-
-        var vpay = extracted.componentsSeparatedByString("::")
-        total__packages = Int(vpay[0])!
-        print(total__packages)
-        current_package = Int(vpay[1])!
-        print(current_package)
-        current____type = Int(vpay[2])!
-        print(current____type)
-        proto_has_files = Int(vpay[3])!
-        print(proto_has_files)
-        package____size = Int(vpay[4])!
-        print(package____size)
         
-        let resultpayload = String(proto.characters.dropFirst(from))
+        cell!.textLabel?.text = self.tableviewData[indexPath.row]
         
-        print(resultpayload)
+        cell!.joinButton.addTarget(self, action: "join:", forControlEvents: .TouchUpInside)
         
-        payload_holder.append(resultpayload)
+        //cell!.joinButton.hidden = false
         
-        return resultpayload
+        //cell!.joinButton.tag = indexPath.row
+        
+        return cell!
+    }
+    
+    func join(sender: UIButton)
+    {
+        let buttonTag = sender.tag
         
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
+    {
     
+        //self.performSegueWithIdentifier("SegueTerminal", sender: self)
+        print("dale")
+    }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if segue.identifier == "SegueTerminal"
+        {
+            let terminal = segue.destinationViewController as! TerminalViewController
+            
+            let index = self.deviceTableView.indexPathForSelectedRow!
+            
+            let selectedCell = self.deviceTableView!.cellForRowAtIndexPath(index)! as UITableViewCell
+            
+        }
     
+    }
+    
+    func RunUPDServer()
+    {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { () -> Void in
+            let server:UDPServer = UDPServer(addr:self.networkaddrip, port: self.remoteport)
+            let run:Bool=true
+            while run
+            {
+                var (data, remoteip, _) = server.recv(1024)
+                print(data)
+                if let d=data
+                {
+                    if let str=String(bytes: d, encoding: NSUTF8StringEncoding)
+                    {
+                        print(str)
+                    }
+                }
+                print(remoteip)
+                self.delegate?.getServerIp(remoteip)
+                //server.close()
+                sleep(3)
+                break
+            }
+        })
+        
+    }
+    
+    func simpleMessageReceived(message: Motion.Message_)
+    {
+        
+    }
+
 }

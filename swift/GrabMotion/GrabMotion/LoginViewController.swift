@@ -1,4 +1,4 @@
-//
+		//
 //  ViewController.swift
 //  GrabMotion
 //
@@ -9,70 +9,42 @@
 import UIKit
 import Parse
 import ParseUI
-import ProtocolBuffers
 import Alamofire
 
 
-protocol RemoteIpDelegate
-{
-    func getServerIp(info:String)
-}
-
-
-class LoginViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate, RemoteIpDelegate
+class LoginViewController: UIViewController, PFLogInViewControllerDelegate, PFSignUpViewControllerDelegate
 {
     
-
-    var tableviewData = [String]()
-    
-    @IBOutlet weak var deviceTableView: UITableView!
-    
-    var delegate:RemoteIpDelegate? = nil
-    
-    
-    var networkaddrip = String()
-    var localaddrip = String()
-    var remoteServerIp = String()
-    var remoteport:Int = Int(Motion.Message_.SocketType.UdpPort.rawValue)
-    
-    var timerUdp = NSTimer()
-    var urlserver = String()
-    var userdata = [String]()
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     var logInViewController: PFLogInViewController! = PFLogInViewController()
-    
     var signUpViewController: PFSignUpViewController! = PFSignUpViewController()
 
     var serverrunning = Bool()
+    
+    var canStartPinging = false
 
+    @IBOutlet weak var serverTextView: UITextField!
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
-        
-        //UPD Fetch Ip Network Broadcast.
-        let nip = self.getWiFiAddress()!
-        localaddrip = nip
-        var iparray = nip.componentsSeparatedByString(".")
-        networkaddrip = iparray[0] + "." + iparray[1] + "." + iparray[2] + ".255"
-        
-        delegate = self
-        
-        deviceTableView.delegate = self
-        
     }
     
+    @IBOutlet weak var buttonGuide: UIButton!
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "rotated", name: UIDeviceOrientationDidChangeNotification, object: nil)
-    
         
-        if (PFUser.currentUser() == nil) {
+    
+        spinner.hidden = true
+        
+        if (PFUser.currentUser() == nil)
+        {
             
             self.logInViewController.fields = [.UsernameAndPassword, .LogInButton, .SignUpButton, .PasswordForgotten, .DismissButton]
-            
             
             self.logInViewController.delegate = self
             
@@ -86,10 +58,26 @@ class LoginViewController: UIViewController, UITableViewDataSource, UITableViewD
             
             self.presentViewController(self.logInViewController, animated: true, completion: nil)
             
+                        
         }
+        
+        let defaults = NSUserDefaults.standardUserDefaults()
+        if let server = defaults.stringForKey("sever")
+        {
+            print(server)
+            if server == "checked"
+            {
+                self.performSegueWithIdentifier("SegueDevices", sender: self)
+            }
+        }
+        
+        self.serverTextView.text = "http://192.168.0.4/digimotion"
         
     }
     
+    
+    @IBAction func setServerUrl(sender: AnyObject) {
+    }
     
     func rotated()
     {
@@ -97,7 +85,6 @@ class LoginViewController: UIViewController, UITableViewDataSource, UITableViewD
         {
             print("landscape")
         }
-        
         if(UIDeviceOrientationIsPortrait(UIDevice.currentDevice().orientation))
         {
             print("Portrait")
@@ -105,180 +92,98 @@ class LoginViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
 
-    override func didReceiveMemoryWarning() {
+    override func didReceiveMemoryWarning()
+    {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
-    // Return IP address of WiFi interface (en0) as a String, or `nil`
-    func getWiFiAddress() -> String? {
-        var address : String?
-        
-        // Get list of all interfaces on the local machine:
-        var ifaddr : UnsafeMutablePointer<ifaddrs> = nil
-        if getifaddrs(&ifaddr) == 0 {
-            
-            // For each interface ...
-            for (var ptr = ifaddr; ptr != nil; ptr = ptr.memory.ifa_next) {
-                let interface = ptr.memory
-                
-                // Check for IPv4 or IPv6 interface:
-                let addrFamily = interface.ifa_addr.memory.sa_family
-                if addrFamily == UInt8(AF_INET) || addrFamily == UInt8(AF_INET6) {
-                    
-                    // Check interface name:
-                    if let name = String.fromCString(interface.ifa_name) where name == "en0" {
-                        
-                        // Convert interface address to a human readable string:
-                        var addr = interface.ifa_addr.memory
-                        var hostname = [CChar](count: Int(NI_MAXHOST), repeatedValue: 0)
-                        getnameinfo(&addr, socklen_t(interface.ifa_addr.memory.sa_len),
-                            &hostname, socklen_t(hostname.count),
-                            nil, socklen_t(0), NI_NUMERICHOST)
-                        address = String.fromCString(hostname)
-                    }
-                }
-            }
-            freeifaddrs(ifaddr)
-        }
-        
-        return address
-    }
-
-    
     @IBAction func setCustomUrlServer(sender: AnyObject)
     {
         
     }
     
-    @IBAction func searchDevices(sender: AnyObject) {
-        
-        SwiftSpinner.show("Searching for devices...")
-        
-        //if !self.serverrunning
-        //{
-            self.RunUPDServer()
-        //}
-        
-        self.RunUDPClient()
-        
-    }
-    
-    
-    
-    func RunUDPClient()
-    {
-        let client:UDPClient = UDPClient(addr: self.localaddrip, port: remoteport)//19876)
-        print("send MYAPP_TOKEN")
-        client.send(str: "MYAPP_TOKEN")
-        client.close()
-    }
-    
-    
-    func getServerIp(info: String)
-    {
-        timerUdp.invalidate()
-        
-        remoteServerIp = info
-        print ("llega: " + info)
-        SwiftSpinner.hide()
-        
-        self.tableviewData.append(info)
-        
-        dispatch_async(dispatch_get_main_queue())
-        {
-            self.deviceTableView.reloadData()
-        }
-    
-        urlserver = "http://" + info + ":5556/"
-    }
-    
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int
-    {
-        return 1
-    }
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
-    {
-        if self.tableviewData.isEmpty
-        {
-            return 0
-        } else
-        {
-            let count = self.tableviewData.count
-            print(count)
-            return count
-        }
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
-    {
-            
-        //let cell:DeviceTableView1Cell = tableView.dequeueReusableCellWithIdentifier("devicecell", forIndexPath: indexPath) as! DeviceTableViewCell
-        
-        let cell:UITableViewCell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! UITableViewCell
-    
-        cell.textLabel?.text = self.tableviewData[indexPath.row]
-        //cell.textLabel?.text = self.tableviewData[indexPath.row]
-        
-        //cell.joinButton.tag = indexPath.row
-        
-        //cell.joinButton.addTarget(self, action: "joinButtonClicked:", forControlEvents: UIControlEvents.TouchUpInside)
-        
-        
-        return cell
-    }
-    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
-        if segue.identifier == "SegueDeviceDetail"
+        if segue.identifier == "SegueDevices"
         {
             let device = segue.destinationViewController as! DeviceViewController
             
-            let index = self.deviceTableView.indexPathForSelectedRow!
-            
-            let selectedCell = self.deviceTableView!.cellForRowAtIndexPath(index)! as UITableViewCell
-
-            device.deviceIp = (selectedCell.textLabel?.text)!
-            
-            device.localaddrip = localaddrip
+            device.serverUrl = self.serverTextView.text!
             
         }
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
+
+    @IBAction func continueButton(sender: AnyObject)
     {
         
-        print("dale")
-    }
-    
-    func RunUPDServer()
-    {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), { () -> Void in
-            let server:UDPServer = UDPServer(addr:self.networkaddrip, port: self.remoteport)
-            let run:Bool=true
-            while run
+        let url = "\(self.serverTextView.text!)/wp-json"
+        
+        spinner.hidden = false
+        spinner.startAnimating()
+        
+        Alamofire.request(.GET, url)
+            .validate()
+            .responseJSON { response in
+            
+            switch response.result
             {
-                self.serverrunning = true
-                var (data, remoteip, _) = server.recv(1024)
-                print(data)
-                if let d=data
-                {
-                    if let str=String(bytes: d, encoding: NSUTF8StringEncoding)
-                    {
-                        print(str)
-                    }
-                }
-                print(remoteip)
-                self.delegate?.getServerIp(remoteip)
-                //server.close()
-                sleep(3)
-                break
+                case .Success:
+                    print("Validation Successful")
+            
+                    NSUserDefaults.standardUserDefaults().setObject("checked", forKey: "server")
+                    NSUserDefaults.standardUserDefaults().synchronize()
+                    
+                    NSUserDefaults.standardUserDefaults().setObject(url, forKey: "serverurl")
+                    NSUserDefaults.standardUserDefaults().synchronize()
+            
+                    self.performSegueWithIdentifier("SegueDevices", sender: self)
+            
+                    break
+                case .Failure(let error):
+                    print(error)
+            
+                    self.spinner.stopAnimating()
+                    self.spinner.hidden = false
+            
+                    let message = "No valid server found on the given url. Pleasee check the installation guide and try again."
+                    
+                    let alert = UIAlertController(title: "Server not found", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+                    
+                    alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil))
+            
+                    self.presentViewController(alert, animated: true, completion: nil)
+                    
+                    self.spinner.hidden = false
+                    
+                    
+                    
+                    break
             }
-        })
+            
+            
+        }
+        
+        
+        /*Alamofire.request(.GET, url)
+            .responseJSON { response in
+            
+                //print(response.request)  // original URL request
+                //print(response.response) // URL response
+                //print(response.data)     // server data
+                //print(response.result)   // result of response serialization
+                
+               print(response.response)
+                
+                if response.result
+            
+            if let JSON = response.result.value
+            {
+                print("JSON: \(JSON)")
+            }
+        }*/
         
     }
-        
     
     
 }
