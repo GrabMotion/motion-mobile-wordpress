@@ -85,9 +85,27 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-GrabMotion/Alamofire.framework"
+  install_framework "Pods-GrabMotion/Bolts.framework"
+  install_framework "Pods-GrabMotion/FBSDKCoreKit.framework"
+  install_framework "Pods-GrabMotion/FBSDKLoginKit.framework"
+  install_framework "Pods-GrabMotion/FBSDKShareKit.framework"
+  install_framework "Pods-GrabMotion/Parse.framework"
+  install_framework "Pods-GrabMotion/ParseFacebookUtilsV4.framework"
+  install_framework "Pods-GrabMotion/ParseTwitterUtils.framework"
   install_framework "Pods-GrabMotion/ProtocolBuffers.framework"
+  install_framework "Pods-GrabMotion/SVProgressHUD.framework"
+  install_framework "Pods-GrabMotion/SwiftyJSON.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-GrabMotion/Alamofire.framework"
+  install_framework "Pods-GrabMotion/Bolts.framework"
+  install_framework "Pods-GrabMotion/FBSDKCoreKit.framework"
+  install_framework "Pods-GrabMotion/FBSDKLoginKit.framework"
+  install_framework "Pods-GrabMotion/FBSDKShareKit.framework"
+  install_framework "Pods-GrabMotion/Parse.framework"
+  install_framework "Pods-GrabMotion/ParseFacebookUtilsV4.framework"
+  install_framework "Pods-GrabMotion/ParseTwitterUtils.framework"
   install_framework "Pods-GrabMotion/ProtocolBuffers.framework"
+  install_framework "Pods-GrabMotion/SVProgressHUD.framework"
+  install_framework "Pods-GrabMotion/SwiftyJSON.framework"
 fi

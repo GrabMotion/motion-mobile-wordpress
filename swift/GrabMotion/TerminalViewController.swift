@@ -29,9 +29,7 @@ class TerminalViewController: UIViewController {
                 var email = user.email
                 var pass = user.password
                 var sessionToken = user.sessionToken
-                
-                
-                
+            
             }
         })
         

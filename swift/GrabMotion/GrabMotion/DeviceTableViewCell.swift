@@ -8,10 +8,9 @@
 
 import UIKit
 
-class DeviceTableViewCell: UITableViewCell {
-
+class DeviceTableViewCell: UITableViewCell
+{
     @IBOutlet weak var deviceLabel: UILabel!
-    
-    @IBOutlet weak var joinButton: UIButton!
 
+    @IBOutlet weak var joinButton: UIButton!
 }

@@ -8,7 +8,6 @@
 
 import UIKit
 import Parse
-import ParseUI
 import ParseFacebookUtilsV4
 import ParseTwitterUtils
 import FBSDKLoginKit
@@ -17,17 +16,18 @@ import CoreLocation
 import Foundation
 
 
-class RegisterViewController: UIViewController
+class RegisterViewController: UIViewController, UITextFieldDelegate
 {
-
     
-    @IBOutlet weak var username: UITextField!
+    @IBOutlet weak var firstName: UITextField!
     
+    @IBOutlet weak var lastName: UITextField!
+    
+    @IBOutlet weak var userName: UITextField!
+        
     @IBOutlet weak var email: UITextField!
     
     @IBOutlet weak var password: UITextField!
-    
-    @IBOutlet weak var twitter: UIView!
     
     @IBOutlet weak var FacebookLoginButton: UIView!
     
@@ -35,16 +35,13 @@ class RegisterViewController: UIViewController
     
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
+    var geopoint = PFGeoPoint()
+    
     var TYPE_SIGNUP     = 0
     var TYPE_FACEBOOK   = 1
     var TYPE_TWITTER    = 2
     
     @IBOutlet weak var facebook: UIView!
-    
-    @IBAction func sigUp(sender: AnyObject)
-    {
-        agreeWithTermsAndConditions(TYPE_SIGNUP)
-    }
     
     override func viewDidLoad()
     {
@@ -62,11 +59,72 @@ class RegisterViewController: UIViewController
         TwitterLoginButton.userInteractionEnabled = true
         TwitterLoginButton.addGestureRecognizer(TWtapGestureRecognizer)
 
+        firstName.clearButtonMode = .WhileEditing
+        lastName.clearButtonMode = .WhileEditing
+        userName.clearButtonMode = .WhileEditing
+        email.clearButtonMode = .WhileEditing
+        password.clearButtonMode = .WhileEditing
         
+        PFGeoPoint.geoPointForCurrentLocationInBackground { (geoPoint: PFGeoPoint?, error: NSError?) -> Void in
+            
+            if (geoPoint != nil)
+            {
+                self.geopoint = geoPoint!
+            }
+        }
+        
+        setInputTexts()
+
+    
     }
     
-    func agreeWithTermsAndConditions( type : Int)
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        
+        if textField == firstName
+        {
+           lastName.becomeFirstResponder()
+        } else if textField == lastName
+        {
+            userName.becomeFirstResponder()
+        } else if textField == userName
+        {
+            email.becomeFirstResponder()
+        } else if textField == email
+        {
+           password.becomeFirstResponder()
+        } else if textField == password
+        {
+            password.resignFirstResponder()
+        }
+        return true
+    }
+    
+    func textFieldDidBeginEditing(textField: UITextField)
     {
+        if textField == userName
+        {
+            userName.text = "\(firstName.text!)\(lastName.text!)"
+        }
+    }
+    
+    @IBAction func sigUp(sender: AnyObject)
+    {
+        agreeWithTermsAndConditions(TYPE_SIGNUP)
+    }
+        
+    func facebookSignIn(sender:UITapGestureRecognizer)
+    {
+        agreeWithTermsAndConditions(TYPE_FACEBOOK)
+    }
+    
+    func twitterSignIn(sender:UITapGestureRecognizer)
+    {
+        agreeWithTermsAndConditions(TYPE_TWITTER)
+    }
+    
+    func agreeWithTermsAndConditions( type : Int )
+    {
+        
         // Build the terms and conditions alert
         let alertController = UIAlertController(title: "Agree to terms and conditions",
             message: "Click I AGREE to signal that you agree to the End User Licence Agreement.",
@@ -86,33 +144,69 @@ class RegisterViewController: UIViewController
 
     }
     
-    func processSignUp(type:Int) {
+    func processSignUp(type:Int)
+    {
+        switch type
+        {
+            case TYPE_SIGNUP:
+                mailSignInAgreed()
+            break
+            
+            
+            case TYPE_FACEBOOK:
+                facebookSignInAgreed()
+            break
+            
+            case TYPE_TWITTER:
+                twitterSignInAgreed()
+            break
+            
+            default :
+            break
+        }
         
-        var userEmailAddress = email.text
-        var userPassword = password.text
-        var userName = username.text
+    }
+
+    func mailSignInAgreed()
+    {
+        let first_name = firstName.text
+        let last_name = lastName.text
+        let user_name = userName.text
+        var user_email = email.text
+        let user_password = userName.text
         
         // Ensure username is lowercase
-        userEmailAddress = userEmailAddress!.lowercaseString
-        
-        // Add email address validation
+        user_email = user_email!.lowercaseString
         
         // Start activity indicator
         spinner.hidden = false
         spinner.startAnimating()
         
         // Create the user
-        var user = PFUser()
-        user.username = userEmailAddress
-        user.password = userPassword
-        user.email = userEmailAddress
+        let user = PFUser()
+        user.username = user_name
+        user.password = user_password
+        user.email = user_email
+        
+        user.setObject(first_name!, forKey: "first_name")
+        user.setObject(last_name!, forKey: "last_name")
+        user.setObject(self.geopoint, forKey: "location")
         
         user.signUpInBackgroundWithBlock {
+            
             (succeeded: Bool, error: NSError?) -> Void in
             if error == nil {
                 
-                dispatch_async(dispatch_get_main_queue()) {
-                    self.performSegueWithIdentifier("signInToNavigation", sender: self)
+                dispatch_async(dispatch_get_main_queue())
+                {
+                    
+                    NSUserDefaults.standardUserDefaults().setObject("email", forKey: "social")
+                    NSUserDefaults.standardUserDefaults().synchronize()
+                    
+                    NSUserDefaults.standardUserDefaults().setBool(true, forKey: "registered")
+                    NSUserDefaults.standardUserDefaults().synchronize()
+                    
+                    self.loadMain()
                 }
                 
             } else {
@@ -122,10 +216,12 @@ class RegisterViewController: UIViewController
                 if let message: AnyObject = error!.userInfo["error"]
                 {
                     // Create the alert controller
-                    var alertController = UIAlertController(title: "Login error", message: "\(message)", preferredStyle: .Alert)
+                    let alertController = UIAlertController(title: "Login error", message: "\(message)", preferredStyle: .Alert)
+                    
                     
                     // Create the actions
-                    var okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default) {
+                    let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default)
+                    {
                         UIAlertAction in
                     }
                     
@@ -135,13 +231,33 @@ class RegisterViewController: UIViewController
                     // Present the controller
                     self.presentViewController(alertController, animated: true, completion: nil)
                     
+                    
+                    
                 }
             }
         }
     }
     
+    func clearInputTexts()
+    {
+        firstName.text = ""
+        lastName.text = ""
+        userName.text = ""
+        email.text = ""
+        password.text = ""
+        userName.becomeFirstResponder()
+    }
     
-    func facebookSignIn(sender:UITapGestureRecognizer)
+    func setInputTexts()
+    {
+        firstName.text = "Jose"
+        lastName.text = "Vigil"
+        userName.text = "JoseVigil"
+        email.text = "josemanuelvigil@gmail.com"
+        password.text = "jose"
+    }
+    
+    func facebookSignInAgreed()
     {
         PFFacebookUtils.logInInBackgroundWithReadPermissions(["public_profile","email"], block: { (user:PFUser?, error:NSError?) -> Void in
             
@@ -169,130 +285,65 @@ class RegisterViewController: UIViewController
                 NSUserDefaults.standardUserDefaults().setObject("facebook", forKey: "social")
                 NSUserDefaults.standardUserDefaults().synchronize()
                 
-                self.launchNewItem()
+                NSUserDefaults.standardUserDefaults().setBool(true, forKey: "registered")
+                NSUserDefaults.standardUserDefaults().synchronize()
+            
+                self.loadMain()
                 
             }
             
         })
     }
-    
-    func twitterSignIn(sender:UITapGestureRecognizer)
+
+    func twitterSignInAgreed()
     {
-        PFTwitterUtils.logInWithBlock {
-            (user:PFUser?, error:NSError?) -> Void in
-            
-            if error != nil
-            {
-                self.processTwitterUser()
-            }
-        }
-        
-    }
-    
-    func processTwitterUser()
-    {
-        
-        let spiningActivity = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
-        spiningActivity.labelText = "Loading"
-        spiningActivity.detailsLabelText = "Please wait"
-        
-        let pfTwitter = PFTwitterUtils.twitter()
-        
-        let twitterUsername = pfTwitter?.screenName
-        
-        var userDetailsUrls = String()
-        userDetailsUrls = "https://api.twitter.com/1.1/users/show.json?screen_name="
-        userDetailsUrls = userDetailsUrls + twitterUsername!
-        
-        let myUrl = NSURL(string: userDetailsUrls);
-        let request = NSMutableURLRequest(URL: myUrl!);
-        request.HTTPMethod = "GET";
-        
-        pfTwitter?.signRequest(request);
-        
-        let task = NSURLSession.sharedSession().dataTaskWithRequest(request)
-            {
-                data, response, error in
+        PFTwitterUtils.logInWithBlock
+        {
+                (user:PFUser?, error:NSError?) -> Void in
                 
-                if error != nil
+                if (user==nil)
                 {
-                    spiningActivity.hide(true)
+                    print(user)
+                    print("Uh oh. The user cancelled the Twitter login.")
+                    return
+                    
+                } else if ((user?.isNew) != nil)
+                {
+                    print("User signed up and logged in with Twitter!")
+                    
+                    print(user)
+                    
+                    print("Current user token=\(PFTwitterUtils.twitter()!.authToken)")
+                    
+                    print("Current user id \(PFTwitterUtils.twitter()!.screenName)")
                     
                     NSUserDefaults.standardUserDefaults().setObject("twitter", forKey: "social")
                     NSUserDefaults.standardUserDefaults().synchronize()
                     
-                    PFUser.logOut()
+                    NSUserDefaults.standardUserDefaults().setBool(true, forKey: "registered")
+                    NSUserDefaults.standardUserDefaults().synchronize()
                     
-                    return
-                }
-                
-                do
+                    self.loadMain()
+                    
+                } else
                 {
-                    
-                    let json = try NSJSONSerialization.JSONObjectWithData(data!, options: .MutableContainers) as! NSDictionary
-                    
-                    let parseJSON = NSDictionary()
-                    if parseJSON == json
-                    {
-                        // Extract Profile Image
-                        if let profileImageUrl = parseJSON["profile"] as? String
-                        {
-                            let profilePictureUrl = NSURL(string: profileImageUrl)
-                            
-                            let profilePictureData = NSData(contentsOfURL: profilePictureUrl!)
-                            
-                            // Prepare PFUser object
-                            if (profilePictureData != nil)
-                            {
-                                let profileFileObject = PFFile(data: profilePictureData!)
-                                PFUser.currentUser()?.setObject(profileFileObject!, forKey: "profile_picture")
-                            }
-                            
-                            PFUser.currentUser()?.username = twitterUsername
-                            PFUser.currentUser()?.setObject(twitterUsername!, forKey: "first_name")
-                            PFUser.currentUser()?.setObject(" ", forKey: "last_name")
-                            
-                            PFUser.currentUser()?.saveInBackgroundWithBlock({ (success, error) -> Void in
-                                
-                                if (error != nil)
-                                {
-                                    spiningActivity.hide(true)
-                                    
-                                    //Display error message
-                                    let userMessage = error!.localizedDescription
-                                    let myAlert = UIAlertController(title: "Alert", message: userMessage, preferredStyle: UIAlertControllerStyle.Alert)
-                                    
-                                    let okAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil)
-                                    
-                                    myAlert.addAction(okAction)
-                                    
-                                    self.presentViewController(myAlert, animated: true, completion: nil)
-                                    
-                                    PFUser.logOut()
-                                    
-                                    return
-                                }
-                                
-                                spiningActivity.hide(true)
-                                
-                                NSUserDefaults.standardUserDefaults().setObject(twitterUsername, forKey: "user_name")
-                                NSUserDefaults.standardUserDefaults().synchronize()
-                                
-                                dispatch_async(dispatch_get_main_queue())
-                                    {
-                                        self.checkInitItem()
-                                }
-                            })
-                            
-                        }
-                        
-                    }
-                    
-                } catch {
-                    print(error)
+                    print("User logged in with Twitter!")
                 }
         }
+        
     }
 
+    func loadMain()
+    {
+        
+        let mainView = self.storyboard?.instantiateViewControllerWithIdentifier("MainViewController") as! MainViewController
+        
+        let protectedPageNav = UINavigationController(rootViewController: mainView)
+        
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        
+        appDelegate.window?.rootViewController = protectedPageNav
+        
+    }
     
 }

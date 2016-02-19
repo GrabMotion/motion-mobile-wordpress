@@ -43,7 +43,10 @@ class Socket
     
     func sendMessage(message: Motion.Message_.Builder){
         
+        print("deviceIp: \(deviceIp) remotetcpport: \(remotetcpport)")
+        
         let client:TCPClient = TCPClient(addr: deviceIp, port: remotetcpport)
+        
         var (success,errmsg) = client.connect(timeout: 10)
         if success
         {
@@ -92,8 +95,11 @@ class Socket
                         {
                             let mresponse = try Motion.Message_.parseFromData(decodedData!)
                             
-                            delegate?.simpleMessageReceived(mresponse)
-                            
+                            if (delegate != nil)
+                            {
+                                delegate?.simpleMessageReceived(mresponse)    
+                            }
+
                             //let type = mresponse.getBuilder().types
                             //print(type)
                             

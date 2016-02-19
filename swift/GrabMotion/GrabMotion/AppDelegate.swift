@@ -1,3 +1,4 @@
+
 //
 //  AppDelegate.swift
 //  GrabMotion
@@ -9,12 +10,18 @@
 import UIKit
 import CoreData
 import Parse
+import ParseTwitterUtils
+import ParseFacebookUtilsV4
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    var REQUEST_FAILED  = 1
+    var NOT_LOGGED_IN   = 2
+    var LOGGED_IN       = 3
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
@@ -25,6 +32,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Initialize Parse.
         Parse.setApplicationId("fsLv65faQqwqhliCGF7oGqcT8MxPDFjmcxIuonGw",
             clientKey: "T3PK1u0NQ36eZm91jM0TslCREDj8LBeKzGCsrudE")
+        
+        
+        PFTwitterUtils.initializeWithConsumerKey("MDtm7P8102QqmviczXiPKNuBB", consumerSecret:"sPrMVRaDwKMYtQZSNSQLheNiHDxCyg9M8C2XNrG1HqnP2DHQ9K")
+        
+        PFFacebookUtils.initializeFacebookWithApplicationLaunchOptions(launchOptions)
+
         
         // [Optional] Track statistics around application opens.
         PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
@@ -69,6 +82,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let installation = PFInstallation.currentInstallation()
             installation.setDeviceTokenFromData(deviceToken)
             installation.saveInBackground()
+    }
+    
+    func application(application: UIApplication,
+        openURL url: NSURL,
+        sourceApplication: String?,
+        annotation: AnyObject) -> Bool {
+            return FBSDKApplicationDelegate.sharedInstance().application(application,
+                openURL: url,
+                sourceApplication: sourceApplication,
+                annotation: annotation)
     }
     
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {

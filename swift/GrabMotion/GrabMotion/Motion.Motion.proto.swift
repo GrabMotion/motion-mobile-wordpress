@@ -34,6 +34,19 @@ internal func == (lhs: Motion.Message_, rhs: Motion.Message_) -> Bool {
   fieldCheck = fieldCheck && (lhs.hasClientnumber == rhs.hasClientnumber) && (!lhs.hasClientnumber || lhs.clientnumber == rhs.clientnumber)
   fieldCheck = fieldCheck && (lhs.hasServerurl == rhs.hasServerurl) && (!lhs.hasServerurl || lhs.serverurl == rhs.serverurl)
   fieldCheck = fieldCheck && (lhs.hasClientname == rhs.hasClientname) && (!lhs.hasClientname || lhs.clientname == rhs.clientname)
+  fieldCheck = fieldCheck && (lhs.motionuser == rhs.motionuser)
+  fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
+  return fieldCheck
+}
+
+internal func == (lhs: Motion.Message_.MotionUser, rhs: Motion.Message_.MotionUser) -> Bool {
+  if (lhs === rhs) {
+    return true
+  }
+  var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
+  fieldCheck = fieldCheck && (lhs.hasObjectId == rhs.hasObjectId) && (!lhs.hasObjectId || lhs.objectId == rhs.objectId)
+  fieldCheck = fieldCheck && (lhs.hasUsername == rhs.hasUsername) && (!lhs.hasUsername || lhs.username == rhs.username)
+  fieldCheck = fieldCheck && (lhs.hasPassword == rhs.hasPassword) && (!lhs.hasPassword || lhs.password == rhs.password)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
   return fieldCheck
 }
@@ -56,12 +69,12 @@ internal func == (lhs: Motion.Message_.MotionCamera, rhs: Motion.Message_.Motion
   fieldCheck = fieldCheck && (lhs.hasFromdatabase == rhs.hasFromdatabase) && (!lhs.hasFromdatabase || lhs.fromdatabase == rhs.fromdatabase)
   fieldCheck = fieldCheck && (lhs.motiontrack == rhs.motiontrack)
   fieldCheck = fieldCheck && (lhs.hasActivemat == rhs.hasActivemat) && (!lhs.hasActivemat || lhs.activemat == rhs.activemat)
-  fieldCheck = fieldCheck && (lhs.hasDbIdmat == rhs.hasDbIdmat) && (!lhs.hasDbIdmat || lhs.dbIdmat == rhs.dbIdmat)
-  fieldCheck = fieldCheck && (lhs.hasTempdata == rhs.hasTempdata) && (!lhs.hasTempdata || lhs.tempdata == rhs.tempdata)
   fieldCheck = fieldCheck && (lhs.hasMatcols == rhs.hasMatcols) && (!lhs.hasMatcols || lhs.matcols == rhs.matcols)
   fieldCheck = fieldCheck && (lhs.hasMatrows == rhs.hasMatrows) && (!lhs.hasMatrows || lhs.matrows == rhs.matrows)
   fieldCheck = fieldCheck && (lhs.hasMatwidth == rhs.hasMatwidth) && (!lhs.hasMatwidth || lhs.matwidth == rhs.matwidth)
   fieldCheck = fieldCheck && (lhs.hasMatheight == rhs.hasMatheight) && (!lhs.hasMatheight || lhs.matheight == rhs.matheight)
+  fieldCheck = fieldCheck && (lhs.hasDbIdmat == rhs.hasDbIdmat) && (!lhs.hasDbIdmat || lhs.dbIdmat == rhs.dbIdmat)
+  fieldCheck = fieldCheck && (lhs.hasTempdata == rhs.hasTempdata) && (!lhs.hasTempdata || lhs.tempdata == rhs.tempdata)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
   return fieldCheck
 }
@@ -247,6 +260,296 @@ internal extension Motion {
 
     //Nested type declaration start
 
+      final internal class MotionUser : GeneratedMessage, GeneratedMessageProtocol {
+        private(set) var hasObjectId:Bool = false
+        private(set) var objectId:String = ""
+
+        private(set) var hasUsername:Bool = false
+        private(set) var username:String = ""
+
+        private(set) var hasPassword:Bool = false
+        private(set) var password:String = ""
+
+        required internal init() {
+             super.init()
+        }
+        override internal func isInitialized() -> Bool {
+         return true
+        }
+        override internal func writeToCodedOutputStream(output:CodedOutputStream) throws {
+          if hasObjectId {
+            try output.writeString(1, value:objectId)
+          }
+          if hasUsername {
+            try output.writeString(2, value:username)
+          }
+          if hasPassword {
+            try output.writeString(5, value:password)
+          }
+          try unknownFields.writeToCodedOutputStream(output)
+        }
+        override internal func serializedSize() -> Int32 {
+          var serialize_size:Int32 = memoizedSerializedSize
+          if serialize_size != -1 {
+           return serialize_size
+          }
+
+          serialize_size = 0
+          if hasObjectId {
+            serialize_size += objectId.computeStringSize(1)
+          }
+          if hasUsername {
+            serialize_size += username.computeStringSize(2)
+          }
+          if hasPassword {
+            serialize_size += password.computeStringSize(5)
+          }
+          serialize_size += unknownFields.serializedSize()
+          memoizedSerializedSize = serialize_size
+          return serialize_size
+        }
+        internal class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Motion.Message_.MotionUser> {
+          var mergedArray = Array<Motion.Message_.MotionUser>()
+          while let value = try parseFromDelimitedFromInputStream(input) {
+            mergedArray += [value]
+          }
+          return mergedArray
+        }
+        internal class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Motion.Message_.MotionUser? {
+          return try Motion.Message_.MotionUser.Builder().mergeDelimitedFromInputStream(input)?.build()
+        }
+        internal class func parseFromData(data:NSData) throws -> Motion.Message_.MotionUser {
+          return try Motion.Message_.MotionUser.Builder().mergeFromData(data, extensionRegistry:Motion.MotionRoot.sharedInstance.extensionRegistry).build()
+        }
+        internal class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionUser {
+          return try Motion.Message_.MotionUser.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
+        }
+        internal class func parseFromInputStream(input:NSInputStream) throws -> Motion.Message_.MotionUser {
+          return try Motion.Message_.MotionUser.Builder().mergeFromInputStream(input).build()
+        }
+        internal class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionUser {
+          return try Motion.Message_.MotionUser.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
+        }
+        internal class func parseFromCodedInputStream(input:CodedInputStream) throws -> Motion.Message_.MotionUser {
+          return try Motion.Message_.MotionUser.Builder().mergeFromCodedInputStream(input).build()
+        }
+        internal class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionUser {
+          return try Motion.Message_.MotionUser.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
+        }
+        internal class func getBuilder() -> Motion.Message_.MotionUser.Builder {
+          return Motion.Message_.MotionUser.classBuilder() as! Motion.Message_.MotionUser.Builder
+        }
+        internal func getBuilder() -> Motion.Message_.MotionUser.Builder {
+          return classBuilder() as! Motion.Message_.MotionUser.Builder
+        }
+        internal override class func classBuilder() -> MessageBuilder {
+          return Motion.Message_.MotionUser.Builder()
+        }
+        internal override func classBuilder() -> MessageBuilder {
+          return Motion.Message_.MotionUser.Builder()
+        }
+        internal func toBuilder() throws -> Motion.Message_.MotionUser.Builder {
+          return try Motion.Message_.MotionUser.builderWithPrototype(self)
+        }
+        internal class func builderWithPrototype(prototype:Motion.Message_.MotionUser) throws -> Motion.Message_.MotionUser.Builder {
+          return try Motion.Message_.MotionUser.Builder().mergeFrom(prototype)
+        }
+        override internal func writeDescriptionTo(inout output:String, indent:String) throws {
+          if hasObjectId {
+            output += "\(indent) objectId: \(objectId) \n"
+          }
+          if hasUsername {
+            output += "\(indent) username: \(username) \n"
+          }
+          if hasPassword {
+            output += "\(indent) password: \(password) \n"
+          }
+          unknownFields.writeDescriptionTo(&output, indent:indent)
+        }
+        override internal var hashValue:Int {
+            get {
+                var hashCode:Int = 7
+                if hasObjectId {
+                   hashCode = (hashCode &* 31) &+ objectId.hashValue
+                }
+                if hasUsername {
+                   hashCode = (hashCode &* 31) &+ username.hashValue
+                }
+                if hasPassword {
+                   hashCode = (hashCode &* 31) &+ password.hashValue
+                }
+                hashCode = (hashCode &* 31) &+  unknownFields.hashValue
+                return hashCode
+            }
+        }
+
+
+        //Meta information declaration start
+
+        override internal class func className() -> String {
+            return "Motion.Message_.MotionUser"
+        }
+        override internal func className() -> String {
+            return "Motion.Message_.MotionUser"
+        }
+        override internal func classMetaType() -> GeneratedMessage.Type {
+            return Motion.Message_.MotionUser.self
+        }
+        //Meta information declaration end
+
+        final internal class Builder : GeneratedMessageBuilder {
+          private var builderResult:Motion.Message_.MotionUser = Motion.Message_.MotionUser()
+          internal func getMessage() -> Motion.Message_.MotionUser {
+              return builderResult
+          }
+
+          required override internal init () {
+             super.init()
+          }
+          var hasObjectId:Bool {
+               get {
+                    return builderResult.hasObjectId
+               }
+          }
+          var objectId:String {
+               get {
+                    return builderResult.objectId
+               }
+               set (value) {
+                   builderResult.hasObjectId = true
+                   builderResult.objectId = value
+               }
+          }
+          func setObjectId(value:String) -> Motion.Message_.MotionUser.Builder {
+            self.objectId = value
+            return self
+          }
+          internal func clearObjectId() -> Motion.Message_.MotionUser.Builder{
+               builderResult.hasObjectId = false
+               builderResult.objectId = ""
+               return self
+          }
+          var hasUsername:Bool {
+               get {
+                    return builderResult.hasUsername
+               }
+          }
+          var username:String {
+               get {
+                    return builderResult.username
+               }
+               set (value) {
+                   builderResult.hasUsername = true
+                   builderResult.username = value
+               }
+          }
+          func setUsername(value:String) -> Motion.Message_.MotionUser.Builder {
+            self.username = value
+            return self
+          }
+          internal func clearUsername() -> Motion.Message_.MotionUser.Builder{
+               builderResult.hasUsername = false
+               builderResult.username = ""
+               return self
+          }
+          var hasPassword:Bool {
+               get {
+                    return builderResult.hasPassword
+               }
+          }
+          var password:String {
+               get {
+                    return builderResult.password
+               }
+               set (value) {
+                   builderResult.hasPassword = true
+                   builderResult.password = value
+               }
+          }
+          func setPassword(value:String) -> Motion.Message_.MotionUser.Builder {
+            self.password = value
+            return self
+          }
+          internal func clearPassword() -> Motion.Message_.MotionUser.Builder{
+               builderResult.hasPassword = false
+               builderResult.password = ""
+               return self
+          }
+          override internal var internalGetResult:GeneratedMessage {
+               get {
+                  return builderResult
+               }
+          }
+          internal override func clear() -> Motion.Message_.MotionUser.Builder {
+            builderResult = Motion.Message_.MotionUser()
+            return self
+          }
+          internal override func clone() throws -> Motion.Message_.MotionUser.Builder {
+            return try Motion.Message_.MotionUser.builderWithPrototype(builderResult)
+          }
+          internal override func build() throws -> Motion.Message_.MotionUser {
+               try checkInitialized()
+               return buildPartial()
+          }
+          internal func buildPartial() -> Motion.Message_.MotionUser {
+            let returnMe:Motion.Message_.MotionUser = builderResult
+            return returnMe
+          }
+          internal func mergeFrom(other:Motion.Message_.MotionUser) throws -> Motion.Message_.MotionUser.Builder {
+            if other == Motion.Message_.MotionUser() {
+             return self
+            }
+            if other.hasObjectId {
+                 objectId = other.objectId
+            }
+            if other.hasUsername {
+                 username = other.username
+            }
+            if other.hasPassword {
+                 password = other.password
+            }
+            try mergeUnknownFields(other.unknownFields)
+            return self
+          }
+          internal override func mergeFromCodedInputStream(input:CodedInputStream) throws -> Motion.Message_.MotionUser.Builder {
+               return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+          }
+          internal override func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionUser.Builder {
+            let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+            while (true) {
+              let tag = try input.readTag()
+              switch tag {
+              case 0: 
+                self.unknownFields = try unknownFieldsBuilder.build()
+                return self
+
+              case 10 :
+                objectId = try input.readString()
+
+              case 18 :
+                username = try input.readString()
+
+              case 42 :
+                password = try input.readString()
+
+              default:
+                if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:tag))) {
+                   unknownFields = try unknownFieldsBuilder.build()
+                   return self
+                }
+              }
+            }
+          }
+        }
+
+      }
+
+    //Nested type declaration end
+
+
+
+    //Nested type declaration start
+
       final internal class MotionCamera : GeneratedMessage, GeneratedMessageProtocol {
         private(set) var motionmonth:Array<Motion.Message_.MotionMonth>  = Array<Motion.Message_.MotionMonth>()
         private(set) var motionrec:Array<Motion.Message_.MotionRec>  = Array<Motion.Message_.MotionRec>()
@@ -353,25 +656,25 @@ internal extension Motion {
               try output.writeMessage(12, value:oneElementmotiontrack)
           }
           if hasActivemat {
-            try output.writeInt32(16, value:activemat)
-          }
-          if hasDbIdmat {
-            try output.writeInt32(17, value:dbIdmat)
-          }
-          if hasTempdata {
-            try output.writeData(18, value:tempdata)
+            try output.writeInt32(13, value:activemat)
           }
           if hasMatcols {
-            try output.writeInt32(20, value:matcols)
+            try output.writeInt32(14, value:matcols)
           }
           if hasMatrows {
-            try output.writeInt32(21, value:matrows)
+            try output.writeInt32(15, value:matrows)
           }
           if hasMatwidth {
-            try output.writeInt32(22, value:matwidth)
+            try output.writeInt32(16, value:matwidth)
           }
           if hasMatheight {
-            try output.writeInt32(23, value:matheight)
+            try output.writeInt32(17, value:matheight)
+          }
+          if hasDbIdmat {
+            try output.writeInt32(18, value:dbIdmat)
+          }
+          if hasTempdata {
+            try output.writeData(19, value:tempdata)
           }
           try unknownFields.writeToCodedOutputStream(output)
         }
@@ -419,25 +722,25 @@ internal extension Motion {
               serialize_size += oneElementmotiontrack.computeMessageSize(12)
           }
           if hasActivemat {
-            serialize_size += activemat.computeInt32Size(16)
-          }
-          if hasDbIdmat {
-            serialize_size += dbIdmat.computeInt32Size(17)
-          }
-          if hasTempdata {
-            serialize_size += tempdata.computeDataSize(18)
+            serialize_size += activemat.computeInt32Size(13)
           }
           if hasMatcols {
-            serialize_size += matcols.computeInt32Size(20)
+            serialize_size += matcols.computeInt32Size(14)
           }
           if hasMatrows {
-            serialize_size += matrows.computeInt32Size(21)
+            serialize_size += matrows.computeInt32Size(15)
           }
           if hasMatwidth {
-            serialize_size += matwidth.computeInt32Size(22)
+            serialize_size += matwidth.computeInt32Size(16)
           }
           if hasMatheight {
-            serialize_size += matheight.computeInt32Size(23)
+            serialize_size += matheight.computeInt32Size(17)
+          }
+          if hasDbIdmat {
+            serialize_size += dbIdmat.computeInt32Size(18)
+          }
+          if hasTempdata {
+            serialize_size += tempdata.computeDataSize(19)
           }
           serialize_size += unknownFields.serializedSize()
           memoizedSerializedSize = serialize_size
@@ -541,12 +844,6 @@ internal extension Motion {
           if hasActivemat {
             output += "\(indent) activemat: \(activemat) \n"
           }
-          if hasDbIdmat {
-            output += "\(indent) dbIdmat: \(dbIdmat) \n"
-          }
-          if hasTempdata {
-            output += "\(indent) tempdata: \(tempdata) \n"
-          }
           if hasMatcols {
             output += "\(indent) matcols: \(matcols) \n"
           }
@@ -558,6 +855,12 @@ internal extension Motion {
           }
           if hasMatheight {
             output += "\(indent) matheight: \(matheight) \n"
+          }
+          if hasDbIdmat {
+            output += "\(indent) dbIdmat: \(dbIdmat) \n"
+          }
+          if hasTempdata {
+            output += "\(indent) tempdata: \(tempdata) \n"
           }
           unknownFields.writeDescriptionTo(&output, indent:indent)
         }
@@ -603,12 +906,6 @@ internal extension Motion {
                 if hasActivemat {
                    hashCode = (hashCode &* 31) &+ activemat.hashValue
                 }
-                if hasDbIdmat {
-                   hashCode = (hashCode &* 31) &+ dbIdmat.hashValue
-                }
-                if hasTempdata {
-                   hashCode = (hashCode &* 31) &+ tempdata.hashValue
-                }
                 if hasMatcols {
                    hashCode = (hashCode &* 31) &+ matcols.hashValue
                 }
@@ -620,6 +917,12 @@ internal extension Motion {
                 }
                 if hasMatheight {
                    hashCode = (hashCode &* 31) &+ matheight.hashValue
+                }
+                if hasDbIdmat {
+                   hashCode = (hashCode &* 31) &+ dbIdmat.hashValue
+                }
+                if hasTempdata {
+                   hashCode = (hashCode &* 31) &+ tempdata.hashValue
                 }
                 hashCode = (hashCode &* 31) &+  unknownFields.hashValue
                 return hashCode
@@ -1203,26 +1506,26 @@ internal extension Motion {
                 try input.readMessage(subBuilder,extensionRegistry:extensionRegistry)
                 motiontrack += [subBuilder.buildPartial()]
 
-              case 128 :
+              case 104 :
                 activemat = try input.readInt32()
 
-              case 136 :
-                dbIdmat = try input.readInt32()
-
-              case 146 :
-                tempdata = try input.readData()
-
-              case 160 :
+              case 112 :
                 matcols = try input.readInt32()
 
-              case 168 :
+              case 120 :
                 matrows = try input.readInt32()
 
-              case 176 :
+              case 128 :
                 matwidth = try input.readInt32()
 
-              case 184 :
+              case 136 :
                 matheight = try input.readInt32()
+
+              case 144 :
+                dbIdmat = try input.readInt32()
+
+              case 154 :
+                tempdata = try input.readData()
 
               default:
                 if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:tag))) {
@@ -6098,6 +6401,22 @@ internal extension Motion {
 
       //Enum type declaration start 
 
+      internal enum ResponseType:Int32 {
+        case LoginSuccessful = 100
+        case LoginFailed = 101
+        case ErrorInvalidUsername = 102
+        case ErrorInvalidPassword = 103
+        case ErrorLoginFailiure = 104
+        case ErrorTimeout = 105
+
+      }
+
+      //Enum type declaration end 
+
+
+
+      //Enum type declaration start 
+
       internal enum ActionType:Int32 {
         case Engage = 1000
         case RecStart = 1002
@@ -6238,6 +6557,7 @@ internal extension Motion {
     private(set) var hasClientname:Bool = false
     private(set) var clientname:String = ""
 
+    private(set) var motionuser:Array<Motion.Message_.MotionUser>  = Array<Motion.Message_.MotionUser>()
     required internal init() {
          super.init()
     }
@@ -6324,6 +6644,9 @@ internal extension Motion {
       if hasClientname {
         try output.writeString(22, value:clientname)
       }
+      for oneElementmotionuser in motionuser {
+          try output.writeMessage(23, value:oneElementmotionuser)
+      }
       try unknownFields.writeToCodedOutputStream(output)
     }
     override internal func serializedSize() -> Int32 {
@@ -6398,6 +6721,9 @@ internal extension Motion {
       }
       if hasClientname {
         serialize_size += clientname.computeStringSize(22)
+      }
+      for oneElementmotionuser in motionuser {
+          serialize_size += oneElementmotionuser.computeMessageSize(23)
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
@@ -6520,6 +6846,13 @@ internal extension Motion {
       if hasClientname {
         output += "\(indent) clientname: \(clientname) \n"
       }
+      var motionuserElementIndex:Int = 0
+      for oneElementmotionuser in motionuser {
+          output += "\(indent) motionuser[\(motionuserElementIndex)] {\n"
+          try oneElementmotionuser.writeDescriptionTo(&output, indent:"\(indent)  ")
+          output += "\(indent)}\n"
+          motionuserElementIndex++
+      }
       unknownFields.writeDescriptionTo(&output, indent:indent)
     }
     override internal var hashValue:Int {
@@ -6590,6 +6923,9 @@ internal extension Motion {
             }
             if hasClientname {
                hashCode = (hashCode &* 31) &+ clientname.hashValue
+            }
+            for oneElementmotionuser in motionuser {
+                hashCode = (hashCode &* 31) &+ oneElementmotionuser.hashValue
             }
             hashCode = (hashCode &* 31) &+  unknownFields.hashValue
             return hashCode
@@ -7118,6 +7454,22 @@ internal extension Motion {
            builderResult.clientname = ""
            return self
       }
+      var motionuser:Array<Motion.Message_.MotionUser> {
+           get {
+               return builderResult.motionuser
+           }
+           set (value) {
+               builderResult.motionuser = value
+           }
+      }
+      func setMotionuser(value:Array<Motion.Message_.MotionUser>) -> Motion.Message_.Builder {
+        self.motionuser = value
+        return self
+      }
+      internal func clearMotionuser() -> Motion.Message_.Builder {
+        builderResult.motionuser.removeAll(keepCapacity: false)
+        return self
+      }
       override internal var internalGetResult:GeneratedMessage {
            get {
               return builderResult
@@ -7208,6 +7560,9 @@ internal extension Motion {
         if other.hasClientname {
              clientname = other.clientname
         }
+        if !other.motionuser.isEmpty  {
+           builderResult.motionuser += other.motionuser
+        }
         try mergeUnknownFields(other.unknownFields)
         return self
       }
@@ -7295,6 +7650,11 @@ internal extension Motion {
 
           case 178 :
             clientname = try input.readString()
+
+          case 186 :
+            let subBuilder = Motion.Message_.MotionUser.Builder()
+            try input.readMessage(subBuilder,extensionRegistry:extensionRegistry)
+            motionuser += [subBuilder.buildPartial()]
 
           default:
             if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:tag))) {

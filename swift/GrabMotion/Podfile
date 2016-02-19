@@ -12,6 +12,14 @@ link_with 'GrabMotion'
 target "GrabMotion" do
 pod 'Alamofire', '~> 3.0'
 pod 'ProtocolBuffers-Swift'
+pod 'Parse'
+pod 'ParseFacebookUtilsV4'
+pod 'ParseTwitterUtils'
+pod 'FBSDKCoreKit'
+pod 'FBSDKLoginKit'
+pod 'FBSDKShareKit'
+pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
+pod 'SVProgressHUD'
 end
 
 
