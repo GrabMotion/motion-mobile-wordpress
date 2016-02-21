@@ -25,7 +25,7 @@ class ServerController
 
 	var delegateServer:ServerControllerDelegate! = nil
 
-	 var myWordPressSite:String = "http://192.168.0.3/grabmotion/wp-json/wp/v2/"
+	var myWordPressSite:String = "http://192.168.0.3/grabmotion/wp-json/wp/v2/"
     
     lazy var json : JSON = JSON.null
 
@@ -91,19 +91,32 @@ class ServerController
 
     func createUser(user:String, email:String, pass:String)
     {
+        
         print ("pass: \(pass)")
 
         let parameters = [
-            "username": user,
-            "email": email,
-            "password": pass
+            "username": "\(user)",
+            "email": "\(email)",
+            "password": "\(pass)"
         ]
 
         print("myWordPressSite: \(self.myWordPressSite)")
 
         var usersWordpress:String = "\(self.myWordPressSite)users"
+        
+        print("usersWordpress: \(usersWordpress)")
 
-        Alamofire.request(.POST, usersWordpress, parameters: parameters)
+        //let credential = NSURLCredential(user: user, password: password, persistence: .ForSession)
+
+        let user = "jose"
+        let password = "joselon"
+
+        let credentialData = "\(user):\(password)".dataUsingEncoding(NSUTF8StringEncoding)!
+        let base64Credentials = credentialData.base64EncodedStringWithOptions([])
+
+        let headers = ["Authorization": "Basic \(base64Credentials)"]
+
+        Alamofire.request(.POST, usersWordpress, parameters: parameters, headers: headers)
             .responseJSON { response in
 
              if let JSON = response.result.value 

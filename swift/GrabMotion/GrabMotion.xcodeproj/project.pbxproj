@@ -39,6 +39,8 @@
 		D75101191C5604950001147E /* DeviceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75101181C5604950001147E /* DeviceTableViewCell.swift */; };
 		D751011C1C5697760001147E /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = D751011B1C5697760001147E /* CheckBox.swift */; };
 		D7644BD91C758D8700B5545E /* PushNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7644BD81C758D8700B5545E /* PushNotificationViewController.swift */; };
+		D7644BEB1C7A4C0B00B5545E /* FreePlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7644BEA1C7A4C0B00B5545E /* FreePlanViewController.swift */; };
+		D7644BED1C7A4C1C00B5545E /* PaidPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7644BEC1C7A4C1C00B5545E /* PaidPlanViewController.swift */; };
 		D7B7566D1C628D840020A13A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B7566C1C628D840020A13A /* MainViewController.swift */; };
 		D7B756911C6416C20020A13A /* Help-50.png in Resources */ = {isa = PBXBuildFile; fileRef = D7B756901C6416C20020A13A /* Help-50.png */; };
 		D7B7569C1C644E5F0020A13A /* SetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B7569B1C644E5F0020A13A /* SetupViewController.swift */; };
@@ -99,6 +101,8 @@
 		D75101181C5604950001147E /* DeviceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceTableViewCell.swift; sourceTree = "<group>"; };
 		D751011B1C5697760001147E /* CheckBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
 		D7644BD81C758D8700B5545E /* PushNotificationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationViewController.swift; sourceTree = "<group>"; };
+		D7644BEA1C7A4C0B00B5545E /* FreePlanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FreePlanViewController.swift; sourceTree = "<group>"; };
+		D7644BEC1C7A4C1C00B5545E /* PaidPlanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaidPlanViewController.swift; sourceTree = "<group>"; };
 		D7B7566C1C628D840020A13A /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		D7B756901C6416C20020A13A /* Help-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Help-50.png"; sourceTree = "<group>"; };
 		D7B7569B1C644E5F0020A13A /* SetupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SetupViewController.swift; path = ../SetupViewController.swift; sourceTree = "<group>"; };
@@ -273,6 +277,15 @@
 			name = Controls;
 			sourceTree = "<group>";
 		};
+		D7644BE91C7A4BD800B5545E /* plans */ = {
+			isa = PBXGroup;
+			children = (
+				D7644BEA1C7A4C0B00B5545E /* FreePlanViewController.swift */,
+				D7644BEC1C7A4C1C00B5545E /* PaidPlanViewController.swift */,
+			);
+			name = plans;
+			sourceTree = "<group>";
+		};
 		D77C821F1C53B56200F8D99E /* StoryBoards */ = {
 			isa = PBXGroup;
 			children = (
@@ -311,6 +324,7 @@
 		D7B7574B1C6676860020A13A /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				D7644BE91C7A4BD800B5545E /* plans */,
 				D7FF1B451C5E42F5007415AD /* ProFileViewController.swift */,
 			);
 			name = Profile;
@@ -511,12 +525,14 @@
 				D75101191C5604950001147E /* DeviceTableViewCell.swift in Sources */,
 				D7C2EA451C5A9A0B00115E5A /* Socket.swift in Sources */,
 				D7C2EA561C5BC6E300115E5A /* LoginViewController.swift in Sources */,
+				D7644BED1C7A4C1C00B5545E /* PaidPlanViewController.swift in Sources */,
 				D7B7569C1C644E5F0020A13A /* SetupViewController.swift in Sources */,
 				D70A62D21C529D1600E759C6 /* Motion.Motion.proto.swift in Sources */,
 				D71384B91C5D260E004773EA /* RegisterViewController.swift in Sources */,
 				D70A62EC1C52E32F00E759C6 /* ytcpsocket.c in Sources */,
 				D70A62EF1C52E32F00E759C6 /* yudpsocket.swift in Sources */,
 				D70A62EE1C52E32F00E759C6 /* yudpsocket.c in Sources */,
+				D7644BEB1C7A4C0B00B5545E /* FreePlanViewController.swift in Sources */,
 				D7B7566D1C628D840020A13A /* MainViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

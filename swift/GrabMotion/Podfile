@@ -20,6 +20,7 @@ pod 'FBSDKLoginKit'
 pod 'FBSDKShareKit'
 pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
 pod 'SVProgressHUD'
+pod 'AlamofireOauth2', '~> 1.0'
 end
 
 

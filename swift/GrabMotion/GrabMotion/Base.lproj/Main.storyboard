@@ -1031,6 +1031,13 @@
                                     <constraint firstItem="hLR-2U-5jN" firstAttribute="centerY" secondItem="xOa-ct-YzC" secondAttribute="centerY" id="f9D-kF-36v"/>
                                 </constraints>
                             </view>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ABR-RU-dBq">
+                                <rect key="frame" x="150" y="271" width="300" height="29"/>
+                                <segments>
+                                    <segment title="Free Version"/>
+                                    <segment title="Paid Version"/>
+                                </segments>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -1061,7 +1068,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qHF-bo-dLu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3103" y="1552"/>
+            <point key="canvasLocation" x="-2565" y="1358"/>
         </scene>
     </scenes>
     <resources>

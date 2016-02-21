@@ -1,5 +1,8 @@
 PODS:
   - Alamofire (3.1.5)
+  - AlamofireOauth2 (1.1.2):
+    - Alamofire
+    - KeychainAccess
   - Bolts (1.6.0):
     - Bolts/AppLinks (= 1.6.0)
     - Bolts/Tasks (= 1.6.0)
@@ -12,6 +15,7 @@ PODS:
     - FBSDKCoreKit
   - FBSDKShareKit (4.9.1):
     - FBSDKCoreKit
+  - KeychainAccess (2.3.3)
   - Parse (1.12.0):
     - Bolts/Tasks (~> 1.5)
   - ParseFacebookUtilsV4 (1.11.0):
@@ -29,6 +33,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 3.0)
+  - AlamofireOauth2 (~> 1.0)
   - FBSDKCoreKit
   - FBSDKLoginKit
   - FBSDKShareKit
@@ -50,10 +55,12 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Alamofire: 5f730ba29fd113b7ddd71c1e65d0c630acf5d7b0
+  AlamofireOauth2: 29a4137ba39ee9c5f2c8ff810cb39382c76d0d56
   Bolts: f52a250053bb517ca874523c3913776359ab3def
   FBSDKCoreKit: aee20b6d9855f15b618d4fddd1a5ad45f5a4a59d
   FBSDKLoginKit: ec22dc49bd372b064e93d6773df4ffefb3a552a2
   FBSDKShareKit: b8c8ef0ed173f9fc1b3c8df384a0202ce53008d4
+  KeychainAccess: 9b7e49e48277e329b1b3195e54697ed313d30acf
   Parse: de2c52a9a1421b91ae7594ab8ce191afd184f19b
   ParseFacebookUtilsV4: 216e03bd560404eed09a4875c75f0c1cdf758070
   ParseTwitterUtils: 8856ac80da50bbb0f0bcf251def20b62e1ae6bc4

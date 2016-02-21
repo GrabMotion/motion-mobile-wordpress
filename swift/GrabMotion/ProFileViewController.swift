@@ -48,8 +48,6 @@ class ProFileViewController: UIViewController,
 
     var serverTasks:ServerController = ServerController()
 
-    var myWordPressSite:String = "http://192.168.0.3/grabmotion"
-
     var email = String()
 
     override func viewDidLoad()
@@ -102,9 +100,9 @@ class ProFileViewController: UIViewController,
             }
         } else 
         {
-            let query = PFQuery(className:"User")
+            let query = PFQuery(className:"_User")
             query.whereKey("user", notEqualTo: PFUser.currentUser()!)
-            query.findObjectsInBackgroundWithBlock {(itemObjects:[PFObject]?, error: NSError?) -> Void in
+            query.findObjectsInBackgroundWithBlock {(userObjects:[PFObject]?, error: NSError?) -> Void in
 
                 if error != nil
                 {
@@ -112,9 +110,13 @@ class ProFileViewController: UIViewController,
                     
                 } else 
                 {
-                    if let userArray = itemObjects
+                    if let userArray = userObjects
                     {
-                        self.email = qitem["title"] as! String
+
+                        for quser in userArray
+                        {
+                            self.email = quser["email"] as! String
+                        }
                     }
                 }
             }
@@ -122,7 +124,7 @@ class ProFileViewController: UIViewController,
         }
 
 
-        self.serverUrlTextField.text = myWordPressSite
+        self.serverUrlTextField.text = self.serverTasks.myWordPressSite
 
     }
     
@@ -130,9 +132,7 @@ class ProFileViewController: UIViewController,
     {
         //self.performSegueWithIdentifier("SegueInstallationGuide", sender: self)      
 
-         self.collectionIndexClicked = indexPath
-        
-        let ac = UIAlertController(title: "Select Input", message: nil, preferredStyle: .ActionSheet)
+        /*let ac = UIAlertController(title: "Select Input", message: nil, preferredStyle: .ActionSheet)
        
         
         let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .Cancel) { action -> Void in
@@ -160,7 +160,7 @@ class ProFileViewController: UIViewController,
         popover?.sourceRect = (collectionView.cellForItemAtIndexPath(indexPath)?.bounds)!
         popover?.permittedArrowDirections = UIPopoverArrowDirection.Any
         
-        presentViewController(ac, animated: true, completion: nil)
+        presentViewController(ac, animated: true, completion: nil)*/
     }
     
     
@@ -214,7 +214,6 @@ class ProFileViewController: UIViewController,
         {
             
         }
-
     }
 
     func checkLoginResponse(response:Int, resutl:String)
@@ -224,15 +223,10 @@ class ProFileViewController: UIViewController,
 
             let user:PFUser  = PFUser.currentUser()!
             let userName = "\(user.username)"
-            let email = "\(user.email)"
+            //let email = "\(user.email)"
             let pass = randomStringWithLength(20)
 
-
-
-
-
-
-            self.serverTasks.createUser(userName, email: email, pass: pass as String)
+            self.serverTasks.createUser(userName, email: self.email, pass: pass as String)
  
         } else if response == self.appDelegate.REQUEST_FAILED
         {
@@ -430,6 +424,7 @@ class ProFileViewController: UIViewController,
                 let userFirstName:String! = result["first_name"] as? String
                 let userLastName:String! = result["last_name"] as? String
                 let userEmail:String? = result["email"] as? String
+                self.email = userEmail!
                 
                 let fullname = "\(userFirstName) \(userLastName)"
 
@@ -561,7 +556,7 @@ class ProFileViewController: UIViewController,
 
                             self.nameLabel.text = "\(userFirstName) \(userLastName)"
 
-                            let email: String! = result?.objectForKey("mail") as! String
+                            //let email: String! = result?.objectForKey("mail") as! String
                             
                             
                             // Save first name
@@ -578,10 +573,10 @@ class ProFileViewController: UIViewController,
                             }
                             
                             // Save email address
-                            if(email != nil)
-                            {
-                                myUser.setObject(email!, forKey: "email")
-                            }
+                            //if(email != nil)
+                            //{
+                            //    myUser.setObject(email!, forKey: "email")
+                            //}
                             
                             // http://stackoverflow.com/questions/22627083/can-we-get-email-id-from-twitter-oauth-api
                             
