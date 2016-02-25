@@ -218,22 +218,6 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GrabMotion/ServerController.swift"
-            timestampString = "478124584.148172"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "267"
-            endingLineNumber = "267"
-            landmarkName = "postClientThumbnail(_:passServer:name:image:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GrabMotion/ServerController.swift"
             timestampString = "478112246.951524"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
@@ -374,63 +358,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GrabMotion/ServerController.swift"
-            timestampString = "478123348.531583"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "270"
-            endingLineNumber = "270"
-            landmarkName = "postClientThumbnail(_:passServer:name:image:)"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "GrabMotion.ServerController.postClientThumbnail (GrabMotion.ServerController)(Swift.String, passServer : Swift.String, name : Swift.String, image : Swift.Optional&lt;__ObjC.UIImage&gt;) -&gt; ()"
-                  moduleName = "GrabMotion"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///jose/repos/motionapps/swift/GrabMotion/GrabMotion/ServerController.swift"
-                  timestampString = "478124063.429458"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "270"
-                  endingLineNumber = "270"
-                  offsetFromSymbolStart = "4724">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "GrabMotion.ServerController.(postClientThumbnail (GrabMotion.ServerController) -&gt; (Swift.String, passServer : Swift.String, name : Swift.String, image : Swift.Optional&lt;__ObjC.UIImage&gt;) -&gt; ()).(closure #1)"
-                  moduleName = "GrabMotion"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///jose/repos/motionapps/swift/GrabMotion/GrabMotion/ServerController.swift"
-                  timestampString = "478124063.438227"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "270"
-                  endingLineNumber = "270"
-                  offsetFromSymbolStart = "220">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GrabMotion/ServerController.swift"
-            timestampString = "478124580.589821"
+            timestampString = "478129446.663062"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "273"
-            endingLineNumber = "273"
+            startingLineNumber = "271"
+            endingLineNumber = "271"
             landmarkName = "postClientThumbnail(_:passServer:name:image:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -463,6 +399,22 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "233"
             endingLineNumber = "233"
+            landmarkName = "postClientThumbnail(_:passServer:name:image:)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GrabMotion/ServerController.swift"
+            timestampString = "478127414.210279"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "266"
+            endingLineNumber = "266"
             landmarkName = "postClientThumbnail(_:passServer:name:image:)"
             landmarkType = "5">
          </BreakpointContent>

@@ -225,10 +225,6 @@ class ServerController
         //media << "curl --user jose:joselon -X POST -H 'Content-Disposition: filename=" << fineandextension << 
         //        "' --data-binary @'"<< maximagepath << "' -d title='" << recname << "' -H \"Expect: \" " << SERVER_BASE_URL << "/wp-json/wp/v2/media";
 
-        let parameters = [
-            "title": "\(name)"
-        ]
-
         let imagePath = fileInDocumentsDirectory("\(name).png")
 
         if image != nil 
@@ -241,45 +237,41 @@ class ServerController
             
                 print("Image saved? Result: (result)")    
 
+                let imageext = "filename=\(name).png"
 
-                //"\(userServer):\(passServer)"
+                 let parameters = [
+                    "Content-Type": "data-binary @'\(imagePath)'",
+                    "Content-Disposition": imageext,
+                    "Expect": " ",
+                    "title" : name
+                ]
 
-                let credentialData = "jose:joselon".dataUsingEncoding(NSUTF8StringEncoding)!
+                print("myWordPressSite: \(self.myWordPressSite)")
+
+                var usersWordpress:String = "\(self.myWordPressSite)media/"
+                
+                print("usersWordpress: \(usersWordpress)")
+
+                print("userServer: \(userServer)")
+                print("passServer: \(passServer)")
+
+                let credentialData = "\(userServer):\(passServer)".dataUsingEncoding(NSUTF8StringEncoding)!
                 let base64Credentials = credentialData.base64EncodedStringWithOptions([])
 
                 let headers = ["Authorization": "Basic \(base64Credentials)"]
 
-                let imageData: NSData = UIImagePNGRepresentation(image!)!
+                print("******************************")
+                print("\(parameters)")
+                print("\(headers)")
+                print("******************************")
 
-                let parameters = NSMutableData()
-                
-                parameters.appendData("Content-Type: data-binary @'\(imagePath)'".dataUsingEncoding(NSUTF8StringEncoding)!)
-                
-                //parameters.appendData("Content-Disposition: form-data; name=\(name); filename=\(imagePath)".dataUsingEncoding(NSUTF8StringEncoding)!)
-                
-                parameters.appendData("Content-Disposition: filename=\(imagePath)".dataUsingEncoding(NSUTF8StringEncoding)!)
-                
-                
-                parameters.appendData("Expect : ' '".dataUsingEncoding(NSUTF8StringEncoding)!)
-                parameters.appendData(imageData)
+                Alamofire.request(.POST, usersWordpress, parameters: parameters, headers: headers)
+                    .responseJSON { response in
 
-                //let contentdisposition = "filename=\(imagePath)"
-                //let databinary = "data-binary @'\(imagePath)'"
-                //let expect = " "
-                //let headers = ["Content-Type": databinary, "Authorization": "Basic \(base64Credentials)", "Content-Disposition" : contentdisposition, "Expect" : expect]
-
-                let clientsWordpress:String = "\(self.myWordPressSite)media"
-                
-                Alamofire.upload(.POST, clientsWordpress, headers: headers,  data: parameters)
-                        .progress { (bytesWritten, totalBytesWritten, totalBytesExpectedToWrite) in
-                            print(totalBytesWritten)
-                        }
-                        .responseJSON { response in
-                            
-                            print("RESPONSE: \(response)")
-                        
-                        }
+                    print(response)
                 }
+            }
+
         }
     }
 
