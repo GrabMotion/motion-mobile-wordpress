@@ -1,4 +1,3 @@
-
 //
 //  AppDelegate.swift
 //  GrabMotion
@@ -12,7 +11,7 @@ import CoreData
 import Parse
 import ParseTwitterUtils
 import ParseFacebookUtilsV4
-
+import MapKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -22,6 +21,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var REQUEST_FAILED  = 1
     var NOT_LOGGED_IN   = 2
     var LOGGED_IN       = 3
+
+    var geoPoint = PFGeoPoint()
+    var annotation = MKPointAnnotation()
+
+    let defaults = NSUserDefaults.standardUserDefaults()
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
@@ -75,6 +79,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         
+         let location_authorized = defaults.boolForKey("location_authorized")
+         if location_authorized
+         {
+            self.setGeoLocation()
+         }
+
         return true
     }
     
@@ -202,6 +212,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
+
+    func setGeoLocation()
+    {
+        let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
+        dispatch_async(dispatch_get_global_queue(priority, 0)) 
+        {
+
+            PFGeoPoint.geoPointForCurrentLocationInBackground { (geoPoint: PFGeoPoint?, error: NSError?) -> Void in
+                
+                if (geoPoint != nil)
+                {
+                    print("\(geoPoint)")
+                    
+                    self.geoPoint = geoPoint!
+                    
+                    self.annotation.coordinate = CLLocationCoordinate2DMake(geoPoint!.latitude, geoPoint!.longitude)
+                
+                }
+            }
+        }
+    }
 
 }
 

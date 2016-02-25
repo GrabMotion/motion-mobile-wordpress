@@ -41,7 +41,6 @@ class MainViewController: UITabBarController
 
         self.proFileViewController = self.viewControllers![PROFILE] as? ProFileViewController
         self.proFileViewController!.mainController = self
-
     
         let profile_stored:Bool = defaults.boolForKey("profile_data_stored")
         if !profile_stored

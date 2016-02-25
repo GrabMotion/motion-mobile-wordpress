@@ -16,7 +16,9 @@ import CoreLocation
 import Foundation
 
 
-class RegisterViewController: UIViewController, UITextFieldDelegate
+class RegisterViewController: UIViewController, 
+UITextFieldDelegate,
+CLLocationManagerDelegate
 {
     
     @IBOutlet weak var firstName: UITextField!
@@ -34,6 +36,8 @@ class RegisterViewController: UIViewController, UITextFieldDelegate
     @IBOutlet weak var TwitterLoginButton: UIView!
     
     @IBOutlet weak var spinner: UIActivityIndicatorView!
+
+     var locationManager: CLLocationManager!
     
     var geopoint = PFGeoPoint()
     
@@ -42,12 +46,17 @@ class RegisterViewController: UIViewController, UITextFieldDelegate
     var TYPE_TWITTER    = 2
     
     @IBOutlet weak var facebook: UIView!
+
+    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     override func viewDidLoad()
     {
         super.viewDidLoad()
         
         spinner.hidden = true
+
+        self.locationManager = CLLocationManager()
+        self.locationManager.delegate = self
         
         let FBtapGestureRecognizer = UITapGestureRecognizer(target:self, action:Selector("facebookSignIn:"))
         FacebookLoginButton.userInteractionEnabled = true
@@ -65,17 +74,79 @@ class RegisterViewController: UIViewController, UITextFieldDelegate
         email.clearButtonMode = .WhileEditing
         password.clearButtonMode = .WhileEditing
         
-        PFGeoPoint.geoPointForCurrentLocationInBackground { (geoPoint: PFGeoPoint?, error: NSError?) -> Void in
+        /*PFGeoPoint.geoPointForCurrentLocationInBackground { (geoPoint: PFGeoPoint?, error: NSError?) -> Void in
             
             if (geoPoint != nil)
             {
                 self.geopoint = geoPoint!
             }
-        }
+        }*/
+
+        self.authorizeLocation()
         
         setInputTexts()
 
     
+    }
+
+    func authorizeLocation()
+    {
+        //AUTHORIZE LOCATION
+        if CLLocationManager.locationServicesEnabled()
+        {
+            NSUserDefaults.standardUserDefaults().setObject("requested", forKey: "location")
+            NSUserDefaults.standardUserDefaults().synchronize()
+            
+            if locationManager != nil
+            {
+                self.locationManager.requestAlwaysAuthorization()
+            }
+        }
+    }
+
+    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus)
+    {
+    
+        if (status == CLAuthorizationStatus.AuthorizedAlways)
+        {
+            
+            self.locationManager.startUpdatingLocation()
+            
+            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "location_authorized")
+            NSUserDefaults.standardUserDefaults().synchronize()
+
+            self.appDelegate.setGeoLocation()
+
+            //Start spinner
+            //SVProgressHUD.show()    
+            //self.getSocialProfileData()
+
+            //Concatenated Below
+
+            //self.getUserEmail()
+            //self.getProfileData()
+            //self.setGeoLocation()
+            //self.getInitialPicture()
+
+        
+        } else if (status == CLAuthorizationStatus.Denied)
+        {
+            //SALIR
+        }
+    
+    }
+
+    func locationManager(manager: CLLocationManager,
+        didUpdateLocations locations: [CLLocation])
+    {
+        let currentLocation = locations.last! as CLLocation
+        print(currentLocation)
+    }
+    
+    func locationManager(manager: CLLocationManager,
+        didFailWithError error: NSError)
+    {
+        print(error)
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {

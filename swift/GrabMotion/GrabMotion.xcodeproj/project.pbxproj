@@ -34,7 +34,6 @@
 		D71384B51C5D1CAF004773EA /* TwitterLogo_white.png in Resources */ = {isa = PBXBuildFile; fileRef = D71384B41C5D1CAF004773EA /* TwitterLogo_white.png */; };
 		D71384B71C5D1D1A004773EA /* grabmotion_iso.png in Resources */ = {isa = PBXBuildFile; fileRef = D71384B61C5D1D1A004773EA /* grabmotion_iso.png */; };
 		D71384B91C5D260E004773EA /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71384B81C5D260E004773EA /* RegisterViewController.swift */; };
-		D72CD1331C602CAE009B3B64 /* SpinnerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72CD1321C602CAE009B3B64 /* SpinnerViewController.swift */; };
 		D75101171C55F4940001147E /* SwiftSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75101161C55F4940001147E /* SwiftSpinner.swift */; };
 		D75101191C5604950001147E /* DeviceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D75101181C5604950001147E /* DeviceTableViewCell.swift */; };
 		D751011C1C5697760001147E /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = D751011B1C5697760001147E /* CheckBox.swift */; };
@@ -96,7 +95,6 @@
 		D71384B41C5D1CAF004773EA /* TwitterLogo_white.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TwitterLogo_white.png; sourceTree = "<group>"; };
 		D71384B61C5D1D1A004773EA /* grabmotion_iso.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grabmotion_iso.png; sourceTree = "<group>"; };
 		D71384B81C5D260E004773EA /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
-		D72CD1321C602CAE009B3B64 /* SpinnerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpinnerViewController.swift; sourceTree = "<group>"; };
 		D75101161C55F4940001147E /* SwiftSpinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftSpinner.swift; sourceTree = "<group>"; };
 		D75101181C5604950001147E /* DeviceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceTableViewCell.swift; sourceTree = "<group>"; };
 		D751011B1C5697760001147E /* CheckBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
@@ -271,7 +269,6 @@
 			isa = PBXGroup;
 			children = (
 				D75101161C55F4940001147E /* SwiftSpinner.swift */,
-				D72CD1321C602CAE009B3B64 /* SpinnerViewController.swift */,
 				D751011B1C5697760001147E /* CheckBox.swift */,
 			);
 			name = Controls;
@@ -516,7 +513,6 @@
 				D7644BD91C758D8700B5545E /* PushNotificationViewController.swift in Sources */,
 				D75101171C55F4940001147E /* SwiftSpinner.swift in Sources */,
 				D751011C1C5697760001147E /* CheckBox.swift in Sources */,
-				D72CD1331C602CAE009B3B64 /* SpinnerViewController.swift in Sources */,
 				D70A62C01C52990300E759C6 /* AppDelegate.swift in Sources */,
 				D7B756F91C6547510020A13A /* DeviceViewController.swift in Sources */,
 				D7CE814B1C7293C20025673D /* ServerController.swift in Sources */,

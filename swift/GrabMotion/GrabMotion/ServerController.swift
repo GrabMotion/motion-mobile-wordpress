@@ -16,6 +16,7 @@ protocol ServerControllerDelegate
 {
 	func checkLoginResponse(response:Int, resutl:String) 
 	func remoteLoginResponse(reponsetype: Motion.Message_.ResponseType, resutl: String)
+    func registrationCompleted()
 }
 
 class ServerController 
@@ -29,10 +30,9 @@ class ServerController
     
     lazy var json : JSON = JSON.null
 
-	 init() 
-	 {
-	 		
-	 }
+	init() 
+	{
+    }
 
 	func checkLogin()
     {
@@ -89,55 +89,79 @@ class ServerController
     }
 
 
-    func createUser(user:String, email:String, pass:String)
+    func createUser(
+        userServer:String,
+        passServer:String,  
+        user:String,
+        pass:String,  
+        email:String,
+        first_name:String,
+        last_name:String
+        )
     {
         
-        print ("pass: \(pass)")
+        print("userServer: \(userServer)")
+        print("passServer: \(passServer)")
+        print("user: \(user)")
+        print("pass: \(pass)")
+        print("email: \(email)")
 
         let parameters = [
             "username": "\(user)",
             "email": "\(email)",
-            "password": "\(pass)"
+            "password": "\(pass)",
+            "first_name": "\(first_name)",
+            "last_name": "\(last_name)",
+            "capabilities":"author",
+            "description":"User created with iOS client versio 1.0.0"
         ]
 
         print("myWordPressSite: \(self.myWordPressSite)")
 
-        var usersWordpress:String = "\(self.myWordPressSite)users"
+        var usersWordpress:String = "\(self.myWordPressSite)users/"
         
         print("usersWordpress: \(usersWordpress)")
 
-        //let credential = NSURLCredential(user: user, password: password, persistence: .ForSession)
-
-        let user = "jose"
-        let password = "joselon"
-
-        let credentialData = "\(user):\(password)".dataUsingEncoding(NSUTF8StringEncoding)!
+        let credentialData = "\(userServer):\(passServer)".dataUsingEncoding(NSUTF8StringEncoding)!
         let base64Credentials = credentialData.base64EncodedStringWithOptions([])
 
         let headers = ["Authorization": "Basic \(base64Credentials)"]
 
+        print("\(parameters)")
+        print("\(headers)")
+
         Alamofire.request(.POST, usersWordpress, parameters: parameters, headers: headers)
             .responseJSON { response in
+
+            print(response)
 
              if let JSON = response.result.value 
              {
                 print("JSON: \(JSON)")
 
-                dispatch_async(dispatch_get_main_queue()) 
-                {   
-                    self.remoteLogin(user, password: pass as String)
-                }
-                   
-                let user:PFUser  = PFUser.currentUser()!
-                user.setObject("wp_password", forKey: pass as String)
-                
-                user.saveInBackgroundWithBlock
+                if response.result.isSuccess
                 {
-                    (success: Bool , error: NSError?) -> Void in
                     
-                    if success
-                    {
-                       print("User updated password")
+                    let response = JSON as! NSDictionary
+
+                    let userId = response.objectForKey("id")!
+
+                    dispatch_async(dispatch_get_main_queue()) 
+                    { 
+                        let pfuser:PFUser  = PFUser.currentUser()!
+                        pfuser.setObject(pass as String, forKey: "wp_password")
+                        pfuser.setObject(userId, forKey: "wp_id")
+
+                        pfuser.saveInBackgroundWithBlock
+                        {
+                            (success: Bool , error: NSError?) -> Void in
+                            
+                            if success
+                            {
+                                print("User updated password")
+                                self.remoteLogin(user, password: pass as String)
+                            }
+                        }
                     }
                 }
             }
@@ -191,6 +215,98 @@ class ServerController
         }
     }
 
+    func postClientThumbnail(
+        userServer:String, 
+        passServer:String,  
+        name: String, 
+        image: UIImage?)
+    {
+
+        //media << "curl --user jose:joselon -X POST -H 'Content-Disposition: filename=" << fineandextension << 
+        //        "' --data-binary @'"<< maximagepath << "' -d title='" << recname << "' -H \"Expect: \" " << SERVER_BASE_URL << "/wp-json/wp/v2/media";
+
+        let parameters = [
+            "title": "\(name)"
+        ]
+
+        let imagePath = fileInDocumentsDirectory("\(name).png")
+
+        if image != nil 
+        {
+            // Save it to our Documents folder
+            let result = saveImage(image!, path: imagePath)
+            
+            if result
+            {
+            
+                print("Image saved? Result: (result)")    
+
+
+                //"\(userServer):\(passServer)"
+
+                let credentialData = "jose:joselon".dataUsingEncoding(NSUTF8StringEncoding)!
+                let base64Credentials = credentialData.base64EncodedStringWithOptions([])
+
+                let headers = ["Authorization": "Basic \(base64Credentials)"]
+
+                let imageData: NSData = UIImagePNGRepresentation(image!)!
+
+                let parameters = NSMutableData()
+                
+                parameters.appendData("Content-Type: data-binary @'\(imagePath)'".dataUsingEncoding(NSUTF8StringEncoding)!)
+                
+                //parameters.appendData("Content-Disposition: form-data; name=\(name); filename=\(imagePath)".dataUsingEncoding(NSUTF8StringEncoding)!)
+                
+                parameters.appendData("Content-Disposition: filename=\(imagePath)".dataUsingEncoding(NSUTF8StringEncoding)!)
+                
+                
+                parameters.appendData("Expect : ' '".dataUsingEncoding(NSUTF8StringEncoding)!)
+                parameters.appendData(imageData)
+
+                //let contentdisposition = "filename=\(imagePath)"
+                //let databinary = "data-binary @'\(imagePath)'"
+                //let expect = " "
+                //let headers = ["Content-Type": databinary, "Authorization": "Basic \(base64Credentials)", "Content-Disposition" : contentdisposition, "Expect" : expect]
+
+                let clientsWordpress:String = "\(self.myWordPressSite)media"
+                
+                Alamofire.upload(.POST, clientsWordpress, headers: headers,  data: parameters)
+                        .progress { (bytesWritten, totalBytesWritten, totalBytesExpectedToWrite) in
+                            print(totalBytesWritten)
+                        }
+                        .responseJSON { response in
+                            
+                            print("RESPONSE: \(response)")
+                        
+                        }
+                }
+        }
+    }
+
+    func saveImage(image: UIImage, path: String) -> Bool 
+    {
+        let pngImageData = UIImagePNGRepresentation(image)
+        let result = pngImageData!.writeToFile(path, atomically: true)
+        return result
+    }
+
+    // File in Documents directory
+    func fileInDocumentsDirectory(filename: String) -> String {
+        return documentsDirectory() + "/" + filename
+    }
+
+    // Documents directory
+    func documentsDirectory() -> String {
+        let documentsFolderPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true)[0]
+        return documentsFolderPath
+    }
+
+    func postClientData()
+    {
+
+
+
+    }
     
     /*func loginAlert(alertMessage: String)
     {

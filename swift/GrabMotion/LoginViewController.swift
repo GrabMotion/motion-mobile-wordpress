@@ -23,6 +23,50 @@ class LoginViewController: UIViewController {
 
     var myWordPressSite:String = "http://192.168.0.12/grabmotion/"
 
+    override func viewDidLoad()
+    {
+        super.viewDidLoad()
+
+        if PFTwitterUtils.isLinkedWithUser(PFUser.currentUser()) || (FBSDKAccessToken.currentAccessToken() != nil)
+        {
+            self.loadMain()
+            //self.performSegueWithIdentifier("SegueMain", sender: self)
+        }
+
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "rotated", name: UIDeviceOrientationDidChangeNotification, object: nil)
+
+        activityIndicator.hidden = true
+        activityIndicator.hidesWhenStopped = true
+        
+        let imageViewMail = UIImageView()
+        let imagem = UIImage(named: "mail.png")
+        imageViewMail.image = imagem
+        emailAddress.leftViewMode = UITextFieldViewMode.Always
+        emailAddress.leftView = imageViewMail
+        
+        let imageViewPass = UIImageView()
+        let imagep = UIImage(named: "pass.png")
+        imageViewPass.image = imagep
+        password.leftViewMode = UITextFieldViewMode.Always
+        password.leftView = imageViewPass
+    
+    }
+    
+    func loadMain()
+    {
+        
+        let mainView = self.storyboard?.instantiateViewControllerWithIdentifier("MainViewController") as! MainViewController
+        
+        let protectedPageNav = UINavigationController(rootViewController: mainView)
+        
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        
+        appDelegate.window?.rootViewController = protectedPageNav
+        
+    }
+    
+    
     @IBAction func signIn(sender: AnyObject) 
     {
         
@@ -33,7 +77,7 @@ class LoginViewController: UIViewController {
         userEmailAddress = userEmailAddress!.lowercaseString
         
         let userPassword = password.text
-        
+
         PFUser.logInWithUsernameInBackground(userEmailAddress!, password:userPassword!) {
             (user: PFUser?, error: NSError?) -> Void in
             
@@ -68,52 +112,7 @@ class LoginViewController: UIViewController {
             }
         }
     }
-    
-    
-    override func viewDidLoad()
-    {
-        super.viewDidLoad()
-        
-        if PFTwitterUtils.isLinkedWithUser(PFUser.currentUser()) || (FBSDKAccessToken.currentAccessToken() != nil)
-        {
-            loadMain()
-            //self.performSegueWithIdentifier("SegueMain", sender: self)
-        }
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "rotated", name: UIDeviceOrientationDidChangeNotification, object: nil)
 
-    
-        activityIndicator.hidden = true
-        activityIndicator.hidesWhenStopped = true
-        
-        let imageViewMail = UIImageView()
-        let imagem = UIImage(named: "mail.png")
-        imageViewMail.image = imagem
-        emailAddress.leftViewMode = UITextFieldViewMode.Always
-        emailAddress.leftView = imageViewMail
-        
-        let imageViewPass = UIImageView()
-        let imagep = UIImage(named: "pass.png")
-        imageViewPass.image = imagep
-        password.leftViewMode = UITextFieldViewMode.Always
-        password.leftView = imageViewPass
-    
-    }
-    
-    func loadMain()
-    {
-        
-        let mainView = self.storyboard?.instantiateViewControllerWithIdentifier("MainViewController") as! MainViewController
-        
-        let protectedPageNav = UINavigationController(rootViewController: mainView)
-        
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        
-        appDelegate.window?.rootViewController = protectedPageNav
-        
-    }
-    
-    
     func rotated()
     {
         if(UIDeviceOrientationIsLandscape(UIDevice.currentDevice().orientation))
