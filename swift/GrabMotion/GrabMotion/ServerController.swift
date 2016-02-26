@@ -215,7 +215,7 @@ class ServerController
         }
     }
 
-    func postClientThumbnail(
+    /*func postClientThumbnail(
         userServer:String, 
         passServer:String,  
         name: String, 
@@ -240,7 +240,7 @@ class ServerController
                 let imageext = "filename=\(name).png"
 
                  let parameters = [
-                    "Content-Type": "data-binary @'\(imagePath)'",
+                    "Content-Type": "data-binary @\(imagePath)",
                     "Content-Disposition": imageext,
                     "Expect": " ",
                     "title" : name
@@ -272,6 +272,182 @@ class ServerController
                 }
             }
 
+        }
+    }*/
+
+    func postClientThumbnail(
+        userServer:String, 
+        passServer:String,  
+        name: String, 
+        image: UIImage?)
+    {
+        // init paramters Dictionary
+        var parameters = [
+            "title": "Dale!!!"
+        ]
+
+        //let result = saveImage(image!, path: imagePath)
+        //let imagePath = fileInDocumentsDirectory("\(name).png")
+
+        // example image data
+        //let image = UIImage(named: "177143.jpg")
+        //let imageData = UIImagePNGRepresentation(image)
+
+        // CREATE AND SEND REQUEST ----------
+
+        let imageData: NSData = UIImagePNGRepresentation(image!)! 
+
+        var usersWordpress:String = "\(self.myWordPressSite)media/"
+
+        let urlRequest = urlRequestWithComponents(usersWordpress, parameters: parameters, imageData: imageData)
+
+        let credentialData = "jose:joselon".dataUsingEncoding(NSUTF8StringEncoding)!
+        let base64Credentials = credentialData.base64EncodedStringWithOptions([])
+
+        let headers = ["Authorization": "Basic \(base64Credentials)"]
+
+        Alamofire.upload(urlRequest.0, data: urlRequest.1, headers: headers)
+            .progress { (bytesWritten, totalBytesWritten, totalBytesExpectedToWrite) in
+                print("\(totalBytesWritten) / \(totalBytesExpectedToWrite)")
+            }
+            .responseJSON { response in
+                
+                print(response) 
+
+                if let JSON = response.result.value 
+                {
+                    print("JSON: \(JSON)")
+
+                    if response.result.isSuccess
+                    {
+                    
+                    }
+
+                }
+
+            /*.responseJSON { response in
+                print("REQUEST \(request)")
+                print("RESPONSE \(response)")
+                print("JSON \(JSON)")
+                print("ERROR \(error)")*/
+        }    
+
+    }
+
+        // this function creates the required URLRequestConvertible and NSData we need to use Alamofire.upload
+    func urlRequestWithComponents(urlString:String, parameters:Dictionary<String, String>, imageData:NSData) -> (URLRequestConvertible, NSData) {
+
+        // create url request to send
+        var mutableURLRequest = NSMutableURLRequest(URL: NSURL(string: urlString)!)
+        mutableURLRequest.HTTPMethod = Alamofire.Method.POST.rawValue
+        let boundaryConstant = "myRandomBoundary12345";
+        let contentType = "multipart/form-data;boundary="+boundaryConstant
+        mutableURLRequest.setValue(contentType, forHTTPHeaderField: "Content-Type")
+
+        // create upload data to send
+        let uploadData = NSMutableData()
+
+        //"\(userServer):\(passServer)"
+
+        //let credentialData = "jose:joselon".dataUsingEncoding(NSUTF8StringEncoding)!
+        //let base64Credentials = credentialData.base64EncodedStringWithOptions([])
+
+        //let headers = ["Authorization": "Basic \(base64Credentials)"]
+        //let dataauthorization = 
+        uploadData.appendData("Authorization: Basic \(base64Credentials)".dataUsingEncoding(NSUTF8StringEncoding)!)
+        
+        // add image
+        uploadData.appendData("\r\n--\(boundaryConstant)\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+        uploadData.appendData("Content-Disposition: form-data; name=\"file\"; filename=\"file.png\"\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+        uploadData.appendData("Content-Type: image/png\r\n\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+        uploadData.appendData(imageData)
+
+        // add parameters
+        for (key, value) in parameters {
+            uploadData.appendData("\r\n--\(boundaryConstant)\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+            uploadData.appendData("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n\(value)".dataUsingEncoding(NSUTF8StringEncoding)!)
+        }
+        uploadData.appendData("\r\n--\(boundaryConstant)--\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+        
+        // return URLRequestConvertible and NSData
+        return (Alamofire.ParameterEncoding.URL.encode(mutableURLRequest, parameters: nil).0, uploadData)
+    }    
+
+    func createClient(
+        userServer:String,
+        passServer:String,
+        user:String,
+        pass:String,  
+        email:String,
+        first_name:String,
+        last_name:String)
+    {
+        
+        print("userServer: \(userServer)")
+        print("passServer: \(passServer)")
+        print("user: \(user)")
+        print("pass: \(pass)")
+        print("email: \(email)")
+
+        let parameters = [
+            "username": "\(user)",
+            "email": "\(email)",
+            "password": "\(pass)",
+            "first_name": "\(first_name)",
+            "last_name": "\(last_name)",
+            "capabilities":"author",
+            "description":"User created with iOS client versio 1.0.0"
+        ]
+
+        print("myWordPressSite: \(self.myWordPressSite)")
+
+        var usersWordpress:String = "\(self.myWordPressSite)users/"
+        
+        print("usersWordpress: \(usersWordpress)")
+
+        let credentialData = "\(userServer):\(passServer)".dataUsingEncoding(NSUTF8StringEncoding)!
+        let base64Credentials = credentialData.base64EncodedStringWithOptions([])
+
+        let headers = ["Authorization": "Basic \(base64Credentials)"]
+
+        print("\(parameters)")
+        print("\(headers)")
+
+        Alamofire.request(.POST, usersWordpress, parameters: parameters, headers: headers)
+            .responseJSON { response in
+
+            print(response)
+
+             if let JSON = response.result.value 
+             {
+                print("JSON: \(JSON)")
+
+                if response.result.isSuccess
+                {
+                    
+                    let response = JSON as! NSDictionary
+
+                    let userId = response.objectForKey("id")!
+
+                    dispatch_async(dispatch_get_main_queue()) 
+                    { 
+                        let pfuser:PFUser  = PFUser.currentUser()!
+                        pfuser.setObject(pass as String, forKey: "wp_password")
+                        pfuser.setObject(userId, forKey: "wp_id")
+
+                        pfuser.saveInBackgroundWithBlock
+                        {
+                            (success: Bool , error: NSError?) -> Void in
+                            
+                            if success
+                            {
+                                print("User updated password")
+                                self.remoteLogin(user, password: pass as String)
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
