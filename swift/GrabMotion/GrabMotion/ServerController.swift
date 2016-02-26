@@ -281,97 +281,56 @@ class ServerController
         name: String, 
         image: UIImage?)
     {
-        // init paramters Dictionary
-        var parameters = [
-            "title": "Dale!!!"
-        ]
-
-        //let result = saveImage(image!, path: imagePath)
-        //let imagePath = fileInDocumentsDirectory("\(name).png")
-
-        // example image data
-        //let image = UIImage(named: "177143.jpg")
-        //let imageData = UIImagePNGRepresentation(image)
-
-        // CREATE AND SEND REQUEST ----------
-
-        let imageData: NSData = UIImagePNGRepresentation(image!)! 
+          
 
         var usersWordpress:String = "\(self.myWordPressSite)media/"
 
-        let urlRequest = urlRequestWithComponents(usersWordpress, parameters: parameters, imageData: imageData)
+         // This example uploads a file called example.png found in the app resources
+    
+        let fileURL = NSBundle.mainBundle().URLForResource("example", withExtension: "png")
+        let fileUploader = FileUploader()
+        
+        // we can add multiple files
+        // this would be equivalent to: <input type="file" name="myFile"/>
+        
+        //fileUploader.addFileURL(fileURL!, withName: "myFile")
+        
+        // we can add NSData objects directly
+        //let data = UIImage(named: "sample")
 
-        let credentialData = "jose:joselon".dataUsingEncoding(NSUTF8StringEncoding)!
-        let base64Credentials = credentialData.base64EncodedStringWithOptions([])
-
-        let headers = ["Authorization": "Basic \(base64Credentials)"]
-
-        Alamofire.upload(urlRequest.0, data: urlRequest.1, headers: headers)
-            .progress { (bytesWritten, totalBytesWritten, totalBytesExpectedToWrite) in
-                print("\(totalBytesWritten) / \(totalBytesExpectedToWrite)")
-            }
-            .responseJSON { response in
-                
-                print(response) 
-
-                if let JSON = response.result.value 
-                {
-                    print("JSON: \(JSON)")
-
-                    if response.result.isSuccess
-                    {
-                    
-                    }
-
+        fileUploader.addFileData( UIImageJPEGRepresentation(image!,0.8)!, withName: "mySecondFile", withMimeType: "image/jpeg" )
+        
+        // we can also add multiple aditional parameters
+        // this would be equivalent to: <input type="hidden" name="folderName" value="sample"/>
+        //fileUploader.setValue( "sample", forParameter: "folderName" )
+        
+        // put your server URL here
+        var request = NSMutableURLRequest( URL: NSURL(string: usersWordpress )! )
+        request.HTTPMethod = "POST"
+        
+        fileUploader.uploadFile(request: request)!
+            .progress { [weak self] bytesWritten, totalBytesWritten, totalBytesExpectedToWrite in
+                //  To update your ui, dispatch to the main queue.
+                dispatch_async(dispatch_get_main_queue()) {
+                    print("Total bytes written on main queue: \(totalBytesWritten)....\(totalBytesExpectedToWrite)")
                 }
+            }
+            .responseJSON { [weak self] response in
+                debugPrint(response)
+                if response.result.isSuccess 
+                {
+                    print(response.data)
+                
+                } else 
+                { 
 
-            /*.responseJSON { response in
-                print("REQUEST \(request)")
-                print("RESPONSE \(response)")
-                print("JSON \(JSON)")
-                print("ERROR \(error)")*/
-        }    
+                    print(response.result.error)
+                }
+        }
 
     }
 
-        // this function creates the required URLRequestConvertible and NSData we need to use Alamofire.upload
-    func urlRequestWithComponents(urlString:String, parameters:Dictionary<String, String>, imageData:NSData) -> (URLRequestConvertible, NSData) {
-
-        // create url request to send
-        var mutableURLRequest = NSMutableURLRequest(URL: NSURL(string: urlString)!)
-        mutableURLRequest.HTTPMethod = Alamofire.Method.POST.rawValue
-        let boundaryConstant = "myRandomBoundary12345";
-        let contentType = "multipart/form-data;boundary="+boundaryConstant
-        mutableURLRequest.setValue(contentType, forHTTPHeaderField: "Content-Type")
-
-        // create upload data to send
-        let uploadData = NSMutableData()
-
-        //"\(userServer):\(passServer)"
-
-        //let credentialData = "jose:joselon".dataUsingEncoding(NSUTF8StringEncoding)!
-        //let base64Credentials = credentialData.base64EncodedStringWithOptions([])
-
-        //let headers = ["Authorization": "Basic \(base64Credentials)"]
-        //let dataauthorization = 
-        uploadData.appendData("Authorization: Basic \(base64Credentials)".dataUsingEncoding(NSUTF8StringEncoding)!)
-        
-        // add image
-        uploadData.appendData("\r\n--\(boundaryConstant)\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
-        uploadData.appendData("Content-Disposition: form-data; name=\"file\"; filename=\"file.png\"\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
-        uploadData.appendData("Content-Type: image/png\r\n\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
-        uploadData.appendData(imageData)
-
-        // add parameters
-        for (key, value) in parameters {
-            uploadData.appendData("\r\n--\(boundaryConstant)\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
-            uploadData.appendData("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n\(value)".dataUsingEncoding(NSUTF8StringEncoding)!)
-        }
-        uploadData.appendData("\r\n--\(boundaryConstant)--\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
-        
-        // return URLRequestConvertible and NSData
-        return (Alamofire.ParameterEncoding.URL.encode(mutableURLRequest, parameters: nil).0, uploadData)
-    }    
+   
 
     func createClient(
         userServer:String,

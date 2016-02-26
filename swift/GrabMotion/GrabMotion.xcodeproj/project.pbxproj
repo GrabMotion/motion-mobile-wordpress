@@ -40,6 +40,7 @@
 		D7644BD91C758D8700B5545E /* PushNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7644BD81C758D8700B5545E /* PushNotificationViewController.swift */; };
 		D7644BEB1C7A4C0B00B5545E /* FreePlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7644BEA1C7A4C0B00B5545E /* FreePlanViewController.swift */; };
 		D7644BED1C7A4C1C00B5545E /* PaidPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7644BEC1C7A4C1C00B5545E /* PaidPlanViewController.swift */; };
+		D7AE2DBC1C7FF0FB00877EAB /*  FileUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AE2DBB1C7FF0FA00877EAB /*  FileUploader.swift */; };
 		D7B7566D1C628D840020A13A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B7566C1C628D840020A13A /* MainViewController.swift */; };
 		D7B756911C6416C20020A13A /* Help-50.png in Resources */ = {isa = PBXBuildFile; fileRef = D7B756901C6416C20020A13A /* Help-50.png */; };
 		D7B7569C1C644E5F0020A13A /* SetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B7569B1C644E5F0020A13A /* SetupViewController.swift */; };
@@ -101,6 +102,7 @@
 		D7644BD81C758D8700B5545E /* PushNotificationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationViewController.swift; sourceTree = "<group>"; };
 		D7644BEA1C7A4C0B00B5545E /* FreePlanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FreePlanViewController.swift; sourceTree = "<group>"; };
 		D7644BEC1C7A4C1C00B5545E /* PaidPlanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaidPlanViewController.swift; sourceTree = "<group>"; };
+		D7AE2DBB1C7FF0FA00877EAB /*  FileUploader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = " FileUploader.swift"; sourceTree = "<group>"; };
 		D7B7566C1C628D840020A13A /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		D7B756901C6416C20020A13A /* Help-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Help-50.png"; sourceTree = "<group>"; };
 		D7B7569B1C644E5F0020A13A /* SetupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SetupViewController.swift; path = ../SetupViewController.swift; sourceTree = "<group>"; };
@@ -361,6 +363,7 @@
 			children = (
 				D70A62F01C52E34400E759C6 /* Socket */,
 				D7CE814A1C7293C10025673D /* ServerController.swift */,
+				D7AE2DBB1C7FF0FA00877EAB /*  FileUploader.swift */,
 			);
 			name = Communications;
 			sourceTree = "<group>";
@@ -509,6 +512,7 @@
 			files = (
 				D7B757501C667EBF0020A13A /* AdvancedSetupTableViewController.swift in Sources */,
 				D7FF1B461C5E42F5007415AD /* ProFileViewController.swift in Sources */,
+				D7AE2DBC1C7FF0FB00877EAB /*  FileUploader.swift in Sources */,
 				D70A62ED1C52E32F00E759C6 /* ytcpsocket.swift in Sources */,
 				D7644BD91C758D8700B5545E /* PushNotificationViewController.swift in Sources */,
 				D75101171C55F4940001147E /* SwiftSpinner.swift in Sources */,
