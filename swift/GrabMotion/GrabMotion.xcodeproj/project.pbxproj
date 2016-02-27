@@ -41,6 +41,7 @@
 		D7644BEB1C7A4C0B00B5545E /* FreePlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7644BEA1C7A4C0B00B5545E /* FreePlanViewController.swift */; };
 		D7644BED1C7A4C1C00B5545E /* PaidPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7644BEC1C7A4C1C00B5545E /* PaidPlanViewController.swift */; };
 		D7AE2DBC1C7FF0FB00877EAB /*  FileUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AE2DBB1C7FF0FA00877EAB /*  FileUploader.swift */; };
+		D7AE2DBE1C80771000877EAB /* ServerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AE2DBD1C80771000877EAB /* ServerController.swift */; };
 		D7B7566D1C628D840020A13A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B7566C1C628D840020A13A /* MainViewController.swift */; };
 		D7B756911C6416C20020A13A /* Help-50.png in Resources */ = {isa = PBXBuildFile; fileRef = D7B756901C6416C20020A13A /* Help-50.png */; };
 		D7B7569C1C644E5F0020A13A /* SetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B7569B1C644E5F0020A13A /* SetupViewController.swift */; };
@@ -56,7 +57,6 @@
 		D7C2EA521C5B3FD700115E5A /* gear.png in Resources */ = {isa = PBXBuildFile; fileRef = D7C2EA511C5B3FD700115E5A /* gear.png */; };
 		D7C2EA561C5BC6E300115E5A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C2EA551C5BC6E300115E5A /* LoginViewController.swift */; };
 		D7C2EA601C5C05EF00115E5A /* grabmotion_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = D7C2EA5F1C5C05EF00115E5A /* grabmotion_logo.png */; };
-		D7CE814B1C7293C20025673D /* ServerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7CE814A1C7293C10025673D /* ServerController.swift */; };
 		D7FF1B2A1C5DB641007415AD /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7FF1B291C5DB641007415AD /* Accounts.framework */; };
 		D7FF1B2C1C5DB665007415AD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7FF1B2B1C5DB665007415AD /* CoreGraphics.framework */; };
 		D7FF1B2E1C5DB68B007415AD /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7FF1B2D1C5DB68B007415AD /* Social.framework */; };
@@ -103,6 +103,7 @@
 		D7644BEA1C7A4C0B00B5545E /* FreePlanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FreePlanViewController.swift; sourceTree = "<group>"; };
 		D7644BEC1C7A4C1C00B5545E /* PaidPlanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaidPlanViewController.swift; sourceTree = "<group>"; };
 		D7AE2DBB1C7FF0FA00877EAB /*  FileUploader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = " FileUploader.swift"; sourceTree = "<group>"; };
+		D7AE2DBD1C80771000877EAB /* ServerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerController.swift; sourceTree = "<group>"; };
 		D7B7566C1C628D840020A13A /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		D7B756901C6416C20020A13A /* Help-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Help-50.png"; sourceTree = "<group>"; };
 		D7B7569B1C644E5F0020A13A /* SetupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SetupViewController.swift; path = ../SetupViewController.swift; sourceTree = "<group>"; };
@@ -118,7 +119,6 @@
 		D7C2EA511C5B3FD700115E5A /* gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gear.png; sourceTree = "<group>"; };
 		D7C2EA551C5BC6E300115E5A /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D7C2EA5F1C5C05EF00115E5A /* grabmotion_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grabmotion_logo.png; sourceTree = "<group>"; };
-		D7CE814A1C7293C10025673D /* ServerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerController.swift; sourceTree = "<group>"; };
 		D7FF1B291C5DB641007415AD /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		D7FF1B2B1C5DB665007415AD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		D7FF1B2D1C5DB68B007415AD /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
@@ -362,8 +362,8 @@
 			isa = PBXGroup;
 			children = (
 				D70A62F01C52E34400E759C6 /* Socket */,
-				D7CE814A1C7293C10025673D /* ServerController.swift */,
 				D7AE2DBB1C7FF0FA00877EAB /*  FileUploader.swift */,
+				D7AE2DBD1C80771000877EAB /* ServerController.swift */,
 			);
 			name = Communications;
 			sourceTree = "<group>";
@@ -519,7 +519,6 @@
 				D751011C1C5697760001147E /* CheckBox.swift in Sources */,
 				D70A62C01C52990300E759C6 /* AppDelegate.swift in Sources */,
 				D7B756F91C6547510020A13A /* DeviceViewController.swift in Sources */,
-				D7CE814B1C7293C20025673D /* ServerController.swift in Sources */,
 				D70A62EB1C52E32F00E759C6 /* ysocket.swift in Sources */,
 				D7C2EA341C599F1500115E5A /* TerminalViewController.swift in Sources */,
 				D75101191C5604950001147E /* DeviceTableViewCell.swift in Sources */,
@@ -531,6 +530,7 @@
 				D71384B91C5D260E004773EA /* RegisterViewController.swift in Sources */,
 				D70A62EC1C52E32F00E759C6 /* ytcpsocket.c in Sources */,
 				D70A62EF1C52E32F00E759C6 /* yudpsocket.swift in Sources */,
+				D7AE2DBE1C80771000877EAB /* ServerController.swift in Sources */,
 				D70A62EE1C52E32F00E759C6 /* yudpsocket.c in Sources */,
 				D7644BEB1C7A4C0B00B5545E /* FreePlanViewController.swift in Sources */,
 				D7B7566D1C628D840020A13A /* MainViewController.swift in Sources */,

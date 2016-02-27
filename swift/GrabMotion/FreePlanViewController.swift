@@ -232,10 +232,12 @@ class FreePlanViewController: UIViewController,
         if Motion.Message_.ResponseType.LoginSuccessful.hashValue == reponsetype.hashValue
         {
 
-            self.serverTasks.postClientThumbnail(self.serverUser.text!,
-                passServer : self.serverPass.text!,
-                name : self.userName,
-                image : self.clientThumbnail)
+            //self.serverTasks.postClientThumbnail(self.serverUser.text!,
+            //    passServer : self.serverPass.text!,
+            //    name : self.userName,
+            //    image : self.clientThumbnail)
+
+            
             
         } else 
         {

@@ -113,16 +113,16 @@ class FileUploader {
         }
         
         // Amazon S3 (probably others) wont take parameters after files, so we put them first
-        for (key, value) in parameters 
+        /*for (key, value) in parameters 
         {
             data.appendData("\r\n--\(boundary)\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
             data.appendData("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n\(value)".dataUsingEncoding(NSUTF8StringEncoding)!)
-        }
+        }*/
         
         for fileUploadInfo in files     
         {
             data.appendData( "\r\n--\(boundary)\r\n".dataUsingEncoding(NSUTF8StringEncoding)! )
-            data.appendData( "Content-Disposition: form-data; name=\"\(fileUploadInfo.name)\"; filename=\"\(fileUploadInfo.fileName)\"\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+            data.appendData( "Content-Disposition: filename=\"\(fileUploadInfo.fileName)\"\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
             data.appendData( "Content-Type: \(fileUploadInfo.mimeType)\r\n\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
             if fileUploadInfo.data != nil 
             {
@@ -130,28 +130,67 @@ class FileUploader {
             }
             else if fileUploadInfo.url != nil, let fileData = NSData(contentsOfURL: fileUploadInfo.url!) {
             data.appendData( fileData )
-        } else 
-        { // ToDo: report error
-            return nil
-        }
+        } 
     }
         
     data.appendData("\r\n--\(boundary)--\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
         
-    let credentials = "jose:joselon"
-    let plainText = credentials.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
-    let base64 = plainText!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
-
-    var defaultHeaders = Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders ?? [:]
-    defaultHeaders["Authorization"] = "Basic \(base64)"
-        
-    let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
-    configuration.HTTPAdditionalHeaders = defaultHeaders
-
-    let manager = Alamofire.Manager(configuration: configuration)
-
-    return Alamofire.upload( request, data: data )
+    return Session.sharedInstance.ApiManager().upload( request, data: data )
 
     }
+
+    /*class NetworkManager {
+
+        var manager: Manager?
+
+        init() {
+
+            let credentials = "jose:joselon"
+            let plainText = credentials.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
+            let base64 = plainText!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+
+            var defaultHeaders = Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders ?? [:]
+            defaultHeaders["Authorization"] = "Basic \(base64)"
+                
+            let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+            configuration.HTTPAdditionalHeaders = defaultHeaders
+
+            manager = Alamofire.Manager(configuration: configuration)
+        }
+    }*/
+
+    
+    class Session {
+        
+        static let sharedInstance = Session()
+
+        private var manager : Manager?
+
+        func ApiManager()->Manager{
+            if let m = self.manager{
+                return m
+            }else{
+                
+                let credentials = "jose:joselon" as NSString
+                let plainText = credentials.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
+                let base64 = plainText!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+            
+                //Alamofire.Manager.sharedInstance.session.configuration.HTTPAdditionalHeaders = ["Authorization": "Basic " + base64]
+
+                //let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+                //configuration.HTTPAdditionalHeaders = 
+                
+                let configuration = NSURLSessionConfiguration.defaultSessionConfiguration()
+                configuration.HTTPAdditionalHeaders = ["Authorization": "Basic " + base64]
+
+                //NSURLSessionConfiguration.defaultSessionConfiguration().HTTPAdditionalHeaders = ["Authorization": "Basic " + base64] 
+
+                let tempmanager = Alamofire.Manager(configuration: configuration)
+                self.manager = tempmanager
+                return self.manager!
+            }
+        }
+    }
+
     
 }
