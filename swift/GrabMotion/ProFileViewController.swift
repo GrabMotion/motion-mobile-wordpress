@@ -557,7 +557,8 @@ class ProFileViewController: UIViewController,
 
             self.freeViewController = segue.destinationViewController as! FreePlanViewController
 
-            self.freeViewController.email = self.email
+            //self.freeViewController.email = self.email
+            
             self.freeViewController.mainController = mainController
 
             self.freeViewController.clientThumbnail = self.clientThumbnail

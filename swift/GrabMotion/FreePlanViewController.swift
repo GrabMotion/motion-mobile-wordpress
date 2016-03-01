@@ -17,21 +17,21 @@ class FreePlanViewController: UIViewController,
     @IBOutlet weak var serverUser: UITextField!
     @IBOutlet weak var serverPass: UITextField!
     
-    var serverTasks:ServerController = ServerController()
+    var server:ServerController = ServerController()
 
     let defaults = NSUserDefaults.standardUserDefaults()
 
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 
-    var email = String()
-    var first_name = String()
-    var last_name = String()
+    //var email = String()
+    //var first_name = String()
+    //var last_name = String()
 
     var mainController:MainViewController?
 
     var clientThumbnail:UIImage!
 
-    var userName = String()
+    //var userName = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()  
@@ -41,7 +41,7 @@ class FreePlanViewController: UIViewController,
 
     func setTextFieldData()
     {
-         let url = self.serverTasks.myWordPressSite
+         let url = self.server.myWordPressSite
 
         print(url)
 
@@ -50,9 +50,9 @@ class FreePlanViewController: UIViewController,
             self.serverUrlTextField.text = url    
             print("\(self.serverUrlTextField.text)")
 
-            self.serverUser.text = "jose"
-            self.serverPass.text = "joselon"
-
+            self.serverUser.text = "admin"
+            self.serverPass.text = "@TTOZe8xgKtzJc2qLFOM7nUQ"
+            
         }   
     }
 
@@ -93,8 +93,15 @@ class FreePlanViewController: UIViewController,
             let server_tasks:Bool = defaults.boolForKey("server_tasks")
             if !server_tasks
             {
-                self.serverTasks.delegateServer = self
-                self.serverTasks.checkLogin()
+                self.server.delegateServer = self
+
+                let usr = self.serverUser.text!
+                let pss = self.serverPass.text!
+
+                self.server.setUserCredentials(usr, pss:pss)
+
+                self.server.remoteLoginiOS(usr, password: pss, endpoint:"users")
+                
             }
 
         } 
@@ -171,77 +178,88 @@ class FreePlanViewController: UIViewController,
         
     }
     
-    func checkLoginResponse(response:Int, resutl:String)
+    func checkLoginResponse(response:Int, callback:String)
     {
-        if response != self.appDelegate.REQUEST_FAILED
+        /*if callback == "users"    
         {
+            if response != self.appDelegate.REQUEST_FAILED
+            {
 
-            let user:PFUser  = PFUser.currentUser()!
-            self.userName = "\(user.username!)"
+                let usr = self.serverUser.text!
+                let pss = self.serverPass.text!
 
-            print(self.userName)
+                self.server.setUserCredentials(usr, pss:pss)
 
-            //let email = "\(user.email)"
-            let pass = randomStringWithLength(20)
+                self.server.remoteLoginiOS(usr, password: pss, endpoint:"users")
 
-            let query = PFQuery(className:"_User")
-            query.whereKey("user", notEqualTo: PFUser.currentUser()!)
-            
-            query.findObjectsInBackgroundWithBlock {(userObjects:[PFObject]?, error: NSError?) -> Void in
-                
-                if error != nil
-                {
-                    print("error")
-                    
-                } else
-                {
-                    if let userArray = userObjects
-                    {
-                        
-                        for quser in userArray
-                        {
-                            self.email = quser["email"] as! String
-                            print("email \(self.email)")
-                            self.first_name = quser["first_name"] as! String
-                            self.last_name = quser["last_name"] as! String
 
-                             print("email \(self.email)")
+            } else if response == self.appDelegate.LOGGED_IN
+            {
+                self.errorServerPopOver()
 
-                            self.serverTasks.createUser(
-                                self.serverUser.text!,
-                                passServer : self.serverPass.text!,
-                                user : self.userName,
-                                pass : pass as String,  
-                                email : self.email,
-                                first_name: self.first_name,
-                                last_name: self.last_name)
-                        }
-                    }
-                }
+            } else if response == self.appDelegate.REQUEST_FAILED
+            {
+                self.errorServerPopOver()
             }
 
-        } else if response == self.appDelegate.REQUEST_FAILED
+        } else if callback == "client"    
         {
-            self.errorServerPopOver()
-        }
+            if response != self.appDelegate.REQUEST_FAILED
+            {
+
+                let usr = self.serverUser.text!
+                let pss = self.serverPass.text!
+
+                self.server.setUserCredentials(usr, pss:pss)
+
+                self.server.remoteLoginiOS(usr, password: pss, endpoint:"users")
+
+            } else if response == self.appDelegate.LOGGED_IN
+            {
+                self.errorServerPopOver()
+
+            } else if response == self.appDelegate.REQUEST_FAILED
+            {
+                self.errorServerPopOver()
+            }
+        }*/
+
     }
 
-    func remoteLoginResponse(reponsetype: Motion.Message_.ResponseType, resutl: String)
+    func remoteLoginResponse(reponsetype: Motion.Message_.ResponseType, resutl: String, type: String)
     {
-        if Motion.Message_.ResponseType.LoginSuccessful.hashValue == reponsetype.hashValue
+
+        /*if type == "users"
         {
 
-            //self.serverTasks.postClientThumbnail(self.serverUser.text!,
-            //    passServer : self.serverPass.text!,
-            //    name : self.userName,
-            //    image : self.clientThumbnail)
+            if Motion.Message_.ResponseType.LoginSuccessful.hashValue == reponsetype.hashValue
+            {
+    
+                self.server.createClient()
 
-            self.serverTasks.createClient()
+            } else 
+            {
+                self.errorServerPopOver()
+            }
+
+        else if type == "client"
+        {
+
+            if Motion.Message_.ResponseType.LoginSuccessful.hashValue == reponsetype.hashValue
+            {
+                print("User updated password")
+                
+                let wp_registered_user:String = self.defaults.stringForKey("wp_username")!
+                let wp_registered_pass:String = self.defaults.stringForKey("wp_password")!
+                
+                self.server.remoteLoginiOS(wp_registered_user, password: wp_registered_pass, endpoint:"client")
             
-        } else 
-        {
-            self.errorServerPopOver()
-        }
+            } else 
+            {
+                self.errorServerPopOver()
+            }
+
+        }*/
     }
 
 
@@ -283,51 +301,7 @@ class FreePlanViewController: UIViewController,
         self.presentViewController(alertMessage, animated: true, completion: nil)
     }
 
-
-    /*func remoteLoginResponse(reponsetype: Motion.Message_.ResponseType, resutl: String)
-    {
-
-        if Motion.Message_.ResponseType.LoginSuccessful.hashValue == reponsetype.hashValue
-        {
-            let message = "The profile setup has finished, please setup your devices and start enjoying."
-            let alertFinished = UIAlertController(title: "Profile finished", message: message, preferredStyle: UIAlertControllerStyle.Alert)               
-            alertFinished.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: { (swiftsUIAlertAction) -> Void in
-
-                NSUserDefaults.standardUserDefaults().setBool(true, forKey: "profile_finished")
-                NSUserDefaults.standardUserDefaults().synchronize()
-
-                self.mainController!.selectedIndex = 1
-
-            }))
-
-            let popover = alertFinished.popoverPresentationController
-            popover?.permittedArrowDirections = UIPopoverArrowDirection.Any
-        
-            presentViewController(alertFinished, animated: true, completion: nil)
-            
-        
-        } else 
-        {
-            self.errorServerPopOver()
-        }
-
-
-    }*/
-
-    func randomStringWithLength (len : Int) -> NSString {
-
-        let letters : NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-
-        var randomString : NSMutableString = NSMutableString(capacity: len)
-
-        for (var i=0; i < len; i++){
-            var length = UInt32 (letters.length)
-            var rand = arc4random_uniform(length)
-            randomString.appendFormat("%C", letters.characterAtIndex(Int(rand)))
-        }
-
-        return randomString
-    }
+    
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) 
     {
