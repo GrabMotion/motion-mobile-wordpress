@@ -60,8 +60,6 @@ class ProFileViewController: UIViewController,
     {
         super.viewDidLoad()
         
-        self.geoPoint = appDelegate.geoPoint
-
         imagePicker.delegate = self
 
         self.edgesForExtendedLayout = UIRectEdge.None
@@ -73,26 +71,7 @@ class ProFileViewController: UIViewController,
 
         self.mapView.addAnnotation(self.appDelegate.annotation)
 
-        let pfuser : PFUser = PFUser.currentUser()!
-
-        print("geoPoint: \(self.geoPoint)")
-                    
-        pfuser.setObject(self.geoPoint, forKey: "location")
-
-        pfuser.saveInBackgroundWithBlock
-        {
-            (success: Bool, error: NSError?) -> Void in
-            
-            if (success)
-            {
-                print("location stored")
-
-            } else 
-            {
-                print("location cannot be stored")
-            }
-        }
-
+    
         if PFTwitterUtils.isLinkedWithUser(PFUser.currentUser()) || (FBSDKAccessToken.currentAccessToken() != nil)
         {
     
@@ -556,15 +535,14 @@ class ProFileViewController: UIViewController,
                 (success: Bool, error: NSError?) -> Void in
                     if (success)
                     {
-                        print("location stored")
-                    
+                                         
                         NSUserDefaults.standardUserDefaults().setBool(true, forKey: "profile_picture_updated")
                         NSUserDefaults.standardUserDefaults().synchronize()
 
                         self.setProfilePicture(pickedImage)
                         
                     } else {
-                        print("location cannot be stored")
+                        print("image cannot be stored")
                     }
             }
         }

@@ -11,6 +11,10 @@ import SVProgressHUD
 import Alamofire
 import Parse
 import SwiftyJSON
+import ParseFacebookUtilsV4
+import ParseTwitterUtils
+import FBSDKLoginKit
+import FBSDKCoreKit
 
 class MainViewController: UITabBarController
 {
@@ -30,6 +34,12 @@ class MainViewController: UITabBarController
     override func viewDidLoad() { 
         super.viewDidLoad()
     
+        self.main()
+    
+    }
+
+    func main()
+    {
         self.setupViewController =  self.viewControllers![SETUP] as? SetupViewController
         self.setupViewController!.mainController = self
         
@@ -52,7 +62,7 @@ class MainViewController: UITabBarController
 
         let profile_finished:Bool = defaults.boolForKey("profile_finished")
         if !profile_finished
-        {   
+        {   	
             self.tabBar.userInteractionEnabled = false
             self.selectedIndex = 3
             return
@@ -73,7 +83,6 @@ class MainViewController: UITabBarController
             self.tabBar.userInteractionEnabled = true 
             self.selectedIndex = 2
         }
-
     }
 
     override func didReceiveMemoryWarning() {

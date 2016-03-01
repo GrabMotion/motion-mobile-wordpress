@@ -115,8 +115,6 @@ CLLocationManagerDelegate
             NSUserDefaults.standardUserDefaults().setBool(true, forKey: "location_authorized")
             NSUserDefaults.standardUserDefaults().synchronize()
 
-            self.appDelegate.setGeoLocation()
-
             //Start spinner
             //SVProgressHUD.show()    
             //self.getSocialProfileData()
@@ -276,6 +274,8 @@ CLLocationManagerDelegate
                     
                     NSUserDefaults.standardUserDefaults().setBool(true, forKey: "registered")
                     NSUserDefaults.standardUserDefaults().synchronize()
+
+                    self.appDelegate.setGeoLocation()
                     
                     self.loadMain()
                 }
@@ -358,6 +358,8 @@ CLLocationManagerDelegate
                 
                 NSUserDefaults.standardUserDefaults().setBool(true, forKey: "registered")
                 NSUserDefaults.standardUserDefaults().synchronize()
+
+                self.appDelegate.setGeoLocation()
             
                 self.loadMain()
                 
@@ -393,6 +395,8 @@ CLLocationManagerDelegate
                     
                     NSUserDefaults.standardUserDefaults().setBool(true, forKey: "registered")
                     NSUserDefaults.standardUserDefaults().synchronize()
+
+                    self.appDelegate.setGeoLocation()
                     
                     self.loadMain()
                     

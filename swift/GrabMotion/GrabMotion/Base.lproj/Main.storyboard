@@ -373,7 +373,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6ca-aZ-Bc8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1140" y="701"/>
+            <point key="canvasLocation" x="-1780" y="821"/>
         </scene>
         <!--Setup-->
         <scene sceneID="hnd-sw-LF0">
@@ -508,7 +508,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYb-Zu-GN3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1539" y="1681"/>
+            <point key="canvasLocation" x="-1471" y="2121"/>
         </scene>
         <!--Devices-->
         <scene sceneID="I9d-vG-680">
@@ -1192,7 +1192,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qHF-bo-dLu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2565" y="1358"/>
+            <point key="canvasLocation" x="-2557" y="1602"/>
         </scene>
         <!--Free Plan View Controller-->
         <scene sceneID="uH3-fA-XyG">
@@ -1232,6 +1232,6 @@
         <image name="spanner-7.png" width="30" height="30"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="aMj-kb-6ip"/>
+        <segue reference="V3s-ol-OTl"/>
     </inferredMetricsTieBreakers>
 </document>

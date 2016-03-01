@@ -80,29 +80,6 @@ Text Domain: digimotion-computer-vision
         
     }
     
-    //Client Post Parent
-    /*function client_post_parent()
-    {
-        register_rest_field('client',
-                            'post_parent',
-                            array(
-                                  'get_callback'    => 'get_client_post_parent',
-                                  'update_callback' => 'update_client_post_parent',
-                                  'schema'          => null,
-                                  )
-                            );
-    }
-    function get_client_post_parent($object, $field_name, $request) {
-        return get_post_meta($object[ 'id' ], $field_name);
-    }
-    function update_client_post_parent( $value, $object, $field_name ) {
-        if ( ! $value || ! is_string( $value ) ) {
-            return;
-        }
-        return update_post_meta( $object->ID, $field_name, strip_tags( $value ) );
-    }*/
-    
-    //Client Name
     function client_add_name()
     {
         register_rest_field('client',

@@ -37,7 +37,6 @@ class FreePlanViewController: UIViewController,
         super.viewDidLoad()  
 
         self.setTextFieldData()
-
     }
 
     func setTextFieldData()
@@ -237,7 +236,7 @@ class FreePlanViewController: UIViewController,
             //    name : self.userName,
             //    image : self.clientThumbnail)
 
-            
+            self.serverTasks.createClient()
             
         } else 
         {
@@ -267,6 +266,23 @@ class FreePlanViewController: UIViewController,
         presentViewController(alertFinished, animated: true, completion: nil)
 
     }
+
+
+    func popover(msg:String)
+    {
+
+        let alertMessage = UIAlertController(title: "Message", message: msg, preferredStyle: UIAlertControllerStyle.Alert)               
+        
+        alertMessage.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: { (swiftsUIAlertAction) -> Void in
+
+        }))
+
+        let popover = alertMessage.popoverPresentationController
+        popover?.permittedArrowDirections = UIPopoverArrowDirection.Any
+    
+        self.presentViewController(alertMessage, animated: true, completion: nil)
+    }
+
 
     /*func remoteLoginResponse(reponsetype: Motion.Message_.ResponseType, resutl: String)
     {

@@ -17,6 +17,7 @@ protocol ServerControllerDelegate
     func checkLoginResponse(response:Int, resutl:String) 
     func remoteLoginResponse(reponsetype: Motion.Message_.ResponseType, resutl: String)
     func registrationCompleted()
+    func popover(msg:String)
 }
   
 class ServerController 
@@ -27,6 +28,8 @@ class ServerController
     var delegateServer:ServerControllerDelegate! = nil
   
     var myWordPressSite:String = "http://192.168.0.3/grabmotion/wp-json/wp/v2/"
+
+    let defaults = NSUserDefaults.standardUserDefaults()
      
     lazy var json : JSON = JSON.null
   
@@ -105,14 +108,16 @@ class ServerController
         print("user: \(user)")
         print("pass: \(pass)")
         print("email: \(email)")
-  
+
+        var roles : NSMutableArray = ["administrator","editor", "author","contributor","subscriber"]
+
         let parameters = [
             "username": "\(user)",
             "email": "\(email)",
             "password": "\(pass)",
             "first_name": "\(first_name)",
             "last_name": "\(last_name)",
-            "capabilities":"author",
+            "roles": roles,
             "description":"User created with iOS client versio 1.0.0"
         ]
   
@@ -128,46 +133,56 @@ class ServerController
         let headers = ["Authorization": "Basic \(base64Credentials)"]
   
         print("\(parameters)")
-        print("\(headers)")
+        print("\(headers)")		
   
         Alamofire.request(.POST, usersWordpress, parameters: parameters, headers: headers)
             .responseJSON { response in
   
-            print(response)
-  
-             if let JSON = response.result.value 
-             {
-                print("JSON: \(JSON)")
-  
-                if response.result.isSuccess
+            if response.result.isSuccess
+            {
+
+                if let value: AnyObject = response.result.value 
                 {
-                     
-                    let response = JSON as! NSDictionary
+                    // handle the results as JSON, without a bunch of nested if loops
+                    let post = JSON(value)
+                    print("The post is: " + post.description)
+                
+                    if let userId = post["id"].int
+                    {
   
-                    let userId = response.objectForKey("id")!
-  
-                    dispatch_async(dispatch_get_main_queue()) 
-                    { 
-                        let pfuser:PFUser  = PFUser.currentUser()!
-                        pfuser.setObject(pass as String, forKey: "wp_password")
-                        pfuser.setObject(userId, forKey: "wp_id")
-  
-                        pfuser.saveInBackgroundWithBlock
-                        {
-                            (success: Bool , error: NSError?) -> Void in
-                             
-                            if success
+                        print(userId)
+                        
+                        dispatch_async(dispatch_get_main_queue()) 
+                        { 
+                            let pfuser:PFUser  = PFUser.currentUser()!
+                            pfuser.setObject(pass as String, forKey: "wp_password")
+                            pfuser.setObject(userId, forKey: "wp_id")
+      
+                            pfuser.saveInBackgroundWithBlock
                             {
-                                print("User updated password")
-                                self.remoteLogin(user, password: pass as String)
+                                (success: Bool , error: NSError?) -> Void in
+                                 
+                                if success
+                                {
+                                    NSUserDefaults.standardUserDefaults().setObject(user, forKey: "wp_username")
+                                    NSUserDefaults.standardUserDefaults().setObject(pass, forKey: "wp_password")
+                                    NSUserDefaults.standardUserDefaults().synchronize()
+
+                                    print("User updated password")
+                                    self.remoteLogin(user, password: pass as String)
+                                }
                             }
                         }
+                    } else if let message = post["message"].string
+                    {
+                        self.delegateServer.popover(message)
                     }
                 }
             }
         }
     }
-  
+
+
     func remoteLogin(user: String, password: String)
     {
          
@@ -214,123 +229,7 @@ class ServerController
             
         }
     }
-  
-    /*func postClientThumbnail(
-        userServer:String, 
-        passServer:String,  
-        name: String, 
-        image: UIImage?)
-    {
-  
-        //media << "curl --user jose:joselon -X POST -H 'Content-Disposition: filename=" << fineandextension << 
-        //        "' --data-binary @'"<< maximagepath << "' -d title='" << recname << "' -H \"Expect: \" " << SERVER_BASE_URL << "/wp-json/wp/v2/media";
-  
-        let imagePath = fileInDocumentsDirectory("\(name).png")
-  
-        if image != nil 
-        {
-            // Save it to our Documents folder
-            let result = saveImage(image!, path: imagePath)
-             
-            if result
-            {
-             
-                print("Image saved? Result: (result)")    
-  
-                let imageext = "filename=\(name).png"
-  
-                 let parameters = [
-                    "Content-Type": "data-binary @\(imagePath)",
-                    "Content-Disposition": imageext,
-                    "Expect": " ",
-                    "title" : name
-                ]
-  
-                print("myWordPressSite: \(self.myWordPressSite)")
-  
-                var usersWordpress:String = "\(self.myWordPressSite)media/"
-                 
-                print("usersWordpress: \(usersWordpress)")
-  
-                print("userServer: \(userServer)")
-                print("passServer: \(passServer)")
-  
-                let credentialData = "\(userServer):\(passServer)".dataUsingEncoding(NSUTF8StringEncoding)!
-                let base64Credentials = credentialData.base64EncodedStringWithOptions([])
-  
-                let headers = ["Authorization": "Basic \(base64Credentials)"]
-  
-                print("******************************")
-                print("\(parameters)")
-                print("\(headers)")
-                print("******************************")
-  
-                Alamofire.request(.POST, usersWordpress, parameters: parameters, headers: headers)
-                    .responseJSON { response in
-  
-                    print(response)
-                }
-            }
-  
-        }
-    }*/
-  
-    /*func postClientThumbnail(
-        userServer:String, 
-        passServer:String,  
-        name: String, 
-        image: UIImage?)
-    {
-           
-  
-        var usersWordpress:String = "\(self.myWordPressSite)media/"
-  
-         // This example uploads a file called example.png found in the app resources
-     
-        //let fileURL = NSBundle.mainBundle().URLForResource("example", withExtension: "png")
-
-        let fileUploader = FileUploader()
-         
-        // we can add multiple files
-        // this would be equivalent to: <input type="file" name="myFile"/>
-         
-        //fileUploader.addFileURL(fileURL!, withName: "myFile")
-         
-        // we can add NSData objects directly
-        //let data = UIImage(named: "sample")
-  
-        fileUploader.addFileData( UIImageJPEGRepresentation(image!,0.8)!, withName: "mySecondFile", withMimeType: "image/png" )
-         
-        // we can also add multiple aditional parameters
-        // this would be equivalent to: <input type="hidden" name="folderName" value="sample"/>
-        //fileUploader.setValue( "sample", forParameter: "folderName" )
-         
-        // put your server URL here
-        var request = NSMutableURLRequest( URL: NSURL(string: usersWordpress )! )
-        request.HTTPMethod = "POST"
-         
-        fileUploader.uploadFile(request: request)!
-            .progress { [weak self] bytesWritten, totalBytesWritten, totalBytesExpectedToWrite in
-                //  To update your ui, dispatch to the main queue.
-                dispatch_async(dispatch_get_main_queue()) {
-                    print("Total bytes written on main queue: \(totalBytesWritten)....\(totalBytesExpectedToWrite)")
-                }
-            }
-            .responseJSON { [weak self] response in
-                debugPrint(response)
-                if response.result.isSuccess 
-                {
-                    print(response.data)
-                 
-                } else 
-                { 
-  
-                    print(response.result.error)
-                }
-        }
-  
-    }*/
-  
+   
   func postClientThumbnail(
         userServer:String, 
         passServer:String,  
@@ -341,160 +240,6 @@ class ServerController
     	//media << "curl --user jose:joselon -X POST -H 'Content-Disposition: filename=" << fineandextension << 
         //        "' --data-binary @'"<< maximagepath << "' -d title='" << recname << "' -H \"Expect: \" " << SERVER_BASE_URL << "/wp-json/wp/v2/media";
   
-
-
-    	/*let imageData = UIImageJPEGRepresentation(image!, 0.2)
-		let base64String = imageData!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.Encoding64CharacterLineLength)
-
-
-		let parameters = [
-                    "image": base64String,
-                    "Expect": " ",
-                    "title" : name
-                ]
-
-        var usersWordpress:String = "\(self.myWordPressSite)media/"
-         
-        print("usersWordpress: \(usersWordpress)")
-  
-        let credentialData = "jose:joselon".dataUsingEncoding(NSUTF8StringEncoding)!
-        let base64Credentials = credentialData.base64EncodedStringWithOptions([])
-  
-        let headers = ["Authorization": "Basic \(base64Credentials)"]
-
-        var usersWordpress:String = "\(self.myWordPressSite)media/"
-
-		let credentialData = "jose:joselon".dataUsingEncoding(NSUTF8StringEncoding)!
-        let base64Credentials = credentialData.base64EncodedStringWithOptions(nil)
-
-        let aManager = Manager.sharedInstance
-	    aManager.session.configuration.HTTPAdditionalHeaders = [
-	        "Authorization": "Bearer \(base64Credentials)" ]
-
-	  
-        request(.POST, usersWordpress, encoding: .JSON)
-            .responseJSON { response in
-  
-            print(response)
-  
-             if let JSON = response.result.value 
-             {
-                print("JSON: \(JSON)")
-  
-                if response.result.isSuccess
-                {
-                	print(response.result)
-                }
-
-            }
-         }*/
-
-	/*var usersWordpress:String = "\(self.myWordPressSite)media/"
-
-    let request = NSMutableURLRequest(URL: NSURL(string: usersWordpress)!)
-    request.HTTPMethod = "POST"
-    
-
-    let imageData:NSData = UIImagePNGRepresentation(image!)!
-
-    let boundary = "----------SwIfTeRhTtPrEqUeStBoUnDaRy"
-    let contentType = "multipart/form-data; boundary=\(boundary)"
-    let body = NSMutableData();
-
-    let tempData = NSMutableData()
-    let fileName = "\(image!.description).png"
-    let parameterName = "contest-photo"
-
-    let mimeType = "application/octet-stream"
-        
-    tempData.appendData("--\(boundary)\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
-    let fileNameContentDisposition = "name=\(fileName)"
-    let contentDisposition = "Content-Disposition: form-data; name=\"\(fileName)\"; \(imageData)\r\n"
-    tempData.appendData(contentDisposition.dataUsingEncoding(NSUTF8StringEncoding)!)
-    tempData.appendData("Content-Type: \(mimeType)\r\n\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
-    tempData.appendData(imageData)
-    tempData.appendData("\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
-
-    body.appendData(tempData)
-
-    body.appendData("\r\n--\(boundary)--\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
-
-    request.setValue("\(body.length)", forHTTPHeaderField: "Content-Length")
-
- 	//let credentialData = "jose:joselon".dataUsingEncoding(NSUTF8StringEncoding)!
-    //let base64Credentials = credentialData.base64EncodedStringWithOptions([])
-    	
-    //request.setValue("Basic \(base64Credentials)", forHTTPHeaderField: "Authorization"
-
-    request.HTTPBody = body
-
-    
-    let config = NSURLSessionConfiguration.defaultSessionConfiguration()
-	let userPasswordString = "jose:joselon"
-	let userPasswordData = userPasswordString.dataUsingEncoding(NSUTF8StringEncoding)
-	let base64EncodedCredential = userPasswordData!.base64EncodedStringWithOptions([])
-	let authString = "Basic \(base64EncodedCredential)"
-	config.HTTPAdditionalHeaders = ["Authorization" : authString]
-
-    let session = NSURLSession(configuration: config)
-
-    let task = session.dataTaskWithRequest(request) {
-        data, response, error in
-
-        if error != nil {
-            print("error=\(error)")
-            return
-        }
-
-        let responseString = NSString(data: data!, encoding: NSUTF8StringEncoding)
-        print("responseString = \(responseString!)")
-        if let JSON = responseString
-        {
-        	print("JSON: \(JSON)")
-        }
-
-    }
-    task.resume()*/
-
-    //var imageData = UIImagePNGRepresentation(image!)
-
-    //let base64String = imageData.base64EncodedStringWithOptions(.allZeros)
-
-    /*let base64String = imageData!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.Encoding64CharacterLineLength)
-
-    let parameters = [
-        "img": base64String
-    ]
-
-    print("myWordPressSite: \(self.myWordPressSite)")
-  
-    var usersWordpress:String = "\(self.myWordPressSite)media/"
-     
-    print("usersWordpress: \(usersWordpress)")
-
-    let credentialData = "jose:joselon".dataUsingEncoding(NSUTF8StringEncoding)!
-    let base64Credentials = credentialData.base64EncodedStringWithOptions([])
-
-    let headers = ["Authorization": "Basic \(base64Credentials)"]
-
-    print("\(parameters)")
-    print("\(headers)")
-
-    Alamofire.request(.POST, usersWordpress, parameters: parameters, headers: headers)
-            .responseJSON { response in
-  
-            print(response)
-  
-             if let JSON = response.result.value 
-             {
-                print("JSON: \(JSON)")
-  
-                if response.result.isSuccess
-                {
-                }
-             }
-      }*/
-
       var usersWordpress:String = "\(self.myWordPressSite)media/"
 
 	let username = "jose"
@@ -551,89 +296,6 @@ class ServerController
 
    }
 
-
-
-
-   	func createUser(
-        userWodpress:String,
-        passWordpress:String,  
-        user:String,
-        pass:String,  
-        email:String,
-        first_name:String,
-        last_name:String
-        )
-    {
-         
-        print("userServer: \(userServer)")
-        print("passServer: \(passServer)")
-        print("user: \(user)")
-        print("pass: \(pass)")
-        print("email: \(email)")
-  
-        let parameters = [
-            "client_first_name": "\(first_name)",
-            "client_last_name": "\(last_name)",
-            "client_user_name": "\()",
-            "client_authdata": "\()",
-            "client_email": "\()",
-            "client_thumbnail_url": "\()",
-            "client_thumbnail_id": "\()",
-            "client_location": "\()"
-        ]
-  
-        print("myWordPressSite: \(self.myWordPressSite)")
-  
-        var usersWordpress:String = "\(self.myWordPressSite)client/"
-         
-        print("usersWordpress: \(usersWordpress)")
-  
-        let credentialData = "\(userWodpress):\(passWordpress)".dataUsingEncoding(NSUTF8StringEncoding)!
-        let base64Credentials = credentialData.base64EncodedStringWithOptions([])
-  
-        let headers = ["Authorization": "Basic \(base64Credentials)"]
-  
-        print("\(parameters)")
-        print("\(headers)")
-  
-        Alamofire.request(.POST, usersWordpress, parameters: parameters, headers: headers)
-            .responseJSON { response in
-  
-            print(response)
-  
-             if let JSON = response.result.value 
-             {
-                print("JSON: \(JSON)")
-  
-                if response.result.isSuccess
-                {
-                     
-                    let response = JSON as! NSDictionary
-  
-                    let userId = response.objectForKey("id")!
-  
-                    dispatch_async(dispatch_get_main_queue()) 
-                    { 
-                        let pfuser:PFUser  = PFUser.currentUser()!
-                        pfuser.setObject(pass as String, forKey: "wp_password")
-                        pfuser.setObject(userId, forKey: "wp_id")
-  
-                        pfuser.saveInBackgroundWithBlock
-                        {
-                            (success: Bool , error: NSError?) -> Void in
-                             
-                            if success
-                            {
-                                print("User updated password")
-                                self.remoteLogin(user, password: pass as String)
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     func saveImage (image: UIImage, path: String ) -> Bool{
         
         let pngImageData = UIImagePNGRepresentation(image)
@@ -669,7 +331,7 @@ class ServerController
     	return documentsURL
 	}
    
-    func createClient(
+    /*func createClient(
         userServer:String,
         passServer:String,
         user:String,
@@ -712,62 +374,168 @@ class ServerController
         Alamofire.request(.POST, usersWordpress, parameters: parameters, headers: headers)
             .responseJSON { response in
   
-            print(response)
-  
-             if let JSON = response.result.value 
-             {
-                print("JSON: \(JSON)")
-  
-                if response.result.isSuccess
+            if response.result.isSuccess
+            {
+
+                if let value: AnyObject = response.result.value 
                 {
-                     
-                    let response = JSON as! NSDictionary
-  
-                    let userId = response.objectForKey("id")!
-  
-                    dispatch_async(dispatch_get_main_queue()) 
-                    { 
-                        let pfuser:PFUser  = PFUser.currentUser()!
-                        pfuser.setObject(pass as String, forKey: "wp_password")
-                        pfuser.setObject(userId, forKey: "wp_id")
-  
-                        pfuser.saveInBackgroundWithBlock
-                        {
-                            (success: Bool , error: NSError?) -> Void in
-                             
-                            if success
+                    // handle the results as JSON, without a bunch of nested if loops
+                    let post = JSON(value)
+                    print("The post is: " + post.description)
+                
+                    if let userId = post["id"].int
+                    {
+                        dispatch_async(dispatch_get_main_queue()) 
+                        { 
+                            let pfuser:PFUser  = PFUser.currentUser()!
+                            pfuser.setObject(pass as String, forKey: "wp_password")
+                            pfuser.setObject(userId, forKey: "wp_id")
+      
+                            pfuser.saveInBackgroundWithBlock
                             {
-                                print("User updated password")
-                                self.remoteLogin(user, password: pass as String)
+                                (success: Bool , error: NSError?) -> Void in
+                                 
+                                if success
+                                {
+                                    print("User updated password")
+                                    self.remoteLogin(user, password: pass as String)
+                                }
+                            }
+                        }
+                    } else if let message = post["message"].string
+                    {
+                        self.delegateServer.popover(message)
+                    }   
+                }
+            }
+        }
+    }*/
+  
+    func createClient()
+    {
+        
+        let query = PFQuery(className:"_User")
+        
+        query.whereKey("user", notEqualTo: PFUser.currentUser()!)
+            
+            query.findObjectsInBackgroundWithBlock {(userObjects:[PFObject]?, error: NSError?) -> Void in
+                
+                if error != nil
+                {
+                    print("error")
+                    
+                } else
+                {
+                    if let userArray = userObjects
+                    {
+                        
+                        for quser in userArray
+                        {
+
+                            let first_name = quser["first_name"] as! String
+                            let last_name = quser["last_name"] as! String
+                            
+                            
+                            let email = quser["email"] as! String
+
+                            let wp_username = quser["username"] as! String
+                            let wp_password = quser["wp_password"] as! String
+
+                            let geopoint = quser["location"] as! PFGeoPoint
+
+                            let locationcoords = CLLocationCoordinate2DMake(geopoint.latitude, geopoint.longitude)
+
+                            print("first_name: \(first_name)")
+                            print("last_name: \(last_name)")
+                            print("username: \(wp_username)")
+                            print("email: \(email)")
+                            print("location: \(locationcoords)")
+
+                            print("wp_password: \(wp_password)")
+
+                            var parameters = [
+                                "client_first_name": "\(first_name)",
+                                "client_last_name": "\(last_name)",
+                                "client_user_name": "\(wp_username)",
+                                //"client_authdata": "\(authData)",
+                                "client_email": "\(email)",
+                                //"client_thumbnail_url": "",
+                                //"client_thumbnail_id": "",
+                                "client_location": "\(locationcoords.latitude),\(locationcoords.longitude)",
+                                "status" : "publish"
+                            ]
+                      
+                            print("myWordPressSite: \(self.myWordPressSite)")
+                      
+                            var usersWordpress:String = "\(self.myWordPressSite)client/"
+                            
+                            let wp_registered_user = self.defaults.stringForKey("wp_username") 
+                            let wp_registered_pass = self.defaults.stringForKey("wp_password") 
+
+                            print("wp_registered_user: \(wp_registered_user!)")
+                            print("wp_registered_pass: \(wp_registered_pass!)")
+
+                            //let credentialData = "jose:joselon".dataUsingEncoding(NSUTF8StringEncoding)!
+                            //let base64Credentials = credentialData.base64EncodedStringWithOptions([])
+                      
+                            //let headers = ["Authorization": "Basic \(base64Credentials)"]
+                      
+                            let username = wp_registered_user
+                            let password = wp_registered_pass
+
+                            let credentialData = "\(username):\(password)".dataUsingEncoding(NSUTF8StringEncoding)!                  
+                            let base64Credentials = credentialData.base64EncodedStringWithOptions([])
+                            let headers = ["Authorization": base64Credentials]
+
+                            print(parameters)
+                            print(headers)
+                      
+                            Alamofire.request(.POST, usersWordpress, parameters: parameters, headers: headers)
+                                .responseJSON { response in
+                      
+                                if response.result.isSuccess
+                                {
+
+                                    if let value: AnyObject = response.result.value 
+                                    {
+                                        // handle the results as JSON, without a bunch of nested if loops
+                                        let post = JSON(value)
+                                        print("The post is: " + post.description)
+                                    
+                                        if let clientId = post["wp_client_id"].int
+                                        {
+                                            dispatch_async(dispatch_get_main_queue()) 
+                                            { 
+                                                let pfuser:PFUser  = PFUser.currentUser()!
+                                                pfuser.setObject(clientId as! String, forKey: "wp_client_id")
+                                            
+                                                pfuser.saveInBackgroundWithBlock
+                                                {
+                                                    (success: Bool , error: NSError?) -> Void in
+                                                     
+                                                    if success
+                                                    {
+                                                        print("User updated password")
+                        
+                                                        parameters["wp_client_id"] = String(clientId)
+                                                        
+                                                        self.defaults.setObject(parameters, forKey: "registered_user")
+
+                                                        self.delegateServer.registrationCompleted()
+                                                    }
+                                                }
+                                            }
+                                        } else if let message = post["message"].string
+                                        {
+                                            self.delegateServer.popover(message)
+                                        }   
+                                    }
+                                }
                             }
                         }
                     }
                 }
-            }
-        }
+             }
     }
-  
-    
-
-    
-
-
-    func postClientData()
-    {
-  
-  
-  
-    }
-     
-    /*func loginAlert(alertMessage: String)
-    {
-        let loginAlert = UIAlertController(title: "Alert", message: alertMessage, preferredStyle: UIAlertControllerStyle.Alert)
-         
-        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil)
-         
-        loginAlert.addAction(okAction)
-         
-        self.presentViewController(loginAlert, animated: true, completion: nil)
-    }*/
   
 }
