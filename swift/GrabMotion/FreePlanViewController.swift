@@ -100,10 +100,10 @@ class FreePlanViewController: UIViewController,
 
                 self.server.setUserCredentials(usr, pss:pss)
 
-                self.server.remoteLoginiOS(usr, password: pss, endpoint:"users")
-                
-            }
+                self.server.setProfilePicture(clientThumbnail)
 
+                self.server.createWPUser()
+            }
         } 
     }
     
