@@ -28,6 +28,9 @@
 		D70A63071C52E6FA00E759C6 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D70A63061C52E6FA00E759C6 /* libsqlite3.tbd */; };
 		D70A63091C52E70300E759C6 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = D70A63081C52E70300E759C6 /* libz.tbd */; };
 		D70A630B1C52EE0C00E759C6 /* grabmotion_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = D70A630A1C52EE0C00E759C6 /* grabmotion_logo.png */; };
+		D70DB6691C8A05790088C1BE /* camon.png in Resources */ = {isa = PBXBuildFile; fileRef = D70DB6681C8A05790088C1BE /* camon.png */; };
+		D70DB66C1C8A0F870088C1BE /* camerano.png in Resources */ = {isa = PBXBuildFile; fileRef = D70DB66A1C8A0F870088C1BE /* camerano.png */; };
+		D70DB66D1C8A0F870088C1BE /* camerarunning.png in Resources */ = {isa = PBXBuildFile; fileRef = D70DB66B1C8A0F870088C1BE /* camerarunning.png */; };
 		D71384AD1C5CFEAD004773EA /* mail.png in Resources */ = {isa = PBXBuildFile; fileRef = D71384AC1C5CFEAD004773EA /* mail.png */; };
 		D71384B11C5CFF10004773EA /* pass.png in Resources */ = {isa = PBXBuildFile; fileRef = D71384B01C5CFF10004773EA /* pass.png */; };
 		D71384B31C5D1CA9004773EA /* FB-f-Logo__blue_100.png in Resources */ = {isa = PBXBuildFile; fileRef = D71384B21C5D1CA9004773EA /* FB-f-Logo__blue_100.png */; };
@@ -90,6 +93,9 @@
 		D70A63061C52E6FA00E759C6 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		D70A63081C52E70300E759C6 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		D70A630A1C52EE0C00E759C6 /* grabmotion_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grabmotion_logo.png; sourceTree = "<group>"; };
+		D70DB6681C8A05790088C1BE /* camon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camon.png; sourceTree = "<group>"; };
+		D70DB66A1C8A0F870088C1BE /* camerano.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camerano.png; sourceTree = "<group>"; };
+		D70DB66B1C8A0F870088C1BE /* camerarunning.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camerarunning.png; sourceTree = "<group>"; };
 		D71384AC1C5CFEAD004773EA /* mail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = mail.png; sourceTree = "<group>"; };
 		D71384B01C5CFF10004773EA /* pass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pass.png; sourceTree = "<group>"; };
 		D71384B21C5D1CA9004773EA /* FB-f-Logo__blue_100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FB-f-Logo__blue_100.png"; sourceTree = "<group>"; };
@@ -207,7 +213,6 @@
 				D70A62C61C52990300E759C6 /* Assets.xcassets */,
 				D70A62CB1C52990300E759C6 /* Info.plist */,
 				D71384C31C5D7786004773EA /* ObjectiveC */,
-				D751011A1C5604A10001147E /* Cells */,
 				D751011D1C5697810001147E /* Controls */,
 				D7CE814C1C7293CF0025673D /* Communications */,
 			);
@@ -313,6 +318,7 @@
 		D7B7574A1C66764E0020A13A /* Setup */ = {
 			isa = PBXGroup;
 			children = (
+				D751011A1C5604A10001147E /* Cells */,
 				D7B7574C1C667A900020A13A /* Advanced */,
 				D7B7569B1C644E5F0020A13A /* SetupViewController.swift */,
 			);
@@ -340,6 +346,9 @@
 		D7C2EA481C5B30D900115E5A /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				D70DB66A1C8A0F870088C1BE /* camerano.png */,
+				D70DB66B1C8A0F870088C1BE /* camerarunning.png */,
+				D70DB6681C8A05790088C1BE /* camon.png */,
 				D71384B41C5D1CAF004773EA /* TwitterLogo_white.png */,
 				D71384B61C5D1D1A004773EA /* grabmotion_iso.png */,
 				D71384B21C5D1CA9004773EA /* FB-f-Logo__blue_100.png */,
@@ -437,6 +446,7 @@
 			files = (
 				D71384B31C5D1CA9004773EA /* FB-f-Logo__blue_100.png in Resources */,
 				D7C2EA601C5C05EF00115E5A /* grabmotion_logo.png in Resources */,
+				D70DB66D1C8A0F870088C1BE /* camerarunning.png in Resources */,
 				D7C2EA4E1C5B34BF00115E5A /* circle-user-7.png in Resources */,
 				D71384B11C5CFF10004773EA /* pass.png in Resources */,
 				D71384AD1C5CFEAD004773EA /* mail.png in Resources */,
@@ -448,9 +458,11 @@
 				D7C2EA501C5B351100115E5A /* camera-7.png in Resources */,
 				D7B757461C666D170020A13A /* grab_motion_play.png in Resources */,
 				D70A62C51C52990300E759C6 /* Main.storyboard in Resources */,
+				D70DB66C1C8A0F870088C1BE /* camerano.png in Resources */,
 				D7C2EA4A1C5B30F100115E5A /* spanner-7.png in Resources */,
 				D71384B51C5D1CAF004773EA /* TwitterLogo_white.png in Resources */,
 				D7C2EA4C1C5B339100115E5A /* pushpin-7.png in Resources */,
+				D70DB6691C8A05790088C1BE /* camon.png in Resources */,
 				D71384B71C5D1D1A004773EA /* grabmotion_iso.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

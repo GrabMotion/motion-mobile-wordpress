@@ -136,6 +136,8 @@ class ProFileViewController: UIViewController,
         SVProgressHUD.show()
         self.view.hidden = true
 
+        self.appDelegate.setGeoLocation()
+
         let social_data_stored = self.defaults.boolForKey("social_data_stored")
         if !social_data_stored
         {   

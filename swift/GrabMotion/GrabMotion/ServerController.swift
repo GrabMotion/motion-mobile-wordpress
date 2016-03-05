@@ -420,9 +420,6 @@ class ServerController
         }
     }
 
-
-    
-
     func uploadProfilePicture( clientId:Int, post_author:Int )
     {
 
@@ -487,27 +484,44 @@ class ServerController
                                  
                                 let pfuser:PFUser  = PFUser.currentUser()!
                                 pfuser.setObject(clientId, forKey: "wp_client_media_id")
-                            
-                                pfuser.saveInBackgroundWithBlock
+
+                                let uuid_raspberry_installation = NSUUID().UUIDString
+
+                                let raspberry = PFObject(className: "Raspberry")
+                                raspberry.setObject(uuid_raspberry_installation, forKey: "uuid_raspberry_installation") 
+
+                                raspberry.saveInBackgroundWithBlock
                                 {
                                     (success: Bool , error: NSError?) -> Void in
                                      
                                     if success
                                     {
-                                        print("User updated password")
-
-                                        //parameters["wp_client_id"] = String(clientId)
-                                        
-                                        self.defaults.setObject(parameters, forKey: "registered_user")
-                                        self.delegateServer.registrationCompleted()
+                                        let rapsberryRel:PFRelation = pfuser.relationForKey("raspberry") as PFRelation
+                                        rapsberryRel.addObject(raspberry)
+                                    
+                                        pfuser.saveInBackgroundWithBlock
+                                        {
+                                            (success: Bool , error: NSError?) -> Void in
+                                             
+                                            if success
+                                            {
+                                                print("User Setup Finished.")                    
+                                                self.delegateServer.registrationCompleted()
+                                                
+                                            }
+                                        }
                                         
                                     }
                                 }
+
+
+                                
                                 
                             } else if let message = post["message"].string
                             {
                                 self.delegateServer.popover(message)
-                            }   
+                            }
+                               
                         } else 
                         {
                             self.delegateServer.popover("\(response)")

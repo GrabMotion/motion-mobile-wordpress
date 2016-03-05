@@ -271,10 +271,10 @@ class FreePlanViewController: UIViewController,
         
         alertFinished.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: { (swiftsUIAlertAction) -> Void in
 
-            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "profile_finished")
+            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "user_setup_saved")
             NSUserDefaults.standardUserDefaults().synchronize()
 
-            self.mainController!.selectedIndex = 1
+            self.mainController!.selectedIndex = 0
 
         }))
 

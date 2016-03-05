@@ -40,6 +40,7 @@ class MainViewController: UITabBarController
 
     func main()
     {
+
         self.setupViewController =  self.viewControllers![SETUP] as? SetupViewController
         self.setupViewController!.mainController = self
         
@@ -51,45 +52,29 @@ class MainViewController: UITabBarController
 
         self.proFileViewController = self.viewControllers![PROFILE] as? ProFileViewController
         self.proFileViewController!.mainController = self
-    
-        let profile_stored:Bool = defaults.boolForKey("profile_data_stored")
-        if !profile_stored
-        {   
+
+        guard defaults.boolForKey("user_setup_saved") else
+        {   	
             self.tabBar.userInteractionEnabled = false
             self.selectedIndex = 3
             return
         } 
 
-        let profile_finished:Bool = defaults.boolForKey("profile_finished")
-        if !profile_finished
-        {   	
-            self.tabBar.userInteractionEnabled = false
-            self.selectedIndex = 3
-            return
-        } else 
-        {
-            self.tabBar.userInteractionEnabled = false
-            self.selectedIndex = 1
-            return
-        }
-
-        let setup_finished:Bool = defaults.boolForKey("setup_finished")
-        if !setup_finished
+        guard defaults.boolForKey("device_setup_finished") else
         {   
             self.tabBar.userInteractionEnabled = false
-            self.selectedIndex = 1
-        } else 
-        {
-            self.tabBar.userInteractionEnabled = true 
-            self.selectedIndex = 2
-        }
+            self.selectedIndex = 0
+            return
+        } 
+        
+        self.tabBar.userInteractionEnabled = true 
+        self.selectedIndex = 2
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-   
 
 }

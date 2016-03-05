@@ -12,5 +12,8 @@ class DeviceTableViewCell: UITableViewCell
 {
     @IBOutlet weak var deviceLabel: UILabel!
 
-    @IBOutlet weak var joinButton: UIButton!
+    @IBOutlet weak var statusLabel: UILabel!
+   
+    @IBOutlet weak var statusImage: UIImageView!
+    
 }

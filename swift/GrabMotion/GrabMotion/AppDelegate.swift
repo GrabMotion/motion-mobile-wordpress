@@ -80,7 +80,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
          let location_authorized = defaults.boolForKey("location_authorized")
-         if location_authorized
+         if !location_authorized
          {
             self.setGeoLocation()
          }
@@ -218,37 +218,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
         dispatch_async(dispatch_get_global_queue(priority, 0)) 
         {
+            if PFTwitterUtils.isLinkedWithUser(PFUser.currentUser()) || (FBSDKAccessToken.currentAccessToken() != nil)
+            {
 
-            PFGeoPoint.geoPointForCurrentLocationInBackground { (geoPoint: PFGeoPoint?, error: NSError?) -> Void in
-                
-                if (geoPoint != nil)
-                {
-                    print("\(geoPoint)")
+                PFGeoPoint.geoPointForCurrentLocationInBackground { (geoPoint: PFGeoPoint?, error: NSError?) -> Void in
                     
-                    self.geoPoint = geoPoint!
-                    
-                    self.annotation.coordinate = CLLocationCoordinate2DMake(geoPoint!.latitude, geoPoint!.longitude)
-
-                    let pfuser : PFUser = PFUser.currentUser()!
-
-                    print("geoPoint: \(self.geoPoint)")
-                                
-                    pfuser.setObject(self.geoPoint, forKey: "location")
-
-                    pfuser.saveInBackgroundWithBlock
+                    if (geoPoint != nil)
                     {
-                        (success: Bool, error: NSError?) -> Void in
+                        print("\(geoPoint)")
                         
-                        if (success)
-                        {
-                            print("location stored")
+                        self.geoPoint = geoPoint!
+                        
+                        self.annotation.coordinate = CLLocationCoordinate2DMake(geoPoint!.latitude, geoPoint!.longitude)
 
-                        } else 
+                        let pfuser : PFUser = PFUser.currentUser()!
+
+                        print("geoPoint: \(self.geoPoint)")
+                                    
+                        pfuser.setObject(self.geoPoint, forKey: "location")
+
+                        pfuser.saveInBackgroundWithBlock
                         {
-                            print("location cannot be stored")
+                            (success: Bool, error: NSError?) -> Void in
+                            
+                            if (success)
+                            {
+                                print("location stored")
+
+                            } else 
+                            {
+                                print("location cannot be stored")
+                            }
                         }
+                    
                     }
-                
                 }
             }
         }
