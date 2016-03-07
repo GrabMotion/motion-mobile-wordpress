@@ -13,12 +13,32 @@ class Device
 {
     var user = User()
     var cameras = [Camera]()
-    var ipaddress = String()
-
-    var devicestarttime = String()
+   
     var joined = Bool()
-
     var running = Bool()
+
+    var ipnumber                = String()
+    var ippublic                = String()
+    var macaddress              = String()
+    var hostname                = String()
+    var city                    = String()
+    var country                 = String()
+    var location                = String()
+    var network_provider        = String()
+    var uptime                  = String()
+    var starttime               = String()
+    var db_local                = Int()
+    var model                   = String()
+    var hardware                = String()
+    var serial                  = String()
+    var revision                = String()
+    var disktotal               = Int() 
+    var diskused                = Int() 
+    var diskavailable           = Int() 
+    var disk_percentage_used    = Int() 
+    var temperature             = Int()
+
+    var collapsed = Bool()
     
     init(){}
 
@@ -29,6 +49,8 @@ class Camera
     var cameranumber = Int()
     var cameraname = String()
     var recognizing = Bool()
+    var thumbnail = UIImage()
+
     init(){}
 }
 
@@ -51,38 +73,13 @@ protocol RemoteIpDelegate
 
 class SetupViewController:  UIViewController, 
 RemoteIpDelegate, 
-UITableViewDataSource, 
-UITableViewDelegate, 
 SocketProtocolDelegate
 {
 
-    // ACCORDION TABLE VIEW ///
-
-    /// The data source for the parent cell.
-    var topItems = [String]()
-    
-    /// The data source for the child cells.
-    var subItems = [[String]]()
-    
-    /// The position for the current items expanded.
-    var currentItemsExpanded = [Int]()
-    
-    /// The originals positions of each parent cell.
-    var actualPositions: [Int]!
-    
-    /// The number of elements in the data source
-    var total = 0
-    
-    /// The identifier for the parent cells.
-    let parentCellIdentifier = "ParentCell"
-     
-    /// The identifier for the child cells.
-    let childCellIdentifier = "ChildCell"
-
-    //////////////////////////////
-
     var devices = [Device]()
 
+    @IBOutlet weak var tableContainer: UIView!
+    
     var serverUrl = String()
     
     var delegate:RemoteIpDelegate? = nil
@@ -98,15 +95,13 @@ SocketProtocolDelegate
     
     var deviceIp = String()
     
-    var tableviewData = [String]()
-    
     var socket = Socket()
     
     var mainController:MainViewController?
     
-    @IBOutlet weak var deviceTableView: UITableView!
-
     let defaults = NSUserDefaults.standardUserDefaults()
+
+    var setupTableView : SetupCameraTableViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -119,13 +114,11 @@ SocketProtocolDelegate
         self.delegate = self
         self.socket.delegate = self
 
-        self.deviceTableView.layer.cornerRadius=5
-        
-        self.deviceTableView.delegate = self
-
     }
 
-    func getWiFiAddress() -> String? {
+    func getWiFiAddress() -> String? 
+    {
+    
         var address : String?
         
         // Get list of all interfaces on the local machine:
@@ -158,7 +151,6 @@ SocketProtocolDelegate
         
         return address
     }
-    
     
 
     override func didReceiveMemoryWarning() {
@@ -198,6 +190,7 @@ SocketProtocolDelegate
         let message = Motion.Message_.Builder()
         message.setTypes(.Engage)
         message.setServerip(info)
+        message.setPackagesize(socket.packagesize)
         
         socket.sendMessage(message)
         
@@ -225,20 +218,48 @@ SocketProtocolDelegate
     {
 
         var device = Device()
-        device.ipaddress = message.serverip
 
-        let user:[Motion.Message_.MotionUser] = message.motionuser
+        let rdevices:[Motion.Message_.MotionDevice] = message.motiondevice
 
-        if user.count > 0
+        for rdevice:Motion.Message_.MotionDevice in rdevices
+        {
+               device.ipnumber             = rdevice.ipnumber                
+               device.ippublic             = rdevice.ippublic                
+               device.macaddress           = rdevice.macaddress              
+               device.hostname             = rdevice.hostname                
+               device.city                 = rdevice.city                    
+               device.country              = rdevice.country                 
+               device.location             = rdevice.location                
+               device.network_provider     = rdevice.networkProvider
+               device.uptime               = rdevice.uptime                  
+               device.starttime            = rdevice.starttime
+               device.db_local             = Int(rdevice.dbLocal)
+               device.model                = rdevice.model                   
+               device.hardware             = rdevice.hardware                
+               device.serial               = rdevice.serial                  
+               device.revision             = rdevice.revision                
+               device.disktotal            = Int(rdevice.disktotal)               
+               device.diskused             = Int(rdevice.diskused)                
+               device.diskavailable        = Int(rdevice.diskavailable)           
+               device.disk_percentage_used = Int(rdevice.diskPercentageUsed)    
+               device.temperature          = Int(rdevice.temperature)             
+        }
+
+
+        let ruser:[Motion.Message_.MotionUser] = message.motionuser
+
+        if ruser.count > 0
         {
             device.joined = true
         } 
 
         let rcameras:[Motion.Message_.MotionCamera] = message.motioncamera
+        
+        var count = Int()
 
         if rcameras.count > 0
         {   
-            
+
             for rcamera:Motion.Message_.MotionCamera in rcameras
             {
 
@@ -252,277 +273,114 @@ SocketProtocolDelegate
                     device.running = true
                 }
 
-                device.cameras.append(camera)
+                //let rnsdata = rcamera.thumbnail
+                
+                //Get length of [UInt8]
+                //let length = rnsdata.length
+                        
+                //Convert NSData to [UInt8] array
+                //var myArray = [UInt8](count: length, repeatedValue: 0)
+                //rnsdata.getBytes(&myArray, length: length)
+                        
+                //Convert [UInt8] to NSData
+                //let resultNSData = NSData(bytes: &myArray, length: length)
+                        
+                //Convert NSData to NSString
+                //let resultNSString = NSString(data: resultNSData, encoding: NSUTF8StringEncoding)!
 
+                /*let thubmnailstr:String = self.socket.files[count]
+
+                print("___________________________________")
+                print(thubmnailstr)
+
+                let cameraImg64:String? = self.decodebase64(thubmnailstr)
+
+                print("___________________________________")
+                print(cameraImg64)
+
+                if (cameraImg64?.characters.count != 0)
+                {
+                    let decodedData = NSData(base64EncodedString: cameraImg64!, options: NSDataBase64DecodingOptions(rawValue: 0))
+                    
+                    let decodedimage = UIImage(data: decodedData!)
+
+                    camera.thumbnail = decodedimage!
+                }
+                device.cameras.append(camera)*/
+
+                let thubmnailstr:String = self.socket.files[count]
+
+                print(":::::::::::::::::::::::::::")
+                print(thubmnailstr.characters.count)
+                print(":::::::::::::::::::::::::::")
+                
+                if thubmnailstr.characters.count > 0
+                {
+                    //let decodedData:NSData = NSData(base64EncodedString: thubmnailstr, options: NSDataBase64DecodingOptions(rawValue: 0))
+                    
+                    //let decodedData = NSData(base64EncodedString: thubmnailstr, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters) 
+
+                    //let imageData = NSData(base64EncodedString: thubmnailstr, options: NSDataBase64EncodingOptions.allZeros)
+
+                    //let decodedimage = UIImage(data: decodedData!)
+
+                    //let decodedimage:UIImage = self.convertBase64ToImage(thubmnailstr)
+                    
+                    let decodedData = NSData(base64EncodedString: thubmnailstr, options: NSDataBase64DecodingOptions(rawValue: 0))
+                    if let decodedImage = UIImage(data: decodedData!) 
+                    {
+                        camera.thumbnail = decodedImage
+                    }
+
+                    //if let decoded:Uiimage = decodedimage?
+                    //{
+                    //    camera.thumbnail = decodedimage
+                    //}
+                }
+                device.cameras.append(camera)
+                
+                count++
             }
         }
 
         self.devices.append(device)
 
-        //let user = User()
-        
-       dispatch_async(dispatch_get_main_queue())
-       {
-            self.deviceTableView.reloadData()
-       }
+        self.setupTableView!.devices  = self.devices
 
+        self.setupTableView.reload()
+        
+    }
+
+    func convertBase64ToImage(base64String: String) -> UIImage {
+
+        let decodedData = NSData(base64EncodedString: base64String, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters)
+
+        var decodedimage = UIImage(data: decodedData!)
+
+        return decodedimage!
+
+    }// end convertBase64ToImage
+
+    public func decodebase64(str : String) -> String
+    {
+
+        let decodedData     = NSData(base64EncodedString: str, options:NSDataBase64DecodingOptions(rawValue: 0))
+            let decodedString   = String(data: decodedData!, encoding: NSUTF8StringEncoding)
+        return decodedString!
     }
     
     func getImage(message: Motion.Message_)
     {
         
     }
-   
-    /*func numberOfSectionsInTableView(tableView: UITableView) -> Int
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) 
     {
-        return 2
-    }*/
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
-    {
-        if self.devices.count == 0
-        {
-            return 0
-        } else
-        {
-            let count = self.devices.count
-            print(count)
-            return count
+        if segue.identifier == "SegueSetupDeviceList"
+        {   
+            self.setupTableView = segue.destinationViewController as! SetupCameraTableViewController
         }
     }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
-    {
-        
-        //let cell:DeviceTableViewCell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! DeviceTableViewCell
-        
-        let genericCell = self.deviceTableView.cellForRowAtIndexPath(indexPath)
-        
-        if indexPath.section == 0
-        {
-        
-            let cell = tableView.dequeueReusableCellWithIdentifier("cell") as? DeviceTableViewCell
-            if cell == nil
-            {
-                print("null")
-            }
-
-            if self.devices[indexPath.row].joined
-            {
-                cell!.statusLabel?.text = "Joined"
-                
-                if self.devices[indexPath.row].running
-                {
-                   cell!.statusImage.image = UIImage(named: "camerarunning")    
-                } else 
-                {
-                    cell!.statusImage.image = UIImage(named: "cameraon")    
-                }
-
-            } else 
-            {
-                cell!.statusLabel?.text = "Unjoined"
-
-                cell!.statusImage.image = UIImage(named: "camerano")    
-
-            }
-            
-            cell!.textLabel?.text = self.devices[indexPath.row].ipaddress
-            
-            
-            return cell!
-        
-        }
-    
-        return genericCell!
-    }
-
-   /*func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        let label : UILabel = UILabel()
-        
-        if section == 0
-        {
-            label.text = "Devices found"
-        
-        } else if section == 1
-        {
-            label.text = "Advanced"
-        }
-        return label
-    }*/
-    
-     /**
-     Set the initial data for test the table view.
-     
-     - parameter parents: The number of parents cells
-     - parameter childs:  Then maximun number of child cells per parent.
-     */
-    private func setInitialDataSource(numberOfRowParents parents: Int, numberOfRowChildPerParent childs: Int) {
-        
-        // Set the total of cells initially.
-        self.total = parents
-        
-        // Init the array with all the values in -1
-        self.actualPositions = [Int](count: parents, repeatedValue: -1)
-        
-        // Create an array with the element "Item index".
-        self.topItems = (0..<parents).enumerate().map { "Item \($0.0 + 1)"}
-        
-        // Create the array of childs using a random number between 0..childs+1 for each parent.
-        self.subItems = (0..<parents).map({ _ -> [String] in
-            
-            // generate the random number between 0...childs
-            let random = Int(arc4random_uniform(UInt32(childs + 1))) + 1
-            
-            // create the array for each cell
-            return (0..<random).enumerate().map {"Subitem \($0.index)"}
-        })
-    }
-    
-    /**
-     Expand the cell at the index specified.
-     
-     - parameter index: The index of the cell to expand.
-     */
-    private func expandItemAtIndex(index : Int) {
-        
-        // find the parent cell of the cell with index specified.
-        let val = self.findParent(index)
-        
-        // the data of the subitems for the specific parent cell.
-        let currentSubItems = self.subItems[val]
-        
-        // position to start to insert rows.
-        var insertPos = index + 1
-        
-        // create an array of NSIndexPath with the selected positions
-        let indexPaths = (0..<currentSubItems.count).map { _ in NSIndexPath(forRow: insertPos++, inSection: 0) }
-        
-        // insert the new rows
-        self.tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.Fade)
-        
-        // update the total of rows
-        self.total += self.subItems[val].count
-    }
-    
-    /**
-     Collapse the cell at the index specified.
-     
-     - parameter index: The index of the cell to collapse
-     */
-    private func collapseSubItemsAtIndex(index : Int) {
-        
-        var indexPaths = [NSIndexPath]()
-        
-        // find the parent cell of the cell with index specified.
-        let parent = self.findParent(index)
-        
-        // create an array of NSIndexPath with the selected positions
-        for i in index + 1...index + self.subItems[parent].count {
-            indexPaths.append(NSIndexPath(forRow: i, inSection: 0))
-        }
-        
-        // remove the expanded cells
-        self.tableView.deleteRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.Fade)
-        
-        // update the total of rows
-        self.total -= self.subItems[parent].count
-    }
-    
-    /**
-     Send the execution to collapse or expand the cell with parent and index specified.
-     
-     - parameter parent: The parent of the cell.
-     - parameter index:  The index of the cell.
-     */
-    private func setExpandeOrCollapsedStateforCell(parent: Int, index: Int) {
-        
-        // if the cell is expanded
-        if let value = self.currentItemsExpanded.indexOf(parent) {
-            
-            self.collapseSubItemsAtIndex(index)
-            self.actualPositions[parent] = -1
-            
-            // remove the parent from the expanded list
-            self.currentItemsExpanded.removeAtIndex(value)
-            
-            for i in parent + 1..<self.topItems.count {
-                if self.actualPositions[i] != -1 {
-                    self.actualPositions[i] -= self.subItems[parent].count
-                }
-            }
-        }
-        else {
-            
-            self.expandItemAtIndex(index)
-            self.actualPositions[parent] = index
-            
-            for i in parent + 1..<self.topItems.count {
-                if self.actualPositions[i] != -1 {
-                    self.actualPositions[i] += self.subItems[parent].count
-                }
-            }
-            
-            // add the parent for the expanded list
-            self.currentItemsExpanded.append(parent)
-        }
-    }
-    
-    /**
-     Check if the cell at indexPath is a child or not.
-     
-     - parameter indexPath: The NSIndexPath for the cell
-     
-     - returns: True if it's a child cell, otherwise false.
-     */
-    private func isChildCell(indexPath: NSIndexPath) -> Bool {
-        
-        // find the parent cell of the cell with index specified.
-        let parent = self.findParent(indexPath.row)
-        
-        // check if it's expanded or not
-        let idx = self.currentItemsExpanded.indexOf(parent)
-        
-        return idx != nil && indexPath.row != self.actualPositions[parent]
-    }
-    
-    /**
-     Find the index of the parent cell for the index of a cell.
-     
-     - parameter index: The index of the cell to find the parent
-     
-     - returns: The index of parent cell.
-     */
-    private func findParent(index : Int) -> Int {
-        
-        var parent = 0
-        var i = 0
-        
-        while (true) {
-            
-            if (i >= index) {
-                return parent
-            }
-            
-            // if it's expanded the cell
-            if let _ = self.currentItemsExpanded.indexOf(parent) {
-                
-                // sum its childs and continue
-                i += self.subItems[parent].count + 1
-                
-                if (i > index) {
-                    return parent
-                }
-            }
-            else {
-                i += 1
-            }
-            parent += 1
-        }
-    }
-
-    
     
     func RunUPDServer()
     {
@@ -559,60 +417,3 @@ SocketProtocolDelegate
 
 }
 
-extension AccordionMenuTableViewController 
-{
-    
-    // MARK: UITableViewDataSource
-    
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int 
-    {
-        return 1
-    }
-    
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int 
-    {
-        return self.total
-    }
-    
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell 
-    {
-        
-        var cell : UITableViewCell!
-        let parent = self.findParent(indexPath.row)
-
-        if self.isChildCell(indexPath) {
-            cell = tableView.dequeueReusableCellWithIdentifier(childCellIdentifier, forIndexPath: indexPath)
-            cell.textLabel!.text = self.subItems[parent][indexPath.row - self.actualPositions[parent] - 1]
-            cell.backgroundColor = UIColor.greenColor()
-        }
-        else {
-            cell = tableView.dequeueReusableCellWithIdentifier(parentCellIdentifier, forIndexPath: indexPath)
-            cell.textLabel!.text = self.topItems[parent]
-        }
-        
-        return cell
-    }
-    
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) 
-    {
-        
-        guard !self.isChildCell(indexPath) else {
-            NSLog("A child was tapped!!!");
-            return
-        }
-        
-        self.tableView.beginUpdates()
-        
-        let parent = self.findParent(indexPath.row)
-        self.setExpandeOrCollapsedStateforCell(parent, index: indexPath.row)
-        
-        self.tableView.endUpdates()
-    }
-    
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat 
-    {
-        //return self.isChildCell(indexPath) ? 44.0 : 64.0
-        return self.isChildCell(indexPath) ? 60.0 : 75.0
-    }
-
-}

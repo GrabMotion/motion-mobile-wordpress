@@ -14,6 +14,9 @@ internal func == (lhs: Motion.Message_, rhs: Motion.Message_) -> Bool {
   var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
   fieldCheck = fieldCheck && (lhs.hasActivecam == rhs.hasActivecam) && (!lhs.hasActivecam || lhs.activecam == rhs.activecam)
   fieldCheck = fieldCheck && (lhs.hasTypes == rhs.hasTypes) && (!lhs.hasTypes || lhs.types == rhs.types)
+  fieldCheck = fieldCheck && (lhs.motionuser == rhs.motionuser)
+  fieldCheck = fieldCheck && (lhs.motioncamera == rhs.motioncamera)
+  fieldCheck = fieldCheck && (lhs.motiondevice == rhs.motiondevice)
   fieldCheck = fieldCheck && (lhs.hasTime == rhs.hasTime) && (!lhs.hasTime || lhs.time == rhs.time)
   fieldCheck = fieldCheck && (lhs.hasData == rhs.hasData) && (!lhs.hasData || lhs.data == rhs.data)
   fieldCheck = fieldCheck && (lhs.hasDataAmount == rhs.hasDataAmount) && (!lhs.hasDataAmount || lhs.dataAmount == rhs.dataAmount)
@@ -21,7 +24,6 @@ internal func == (lhs: Motion.Message_, rhs: Motion.Message_) -> Bool {
   fieldCheck = fieldCheck && (lhs.hasServerip == rhs.hasServerip) && (!lhs.hasServerip || lhs.serverip == rhs.serverip)
   fieldCheck = fieldCheck && (lhs.hasClientip == rhs.hasClientip) && (!lhs.hasClientip || lhs.clientip == rhs.clientip)
   fieldCheck = fieldCheck && (lhs.hasDevicestarttime == rhs.hasDevicestarttime) && (!lhs.hasDevicestarttime || lhs.devicestarttime == rhs.devicestarttime)
-  fieldCheck = fieldCheck && (lhs.motioncamera == rhs.motioncamera)
   fieldCheck = fieldCheck && (lhs.hasCurrmonth == rhs.hasCurrmonth) && (!lhs.hasCurrmonth || lhs.currmonth == rhs.currmonth)
   fieldCheck = fieldCheck && (lhs.hasCurrday == rhs.hasCurrday) && (!lhs.hasCurrday || lhs.currday == rhs.currday)
   fieldCheck = fieldCheck && (lhs.hasCurrdaytitle == rhs.hasCurrdaytitle) && (!lhs.hasCurrdaytitle || lhs.currdaytitle == rhs.currdaytitle)
@@ -31,10 +33,35 @@ internal func == (lhs: Motion.Message_, rhs: Motion.Message_) -> Bool {
   fieldCheck = fieldCheck && (lhs.hasVideofilepath == rhs.hasVideofilepath) && (!lhs.hasVideofilepath || lhs.videofilepath == rhs.videofilepath)
   fieldCheck = fieldCheck && (lhs.hasRecname == rhs.hasRecname) && (!lhs.hasRecname || lhs.recname == rhs.recname)
   fieldCheck = fieldCheck && (lhs.hasActivecamnum == rhs.hasActivecamnum) && (!lhs.hasActivecamnum || lhs.activecamnum == rhs.activecamnum)
-  fieldCheck = fieldCheck && (lhs.hasClientnumber == rhs.hasClientnumber) && (!lhs.hasClientnumber || lhs.clientnumber == rhs.clientnumber)
-  fieldCheck = fieldCheck && (lhs.hasServerurl == rhs.hasServerurl) && (!lhs.hasServerurl || lhs.serverurl == rhs.serverurl)
-  fieldCheck = fieldCheck && (lhs.hasClientname == rhs.hasClientname) && (!lhs.hasClientname || lhs.clientname == rhs.clientname)
-  fieldCheck = fieldCheck && (lhs.motionuser == rhs.motionuser)
+  fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
+  return fieldCheck
+}
+
+internal func == (lhs: Motion.Message_.MotionDevice, rhs: Motion.Message_.MotionDevice) -> Bool {
+  if (lhs === rhs) {
+    return true
+  }
+  var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
+  fieldCheck = fieldCheck && (lhs.hasIpnumber == rhs.hasIpnumber) && (!lhs.hasIpnumber || lhs.ipnumber == rhs.ipnumber)
+  fieldCheck = fieldCheck && (lhs.hasIppublic == rhs.hasIppublic) && (!lhs.hasIppublic || lhs.ippublic == rhs.ippublic)
+  fieldCheck = fieldCheck && (lhs.hasMacaddress == rhs.hasMacaddress) && (!lhs.hasMacaddress || lhs.macaddress == rhs.macaddress)
+  fieldCheck = fieldCheck && (lhs.hasHostname == rhs.hasHostname) && (!lhs.hasHostname || lhs.hostname == rhs.hostname)
+  fieldCheck = fieldCheck && (lhs.hasCity == rhs.hasCity) && (!lhs.hasCity || lhs.city == rhs.city)
+  fieldCheck = fieldCheck && (lhs.hasCountry == rhs.hasCountry) && (!lhs.hasCountry || lhs.country == rhs.country)
+  fieldCheck = fieldCheck && (lhs.hasLocation == rhs.hasLocation) && (!lhs.hasLocation || lhs.location == rhs.location)
+  fieldCheck = fieldCheck && (lhs.hasNetworkProvider == rhs.hasNetworkProvider) && (!lhs.hasNetworkProvider || lhs.networkProvider == rhs.networkProvider)
+  fieldCheck = fieldCheck && (lhs.hasUptime == rhs.hasUptime) && (!lhs.hasUptime || lhs.uptime == rhs.uptime)
+  fieldCheck = fieldCheck && (lhs.hasStarttime == rhs.hasStarttime) && (!lhs.hasStarttime || lhs.starttime == rhs.starttime)
+  fieldCheck = fieldCheck && (lhs.hasDbLocal == rhs.hasDbLocal) && (!lhs.hasDbLocal || lhs.dbLocal == rhs.dbLocal)
+  fieldCheck = fieldCheck && (lhs.hasModel == rhs.hasModel) && (!lhs.hasModel || lhs.model == rhs.model)
+  fieldCheck = fieldCheck && (lhs.hasHardware == rhs.hasHardware) && (!lhs.hasHardware || lhs.hardware == rhs.hardware)
+  fieldCheck = fieldCheck && (lhs.hasSerial == rhs.hasSerial) && (!lhs.hasSerial || lhs.serial == rhs.serial)
+  fieldCheck = fieldCheck && (lhs.hasRevision == rhs.hasRevision) && (!lhs.hasRevision || lhs.revision == rhs.revision)
+  fieldCheck = fieldCheck && (lhs.hasDisktotal == rhs.hasDisktotal) && (!lhs.hasDisktotal || lhs.disktotal == rhs.disktotal)
+  fieldCheck = fieldCheck && (lhs.hasDiskused == rhs.hasDiskused) && (!lhs.hasDiskused || lhs.diskused == rhs.diskused)
+  fieldCheck = fieldCheck && (lhs.hasDiskavailable == rhs.hasDiskavailable) && (!lhs.hasDiskavailable || lhs.diskavailable == rhs.diskavailable)
+  fieldCheck = fieldCheck && (lhs.hasDiskPercentageUsed == rhs.hasDiskPercentageUsed) && (!lhs.hasDiskPercentageUsed || lhs.diskPercentageUsed == rhs.diskPercentageUsed)
+  fieldCheck = fieldCheck && (lhs.hasTemperature == rhs.hasTemperature) && (!lhs.hasTemperature || lhs.temperature == rhs.temperature)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
   return fieldCheck
 }
@@ -44,9 +71,21 @@ internal func == (lhs: Motion.Message_.MotionUser, rhs: Motion.Message_.MotionUs
     return true
   }
   var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
-  fieldCheck = fieldCheck && (lhs.hasObjectId == rhs.hasObjectId) && (!lhs.hasObjectId || lhs.objectId == rhs.objectId)
+  fieldCheck = fieldCheck && (lhs.hasClientnumber == rhs.hasClientnumber) && (!lhs.hasClientnumber || lhs.clientnumber == rhs.clientnumber)
+  fieldCheck = fieldCheck && (lhs.hasWpUser == rhs.hasWpUser) && (!lhs.hasWpUser || lhs.wpUser == rhs.wpUser)
+  fieldCheck = fieldCheck && (lhs.hasWpPassword == rhs.hasWpPassword) && (!lhs.hasWpPassword || lhs.wpPassword == rhs.wpPassword)
+  fieldCheck = fieldCheck && (lhs.hasWpServerUrl == rhs.hasWpServerUrl) && (!lhs.hasWpServerUrl || lhs.wpServerUrl == rhs.wpServerUrl)
+  fieldCheck = fieldCheck && (lhs.hasWpUserid == rhs.hasWpUserid) && (!lhs.hasWpUserid || lhs.wpUserid == rhs.wpUserid)
+  fieldCheck = fieldCheck && (lhs.hasWpClientId == rhs.hasWpClientId) && (!lhs.hasWpClientId || lhs.wpClientId == rhs.wpClientId)
+  fieldCheck = fieldCheck && (lhs.hasWpClientMediaid == rhs.hasWpClientMediaid) && (!lhs.hasWpClientMediaid || lhs.wpClientMediaid == rhs.wpClientMediaid)
+  fieldCheck = fieldCheck && (lhs.hasPfobjectid == rhs.hasPfobjectid) && (!lhs.hasPfobjectid || lhs.pfobjectid == rhs.pfobjectid)
   fieldCheck = fieldCheck && (lhs.hasUsername == rhs.hasUsername) && (!lhs.hasUsername || lhs.username == rhs.username)
-  fieldCheck = fieldCheck && (lhs.hasPassword == rhs.hasPassword) && (!lhs.hasPassword || lhs.password == rhs.password)
+  fieldCheck = fieldCheck && (lhs.hasEmail == rhs.hasEmail) && (!lhs.hasEmail || lhs.email == rhs.email)
+  fieldCheck = fieldCheck && (lhs.hasFirstName == rhs.hasFirstName) && (!lhs.hasFirstName || lhs.firstName == rhs.firstName)
+  fieldCheck = fieldCheck && (lhs.hasLastName == rhs.hasLastName) && (!lhs.hasLastName || lhs.lastName == rhs.lastName)
+  fieldCheck = fieldCheck && (lhs.hasLocation == rhs.hasLocation) && (!lhs.hasLocation || lhs.location == rhs.location)
+  fieldCheck = fieldCheck && (lhs.hasUiidinstallation == rhs.hasUiidinstallation) && (!lhs.hasUiidinstallation || lhs.uiidinstallation == rhs.uiidinstallation)
+  fieldCheck = fieldCheck && (lhs.hasServiceType == rhs.hasServiceType) && (!lhs.hasServiceType || lhs.serviceType == rhs.serviceType)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
   return fieldCheck
 }
@@ -75,6 +114,7 @@ internal func == (lhs: Motion.Message_.MotionCamera, rhs: Motion.Message_.Motion
   fieldCheck = fieldCheck && (lhs.hasMatheight == rhs.hasMatheight) && (!lhs.hasMatheight || lhs.matheight == rhs.matheight)
   fieldCheck = fieldCheck && (lhs.hasDbIdmat == rhs.hasDbIdmat) && (!lhs.hasDbIdmat || lhs.dbIdmat == rhs.dbIdmat)
   fieldCheck = fieldCheck && (lhs.hasTempdata == rhs.hasTempdata) && (!lhs.hasTempdata || lhs.tempdata == rhs.tempdata)
+  fieldCheck = fieldCheck && (lhs.hasThumbnail == rhs.hasThumbnail) && (!lhs.hasThumbnail || lhs.thumbnail == rhs.thumbnail)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
   return fieldCheck
 }
@@ -260,15 +300,66 @@ internal extension Motion {
 
     //Nested type declaration start
 
-      final internal class MotionUser : GeneratedMessage, GeneratedMessageProtocol {
-        private(set) var hasObjectId:Bool = false
-        private(set) var objectId:String = ""
+      final internal class MotionDevice : GeneratedMessage, GeneratedMessageProtocol {
+        private(set) var hasIpnumber:Bool = false
+        private(set) var ipnumber:String = ""
 
-        private(set) var hasUsername:Bool = false
-        private(set) var username:String = ""
+        private(set) var hasIppublic:Bool = false
+        private(set) var ippublic:String = ""
 
-        private(set) var hasPassword:Bool = false
-        private(set) var password:String = ""
+        private(set) var hasMacaddress:Bool = false
+        private(set) var macaddress:String = ""
+
+        private(set) var hasHostname:Bool = false
+        private(set) var hostname:String = ""
+
+        private(set) var hasCity:Bool = false
+        private(set) var city:String = ""
+
+        private(set) var hasCountry:Bool = false
+        private(set) var country:String = ""
+
+        private(set) var hasLocation:Bool = false
+        private(set) var location:String = ""
+
+        private(set) var hasNetworkProvider:Bool = false
+        private(set) var networkProvider:String = ""
+
+        private(set) var hasUptime:Bool = false
+        private(set) var uptime:String = ""
+
+        private(set) var hasStarttime:Bool = false
+        private(set) var starttime:String = ""
+
+        private(set) var hasDbLocal:Bool = false
+        private(set) var dbLocal:Int32 = Int32(0)
+
+        private(set) var hasModel:Bool = false
+        private(set) var model:String = ""
+
+        private(set) var hasHardware:Bool = false
+        private(set) var hardware:String = ""
+
+        private(set) var hasSerial:Bool = false
+        private(set) var serial:String = ""
+
+        private(set) var hasRevision:Bool = false
+        private(set) var revision:String = ""
+
+        private(set) var hasDisktotal:Bool = false
+        private(set) var disktotal:Int32 = Int32(0)
+
+        private(set) var hasDiskused:Bool = false
+        private(set) var diskused:Int32 = Int32(0)
+
+        private(set) var hasDiskavailable:Bool = false
+        private(set) var diskavailable:Int32 = Int32(0)
+
+        private(set) var hasDiskPercentageUsed:Bool = false
+        private(set) var diskPercentageUsed:Int32 = Int32(0)
+
+        private(set) var hasTemperature:Bool = false
+        private(set) var temperature:Int32 = Int32(0)
 
         required internal init() {
              super.init()
@@ -277,14 +368,65 @@ internal extension Motion {
          return true
         }
         override internal func writeToCodedOutputStream(output:CodedOutputStream) throws {
-          if hasObjectId {
-            try output.writeString(1, value:objectId)
+          if hasIpnumber {
+            try output.writeString(1, value:ipnumber)
           }
-          if hasUsername {
-            try output.writeString(2, value:username)
+          if hasIppublic {
+            try output.writeString(2, value:ippublic)
           }
-          if hasPassword {
-            try output.writeString(5, value:password)
+          if hasMacaddress {
+            try output.writeString(3, value:macaddress)
+          }
+          if hasHostname {
+            try output.writeString(4, value:hostname)
+          }
+          if hasCity {
+            try output.writeString(5, value:city)
+          }
+          if hasCountry {
+            try output.writeString(6, value:country)
+          }
+          if hasLocation {
+            try output.writeString(7, value:location)
+          }
+          if hasNetworkProvider {
+            try output.writeString(8, value:networkProvider)
+          }
+          if hasUptime {
+            try output.writeString(9, value:uptime)
+          }
+          if hasStarttime {
+            try output.writeString(10, value:starttime)
+          }
+          if hasDbLocal {
+            try output.writeInt32(11, value:dbLocal)
+          }
+          if hasModel {
+            try output.writeString(12, value:model)
+          }
+          if hasHardware {
+            try output.writeString(13, value:hardware)
+          }
+          if hasSerial {
+            try output.writeString(14, value:serial)
+          }
+          if hasRevision {
+            try output.writeString(15, value:revision)
+          }
+          if hasDisktotal {
+            try output.writeInt32(16, value:disktotal)
+          }
+          if hasDiskused {
+            try output.writeInt32(17, value:diskused)
+          }
+          if hasDiskavailable {
+            try output.writeInt32(18, value:diskavailable)
+          }
+          if hasDiskPercentageUsed {
+            try output.writeInt32(19, value:diskPercentageUsed)
+          }
+          if hasTemperature {
+            try output.writeInt32(20, value:temperature)
           }
           try unknownFields.writeToCodedOutputStream(output)
         }
@@ -295,14 +437,1058 @@ internal extension Motion {
           }
 
           serialize_size = 0
-          if hasObjectId {
-            serialize_size += objectId.computeStringSize(1)
+          if hasIpnumber {
+            serialize_size += ipnumber.computeStringSize(1)
+          }
+          if hasIppublic {
+            serialize_size += ippublic.computeStringSize(2)
+          }
+          if hasMacaddress {
+            serialize_size += macaddress.computeStringSize(3)
+          }
+          if hasHostname {
+            serialize_size += hostname.computeStringSize(4)
+          }
+          if hasCity {
+            serialize_size += city.computeStringSize(5)
+          }
+          if hasCountry {
+            serialize_size += country.computeStringSize(6)
+          }
+          if hasLocation {
+            serialize_size += location.computeStringSize(7)
+          }
+          if hasNetworkProvider {
+            serialize_size += networkProvider.computeStringSize(8)
+          }
+          if hasUptime {
+            serialize_size += uptime.computeStringSize(9)
+          }
+          if hasStarttime {
+            serialize_size += starttime.computeStringSize(10)
+          }
+          if hasDbLocal {
+            serialize_size += dbLocal.computeInt32Size(11)
+          }
+          if hasModel {
+            serialize_size += model.computeStringSize(12)
+          }
+          if hasHardware {
+            serialize_size += hardware.computeStringSize(13)
+          }
+          if hasSerial {
+            serialize_size += serial.computeStringSize(14)
+          }
+          if hasRevision {
+            serialize_size += revision.computeStringSize(15)
+          }
+          if hasDisktotal {
+            serialize_size += disktotal.computeInt32Size(16)
+          }
+          if hasDiskused {
+            serialize_size += diskused.computeInt32Size(17)
+          }
+          if hasDiskavailable {
+            serialize_size += diskavailable.computeInt32Size(18)
+          }
+          if hasDiskPercentageUsed {
+            serialize_size += diskPercentageUsed.computeInt32Size(19)
+          }
+          if hasTemperature {
+            serialize_size += temperature.computeInt32Size(20)
+          }
+          serialize_size += unknownFields.serializedSize()
+          memoizedSerializedSize = serialize_size
+          return serialize_size
+        }
+        internal class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Motion.Message_.MotionDevice> {
+          var mergedArray = Array<Motion.Message_.MotionDevice>()
+          while let value = try parseFromDelimitedFromInputStream(input) {
+            mergedArray += [value]
+          }
+          return mergedArray
+        }
+        internal class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Motion.Message_.MotionDevice? {
+          return try Motion.Message_.MotionDevice.Builder().mergeDelimitedFromInputStream(input)?.build()
+        }
+        internal class func parseFromData(data:NSData) throws -> Motion.Message_.MotionDevice {
+          return try Motion.Message_.MotionDevice.Builder().mergeFromData(data, extensionRegistry:Motion.MotionRoot.sharedInstance.extensionRegistry).build()
+        }
+        internal class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionDevice {
+          return try Motion.Message_.MotionDevice.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
+        }
+        internal class func parseFromInputStream(input:NSInputStream) throws -> Motion.Message_.MotionDevice {
+          return try Motion.Message_.MotionDevice.Builder().mergeFromInputStream(input).build()
+        }
+        internal class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionDevice {
+          return try Motion.Message_.MotionDevice.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
+        }
+        internal class func parseFromCodedInputStream(input:CodedInputStream) throws -> Motion.Message_.MotionDevice {
+          return try Motion.Message_.MotionDevice.Builder().mergeFromCodedInputStream(input).build()
+        }
+        internal class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionDevice {
+          return try Motion.Message_.MotionDevice.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
+        }
+        internal class func getBuilder() -> Motion.Message_.MotionDevice.Builder {
+          return Motion.Message_.MotionDevice.classBuilder() as! Motion.Message_.MotionDevice.Builder
+        }
+        internal func getBuilder() -> Motion.Message_.MotionDevice.Builder {
+          return classBuilder() as! Motion.Message_.MotionDevice.Builder
+        }
+        internal override class func classBuilder() -> MessageBuilder {
+          return Motion.Message_.MotionDevice.Builder()
+        }
+        internal override func classBuilder() -> MessageBuilder {
+          return Motion.Message_.MotionDevice.Builder()
+        }
+        internal func toBuilder() throws -> Motion.Message_.MotionDevice.Builder {
+          return try Motion.Message_.MotionDevice.builderWithPrototype(self)
+        }
+        internal class func builderWithPrototype(prototype:Motion.Message_.MotionDevice) throws -> Motion.Message_.MotionDevice.Builder {
+          return try Motion.Message_.MotionDevice.Builder().mergeFrom(prototype)
+        }
+        override internal func writeDescriptionTo(inout output:String, indent:String) throws {
+          if hasIpnumber {
+            output += "\(indent) ipnumber: \(ipnumber) \n"
+          }
+          if hasIppublic {
+            output += "\(indent) ippublic: \(ippublic) \n"
+          }
+          if hasMacaddress {
+            output += "\(indent) macaddress: \(macaddress) \n"
+          }
+          if hasHostname {
+            output += "\(indent) hostname: \(hostname) \n"
+          }
+          if hasCity {
+            output += "\(indent) city: \(city) \n"
+          }
+          if hasCountry {
+            output += "\(indent) country: \(country) \n"
+          }
+          if hasLocation {
+            output += "\(indent) location: \(location) \n"
+          }
+          if hasNetworkProvider {
+            output += "\(indent) networkProvider: \(networkProvider) \n"
+          }
+          if hasUptime {
+            output += "\(indent) uptime: \(uptime) \n"
+          }
+          if hasStarttime {
+            output += "\(indent) starttime: \(starttime) \n"
+          }
+          if hasDbLocal {
+            output += "\(indent) dbLocal: \(dbLocal) \n"
+          }
+          if hasModel {
+            output += "\(indent) model: \(model) \n"
+          }
+          if hasHardware {
+            output += "\(indent) hardware: \(hardware) \n"
+          }
+          if hasSerial {
+            output += "\(indent) serial: \(serial) \n"
+          }
+          if hasRevision {
+            output += "\(indent) revision: \(revision) \n"
+          }
+          if hasDisktotal {
+            output += "\(indent) disktotal: \(disktotal) \n"
+          }
+          if hasDiskused {
+            output += "\(indent) diskused: \(diskused) \n"
+          }
+          if hasDiskavailable {
+            output += "\(indent) diskavailable: \(diskavailable) \n"
+          }
+          if hasDiskPercentageUsed {
+            output += "\(indent) diskPercentageUsed: \(diskPercentageUsed) \n"
+          }
+          if hasTemperature {
+            output += "\(indent) temperature: \(temperature) \n"
+          }
+          unknownFields.writeDescriptionTo(&output, indent:indent)
+        }
+        override internal var hashValue:Int {
+            get {
+                var hashCode:Int = 7
+                if hasIpnumber {
+                   hashCode = (hashCode &* 31) &+ ipnumber.hashValue
+                }
+                if hasIppublic {
+                   hashCode = (hashCode &* 31) &+ ippublic.hashValue
+                }
+                if hasMacaddress {
+                   hashCode = (hashCode &* 31) &+ macaddress.hashValue
+                }
+                if hasHostname {
+                   hashCode = (hashCode &* 31) &+ hostname.hashValue
+                }
+                if hasCity {
+                   hashCode = (hashCode &* 31) &+ city.hashValue
+                }
+                if hasCountry {
+                   hashCode = (hashCode &* 31) &+ country.hashValue
+                }
+                if hasLocation {
+                   hashCode = (hashCode &* 31) &+ location.hashValue
+                }
+                if hasNetworkProvider {
+                   hashCode = (hashCode &* 31) &+ networkProvider.hashValue
+                }
+                if hasUptime {
+                   hashCode = (hashCode &* 31) &+ uptime.hashValue
+                }
+                if hasStarttime {
+                   hashCode = (hashCode &* 31) &+ starttime.hashValue
+                }
+                if hasDbLocal {
+                   hashCode = (hashCode &* 31) &+ dbLocal.hashValue
+                }
+                if hasModel {
+                   hashCode = (hashCode &* 31) &+ model.hashValue
+                }
+                if hasHardware {
+                   hashCode = (hashCode &* 31) &+ hardware.hashValue
+                }
+                if hasSerial {
+                   hashCode = (hashCode &* 31) &+ serial.hashValue
+                }
+                if hasRevision {
+                   hashCode = (hashCode &* 31) &+ revision.hashValue
+                }
+                if hasDisktotal {
+                   hashCode = (hashCode &* 31) &+ disktotal.hashValue
+                }
+                if hasDiskused {
+                   hashCode = (hashCode &* 31) &+ diskused.hashValue
+                }
+                if hasDiskavailable {
+                   hashCode = (hashCode &* 31) &+ diskavailable.hashValue
+                }
+                if hasDiskPercentageUsed {
+                   hashCode = (hashCode &* 31) &+ diskPercentageUsed.hashValue
+                }
+                if hasTemperature {
+                   hashCode = (hashCode &* 31) &+ temperature.hashValue
+                }
+                hashCode = (hashCode &* 31) &+  unknownFields.hashValue
+                return hashCode
+            }
+        }
+
+
+        //Meta information declaration start
+
+        override internal class func className() -> String {
+            return "Motion.Message_.MotionDevice"
+        }
+        override internal func className() -> String {
+            return "Motion.Message_.MotionDevice"
+        }
+        override internal func classMetaType() -> GeneratedMessage.Type {
+            return Motion.Message_.MotionDevice.self
+        }
+        //Meta information declaration end
+
+        final internal class Builder : GeneratedMessageBuilder {
+          private var builderResult:Motion.Message_.MotionDevice = Motion.Message_.MotionDevice()
+          internal func getMessage() -> Motion.Message_.MotionDevice {
+              return builderResult
+          }
+
+          required override internal init () {
+             super.init()
+          }
+          var hasIpnumber:Bool {
+               get {
+                    return builderResult.hasIpnumber
+               }
+          }
+          var ipnumber:String {
+               get {
+                    return builderResult.ipnumber
+               }
+               set (value) {
+                   builderResult.hasIpnumber = true
+                   builderResult.ipnumber = value
+               }
+          }
+          func setIpnumber(value:String) -> Motion.Message_.MotionDevice.Builder {
+            self.ipnumber = value
+            return self
+          }
+          internal func clearIpnumber() -> Motion.Message_.MotionDevice.Builder{
+               builderResult.hasIpnumber = false
+               builderResult.ipnumber = ""
+               return self
+          }
+          var hasIppublic:Bool {
+               get {
+                    return builderResult.hasIppublic
+               }
+          }
+          var ippublic:String {
+               get {
+                    return builderResult.ippublic
+               }
+               set (value) {
+                   builderResult.hasIppublic = true
+                   builderResult.ippublic = value
+               }
+          }
+          func setIppublic(value:String) -> Motion.Message_.MotionDevice.Builder {
+            self.ippublic = value
+            return self
+          }
+          internal func clearIppublic() -> Motion.Message_.MotionDevice.Builder{
+               builderResult.hasIppublic = false
+               builderResult.ippublic = ""
+               return self
+          }
+          var hasMacaddress:Bool {
+               get {
+                    return builderResult.hasMacaddress
+               }
+          }
+          var macaddress:String {
+               get {
+                    return builderResult.macaddress
+               }
+               set (value) {
+                   builderResult.hasMacaddress = true
+                   builderResult.macaddress = value
+               }
+          }
+          func setMacaddress(value:String) -> Motion.Message_.MotionDevice.Builder {
+            self.macaddress = value
+            return self
+          }
+          internal func clearMacaddress() -> Motion.Message_.MotionDevice.Builder{
+               builderResult.hasMacaddress = false
+               builderResult.macaddress = ""
+               return self
+          }
+          var hasHostname:Bool {
+               get {
+                    return builderResult.hasHostname
+               }
+          }
+          var hostname:String {
+               get {
+                    return builderResult.hostname
+               }
+               set (value) {
+                   builderResult.hasHostname = true
+                   builderResult.hostname = value
+               }
+          }
+          func setHostname(value:String) -> Motion.Message_.MotionDevice.Builder {
+            self.hostname = value
+            return self
+          }
+          internal func clearHostname() -> Motion.Message_.MotionDevice.Builder{
+               builderResult.hasHostname = false
+               builderResult.hostname = ""
+               return self
+          }
+          var hasCity:Bool {
+               get {
+                    return builderResult.hasCity
+               }
+          }
+          var city:String {
+               get {
+                    return builderResult.city
+               }
+               set (value) {
+                   builderResult.hasCity = true
+                   builderResult.city = value
+               }
+          }
+          func setCity(value:String) -> Motion.Message_.MotionDevice.Builder {
+            self.city = value
+            return self
+          }
+          internal func clearCity() -> Motion.Message_.MotionDevice.Builder{
+               builderResult.hasCity = false
+               builderResult.city = ""
+               return self
+          }
+          var hasCountry:Bool {
+               get {
+                    return builderResult.hasCountry
+               }
+          }
+          var country:String {
+               get {
+                    return builderResult.country
+               }
+               set (value) {
+                   builderResult.hasCountry = true
+                   builderResult.country = value
+               }
+          }
+          func setCountry(value:String) -> Motion.Message_.MotionDevice.Builder {
+            self.country = value
+            return self
+          }
+          internal func clearCountry() -> Motion.Message_.MotionDevice.Builder{
+               builderResult.hasCountry = false
+               builderResult.country = ""
+               return self
+          }
+          var hasLocation:Bool {
+               get {
+                    return builderResult.hasLocation
+               }
+          }
+          var location:String {
+               get {
+                    return builderResult.location
+               }
+               set (value) {
+                   builderResult.hasLocation = true
+                   builderResult.location = value
+               }
+          }
+          func setLocation(value:String) -> Motion.Message_.MotionDevice.Builder {
+            self.location = value
+            return self
+          }
+          internal func clearLocation() -> Motion.Message_.MotionDevice.Builder{
+               builderResult.hasLocation = false
+               builderResult.location = ""
+               return self
+          }
+          var hasNetworkProvider:Bool {
+               get {
+                    return builderResult.hasNetworkProvider
+               }
+          }
+          var networkProvider:String {
+               get {
+                    return builderResult.networkProvider
+               }
+               set (value) {
+                   builderResult.hasNetworkProvider = true
+                   builderResult.networkProvider = value
+               }
+          }
+          func setNetworkProvider(value:String) -> Motion.Message_.MotionDevice.Builder {
+            self.networkProvider = value
+            return self
+          }
+          internal func clearNetworkProvider() -> Motion.Message_.MotionDevice.Builder{
+               builderResult.hasNetworkProvider = false
+               builderResult.networkProvider = ""
+               return self
+          }
+          var hasUptime:Bool {
+               get {
+                    return builderResult.hasUptime
+               }
+          }
+          var uptime:String {
+               get {
+                    return builderResult.uptime
+               }
+               set (value) {
+                   builderResult.hasUptime = true
+                   builderResult.uptime = value
+               }
+          }
+          func setUptime(value:String) -> Motion.Message_.MotionDevice.Builder {
+            self.uptime = value
+            return self
+          }
+          internal func clearUptime() -> Motion.Message_.MotionDevice.Builder{
+               builderResult.hasUptime = false
+               builderResult.uptime = ""
+               return self
+          }
+          var hasStarttime:Bool {
+               get {
+                    return builderResult.hasStarttime
+               }
+          }
+          var starttime:String {
+               get {
+                    return builderResult.starttime
+               }
+               set (value) {
+                   builderResult.hasStarttime = true
+                   builderResult.starttime = value
+               }
+          }
+          func setStarttime(value:String) -> Motion.Message_.MotionDevice.Builder {
+            self.starttime = value
+            return self
+          }
+          internal func clearStarttime() -> Motion.Message_.MotionDevice.Builder{
+               builderResult.hasStarttime = false
+               builderResult.starttime = ""
+               return self
+          }
+          var hasDbLocal:Bool {
+               get {
+                    return builderResult.hasDbLocal
+               }
+          }
+          var dbLocal:Int32 {
+               get {
+                    return builderResult.dbLocal
+               }
+               set (value) {
+                   builderResult.hasDbLocal = true
+                   builderResult.dbLocal = value
+               }
+          }
+          func setDbLocal(value:Int32) -> Motion.Message_.MotionDevice.Builder {
+            self.dbLocal = value
+            return self
+          }
+          internal func clearDbLocal() -> Motion.Message_.MotionDevice.Builder{
+               builderResult.hasDbLocal = false
+               builderResult.dbLocal = Int32(0)
+               return self
+          }
+          var hasModel:Bool {
+               get {
+                    return builderResult.hasModel
+               }
+          }
+          var model:String {
+               get {
+                    return builderResult.model
+               }
+               set (value) {
+                   builderResult.hasModel = true
+                   builderResult.model = value
+               }
+          }
+          func setModel(value:String) -> Motion.Message_.MotionDevice.Builder {
+            self.model = value
+            return self
+          }
+          internal func clearModel() -> Motion.Message_.MotionDevice.Builder{
+               builderResult.hasModel = false
+               builderResult.model = ""
+               return self
+          }
+          var hasHardware:Bool {
+               get {
+                    return builderResult.hasHardware
+               }
+          }
+          var hardware:String {
+               get {
+                    return builderResult.hardware
+               }
+               set (value) {
+                   builderResult.hasHardware = true
+                   builderResult.hardware = value
+               }
+          }
+          func setHardware(value:String) -> Motion.Message_.MotionDevice.Builder {
+            self.hardware = value
+            return self
+          }
+          internal func clearHardware() -> Motion.Message_.MotionDevice.Builder{
+               builderResult.hasHardware = false
+               builderResult.hardware = ""
+               return self
+          }
+          var hasSerial:Bool {
+               get {
+                    return builderResult.hasSerial
+               }
+          }
+          var serial:String {
+               get {
+                    return builderResult.serial
+               }
+               set (value) {
+                   builderResult.hasSerial = true
+                   builderResult.serial = value
+               }
+          }
+          func setSerial(value:String) -> Motion.Message_.MotionDevice.Builder {
+            self.serial = value
+            return self
+          }
+          internal func clearSerial() -> Motion.Message_.MotionDevice.Builder{
+               builderResult.hasSerial = false
+               builderResult.serial = ""
+               return self
+          }
+          var hasRevision:Bool {
+               get {
+                    return builderResult.hasRevision
+               }
+          }
+          var revision:String {
+               get {
+                    return builderResult.revision
+               }
+               set (value) {
+                   builderResult.hasRevision = true
+                   builderResult.revision = value
+               }
+          }
+          func setRevision(value:String) -> Motion.Message_.MotionDevice.Builder {
+            self.revision = value
+            return self
+          }
+          internal func clearRevision() -> Motion.Message_.MotionDevice.Builder{
+               builderResult.hasRevision = false
+               builderResult.revision = ""
+               return self
+          }
+          var hasDisktotal:Bool {
+               get {
+                    return builderResult.hasDisktotal
+               }
+          }
+          var disktotal:Int32 {
+               get {
+                    return builderResult.disktotal
+               }
+               set (value) {
+                   builderResult.hasDisktotal = true
+                   builderResult.disktotal = value
+               }
+          }
+          func setDisktotal(value:Int32) -> Motion.Message_.MotionDevice.Builder {
+            self.disktotal = value
+            return self
+          }
+          internal func clearDisktotal() -> Motion.Message_.MotionDevice.Builder{
+               builderResult.hasDisktotal = false
+               builderResult.disktotal = Int32(0)
+               return self
+          }
+          var hasDiskused:Bool {
+               get {
+                    return builderResult.hasDiskused
+               }
+          }
+          var diskused:Int32 {
+               get {
+                    return builderResult.diskused
+               }
+               set (value) {
+                   builderResult.hasDiskused = true
+                   builderResult.diskused = value
+               }
+          }
+          func setDiskused(value:Int32) -> Motion.Message_.MotionDevice.Builder {
+            self.diskused = value
+            return self
+          }
+          internal func clearDiskused() -> Motion.Message_.MotionDevice.Builder{
+               builderResult.hasDiskused = false
+               builderResult.diskused = Int32(0)
+               return self
+          }
+          var hasDiskavailable:Bool {
+               get {
+                    return builderResult.hasDiskavailable
+               }
+          }
+          var diskavailable:Int32 {
+               get {
+                    return builderResult.diskavailable
+               }
+               set (value) {
+                   builderResult.hasDiskavailable = true
+                   builderResult.diskavailable = value
+               }
+          }
+          func setDiskavailable(value:Int32) -> Motion.Message_.MotionDevice.Builder {
+            self.diskavailable = value
+            return self
+          }
+          internal func clearDiskavailable() -> Motion.Message_.MotionDevice.Builder{
+               builderResult.hasDiskavailable = false
+               builderResult.diskavailable = Int32(0)
+               return self
+          }
+          var hasDiskPercentageUsed:Bool {
+               get {
+                    return builderResult.hasDiskPercentageUsed
+               }
+          }
+          var diskPercentageUsed:Int32 {
+               get {
+                    return builderResult.diskPercentageUsed
+               }
+               set (value) {
+                   builderResult.hasDiskPercentageUsed = true
+                   builderResult.diskPercentageUsed = value
+               }
+          }
+          func setDiskPercentageUsed(value:Int32) -> Motion.Message_.MotionDevice.Builder {
+            self.diskPercentageUsed = value
+            return self
+          }
+          internal func clearDiskPercentageUsed() -> Motion.Message_.MotionDevice.Builder{
+               builderResult.hasDiskPercentageUsed = false
+               builderResult.diskPercentageUsed = Int32(0)
+               return self
+          }
+          var hasTemperature:Bool {
+               get {
+                    return builderResult.hasTemperature
+               }
+          }
+          var temperature:Int32 {
+               get {
+                    return builderResult.temperature
+               }
+               set (value) {
+                   builderResult.hasTemperature = true
+                   builderResult.temperature = value
+               }
+          }
+          func setTemperature(value:Int32) -> Motion.Message_.MotionDevice.Builder {
+            self.temperature = value
+            return self
+          }
+          internal func clearTemperature() -> Motion.Message_.MotionDevice.Builder{
+               builderResult.hasTemperature = false
+               builderResult.temperature = Int32(0)
+               return self
+          }
+          override internal var internalGetResult:GeneratedMessage {
+               get {
+                  return builderResult
+               }
+          }
+          internal override func clear() -> Motion.Message_.MotionDevice.Builder {
+            builderResult = Motion.Message_.MotionDevice()
+            return self
+          }
+          internal override func clone() throws -> Motion.Message_.MotionDevice.Builder {
+            return try Motion.Message_.MotionDevice.builderWithPrototype(builderResult)
+          }
+          internal override func build() throws -> Motion.Message_.MotionDevice {
+               try checkInitialized()
+               return buildPartial()
+          }
+          internal func buildPartial() -> Motion.Message_.MotionDevice {
+            let returnMe:Motion.Message_.MotionDevice = builderResult
+            return returnMe
+          }
+          internal func mergeFrom(other:Motion.Message_.MotionDevice) throws -> Motion.Message_.MotionDevice.Builder {
+            if other == Motion.Message_.MotionDevice() {
+             return self
+            }
+            if other.hasIpnumber {
+                 ipnumber = other.ipnumber
+            }
+            if other.hasIppublic {
+                 ippublic = other.ippublic
+            }
+            if other.hasMacaddress {
+                 macaddress = other.macaddress
+            }
+            if other.hasHostname {
+                 hostname = other.hostname
+            }
+            if other.hasCity {
+                 city = other.city
+            }
+            if other.hasCountry {
+                 country = other.country
+            }
+            if other.hasLocation {
+                 location = other.location
+            }
+            if other.hasNetworkProvider {
+                 networkProvider = other.networkProvider
+            }
+            if other.hasUptime {
+                 uptime = other.uptime
+            }
+            if other.hasStarttime {
+                 starttime = other.starttime
+            }
+            if other.hasDbLocal {
+                 dbLocal = other.dbLocal
+            }
+            if other.hasModel {
+                 model = other.model
+            }
+            if other.hasHardware {
+                 hardware = other.hardware
+            }
+            if other.hasSerial {
+                 serial = other.serial
+            }
+            if other.hasRevision {
+                 revision = other.revision
+            }
+            if other.hasDisktotal {
+                 disktotal = other.disktotal
+            }
+            if other.hasDiskused {
+                 diskused = other.diskused
+            }
+            if other.hasDiskavailable {
+                 diskavailable = other.diskavailable
+            }
+            if other.hasDiskPercentageUsed {
+                 diskPercentageUsed = other.diskPercentageUsed
+            }
+            if other.hasTemperature {
+                 temperature = other.temperature
+            }
+            try mergeUnknownFields(other.unknownFields)
+            return self
+          }
+          internal override func mergeFromCodedInputStream(input:CodedInputStream) throws -> Motion.Message_.MotionDevice.Builder {
+               return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
+          }
+          internal override func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionDevice.Builder {
+            let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
+            while (true) {
+              let tag = try input.readTag()
+              switch tag {
+              case 0: 
+                self.unknownFields = try unknownFieldsBuilder.build()
+                return self
+
+              case 10 :
+                ipnumber = try input.readString()
+
+              case 18 :
+                ippublic = try input.readString()
+
+              case 26 :
+                macaddress = try input.readString()
+
+              case 34 :
+                hostname = try input.readString()
+
+              case 42 :
+                city = try input.readString()
+
+              case 50 :
+                country = try input.readString()
+
+              case 58 :
+                location = try input.readString()
+
+              case 66 :
+                networkProvider = try input.readString()
+
+              case 74 :
+                uptime = try input.readString()
+
+              case 82 :
+                starttime = try input.readString()
+
+              case 88 :
+                dbLocal = try input.readInt32()
+
+              case 98 :
+                model = try input.readString()
+
+              case 106 :
+                hardware = try input.readString()
+
+              case 114 :
+                serial = try input.readString()
+
+              case 122 :
+                revision = try input.readString()
+
+              case 128 :
+                disktotal = try input.readInt32()
+
+              case 136 :
+                diskused = try input.readInt32()
+
+              case 144 :
+                diskavailable = try input.readInt32()
+
+              case 152 :
+                diskPercentageUsed = try input.readInt32()
+
+              case 160 :
+                temperature = try input.readInt32()
+
+              default:
+                if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:tag))) {
+                   unknownFields = try unknownFieldsBuilder.build()
+                   return self
+                }
+              }
+            }
+          }
+        }
+
+      }
+
+    //Nested type declaration end
+
+
+
+    //Nested type declaration start
+
+      final internal class MotionUser : GeneratedMessage, GeneratedMessageProtocol {
+        private(set) var hasClientnumber:Bool = false
+        private(set) var clientnumber:Int32 = Int32(0)
+
+        private(set) var hasWpUser:Bool = false
+        private(set) var wpUser:String = ""
+
+        private(set) var hasWpPassword:Bool = false
+        private(set) var wpPassword:String = ""
+
+        private(set) var hasWpServerUrl:Bool = false
+        private(set) var wpServerUrl:String = ""
+
+        private(set) var hasWpUserid:Bool = false
+        private(set) var wpUserid:Int32 = Int32(0)
+
+        private(set) var hasWpClientId:Bool = false
+        private(set) var wpClientId:Int32 = Int32(0)
+
+        private(set) var hasWpClientMediaid:Bool = false
+        private(set) var wpClientMediaid:Int32 = Int32(0)
+
+        private(set) var hasPfobjectid:Bool = false
+        private(set) var pfobjectid:String = ""
+
+        private(set) var hasUsername:Bool = false
+        private(set) var username:String = ""
+
+        private(set) var hasEmail:Bool = false
+        private(set) var email:String = ""
+
+        private(set) var hasFirstName:Bool = false
+        private(set) var firstName:String = ""
+
+        private(set) var hasLastName:Bool = false
+        private(set) var lastName:String = ""
+
+        private(set) var hasLocation:Bool = false
+        private(set) var location:String = ""
+
+        private(set) var hasUiidinstallation:Bool = false
+        private(set) var uiidinstallation:String = ""
+
+        private(set) var hasServiceType:Bool = false
+        private(set) var serviceType:Int32 = Int32(0)
+
+        required internal init() {
+             super.init()
+        }
+        override internal func isInitialized() -> Bool {
+         return true
+        }
+        override internal func writeToCodedOutputStream(output:CodedOutputStream) throws {
+          if hasClientnumber {
+            try output.writeInt32(1, value:clientnumber)
+          }
+          if hasWpUser {
+            try output.writeString(2, value:wpUser)
+          }
+          if hasWpPassword {
+            try output.writeString(3, value:wpPassword)
+          }
+          if hasWpServerUrl {
+            try output.writeString(4, value:wpServerUrl)
+          }
+          if hasWpUserid {
+            try output.writeInt32(5, value:wpUserid)
+          }
+          if hasWpClientId {
+            try output.writeInt32(6, value:wpClientId)
+          }
+          if hasWpClientMediaid {
+            try output.writeInt32(7, value:wpClientMediaid)
+          }
+          if hasPfobjectid {
+            try output.writeString(8, value:pfobjectid)
           }
           if hasUsername {
-            serialize_size += username.computeStringSize(2)
+            try output.writeString(9, value:username)
           }
-          if hasPassword {
-            serialize_size += password.computeStringSize(5)
+          if hasEmail {
+            try output.writeString(10, value:email)
+          }
+          if hasFirstName {
+            try output.writeString(11, value:firstName)
+          }
+          if hasLastName {
+            try output.writeString(12, value:lastName)
+          }
+          if hasLocation {
+            try output.writeString(13, value:location)
+          }
+          if hasUiidinstallation {
+            try output.writeString(14, value:uiidinstallation)
+          }
+          if hasServiceType {
+            try output.writeInt32(15, value:serviceType)
+          }
+          try unknownFields.writeToCodedOutputStream(output)
+        }
+        override internal func serializedSize() -> Int32 {
+          var serialize_size:Int32 = memoizedSerializedSize
+          if serialize_size != -1 {
+           return serialize_size
+          }
+
+          serialize_size = 0
+          if hasClientnumber {
+            serialize_size += clientnumber.computeInt32Size(1)
+          }
+          if hasWpUser {
+            serialize_size += wpUser.computeStringSize(2)
+          }
+          if hasWpPassword {
+            serialize_size += wpPassword.computeStringSize(3)
+          }
+          if hasWpServerUrl {
+            serialize_size += wpServerUrl.computeStringSize(4)
+          }
+          if hasWpUserid {
+            serialize_size += wpUserid.computeInt32Size(5)
+          }
+          if hasWpClientId {
+            serialize_size += wpClientId.computeInt32Size(6)
+          }
+          if hasWpClientMediaid {
+            serialize_size += wpClientMediaid.computeInt32Size(7)
+          }
+          if hasPfobjectid {
+            serialize_size += pfobjectid.computeStringSize(8)
+          }
+          if hasUsername {
+            serialize_size += username.computeStringSize(9)
+          }
+          if hasEmail {
+            serialize_size += email.computeStringSize(10)
+          }
+          if hasFirstName {
+            serialize_size += firstName.computeStringSize(11)
+          }
+          if hasLastName {
+            serialize_size += lastName.computeStringSize(12)
+          }
+          if hasLocation {
+            serialize_size += location.computeStringSize(13)
+          }
+          if hasUiidinstallation {
+            serialize_size += uiidinstallation.computeStringSize(14)
+          }
+          if hasServiceType {
+            serialize_size += serviceType.computeInt32Size(15)
           }
           serialize_size += unknownFields.serializedSize()
           memoizedSerializedSize = serialize_size
@@ -355,28 +1541,100 @@ internal extension Motion {
           return try Motion.Message_.MotionUser.Builder().mergeFrom(prototype)
         }
         override internal func writeDescriptionTo(inout output:String, indent:String) throws {
-          if hasObjectId {
-            output += "\(indent) objectId: \(objectId) \n"
+          if hasClientnumber {
+            output += "\(indent) clientnumber: \(clientnumber) \n"
+          }
+          if hasWpUser {
+            output += "\(indent) wpUser: \(wpUser) \n"
+          }
+          if hasWpPassword {
+            output += "\(indent) wpPassword: \(wpPassword) \n"
+          }
+          if hasWpServerUrl {
+            output += "\(indent) wpServerUrl: \(wpServerUrl) \n"
+          }
+          if hasWpUserid {
+            output += "\(indent) wpUserid: \(wpUserid) \n"
+          }
+          if hasWpClientId {
+            output += "\(indent) wpClientId: \(wpClientId) \n"
+          }
+          if hasWpClientMediaid {
+            output += "\(indent) wpClientMediaid: \(wpClientMediaid) \n"
+          }
+          if hasPfobjectid {
+            output += "\(indent) pfobjectid: \(pfobjectid) \n"
           }
           if hasUsername {
             output += "\(indent) username: \(username) \n"
           }
-          if hasPassword {
-            output += "\(indent) password: \(password) \n"
+          if hasEmail {
+            output += "\(indent) email: \(email) \n"
+          }
+          if hasFirstName {
+            output += "\(indent) firstName: \(firstName) \n"
+          }
+          if hasLastName {
+            output += "\(indent) lastName: \(lastName) \n"
+          }
+          if hasLocation {
+            output += "\(indent) location: \(location) \n"
+          }
+          if hasUiidinstallation {
+            output += "\(indent) uiidinstallation: \(uiidinstallation) \n"
+          }
+          if hasServiceType {
+            output += "\(indent) serviceType: \(serviceType) \n"
           }
           unknownFields.writeDescriptionTo(&output, indent:indent)
         }
         override internal var hashValue:Int {
             get {
                 var hashCode:Int = 7
-                if hasObjectId {
-                   hashCode = (hashCode &* 31) &+ objectId.hashValue
+                if hasClientnumber {
+                   hashCode = (hashCode &* 31) &+ clientnumber.hashValue
+                }
+                if hasWpUser {
+                   hashCode = (hashCode &* 31) &+ wpUser.hashValue
+                }
+                if hasWpPassword {
+                   hashCode = (hashCode &* 31) &+ wpPassword.hashValue
+                }
+                if hasWpServerUrl {
+                   hashCode = (hashCode &* 31) &+ wpServerUrl.hashValue
+                }
+                if hasWpUserid {
+                   hashCode = (hashCode &* 31) &+ wpUserid.hashValue
+                }
+                if hasWpClientId {
+                   hashCode = (hashCode &* 31) &+ wpClientId.hashValue
+                }
+                if hasWpClientMediaid {
+                   hashCode = (hashCode &* 31) &+ wpClientMediaid.hashValue
+                }
+                if hasPfobjectid {
+                   hashCode = (hashCode &* 31) &+ pfobjectid.hashValue
                 }
                 if hasUsername {
                    hashCode = (hashCode &* 31) &+ username.hashValue
                 }
-                if hasPassword {
-                   hashCode = (hashCode &* 31) &+ password.hashValue
+                if hasEmail {
+                   hashCode = (hashCode &* 31) &+ email.hashValue
+                }
+                if hasFirstName {
+                   hashCode = (hashCode &* 31) &+ firstName.hashValue
+                }
+                if hasLastName {
+                   hashCode = (hashCode &* 31) &+ lastName.hashValue
+                }
+                if hasLocation {
+                   hashCode = (hashCode &* 31) &+ location.hashValue
+                }
+                if hasUiidinstallation {
+                   hashCode = (hashCode &* 31) &+ uiidinstallation.hashValue
+                }
+                if hasServiceType {
+                   hashCode = (hashCode &* 31) &+ serviceType.hashValue
                 }
                 hashCode = (hashCode &* 31) &+  unknownFields.hashValue
                 return hashCode
@@ -406,27 +1664,188 @@ internal extension Motion {
           required override internal init () {
              super.init()
           }
-          var hasObjectId:Bool {
+          var hasClientnumber:Bool {
                get {
-                    return builderResult.hasObjectId
+                    return builderResult.hasClientnumber
                }
           }
-          var objectId:String {
+          var clientnumber:Int32 {
                get {
-                    return builderResult.objectId
+                    return builderResult.clientnumber
                }
                set (value) {
-                   builderResult.hasObjectId = true
-                   builderResult.objectId = value
+                   builderResult.hasClientnumber = true
+                   builderResult.clientnumber = value
                }
           }
-          func setObjectId(value:String) -> Motion.Message_.MotionUser.Builder {
-            self.objectId = value
+          func setClientnumber(value:Int32) -> Motion.Message_.MotionUser.Builder {
+            self.clientnumber = value
             return self
           }
-          internal func clearObjectId() -> Motion.Message_.MotionUser.Builder{
-               builderResult.hasObjectId = false
-               builderResult.objectId = ""
+          internal func clearClientnumber() -> Motion.Message_.MotionUser.Builder{
+               builderResult.hasClientnumber = false
+               builderResult.clientnumber = Int32(0)
+               return self
+          }
+          var hasWpUser:Bool {
+               get {
+                    return builderResult.hasWpUser
+               }
+          }
+          var wpUser:String {
+               get {
+                    return builderResult.wpUser
+               }
+               set (value) {
+                   builderResult.hasWpUser = true
+                   builderResult.wpUser = value
+               }
+          }
+          func setWpUser(value:String) -> Motion.Message_.MotionUser.Builder {
+            self.wpUser = value
+            return self
+          }
+          internal func clearWpUser() -> Motion.Message_.MotionUser.Builder{
+               builderResult.hasWpUser = false
+               builderResult.wpUser = ""
+               return self
+          }
+          var hasWpPassword:Bool {
+               get {
+                    return builderResult.hasWpPassword
+               }
+          }
+          var wpPassword:String {
+               get {
+                    return builderResult.wpPassword
+               }
+               set (value) {
+                   builderResult.hasWpPassword = true
+                   builderResult.wpPassword = value
+               }
+          }
+          func setWpPassword(value:String) -> Motion.Message_.MotionUser.Builder {
+            self.wpPassword = value
+            return self
+          }
+          internal func clearWpPassword() -> Motion.Message_.MotionUser.Builder{
+               builderResult.hasWpPassword = false
+               builderResult.wpPassword = ""
+               return self
+          }
+          var hasWpServerUrl:Bool {
+               get {
+                    return builderResult.hasWpServerUrl
+               }
+          }
+          var wpServerUrl:String {
+               get {
+                    return builderResult.wpServerUrl
+               }
+               set (value) {
+                   builderResult.hasWpServerUrl = true
+                   builderResult.wpServerUrl = value
+               }
+          }
+          func setWpServerUrl(value:String) -> Motion.Message_.MotionUser.Builder {
+            self.wpServerUrl = value
+            return self
+          }
+          internal func clearWpServerUrl() -> Motion.Message_.MotionUser.Builder{
+               builderResult.hasWpServerUrl = false
+               builderResult.wpServerUrl = ""
+               return self
+          }
+          var hasWpUserid:Bool {
+               get {
+                    return builderResult.hasWpUserid
+               }
+          }
+          var wpUserid:Int32 {
+               get {
+                    return builderResult.wpUserid
+               }
+               set (value) {
+                   builderResult.hasWpUserid = true
+                   builderResult.wpUserid = value
+               }
+          }
+          func setWpUserid(value:Int32) -> Motion.Message_.MotionUser.Builder {
+            self.wpUserid = value
+            return self
+          }
+          internal func clearWpUserid() -> Motion.Message_.MotionUser.Builder{
+               builderResult.hasWpUserid = false
+               builderResult.wpUserid = Int32(0)
+               return self
+          }
+          var hasWpClientId:Bool {
+               get {
+                    return builderResult.hasWpClientId
+               }
+          }
+          var wpClientId:Int32 {
+               get {
+                    return builderResult.wpClientId
+               }
+               set (value) {
+                   builderResult.hasWpClientId = true
+                   builderResult.wpClientId = value
+               }
+          }
+          func setWpClientId(value:Int32) -> Motion.Message_.MotionUser.Builder {
+            self.wpClientId = value
+            return self
+          }
+          internal func clearWpClientId() -> Motion.Message_.MotionUser.Builder{
+               builderResult.hasWpClientId = false
+               builderResult.wpClientId = Int32(0)
+               return self
+          }
+          var hasWpClientMediaid:Bool {
+               get {
+                    return builderResult.hasWpClientMediaid
+               }
+          }
+          var wpClientMediaid:Int32 {
+               get {
+                    return builderResult.wpClientMediaid
+               }
+               set (value) {
+                   builderResult.hasWpClientMediaid = true
+                   builderResult.wpClientMediaid = value
+               }
+          }
+          func setWpClientMediaid(value:Int32) -> Motion.Message_.MotionUser.Builder {
+            self.wpClientMediaid = value
+            return self
+          }
+          internal func clearWpClientMediaid() -> Motion.Message_.MotionUser.Builder{
+               builderResult.hasWpClientMediaid = false
+               builderResult.wpClientMediaid = Int32(0)
+               return self
+          }
+          var hasPfobjectid:Bool {
+               get {
+                    return builderResult.hasPfobjectid
+               }
+          }
+          var pfobjectid:String {
+               get {
+                    return builderResult.pfobjectid
+               }
+               set (value) {
+                   builderResult.hasPfobjectid = true
+                   builderResult.pfobjectid = value
+               }
+          }
+          func setPfobjectid(value:String) -> Motion.Message_.MotionUser.Builder {
+            self.pfobjectid = value
+            return self
+          }
+          internal func clearPfobjectid() -> Motion.Message_.MotionUser.Builder{
+               builderResult.hasPfobjectid = false
+               builderResult.pfobjectid = ""
                return self
           }
           var hasUsername:Bool {
@@ -452,27 +1871,142 @@ internal extension Motion {
                builderResult.username = ""
                return self
           }
-          var hasPassword:Bool {
+          var hasEmail:Bool {
                get {
-                    return builderResult.hasPassword
+                    return builderResult.hasEmail
                }
           }
-          var password:String {
+          var email:String {
                get {
-                    return builderResult.password
+                    return builderResult.email
                }
                set (value) {
-                   builderResult.hasPassword = true
-                   builderResult.password = value
+                   builderResult.hasEmail = true
+                   builderResult.email = value
                }
           }
-          func setPassword(value:String) -> Motion.Message_.MotionUser.Builder {
-            self.password = value
+          func setEmail(value:String) -> Motion.Message_.MotionUser.Builder {
+            self.email = value
             return self
           }
-          internal func clearPassword() -> Motion.Message_.MotionUser.Builder{
-               builderResult.hasPassword = false
-               builderResult.password = ""
+          internal func clearEmail() -> Motion.Message_.MotionUser.Builder{
+               builderResult.hasEmail = false
+               builderResult.email = ""
+               return self
+          }
+          var hasFirstName:Bool {
+               get {
+                    return builderResult.hasFirstName
+               }
+          }
+          var firstName:String {
+               get {
+                    return builderResult.firstName
+               }
+               set (value) {
+                   builderResult.hasFirstName = true
+                   builderResult.firstName = value
+               }
+          }
+          func setFirstName(value:String) -> Motion.Message_.MotionUser.Builder {
+            self.firstName = value
+            return self
+          }
+          internal func clearFirstName() -> Motion.Message_.MotionUser.Builder{
+               builderResult.hasFirstName = false
+               builderResult.firstName = ""
+               return self
+          }
+          var hasLastName:Bool {
+               get {
+                    return builderResult.hasLastName
+               }
+          }
+          var lastName:String {
+               get {
+                    return builderResult.lastName
+               }
+               set (value) {
+                   builderResult.hasLastName = true
+                   builderResult.lastName = value
+               }
+          }
+          func setLastName(value:String) -> Motion.Message_.MotionUser.Builder {
+            self.lastName = value
+            return self
+          }
+          internal func clearLastName() -> Motion.Message_.MotionUser.Builder{
+               builderResult.hasLastName = false
+               builderResult.lastName = ""
+               return self
+          }
+          var hasLocation:Bool {
+               get {
+                    return builderResult.hasLocation
+               }
+          }
+          var location:String {
+               get {
+                    return builderResult.location
+               }
+               set (value) {
+                   builderResult.hasLocation = true
+                   builderResult.location = value
+               }
+          }
+          func setLocation(value:String) -> Motion.Message_.MotionUser.Builder {
+            self.location = value
+            return self
+          }
+          internal func clearLocation() -> Motion.Message_.MotionUser.Builder{
+               builderResult.hasLocation = false
+               builderResult.location = ""
+               return self
+          }
+          var hasUiidinstallation:Bool {
+               get {
+                    return builderResult.hasUiidinstallation
+               }
+          }
+          var uiidinstallation:String {
+               get {
+                    return builderResult.uiidinstallation
+               }
+               set (value) {
+                   builderResult.hasUiidinstallation = true
+                   builderResult.uiidinstallation = value
+               }
+          }
+          func setUiidinstallation(value:String) -> Motion.Message_.MotionUser.Builder {
+            self.uiidinstallation = value
+            return self
+          }
+          internal func clearUiidinstallation() -> Motion.Message_.MotionUser.Builder{
+               builderResult.hasUiidinstallation = false
+               builderResult.uiidinstallation = ""
+               return self
+          }
+          var hasServiceType:Bool {
+               get {
+                    return builderResult.hasServiceType
+               }
+          }
+          var serviceType:Int32 {
+               get {
+                    return builderResult.serviceType
+               }
+               set (value) {
+                   builderResult.hasServiceType = true
+                   builderResult.serviceType = value
+               }
+          }
+          func setServiceType(value:Int32) -> Motion.Message_.MotionUser.Builder {
+            self.serviceType = value
+            return self
+          }
+          internal func clearServiceType() -> Motion.Message_.MotionUser.Builder{
+               builderResult.hasServiceType = false
+               builderResult.serviceType = Int32(0)
                return self
           }
           override internal var internalGetResult:GeneratedMessage {
@@ -499,14 +2033,50 @@ internal extension Motion {
             if other == Motion.Message_.MotionUser() {
              return self
             }
-            if other.hasObjectId {
-                 objectId = other.objectId
+            if other.hasClientnumber {
+                 clientnumber = other.clientnumber
+            }
+            if other.hasWpUser {
+                 wpUser = other.wpUser
+            }
+            if other.hasWpPassword {
+                 wpPassword = other.wpPassword
+            }
+            if other.hasWpServerUrl {
+                 wpServerUrl = other.wpServerUrl
+            }
+            if other.hasWpUserid {
+                 wpUserid = other.wpUserid
+            }
+            if other.hasWpClientId {
+                 wpClientId = other.wpClientId
+            }
+            if other.hasWpClientMediaid {
+                 wpClientMediaid = other.wpClientMediaid
+            }
+            if other.hasPfobjectid {
+                 pfobjectid = other.pfobjectid
             }
             if other.hasUsername {
                  username = other.username
             }
-            if other.hasPassword {
-                 password = other.password
+            if other.hasEmail {
+                 email = other.email
+            }
+            if other.hasFirstName {
+                 firstName = other.firstName
+            }
+            if other.hasLastName {
+                 lastName = other.lastName
+            }
+            if other.hasLocation {
+                 location = other.location
+            }
+            if other.hasUiidinstallation {
+                 uiidinstallation = other.uiidinstallation
+            }
+            if other.hasServiceType {
+                 serviceType = other.serviceType
             }
             try mergeUnknownFields(other.unknownFields)
             return self
@@ -523,14 +2093,50 @@ internal extension Motion {
                 self.unknownFields = try unknownFieldsBuilder.build()
                 return self
 
-              case 10 :
-                objectId = try input.readString()
+              case 8 :
+                clientnumber = try input.readInt32()
 
               case 18 :
+                wpUser = try input.readString()
+
+              case 26 :
+                wpPassword = try input.readString()
+
+              case 34 :
+                wpServerUrl = try input.readString()
+
+              case 40 :
+                wpUserid = try input.readInt32()
+
+              case 48 :
+                wpClientId = try input.readInt32()
+
+              case 56 :
+                wpClientMediaid = try input.readInt32()
+
+              case 66 :
+                pfobjectid = try input.readString()
+
+              case 74 :
                 username = try input.readString()
 
-              case 42 :
-                password = try input.readString()
+              case 82 :
+                email = try input.readString()
+
+              case 90 :
+                firstName = try input.readString()
+
+              case 98 :
+                lastName = try input.readString()
+
+              case 106 :
+                location = try input.readString()
+
+              case 114 :
+                uiidinstallation = try input.readString()
+
+              case 120 :
+                serviceType = try input.readInt32()
 
               default:
                 if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:tag))) {
@@ -601,6 +2207,9 @@ internal extension Motion {
 
         private(set) var hasTempdata:Bool = false
         private(set) var tempdata:NSData = NSData()
+
+        private(set) var hasThumbnail:Bool = false
+        private(set) var thumbnail:NSData = NSData()
 
         required internal init() {
              super.init()
@@ -676,6 +2285,9 @@ internal extension Motion {
           if hasTempdata {
             try output.writeData(19, value:tempdata)
           }
+          if hasThumbnail {
+            try output.writeData(20, value:thumbnail)
+          }
           try unknownFields.writeToCodedOutputStream(output)
         }
         override internal func serializedSize() -> Int32 {
@@ -741,6 +2353,9 @@ internal extension Motion {
           }
           if hasTempdata {
             serialize_size += tempdata.computeDataSize(19)
+          }
+          if hasThumbnail {
+            serialize_size += thumbnail.computeDataSize(20)
           }
           serialize_size += unknownFields.serializedSize()
           memoizedSerializedSize = serialize_size
@@ -862,6 +2477,9 @@ internal extension Motion {
           if hasTempdata {
             output += "\(indent) tempdata: \(tempdata) \n"
           }
+          if hasThumbnail {
+            output += "\(indent) thumbnail: \(thumbnail) \n"
+          }
           unknownFields.writeDescriptionTo(&output, indent:indent)
         }
         override internal var hashValue:Int {
@@ -923,6 +2541,9 @@ internal extension Motion {
                 }
                 if hasTempdata {
                    hashCode = (hashCode &* 31) &+ tempdata.hashValue
+                }
+                if hasThumbnail {
+                   hashCode = (hashCode &* 31) &+ thumbnail.hashValue
                 }
                 hashCode = (hashCode &* 31) &+  unknownFields.hashValue
                 return hashCode
@@ -1368,6 +2989,29 @@ internal extension Motion {
                builderResult.tempdata = NSData()
                return self
           }
+          var hasThumbnail:Bool {
+               get {
+                    return builderResult.hasThumbnail
+               }
+          }
+          var thumbnail:NSData {
+               get {
+                    return builderResult.thumbnail
+               }
+               set (value) {
+                   builderResult.hasThumbnail = true
+                   builderResult.thumbnail = value
+               }
+          }
+          func setThumbnail(value:NSData) -> Motion.Message_.MotionCamera.Builder {
+            self.thumbnail = value
+            return self
+          }
+          internal func clearThumbnail() -> Motion.Message_.MotionCamera.Builder{
+               builderResult.hasThumbnail = false
+               builderResult.thumbnail = NSData()
+               return self
+          }
           override internal var internalGetResult:GeneratedMessage {
                get {
                   return builderResult
@@ -1449,6 +3093,9 @@ internal extension Motion {
             if other.hasTempdata {
                  tempdata = other.tempdata
             }
+            if other.hasThumbnail {
+                 thumbnail = other.thumbnail
+            }
             try mergeUnknownFields(other.unknownFields)
             return self
           }
@@ -1526,6 +3173,9 @@ internal extension Motion {
 
               case 154 :
                 tempdata = try input.readData()
+
+              case 162 :
+                thumbnail = try input.readData()
 
               default:
                 if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:tag))) {
@@ -6494,11 +8144,26 @@ internal extension Motion {
 
       //Enum type declaration end 
 
+
+
+      //Enum type declaration start 
+
+      internal enum ServiceType:Int32 {
+        case ServiceFreeAccount = 5001
+        case ServicePaidAccount = 5002
+
+      }
+
+      //Enum type declaration end 
+
     private(set) var hasActivecam:Bool = false
     private(set) var activecam:Int32 = Int32(0)
 
     private(set) var types:Motion.Message_.ActionType = Motion.Message_.ActionType.Engage
     private(set) var hasTypes:Bool = false
+    private(set) var motionuser:Array<Motion.Message_.MotionUser>  = Array<Motion.Message_.MotionUser>()
+    private(set) var motioncamera:Array<Motion.Message_.MotionCamera>  = Array<Motion.Message_.MotionCamera>()
+    private(set) var motiondevice:Array<Motion.Message_.MotionDevice>  = Array<Motion.Message_.MotionDevice>()
     private(set) var hasTime:Bool = false
     private(set) var time:String = ""
 
@@ -6520,7 +8185,6 @@ internal extension Motion {
     private(set) var hasDevicestarttime:Bool = false
     private(set) var devicestarttime:String = ""
 
-    private(set) var motioncamera:Array<Motion.Message_.MotionCamera>  = Array<Motion.Message_.MotionCamera>()
     private(set) var hasCurrmonth:Bool = false
     private(set) var currmonth:String = ""
 
@@ -6548,16 +8212,6 @@ internal extension Motion {
     private(set) var hasActivecamnum:Bool = false
     private(set) var activecamnum:Int32 = Int32(0)
 
-    private(set) var hasClientnumber:Bool = false
-    private(set) var clientnumber:Int32 = Int32(0)
-
-    private(set) var hasServerurl:Bool = false
-    private(set) var serverurl:String = ""
-
-    private(set) var hasClientname:Bool = false
-    private(set) var clientname:String = ""
-
-    private(set) var motionuser:Array<Motion.Message_.MotionUser>  = Array<Motion.Message_.MotionUser>()
     required internal init() {
          super.init()
     }
@@ -6584,68 +8238,62 @@ internal extension Motion {
       if hasTypes {
         try output.writeEnum(2, value:types.rawValue)
       }
-      if hasTime {
-        try output.writeString(3, value:time)
-      }
-      if hasData {
-        try output.writeData(4, value:data)
-      }
-      if hasDataAmount {
-        try output.writeInt32(5, value:dataAmount)
-      }
-      if hasDataTotal {
-        try output.writeInt32(6, value:dataTotal)
-      }
-      if hasServerip {
-        try output.writeString(7, value:serverip)
-      }
-      if hasClientip {
-        try output.writeString(8, value:clientip)
-      }
-      if hasDevicestarttime {
-        try output.writeString(9, value:devicestarttime)
+      for oneElementmotionuser in motionuser {
+          try output.writeMessage(3, value:oneElementmotionuser)
       }
       for oneElementmotioncamera in motioncamera {
-          try output.writeMessage(10, value:oneElementmotioncamera)
+          try output.writeMessage(4, value:oneElementmotioncamera)
+      }
+      for oneElementmotiondevice in motiondevice {
+          try output.writeMessage(5, value:oneElementmotiondevice)
+      }
+      if hasTime {
+        try output.writeString(6, value:time)
+      }
+      if hasData {
+        try output.writeData(7, value:data)
+      }
+      if hasDataAmount {
+        try output.writeInt32(8, value:dataAmount)
+      }
+      if hasDataTotal {
+        try output.writeInt32(9, value:dataTotal)
+      }
+      if hasServerip {
+        try output.writeString(10, value:serverip)
+      }
+      if hasClientip {
+        try output.writeString(11, value:clientip)
+      }
+      if hasDevicestarttime {
+        try output.writeString(12, value:devicestarttime)
       }
       if hasCurrmonth {
-        try output.writeString(11, value:currmonth)
+        try output.writeString(13, value:currmonth)
       }
       if hasCurrday {
-        try output.writeString(12, value:currday)
+        try output.writeString(14, value:currday)
       }
       if hasCurrdaytitle {
-        try output.writeString(13, value:currdaytitle)
+        try output.writeString(15, value:currdaytitle)
       }
       if hasCurrcam {
-        try output.writeInt32(14, value:currcam)
+        try output.writeInt32(16, value:currcam)
       }
       if hasPackagesize {
-        try output.writeInt32(15, value:packagesize)
+        try output.writeInt32(17, value:packagesize)
       }
       if hasImagefilepath {
-        try output.writeString(16, value:imagefilepath)
+        try output.writeString(18, value:imagefilepath)
       }
       if hasVideofilepath {
-        try output.writeString(17, value:videofilepath)
+        try output.writeString(19, value:videofilepath)
       }
       if hasRecname {
-        try output.writeString(18, value:recname)
+        try output.writeString(20, value:recname)
       }
       if hasActivecamnum {
-        try output.writeInt32(19, value:activecamnum)
-      }
-      if hasClientnumber {
-        try output.writeInt32(20, value:clientnumber)
-      }
-      if hasServerurl {
-        try output.writeString(21, value:serverurl)
-      }
-      if hasClientname {
-        try output.writeString(22, value:clientname)
-      }
-      for oneElementmotionuser in motionuser {
-          try output.writeMessage(23, value:oneElementmotionuser)
+        try output.writeInt32(21, value:activecamnum)
       }
       try unknownFields.writeToCodedOutputStream(output)
     }
@@ -6662,68 +8310,62 @@ internal extension Motion {
       if (hasTypes) {
         serialize_size += types.rawValue.computeEnumSize(2)
       }
-      if hasTime {
-        serialize_size += time.computeStringSize(3)
-      }
-      if hasData {
-        serialize_size += data.computeDataSize(4)
-      }
-      if hasDataAmount {
-        serialize_size += dataAmount.computeInt32Size(5)
-      }
-      if hasDataTotal {
-        serialize_size += dataTotal.computeInt32Size(6)
-      }
-      if hasServerip {
-        serialize_size += serverip.computeStringSize(7)
-      }
-      if hasClientip {
-        serialize_size += clientip.computeStringSize(8)
-      }
-      if hasDevicestarttime {
-        serialize_size += devicestarttime.computeStringSize(9)
+      for oneElementmotionuser in motionuser {
+          serialize_size += oneElementmotionuser.computeMessageSize(3)
       }
       for oneElementmotioncamera in motioncamera {
-          serialize_size += oneElementmotioncamera.computeMessageSize(10)
+          serialize_size += oneElementmotioncamera.computeMessageSize(4)
+      }
+      for oneElementmotiondevice in motiondevice {
+          serialize_size += oneElementmotiondevice.computeMessageSize(5)
+      }
+      if hasTime {
+        serialize_size += time.computeStringSize(6)
+      }
+      if hasData {
+        serialize_size += data.computeDataSize(7)
+      }
+      if hasDataAmount {
+        serialize_size += dataAmount.computeInt32Size(8)
+      }
+      if hasDataTotal {
+        serialize_size += dataTotal.computeInt32Size(9)
+      }
+      if hasServerip {
+        serialize_size += serverip.computeStringSize(10)
+      }
+      if hasClientip {
+        serialize_size += clientip.computeStringSize(11)
+      }
+      if hasDevicestarttime {
+        serialize_size += devicestarttime.computeStringSize(12)
       }
       if hasCurrmonth {
-        serialize_size += currmonth.computeStringSize(11)
+        serialize_size += currmonth.computeStringSize(13)
       }
       if hasCurrday {
-        serialize_size += currday.computeStringSize(12)
+        serialize_size += currday.computeStringSize(14)
       }
       if hasCurrdaytitle {
-        serialize_size += currdaytitle.computeStringSize(13)
+        serialize_size += currdaytitle.computeStringSize(15)
       }
       if hasCurrcam {
-        serialize_size += currcam.computeInt32Size(14)
+        serialize_size += currcam.computeInt32Size(16)
       }
       if hasPackagesize {
-        serialize_size += packagesize.computeInt32Size(15)
+        serialize_size += packagesize.computeInt32Size(17)
       }
       if hasImagefilepath {
-        serialize_size += imagefilepath.computeStringSize(16)
+        serialize_size += imagefilepath.computeStringSize(18)
       }
       if hasVideofilepath {
-        serialize_size += videofilepath.computeStringSize(17)
+        serialize_size += videofilepath.computeStringSize(19)
       }
       if hasRecname {
-        serialize_size += recname.computeStringSize(18)
+        serialize_size += recname.computeStringSize(20)
       }
       if hasActivecamnum {
-        serialize_size += activecamnum.computeInt32Size(19)
-      }
-      if hasClientnumber {
-        serialize_size += clientnumber.computeInt32Size(20)
-      }
-      if hasServerurl {
-        serialize_size += serverurl.computeStringSize(21)
-      }
-      if hasClientname {
-        serialize_size += clientname.computeStringSize(22)
-      }
-      for oneElementmotionuser in motionuser {
-          serialize_size += oneElementmotionuser.computeMessageSize(23)
+        serialize_size += activecamnum.computeInt32Size(21)
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
@@ -6782,6 +8424,27 @@ internal extension Motion {
       if (hasTypes) {
         output += "\(indent) types: \(types.rawValue)\n"
       }
+      var motionuserElementIndex:Int = 0
+      for oneElementmotionuser in motionuser {
+          output += "\(indent) motionuser[\(motionuserElementIndex)] {\n"
+          try oneElementmotionuser.writeDescriptionTo(&output, indent:"\(indent)  ")
+          output += "\(indent)}\n"
+          motionuserElementIndex++
+      }
+      var motioncameraElementIndex:Int = 0
+      for oneElementmotioncamera in motioncamera {
+          output += "\(indent) motioncamera[\(motioncameraElementIndex)] {\n"
+          try oneElementmotioncamera.writeDescriptionTo(&output, indent:"\(indent)  ")
+          output += "\(indent)}\n"
+          motioncameraElementIndex++
+      }
+      var motiondeviceElementIndex:Int = 0
+      for oneElementmotiondevice in motiondevice {
+          output += "\(indent) motiondevice[\(motiondeviceElementIndex)] {\n"
+          try oneElementmotiondevice.writeDescriptionTo(&output, indent:"\(indent)  ")
+          output += "\(indent)}\n"
+          motiondeviceElementIndex++
+      }
       if hasTime {
         output += "\(indent) time: \(time) \n"
       }
@@ -6802,13 +8465,6 @@ internal extension Motion {
       }
       if hasDevicestarttime {
         output += "\(indent) devicestarttime: \(devicestarttime) \n"
-      }
-      var motioncameraElementIndex:Int = 0
-      for oneElementmotioncamera in motioncamera {
-          output += "\(indent) motioncamera[\(motioncameraElementIndex)] {\n"
-          try oneElementmotioncamera.writeDescriptionTo(&output, indent:"\(indent)  ")
-          output += "\(indent)}\n"
-          motioncameraElementIndex++
       }
       if hasCurrmonth {
         output += "\(indent) currmonth: \(currmonth) \n"
@@ -6837,22 +8493,6 @@ internal extension Motion {
       if hasActivecamnum {
         output += "\(indent) activecamnum: \(activecamnum) \n"
       }
-      if hasClientnumber {
-        output += "\(indent) clientnumber: \(clientnumber) \n"
-      }
-      if hasServerurl {
-        output += "\(indent) serverurl: \(serverurl) \n"
-      }
-      if hasClientname {
-        output += "\(indent) clientname: \(clientname) \n"
-      }
-      var motionuserElementIndex:Int = 0
-      for oneElementmotionuser in motionuser {
-          output += "\(indent) motionuser[\(motionuserElementIndex)] {\n"
-          try oneElementmotionuser.writeDescriptionTo(&output, indent:"\(indent)  ")
-          output += "\(indent)}\n"
-          motionuserElementIndex++
-      }
       unknownFields.writeDescriptionTo(&output, indent:indent)
     }
     override internal var hashValue:Int {
@@ -6863,6 +8503,15 @@ internal extension Motion {
             }
             if hasTypes {
                hashCode = (hashCode &* 31) &+ Int(types.rawValue)
+            }
+            for oneElementmotionuser in motionuser {
+                hashCode = (hashCode &* 31) &+ oneElementmotionuser.hashValue
+            }
+            for oneElementmotioncamera in motioncamera {
+                hashCode = (hashCode &* 31) &+ oneElementmotioncamera.hashValue
+            }
+            for oneElementmotiondevice in motiondevice {
+                hashCode = (hashCode &* 31) &+ oneElementmotiondevice.hashValue
             }
             if hasTime {
                hashCode = (hashCode &* 31) &+ time.hashValue
@@ -6884,9 +8533,6 @@ internal extension Motion {
             }
             if hasDevicestarttime {
                hashCode = (hashCode &* 31) &+ devicestarttime.hashValue
-            }
-            for oneElementmotioncamera in motioncamera {
-                hashCode = (hashCode &* 31) &+ oneElementmotioncamera.hashValue
             }
             if hasCurrmonth {
                hashCode = (hashCode &* 31) &+ currmonth.hashValue
@@ -6914,18 +8560,6 @@ internal extension Motion {
             }
             if hasActivecamnum {
                hashCode = (hashCode &* 31) &+ activecamnum.hashValue
-            }
-            if hasClientnumber {
-               hashCode = (hashCode &* 31) &+ clientnumber.hashValue
-            }
-            if hasServerurl {
-               hashCode = (hashCode &* 31) &+ serverurl.hashValue
-            }
-            if hasClientname {
-               hashCode = (hashCode &* 31) &+ clientname.hashValue
-            }
-            for oneElementmotionuser in motionuser {
-                hashCode = (hashCode &* 31) &+ oneElementmotionuser.hashValue
             }
             hashCode = (hashCode &* 31) &+  unknownFields.hashValue
             return hashCode
@@ -7001,6 +8635,54 @@ internal extension Motion {
            builderResult.types = .Engage
            return self
         }
+      var motionuser:Array<Motion.Message_.MotionUser> {
+           get {
+               return builderResult.motionuser
+           }
+           set (value) {
+               builderResult.motionuser = value
+           }
+      }
+      func setMotionuser(value:Array<Motion.Message_.MotionUser>) -> Motion.Message_.Builder {
+        self.motionuser = value
+        return self
+      }
+      internal func clearMotionuser() -> Motion.Message_.Builder {
+        builderResult.motionuser.removeAll(keepCapacity: false)
+        return self
+      }
+      var motioncamera:Array<Motion.Message_.MotionCamera> {
+           get {
+               return builderResult.motioncamera
+           }
+           set (value) {
+               builderResult.motioncamera = value
+           }
+      }
+      func setMotioncamera(value:Array<Motion.Message_.MotionCamera>) -> Motion.Message_.Builder {
+        self.motioncamera = value
+        return self
+      }
+      internal func clearMotioncamera() -> Motion.Message_.Builder {
+        builderResult.motioncamera.removeAll(keepCapacity: false)
+        return self
+      }
+      var motiondevice:Array<Motion.Message_.MotionDevice> {
+           get {
+               return builderResult.motiondevice
+           }
+           set (value) {
+               builderResult.motiondevice = value
+           }
+      }
+      func setMotiondevice(value:Array<Motion.Message_.MotionDevice>) -> Motion.Message_.Builder {
+        self.motiondevice = value
+        return self
+      }
+      internal func clearMotiondevice() -> Motion.Message_.Builder {
+        builderResult.motiondevice.removeAll(keepCapacity: false)
+        return self
+      }
       var hasTime:Bool {
            get {
                 return builderResult.hasTime
@@ -7161,22 +8843,6 @@ internal extension Motion {
            builderResult.hasDevicestarttime = false
            builderResult.devicestarttime = ""
            return self
-      }
-      var motioncamera:Array<Motion.Message_.MotionCamera> {
-           get {
-               return builderResult.motioncamera
-           }
-           set (value) {
-               builderResult.motioncamera = value
-           }
-      }
-      func setMotioncamera(value:Array<Motion.Message_.MotionCamera>) -> Motion.Message_.Builder {
-        self.motioncamera = value
-        return self
-      }
-      internal func clearMotioncamera() -> Motion.Message_.Builder {
-        builderResult.motioncamera.removeAll(keepCapacity: false)
-        return self
       }
       var hasCurrmonth:Bool {
            get {
@@ -7385,91 +9051,6 @@ internal extension Motion {
            builderResult.activecamnum = Int32(0)
            return self
       }
-      var hasClientnumber:Bool {
-           get {
-                return builderResult.hasClientnumber
-           }
-      }
-      var clientnumber:Int32 {
-           get {
-                return builderResult.clientnumber
-           }
-           set (value) {
-               builderResult.hasClientnumber = true
-               builderResult.clientnumber = value
-           }
-      }
-      func setClientnumber(value:Int32) -> Motion.Message_.Builder {
-        self.clientnumber = value
-        return self
-      }
-      internal func clearClientnumber() -> Motion.Message_.Builder{
-           builderResult.hasClientnumber = false
-           builderResult.clientnumber = Int32(0)
-           return self
-      }
-      var hasServerurl:Bool {
-           get {
-                return builderResult.hasServerurl
-           }
-      }
-      var serverurl:String {
-           get {
-                return builderResult.serverurl
-           }
-           set (value) {
-               builderResult.hasServerurl = true
-               builderResult.serverurl = value
-           }
-      }
-      func setServerurl(value:String) -> Motion.Message_.Builder {
-        self.serverurl = value
-        return self
-      }
-      internal func clearServerurl() -> Motion.Message_.Builder{
-           builderResult.hasServerurl = false
-           builderResult.serverurl = ""
-           return self
-      }
-      var hasClientname:Bool {
-           get {
-                return builderResult.hasClientname
-           }
-      }
-      var clientname:String {
-           get {
-                return builderResult.clientname
-           }
-           set (value) {
-               builderResult.hasClientname = true
-               builderResult.clientname = value
-           }
-      }
-      func setClientname(value:String) -> Motion.Message_.Builder {
-        self.clientname = value
-        return self
-      }
-      internal func clearClientname() -> Motion.Message_.Builder{
-           builderResult.hasClientname = false
-           builderResult.clientname = ""
-           return self
-      }
-      var motionuser:Array<Motion.Message_.MotionUser> {
-           get {
-               return builderResult.motionuser
-           }
-           set (value) {
-               builderResult.motionuser = value
-           }
-      }
-      func setMotionuser(value:Array<Motion.Message_.MotionUser>) -> Motion.Message_.Builder {
-        self.motionuser = value
-        return self
-      }
-      internal func clearMotionuser() -> Motion.Message_.Builder {
-        builderResult.motionuser.removeAll(keepCapacity: false)
-        return self
-      }
       override internal var internalGetResult:GeneratedMessage {
            get {
               return builderResult
@@ -7500,6 +9081,15 @@ internal extension Motion {
         if other.hasTypes {
              types = other.types
         }
+        if !other.motionuser.isEmpty  {
+           builderResult.motionuser += other.motionuser
+        }
+        if !other.motioncamera.isEmpty  {
+           builderResult.motioncamera += other.motioncamera
+        }
+        if !other.motiondevice.isEmpty  {
+           builderResult.motiondevice += other.motiondevice
+        }
         if other.hasTime {
              time = other.time
         }
@@ -7520,9 +9110,6 @@ internal extension Motion {
         }
         if other.hasDevicestarttime {
              devicestarttime = other.devicestarttime
-        }
-        if !other.motioncamera.isEmpty  {
-           builderResult.motioncamera += other.motioncamera
         }
         if other.hasCurrmonth {
              currmonth = other.currmonth
@@ -7551,18 +9138,6 @@ internal extension Motion {
         if other.hasActivecamnum {
              activecamnum = other.activecamnum
         }
-        if other.hasClientnumber {
-             clientnumber = other.clientnumber
-        }
-        if other.hasServerurl {
-             serverurl = other.serverurl
-        }
-        if other.hasClientname {
-             clientname = other.clientname
-        }
-        if !other.motionuser.isEmpty  {
-           builderResult.motionuser += other.motionuser
-        }
         try mergeUnknownFields(other.unknownFields)
         return self
       }
@@ -7590,71 +9165,67 @@ internal extension Motion {
             }
 
           case 26 :
-            time = try input.readString()
+            let subBuilder = Motion.Message_.MotionUser.Builder()
+            try input.readMessage(subBuilder,extensionRegistry:extensionRegistry)
+            motionuser += [subBuilder.buildPartial()]
 
           case 34 :
-            data = try input.readData()
-
-          case 40 :
-            dataAmount = try input.readInt32()
-
-          case 48 :
-            dataTotal = try input.readInt32()
-
-          case 58 :
-            serverip = try input.readString()
-
-          case 66 :
-            clientip = try input.readString()
-
-          case 74 :
-            devicestarttime = try input.readString()
-
-          case 82 :
             let subBuilder = Motion.Message_.MotionCamera.Builder()
             try input.readMessage(subBuilder,extensionRegistry:extensionRegistry)
             motioncamera += [subBuilder.buildPartial()]
 
+          case 42 :
+            let subBuilder = Motion.Message_.MotionDevice.Builder()
+            try input.readMessage(subBuilder,extensionRegistry:extensionRegistry)
+            motiondevice += [subBuilder.buildPartial()]
+
+          case 50 :
+            time = try input.readString()
+
+          case 58 :
+            data = try input.readData()
+
+          case 64 :
+            dataAmount = try input.readInt32()
+
+          case 72 :
+            dataTotal = try input.readInt32()
+
+          case 82 :
+            serverip = try input.readString()
+
           case 90 :
-            currmonth = try input.readString()
+            clientip = try input.readString()
 
           case 98 :
-            currday = try input.readString()
+            devicestarttime = try input.readString()
 
           case 106 :
+            currmonth = try input.readString()
+
+          case 114 :
+            currday = try input.readString()
+
+          case 122 :
             currdaytitle = try input.readString()
 
-          case 112 :
+          case 128 :
             currcam = try input.readInt32()
 
-          case 120 :
+          case 136 :
             packagesize = try input.readInt32()
 
-          case 130 :
+          case 146 :
             imagefilepath = try input.readString()
 
-          case 138 :
+          case 154 :
             videofilepath = try input.readString()
 
-          case 146 :
+          case 162 :
             recname = try input.readString()
 
-          case 152 :
+          case 168 :
             activecamnum = try input.readInt32()
-
-          case 160 :
-            clientnumber = try input.readInt32()
-
-          case 170 :
-            serverurl = try input.readString()
-
-          case 178 :
-            clientname = try input.readString()
-
-          case 186 :
-            let subBuilder = Motion.Message_.MotionUser.Builder()
-            try input.readMessage(subBuilder,extensionRegistry:extensionRegistry)
-            motionuser += [subBuilder.buildPartial()]
 
           default:
             if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:tag))) {

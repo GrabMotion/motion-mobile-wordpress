@@ -43,6 +43,9 @@
 		D7644BD91C758D8700B5545E /* PushNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7644BD81C758D8700B5545E /* PushNotificationViewController.swift */; };
 		D7644BEB1C7A4C0B00B5545E /* FreePlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7644BEA1C7A4C0B00B5545E /* FreePlanViewController.swift */; };
 		D7644BED1C7A4C1C00B5545E /* PaidPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7644BEC1C7A4C1C00B5545E /* PaidPlanViewController.swift */; };
+		D782B0B11C8B3F0C004FF21D /* CameraTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D782B0B01C8B3F0C004FF21D /* CameraTableViewCell.swift */; };
+		D782B0B31C8B60BB004FF21D /* SetupCameraTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D782B0B21C8B60BB004FF21D /* SetupCameraTableViewController.swift */; };
+		D782B0BA1C8E3045004FF21D /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = D782B0B91C8E3045004FF21D /* OpenCVWrapper.mm */; };
 		D7AE2DBC1C7FF0FB00877EAB /*  FileUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AE2DBB1C7FF0FA00877EAB /*  FileUploader.swift */; };
 		D7AE2DBE1C80771000877EAB /* ServerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AE2DBD1C80771000877EAB /* ServerController.swift */; };
 		D7B7566D1C628D840020A13A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B7566C1C628D840020A13A /* MainViewController.swift */; };
@@ -108,6 +111,10 @@
 		D7644BD81C758D8700B5545E /* PushNotificationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationViewController.swift; sourceTree = "<group>"; };
 		D7644BEA1C7A4C0B00B5545E /* FreePlanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FreePlanViewController.swift; sourceTree = "<group>"; };
 		D7644BEC1C7A4C1C00B5545E /* PaidPlanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaidPlanViewController.swift; sourceTree = "<group>"; };
+		D782B0B01C8B3F0C004FF21D /* CameraTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraTableViewCell.swift; sourceTree = "<group>"; };
+		D782B0B21C8B60BB004FF21D /* SetupCameraTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetupCameraTableViewController.swift; sourceTree = "<group>"; };
+		D782B0B91C8E3045004FF21D /* OpenCVWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenCVWrapper.mm; sourceTree = "<group>"; };
+		D782B0BB1C8E30C3004FF21D /* OpenCVWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenCVWrapper.h; sourceTree = "<group>"; };
 		D7AE2DBB1C7FF0FA00877EAB /*  FileUploader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = " FileUploader.swift"; sourceTree = "<group>"; };
 		D7AE2DBD1C80771000877EAB /* ServerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerController.swift; sourceTree = "<group>"; };
 		D7B7566C1C628D840020A13A /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -260,6 +267,8 @@
 			isa = PBXGroup;
 			children = (
 				D70A62E51C52E32E00E759C6 /* GrabMotion-Bridging-Header.h */,
+				D782B0B91C8E3045004FF21D /* OpenCVWrapper.mm */,
+				D782B0BB1C8E30C3004FF21D /* OpenCVWrapper.h */,
 			);
 			name = ObjectiveC;
 			sourceTree = "<group>";
@@ -268,6 +277,7 @@
 			isa = PBXGroup;
 			children = (
 				D75101181C5604950001147E /* DeviceTableViewCell.swift */,
+				D782B0B01C8B3F0C004FF21D /* CameraTableViewCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -321,6 +331,7 @@
 				D751011A1C5604A10001147E /* Cells */,
 				D7B7574C1C667A900020A13A /* Advanced */,
 				D7B7569B1C644E5F0020A13A /* SetupViewController.swift */,
+				D782B0B21C8B60BB004FF21D /* SetupCameraTableViewController.swift */,
 			);
 			name = Setup;
 			path = GrabMotion;
@@ -527,6 +538,7 @@
 				D7AE2DBC1C7FF0FB00877EAB /*  FileUploader.swift in Sources */,
 				D70A62ED1C52E32F00E759C6 /* ytcpsocket.swift in Sources */,
 				D7644BD91C758D8700B5545E /* PushNotificationViewController.swift in Sources */,
+				D782B0BA1C8E3045004FF21D /* OpenCVWrapper.mm in Sources */,
 				D75101171C55F4940001147E /* SwiftSpinner.swift in Sources */,
 				D751011C1C5697760001147E /* CheckBox.swift in Sources */,
 				D70A62C01C52990300E759C6 /* AppDelegate.swift in Sources */,
@@ -534,11 +546,13 @@
 				D70A62EB1C52E32F00E759C6 /* ysocket.swift in Sources */,
 				D7C2EA341C599F1500115E5A /* TerminalViewController.swift in Sources */,
 				D75101191C5604950001147E /* DeviceTableViewCell.swift in Sources */,
+				D782B0B11C8B3F0C004FF21D /* CameraTableViewCell.swift in Sources */,
 				D7C2EA451C5A9A0B00115E5A /* Socket.swift in Sources */,
 				D7C2EA561C5BC6E300115E5A /* LoginViewController.swift in Sources */,
 				D7644BED1C7A4C1C00B5545E /* PaidPlanViewController.swift in Sources */,
 				D7B7569C1C644E5F0020A13A /* SetupViewController.swift in Sources */,
 				D70A62D21C529D1600E759C6 /* Motion.Motion.proto.swift in Sources */,
+				D782B0B31C8B60BB004FF21D /* SetupCameraTableViewController.swift in Sources */,
 				D71384B91C5D260E004773EA /* RegisterViewController.swift in Sources */,
 				D70A62EC1C52E32F00E759C6 /* ytcpsocket.c in Sources */,
 				D70A62EF1C52E32F00E759C6 /* yudpsocket.swift in Sources */,
