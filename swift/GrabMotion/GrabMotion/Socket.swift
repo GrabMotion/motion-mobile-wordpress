@@ -195,10 +195,6 @@ class Socket
 
         let payload:String = files.substringWithRange(4, end: files.characters.count)
 
-        //print("--------------------------------")
-        //print(payload)
-
-
         for var i = 0; i < amount; ++i 
         {
             let thumbstart = "THUMBNAILSTART\(i)"

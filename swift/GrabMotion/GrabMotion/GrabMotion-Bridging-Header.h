@@ -4,5 +4,6 @@
 
 #include <ifaddrs.h>
 #import <Parse/PFObject+Subclass.h>
+#import "CVWrapper.h"
 
 

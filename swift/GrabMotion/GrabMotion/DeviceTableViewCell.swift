@@ -10,10 +10,16 @@ import UIKit
 
 class DeviceTableViewCell: UITableViewCell
 {
-    @IBOutlet weak var deviceLabel: UILabel!
 
-    @IBOutlet weak var statusLabel: UILabel!
-   
     @IBOutlet weak var statusImage: UIImageView!
+    
+    @IBOutlet weak var statusLabel: UILabel!
+    
+    @IBOutlet weak var thumbnailImage: UIImageView!
+    
+    @IBOutlet weak var cameraLabel: UILabel!
+    
+    @IBOutlet weak var cameraName: UILabel!
+    
     
 }

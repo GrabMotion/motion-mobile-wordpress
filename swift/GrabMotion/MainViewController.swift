@@ -16,6 +16,7 @@ import ParseTwitterUtils
 import FBSDKLoginKit
 import FBSDKCoreKit
 
+
 class MainViewController: UITabBarController
 {
 
@@ -33,7 +34,7 @@ class MainViewController: UITabBarController
 
     override func viewDidLoad() { 
         super.viewDidLoad()
-    
+
         self.main()
     
     }
@@ -62,6 +63,7 @@ class MainViewController: UITabBarController
 
         guard defaults.boolForKey("device_setup_finished") else
         {   
+            
             self.tabBar.userInteractionEnabled = false
             self.selectedIndex = 0
             return
@@ -69,8 +71,11 @@ class MainViewController: UITabBarController
         
         self.tabBar.userInteractionEnabled = true 
         self.selectedIndex = 2
+    
         
     }
+
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

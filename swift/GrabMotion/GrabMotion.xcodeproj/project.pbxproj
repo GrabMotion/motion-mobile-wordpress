@@ -45,7 +45,11 @@
 		D7644BED1C7A4C1C00B5545E /* PaidPlanViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7644BEC1C7A4C1C00B5545E /* PaidPlanViewController.swift */; };
 		D782B0B11C8B3F0C004FF21D /* CameraTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D782B0B01C8B3F0C004FF21D /* CameraTableViewCell.swift */; };
 		D782B0B31C8B60BB004FF21D /* SetupCameraTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D782B0B21C8B60BB004FF21D /* SetupCameraTableViewController.swift */; };
-		D782B0BA1C8E3045004FF21D /* OpenCVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = D782B0B91C8E3045004FF21D /* OpenCVWrapper.mm */; };
+		D782B0BF1C8E4869004FF21D /* CVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = D782B0BE1C8E4869004FF21D /* CVWrapper.mm */; };
+		D782B0C81C8E48E9004FF21D /* stitching.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D782B0C01C8E48E8004FF21D /* stitching.cpp */; };
+		D782B0C91C8E48E9004FF21D /* SwViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D782B0C31C8E48E9004FF21D /* SwViewController.swift */; };
+		D782B0CA1C8E48E9004FF21D /* UIImage+OpenCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = D782B0C51C8E48E9004FF21D /* UIImage+OpenCV.mm */; };
+		D782B0CB1C8E48E9004FF21D /* UIImage+Rotate.m in Sources */ = {isa = PBXBuildFile; fileRef = D782B0C71C8E48E9004FF21D /* UIImage+Rotate.m */; };
 		D7AE2DBC1C7FF0FB00877EAB /*  FileUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AE2DBB1C7FF0FA00877EAB /*  FileUploader.swift */; };
 		D7AE2DBE1C80771000877EAB /* ServerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7AE2DBD1C80771000877EAB /* ServerController.swift */; };
 		D7B7566D1C628D840020A13A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B7566C1C628D840020A13A /* MainViewController.swift */; };
@@ -54,6 +58,8 @@
 		D7B756F91C6547510020A13A /* DeviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B756F81C6547510020A13A /* DeviceViewController.swift */; };
 		D7B757461C666D170020A13A /* grab_motion_play.png in Resources */ = {isa = PBXBuildFile; fileRef = D7B757451C666D170020A13A /* grab_motion_play.png */; };
 		D7B757501C667EBF0020A13A /* AdvancedSetupTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B7574F1C667EBF0020A13A /* AdvancedSetupTableViewController.swift */; };
+		D7BEB26E1C90A908009B1BBB /* checkmark-50.png in Resources */ = {isa = PBXBuildFile; fileRef = D7BEB26D1C90A908009B1BBB /* checkmark-50.png */; };
+		D7BEB2701C90A92B009B1BBB /* New-50.png in Resources */ = {isa = PBXBuildFile; fileRef = D7BEB26F1C90A92B009B1BBB /* New-50.png */; };
 		D7C2EA341C599F1500115E5A /* TerminalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C2EA331C599F1500115E5A /* TerminalViewController.swift */; };
 		D7C2EA451C5A9A0B00115E5A /* Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C2EA441C5A9A0B00115E5A /* Socket.swift */; };
 		D7C2EA4A1C5B30F100115E5A /* spanner-7.png in Resources */ = {isa = PBXBuildFile; fileRef = D7C2EA491C5B30F100115E5A /* spanner-7.png */; };
@@ -113,8 +119,16 @@
 		D7644BEC1C7A4C1C00B5545E /* PaidPlanViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaidPlanViewController.swift; sourceTree = "<group>"; };
 		D782B0B01C8B3F0C004FF21D /* CameraTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraTableViewCell.swift; sourceTree = "<group>"; };
 		D782B0B21C8B60BB004FF21D /* SetupCameraTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetupCameraTableViewController.swift; sourceTree = "<group>"; };
-		D782B0B91C8E3045004FF21D /* OpenCVWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenCVWrapper.mm; sourceTree = "<group>"; };
-		D782B0BB1C8E30C3004FF21D /* OpenCVWrapper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenCVWrapper.h; sourceTree = "<group>"; };
+		D782B0BD1C8E4869004FF21D /* CVWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVWrapper.h; sourceTree = "<group>"; };
+		D782B0BE1C8E4869004FF21D /* CVWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CVWrapper.mm; sourceTree = "<group>"; };
+		D782B0C01C8E48E8004FF21D /* stitching.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stitching.cpp; sourceTree = "<group>"; };
+		D782B0C11C8E48E8004FF21D /* stitching.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stitching.h; sourceTree = "<group>"; };
+		D782B0C21C8E48E9004FF21D /* SwiftStitch-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SwiftStitch-Bridging-Header.h"; sourceTree = "<group>"; };
+		D782B0C31C8E48E9004FF21D /* SwViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwViewController.swift; sourceTree = "<group>"; };
+		D782B0C41C8E48E9004FF21D /* UIImage+OpenCV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+OpenCV.h"; sourceTree = "<group>"; };
+		D782B0C51C8E48E9004FF21D /* UIImage+OpenCV.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIImage+OpenCV.mm"; sourceTree = "<group>"; };
+		D782B0C61C8E48E9004FF21D /* UIImage+Rotate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Rotate.h"; sourceTree = "<group>"; };
+		D782B0C71C8E48E9004FF21D /* UIImage+Rotate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Rotate.m"; sourceTree = "<group>"; };
 		D7AE2DBB1C7FF0FA00877EAB /*  FileUploader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = " FileUploader.swift"; sourceTree = "<group>"; };
 		D7AE2DBD1C80771000877EAB /* ServerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerController.swift; sourceTree = "<group>"; };
 		D7B7566C1C628D840020A13A /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -123,6 +137,8 @@
 		D7B756F81C6547510020A13A /* DeviceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceViewController.swift; sourceTree = "<group>"; };
 		D7B757451C666D170020A13A /* grab_motion_play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grab_motion_play.png; sourceTree = "<group>"; };
 		D7B7574F1C667EBF0020A13A /* AdvancedSetupTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdvancedSetupTableViewController.swift; sourceTree = "<group>"; };
+		D7BEB26D1C90A908009B1BBB /* checkmark-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "checkmark-50.png"; sourceTree = "<group>"; };
+		D7BEB26F1C90A92B009B1BBB /* New-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "New-50.png"; sourceTree = "<group>"; };
 		D7C2EA331C599F1500115E5A /* TerminalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TerminalViewController.swift; sourceTree = "<group>"; };
 		D7C2EA441C5A9A0B00115E5A /* Socket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Socket.swift; sourceTree = "<group>"; };
 		D7C2EA491C5B30F100115E5A /* spanner-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spanner-7.png"; sourceTree = "<group>"; };
@@ -266,9 +282,8 @@
 		D71384C31C5D7786004773EA /* ObjectiveC */ = {
 			isa = PBXGroup;
 			children = (
+				D782B0BC1C8E46EC004FF21D /* opencv */,
 				D70A62E51C52E32E00E759C6 /* GrabMotion-Bridging-Header.h */,
-				D782B0B91C8E3045004FF21D /* OpenCVWrapper.mm */,
-				D782B0BB1C8E30C3004FF21D /* OpenCVWrapper.h */,
 			);
 			name = ObjectiveC;
 			sourceTree = "<group>";
@@ -307,6 +322,23 @@
 				D70A62C81C52990300E759C6 /* LaunchScreen.storyboard */,
 			);
 			name = StoryBoards;
+			sourceTree = "<group>";
+		};
+		D782B0BC1C8E46EC004FF21D /* opencv */ = {
+			isa = PBXGroup;
+			children = (
+				D782B0C01C8E48E8004FF21D /* stitching.cpp */,
+				D782B0C11C8E48E8004FF21D /* stitching.h */,
+				D782B0C21C8E48E9004FF21D /* SwiftStitch-Bridging-Header.h */,
+				D782B0C31C8E48E9004FF21D /* SwViewController.swift */,
+				D782B0C41C8E48E9004FF21D /* UIImage+OpenCV.h */,
+				D782B0C51C8E48E9004FF21D /* UIImage+OpenCV.mm */,
+				D782B0C61C8E48E9004FF21D /* UIImage+Rotate.h */,
+				D782B0C71C8E48E9004FF21D /* UIImage+Rotate.m */,
+				D782B0BD1C8E4869004FF21D /* CVWrapper.h */,
+				D782B0BE1C8E4869004FF21D /* CVWrapper.mm */,
+			);
+			name = opencv;
 			sourceTree = "<group>";
 		};
 		D7B757481C6675400020A13A /* Notification */ = {
@@ -357,6 +389,8 @@
 		D7C2EA481C5B30D900115E5A /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				D7BEB26D1C90A908009B1BBB /* checkmark-50.png */,
+				D7BEB26F1C90A92B009B1BBB /* New-50.png */,
 				D70DB66A1C8A0F870088C1BE /* camerano.png */,
 				D70DB66B1C8A0F870088C1BE /* camerarunning.png */,
 				D70DB6681C8A05790088C1BE /* camon.png */,
@@ -458,6 +492,7 @@
 				D71384B31C5D1CA9004773EA /* FB-f-Logo__blue_100.png in Resources */,
 				D7C2EA601C5C05EF00115E5A /* grabmotion_logo.png in Resources */,
 				D70DB66D1C8A0F870088C1BE /* camerarunning.png in Resources */,
+				D7BEB2701C90A92B009B1BBB /* New-50.png in Resources */,
 				D7C2EA4E1C5B34BF00115E5A /* circle-user-7.png in Resources */,
 				D71384B11C5CFF10004773EA /* pass.png in Resources */,
 				D71384AD1C5CFEAD004773EA /* mail.png in Resources */,
@@ -468,6 +503,7 @@
 				D7B756911C6416C20020A13A /* Help-50.png in Resources */,
 				D7C2EA501C5B351100115E5A /* camera-7.png in Resources */,
 				D7B757461C666D170020A13A /* grab_motion_play.png in Resources */,
+				D7BEB26E1C90A908009B1BBB /* checkmark-50.png in Resources */,
 				D70A62C51C52990300E759C6 /* Main.storyboard in Resources */,
 				D70DB66C1C8A0F870088C1BE /* camerano.png in Resources */,
 				D7C2EA4A1C5B30F100115E5A /* spanner-7.png in Resources */,
@@ -533,12 +569,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D782B0CB1C8E48E9004FF21D /* UIImage+Rotate.m in Sources */,
 				D7B757501C667EBF0020A13A /* AdvancedSetupTableViewController.swift in Sources */,
 				D7FF1B461C5E42F5007415AD /* ProFileViewController.swift in Sources */,
 				D7AE2DBC1C7FF0FB00877EAB /*  FileUploader.swift in Sources */,
 				D70A62ED1C52E32F00E759C6 /* ytcpsocket.swift in Sources */,
+				D782B0CA1C8E48E9004FF21D /* UIImage+OpenCV.mm in Sources */,
 				D7644BD91C758D8700B5545E /* PushNotificationViewController.swift in Sources */,
-				D782B0BA1C8E3045004FF21D /* OpenCVWrapper.mm in Sources */,
 				D75101171C55F4940001147E /* SwiftSpinner.swift in Sources */,
 				D751011C1C5697760001147E /* CheckBox.swift in Sources */,
 				D70A62C01C52990300E759C6 /* AppDelegate.swift in Sources */,
@@ -553,13 +590,16 @@
 				D7B7569C1C644E5F0020A13A /* SetupViewController.swift in Sources */,
 				D70A62D21C529D1600E759C6 /* Motion.Motion.proto.swift in Sources */,
 				D782B0B31C8B60BB004FF21D /* SetupCameraTableViewController.swift in Sources */,
+				D782B0C91C8E48E9004FF21D /* SwViewController.swift in Sources */,
 				D71384B91C5D260E004773EA /* RegisterViewController.swift in Sources */,
 				D70A62EC1C52E32F00E759C6 /* ytcpsocket.c in Sources */,
+				D782B0BF1C8E4869004FF21D /* CVWrapper.mm in Sources */,
 				D70A62EF1C52E32F00E759C6 /* yudpsocket.swift in Sources */,
 				D7AE2DBE1C80771000877EAB /* ServerController.swift in Sources */,
 				D70A62EE1C52E32F00E759C6 /* yudpsocket.c in Sources */,
 				D7644BEB1C7A4C0B00B5545E /* FreePlanViewController.swift in Sources */,
 				D7B7566D1C628D840020A13A /* MainViewController.swift in Sources */,
+				D782B0C81C8E48E9004FF21D /* stitching.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -605,6 +645,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -650,6 +691,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;

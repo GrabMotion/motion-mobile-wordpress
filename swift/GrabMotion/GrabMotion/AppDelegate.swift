@@ -13,6 +13,7 @@ import ParseTwitterUtils
 import ParseFacebookUtilsV4
 import MapKit
 
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -21,6 +22,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var REQUEST_FAILED  = 1
     var NOT_LOGGED_IN   = 2
     var LOGGED_IN       = 3
+ 
+    var localaddrip = String()
+    var deviceIp = String()
 
     var geoPoint = PFGeoPoint()
     var annotation = MKPointAnnotation()
@@ -77,14 +81,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let types: UIRemoteNotificationType = [.Alert, .Badge, .Sound]
                 application.registerForRemoteNotificationTypes(types)
         }
-        
-        
-         let location_authorized = defaults.boolForKey("location_authorized")
-         if !location_authorized
-         {
-            self.setGeoLocation()
-         }
 
+
+        let location_authorized = defaults.boolForKey("location_authorized")
+        if location_authorized
+        {
+            self.setGeoLocation()
+        }
+        
         return true
     }
     
@@ -211,46 +215,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-    
 
     func setGeoLocation()
     {
-        let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
-        dispatch_async(dispatch_get_global_queue(priority, 0)) 
-        {
-            if PFTwitterUtils.isLinkedWithUser(PFUser.currentUser()) || (FBSDKAccessToken.currentAccessToken() != nil)
+       
+        PFGeoPoint.geoPointForCurrentLocationInBackground { (geoPoint: PFGeoPoint?, error: NSError?) -> Void in
+            
+            if (geoPoint != nil)
             {
+                print("\(geoPoint)")
+                
+                self.geoPoint = geoPoint!
+                
+                self.annotation.coordinate = CLLocationCoordinate2DMake(geoPoint!.latitude, geoPoint!.longitude)
 
-                PFGeoPoint.geoPointForCurrentLocationInBackground { (geoPoint: PFGeoPoint?, error: NSError?) -> Void in
-                    
-                    if (geoPoint != nil)
-                    {
-                        print("\(geoPoint)")
-                        
-                        self.geoPoint = geoPoint!
-                        
-                        self.annotation.coordinate = CLLocationCoordinate2DMake(geoPoint!.latitude, geoPoint!.longitude)
+                let pfuser : PFUser = PFUser.currentUser()!
 
-                        let pfuser : PFUser = PFUser.currentUser()!
-
-                        print("geoPoint: \(self.geoPoint)")
-                                    
-                        pfuser.setObject(self.geoPoint, forKey: "location")
-
-                        pfuser.saveInBackgroundWithBlock
-                        {
-                            (success: Bool, error: NSError?) -> Void in
+                print("geoPoint: \(self.geoPoint)")
                             
-                            if (success)
-                            {
-                                print("location stored")
+                pfuser.setObject(geoPoint!, forKey: "location")
 
-                            } else 
-                            {
-                                print("location cannot be stored")
-                            }
-                        }
+                pfuser.saveInBackgroundWithBlock
+                {
+                    (success: Bool, error: NSError?) -> Void in
                     
+                    if (success)
+                    {
+                        print("location stored")
+
+                    } else 
+                    {
+                        print("location cannot be stored")
                     }
                 }
             }

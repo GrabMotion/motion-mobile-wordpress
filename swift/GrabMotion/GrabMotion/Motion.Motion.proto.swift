@@ -33,6 +33,7 @@ internal func == (lhs: Motion.Message_, rhs: Motion.Message_) -> Bool {
   fieldCheck = fieldCheck && (lhs.hasVideofilepath == rhs.hasVideofilepath) && (!lhs.hasVideofilepath || lhs.videofilepath == rhs.videofilepath)
   fieldCheck = fieldCheck && (lhs.hasRecname == rhs.hasRecname) && (!lhs.hasRecname || lhs.recname == rhs.recname)
   fieldCheck = fieldCheck && (lhs.hasActivecamnum == rhs.hasActivecamnum) && (!lhs.hasActivecamnum || lhs.activecamnum == rhs.activecamnum)
+  fieldCheck = fieldCheck && (lhs.hasIncludethubmnails == rhs.hasIncludethubmnails) && (!lhs.hasIncludethubmnails || lhs.includethubmnails == rhs.includethubmnails)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
   return fieldCheck
 }
@@ -72,17 +73,17 @@ internal func == (lhs: Motion.Message_.MotionUser, rhs: Motion.Message_.MotionUs
   }
   var fieldCheck:Bool = (lhs.hashValue == rhs.hashValue)
   fieldCheck = fieldCheck && (lhs.hasClientnumber == rhs.hasClientnumber) && (!lhs.hasClientnumber || lhs.clientnumber == rhs.clientnumber)
-  fieldCheck = fieldCheck && (lhs.hasWpUser == rhs.hasWpUser) && (!lhs.hasWpUser || lhs.wpUser == rhs.wpUser)
-  fieldCheck = fieldCheck && (lhs.hasWpPassword == rhs.hasWpPassword) && (!lhs.hasWpPassword || lhs.wpPassword == rhs.wpPassword)
-  fieldCheck = fieldCheck && (lhs.hasWpServerUrl == rhs.hasWpServerUrl) && (!lhs.hasWpServerUrl || lhs.wpServerUrl == rhs.wpServerUrl)
-  fieldCheck = fieldCheck && (lhs.hasWpUserid == rhs.hasWpUserid) && (!lhs.hasWpUserid || lhs.wpUserid == rhs.wpUserid)
-  fieldCheck = fieldCheck && (lhs.hasWpClientId == rhs.hasWpClientId) && (!lhs.hasWpClientId || lhs.wpClientId == rhs.wpClientId)
-  fieldCheck = fieldCheck && (lhs.hasWpClientMediaid == rhs.hasWpClientMediaid) && (!lhs.hasWpClientMediaid || lhs.wpClientMediaid == rhs.wpClientMediaid)
+  fieldCheck = fieldCheck && (lhs.hasWpuser == rhs.hasWpuser) && (!lhs.hasWpuser || lhs.wpuser == rhs.wpuser)
+  fieldCheck = fieldCheck && (lhs.hasWppassword == rhs.hasWppassword) && (!lhs.hasWppassword || lhs.wppassword == rhs.wppassword)
+  fieldCheck = fieldCheck && (lhs.hasWpserverurl == rhs.hasWpserverurl) && (!lhs.hasWpserverurl || lhs.wpserverurl == rhs.wpserverurl)
+  fieldCheck = fieldCheck && (lhs.hasWpuserid == rhs.hasWpuserid) && (!lhs.hasWpuserid || lhs.wpuserid == rhs.wpuserid)
+  fieldCheck = fieldCheck && (lhs.hasWpclientid == rhs.hasWpclientid) && (!lhs.hasWpclientid || lhs.wpclientid == rhs.wpclientid)
+  fieldCheck = fieldCheck && (lhs.hasWpclientmediaid == rhs.hasWpclientmediaid) && (!lhs.hasWpclientmediaid || lhs.wpclientmediaid == rhs.wpclientmediaid)
   fieldCheck = fieldCheck && (lhs.hasPfobjectid == rhs.hasPfobjectid) && (!lhs.hasPfobjectid || lhs.pfobjectid == rhs.pfobjectid)
   fieldCheck = fieldCheck && (lhs.hasUsername == rhs.hasUsername) && (!lhs.hasUsername || lhs.username == rhs.username)
   fieldCheck = fieldCheck && (lhs.hasEmail == rhs.hasEmail) && (!lhs.hasEmail || lhs.email == rhs.email)
-  fieldCheck = fieldCheck && (lhs.hasFirstName == rhs.hasFirstName) && (!lhs.hasFirstName || lhs.firstName == rhs.firstName)
-  fieldCheck = fieldCheck && (lhs.hasLastName == rhs.hasLastName) && (!lhs.hasLastName || lhs.lastName == rhs.lastName)
+  fieldCheck = fieldCheck && (lhs.hasFirstname == rhs.hasFirstname) && (!lhs.hasFirstname || lhs.firstname == rhs.firstname)
+  fieldCheck = fieldCheck && (lhs.hasLastname == rhs.hasLastname) && (!lhs.hasLastname || lhs.lastname == rhs.lastname)
   fieldCheck = fieldCheck && (lhs.hasLocation == rhs.hasLocation) && (!lhs.hasLocation || lhs.location == rhs.location)
   fieldCheck = fieldCheck && (lhs.hasUiidinstallation == rhs.hasUiidinstallation) && (!lhs.hasUiidinstallation || lhs.uiidinstallation == rhs.uiidinstallation)
   fieldCheck = fieldCheck && (lhs.hasServiceType == rhs.hasServiceType) && (!lhs.hasServiceType || lhs.serviceType == rhs.serviceType)
@@ -1342,23 +1343,23 @@ internal extension Motion {
         private(set) var hasClientnumber:Bool = false
         private(set) var clientnumber:Int32 = Int32(0)
 
-        private(set) var hasWpUser:Bool = false
-        private(set) var wpUser:String = ""
+        private(set) var hasWpuser:Bool = false
+        private(set) var wpuser:String = ""
 
-        private(set) var hasWpPassword:Bool = false
-        private(set) var wpPassword:String = ""
+        private(set) var hasWppassword:Bool = false
+        private(set) var wppassword:String = ""
 
-        private(set) var hasWpServerUrl:Bool = false
-        private(set) var wpServerUrl:String = ""
+        private(set) var hasWpserverurl:Bool = false
+        private(set) var wpserverurl:String = ""
 
-        private(set) var hasWpUserid:Bool = false
-        private(set) var wpUserid:Int32 = Int32(0)
+        private(set) var hasWpuserid:Bool = false
+        private(set) var wpuserid:Int32 = Int32(0)
 
-        private(set) var hasWpClientId:Bool = false
-        private(set) var wpClientId:Int32 = Int32(0)
+        private(set) var hasWpclientid:Bool = false
+        private(set) var wpclientid:Int32 = Int32(0)
 
-        private(set) var hasWpClientMediaid:Bool = false
-        private(set) var wpClientMediaid:Int32 = Int32(0)
+        private(set) var hasWpclientmediaid:Bool = false
+        private(set) var wpclientmediaid:Int32 = Int32(0)
 
         private(set) var hasPfobjectid:Bool = false
         private(set) var pfobjectid:String = ""
@@ -1369,11 +1370,11 @@ internal extension Motion {
         private(set) var hasEmail:Bool = false
         private(set) var email:String = ""
 
-        private(set) var hasFirstName:Bool = false
-        private(set) var firstName:String = ""
+        private(set) var hasFirstname:Bool = false
+        private(set) var firstname:String = ""
 
-        private(set) var hasLastName:Bool = false
-        private(set) var lastName:String = ""
+        private(set) var hasLastname:Bool = false
+        private(set) var lastname:String = ""
 
         private(set) var hasLocation:Bool = false
         private(set) var location:String = ""
@@ -1394,23 +1395,23 @@ internal extension Motion {
           if hasClientnumber {
             try output.writeInt32(1, value:clientnumber)
           }
-          if hasWpUser {
-            try output.writeString(2, value:wpUser)
+          if hasWpuser {
+            try output.writeString(2, value:wpuser)
           }
-          if hasWpPassword {
-            try output.writeString(3, value:wpPassword)
+          if hasWppassword {
+            try output.writeString(3, value:wppassword)
           }
-          if hasWpServerUrl {
-            try output.writeString(4, value:wpServerUrl)
+          if hasWpserverurl {
+            try output.writeString(4, value:wpserverurl)
           }
-          if hasWpUserid {
-            try output.writeInt32(5, value:wpUserid)
+          if hasWpuserid {
+            try output.writeInt32(5, value:wpuserid)
           }
-          if hasWpClientId {
-            try output.writeInt32(6, value:wpClientId)
+          if hasWpclientid {
+            try output.writeInt32(6, value:wpclientid)
           }
-          if hasWpClientMediaid {
-            try output.writeInt32(7, value:wpClientMediaid)
+          if hasWpclientmediaid {
+            try output.writeInt32(7, value:wpclientmediaid)
           }
           if hasPfobjectid {
             try output.writeString(8, value:pfobjectid)
@@ -1421,11 +1422,11 @@ internal extension Motion {
           if hasEmail {
             try output.writeString(10, value:email)
           }
-          if hasFirstName {
-            try output.writeString(11, value:firstName)
+          if hasFirstname {
+            try output.writeString(11, value:firstname)
           }
-          if hasLastName {
-            try output.writeString(12, value:lastName)
+          if hasLastname {
+            try output.writeString(12, value:lastname)
           }
           if hasLocation {
             try output.writeString(13, value:location)
@@ -1448,23 +1449,23 @@ internal extension Motion {
           if hasClientnumber {
             serialize_size += clientnumber.computeInt32Size(1)
           }
-          if hasWpUser {
-            serialize_size += wpUser.computeStringSize(2)
+          if hasWpuser {
+            serialize_size += wpuser.computeStringSize(2)
           }
-          if hasWpPassword {
-            serialize_size += wpPassword.computeStringSize(3)
+          if hasWppassword {
+            serialize_size += wppassword.computeStringSize(3)
           }
-          if hasWpServerUrl {
-            serialize_size += wpServerUrl.computeStringSize(4)
+          if hasWpserverurl {
+            serialize_size += wpserverurl.computeStringSize(4)
           }
-          if hasWpUserid {
-            serialize_size += wpUserid.computeInt32Size(5)
+          if hasWpuserid {
+            serialize_size += wpuserid.computeInt32Size(5)
           }
-          if hasWpClientId {
-            serialize_size += wpClientId.computeInt32Size(6)
+          if hasWpclientid {
+            serialize_size += wpclientid.computeInt32Size(6)
           }
-          if hasWpClientMediaid {
-            serialize_size += wpClientMediaid.computeInt32Size(7)
+          if hasWpclientmediaid {
+            serialize_size += wpclientmediaid.computeInt32Size(7)
           }
           if hasPfobjectid {
             serialize_size += pfobjectid.computeStringSize(8)
@@ -1475,11 +1476,11 @@ internal extension Motion {
           if hasEmail {
             serialize_size += email.computeStringSize(10)
           }
-          if hasFirstName {
-            serialize_size += firstName.computeStringSize(11)
+          if hasFirstname {
+            serialize_size += firstname.computeStringSize(11)
           }
-          if hasLastName {
-            serialize_size += lastName.computeStringSize(12)
+          if hasLastname {
+            serialize_size += lastname.computeStringSize(12)
           }
           if hasLocation {
             serialize_size += location.computeStringSize(13)
@@ -1544,23 +1545,23 @@ internal extension Motion {
           if hasClientnumber {
             output += "\(indent) clientnumber: \(clientnumber) \n"
           }
-          if hasWpUser {
-            output += "\(indent) wpUser: \(wpUser) \n"
+          if hasWpuser {
+            output += "\(indent) wpuser: \(wpuser) \n"
           }
-          if hasWpPassword {
-            output += "\(indent) wpPassword: \(wpPassword) \n"
+          if hasWppassword {
+            output += "\(indent) wppassword: \(wppassword) \n"
           }
-          if hasWpServerUrl {
-            output += "\(indent) wpServerUrl: \(wpServerUrl) \n"
+          if hasWpserverurl {
+            output += "\(indent) wpserverurl: \(wpserverurl) \n"
           }
-          if hasWpUserid {
-            output += "\(indent) wpUserid: \(wpUserid) \n"
+          if hasWpuserid {
+            output += "\(indent) wpuserid: \(wpuserid) \n"
           }
-          if hasWpClientId {
-            output += "\(indent) wpClientId: \(wpClientId) \n"
+          if hasWpclientid {
+            output += "\(indent) wpclientid: \(wpclientid) \n"
           }
-          if hasWpClientMediaid {
-            output += "\(indent) wpClientMediaid: \(wpClientMediaid) \n"
+          if hasWpclientmediaid {
+            output += "\(indent) wpclientmediaid: \(wpclientmediaid) \n"
           }
           if hasPfobjectid {
             output += "\(indent) pfobjectid: \(pfobjectid) \n"
@@ -1571,11 +1572,11 @@ internal extension Motion {
           if hasEmail {
             output += "\(indent) email: \(email) \n"
           }
-          if hasFirstName {
-            output += "\(indent) firstName: \(firstName) \n"
+          if hasFirstname {
+            output += "\(indent) firstname: \(firstname) \n"
           }
-          if hasLastName {
-            output += "\(indent) lastName: \(lastName) \n"
+          if hasLastname {
+            output += "\(indent) lastname: \(lastname) \n"
           }
           if hasLocation {
             output += "\(indent) location: \(location) \n"
@@ -1594,23 +1595,23 @@ internal extension Motion {
                 if hasClientnumber {
                    hashCode = (hashCode &* 31) &+ clientnumber.hashValue
                 }
-                if hasWpUser {
-                   hashCode = (hashCode &* 31) &+ wpUser.hashValue
+                if hasWpuser {
+                   hashCode = (hashCode &* 31) &+ wpuser.hashValue
                 }
-                if hasWpPassword {
-                   hashCode = (hashCode &* 31) &+ wpPassword.hashValue
+                if hasWppassword {
+                   hashCode = (hashCode &* 31) &+ wppassword.hashValue
                 }
-                if hasWpServerUrl {
-                   hashCode = (hashCode &* 31) &+ wpServerUrl.hashValue
+                if hasWpserverurl {
+                   hashCode = (hashCode &* 31) &+ wpserverurl.hashValue
                 }
-                if hasWpUserid {
-                   hashCode = (hashCode &* 31) &+ wpUserid.hashValue
+                if hasWpuserid {
+                   hashCode = (hashCode &* 31) &+ wpuserid.hashValue
                 }
-                if hasWpClientId {
-                   hashCode = (hashCode &* 31) &+ wpClientId.hashValue
+                if hasWpclientid {
+                   hashCode = (hashCode &* 31) &+ wpclientid.hashValue
                 }
-                if hasWpClientMediaid {
-                   hashCode = (hashCode &* 31) &+ wpClientMediaid.hashValue
+                if hasWpclientmediaid {
+                   hashCode = (hashCode &* 31) &+ wpclientmediaid.hashValue
                 }
                 if hasPfobjectid {
                    hashCode = (hashCode &* 31) &+ pfobjectid.hashValue
@@ -1621,11 +1622,11 @@ internal extension Motion {
                 if hasEmail {
                    hashCode = (hashCode &* 31) &+ email.hashValue
                 }
-                if hasFirstName {
-                   hashCode = (hashCode &* 31) &+ firstName.hashValue
+                if hasFirstname {
+                   hashCode = (hashCode &* 31) &+ firstname.hashValue
                 }
-                if hasLastName {
-                   hashCode = (hashCode &* 31) &+ lastName.hashValue
+                if hasLastname {
+                   hashCode = (hashCode &* 31) &+ lastname.hashValue
                 }
                 if hasLocation {
                    hashCode = (hashCode &* 31) &+ location.hashValue
@@ -1687,142 +1688,142 @@ internal extension Motion {
                builderResult.clientnumber = Int32(0)
                return self
           }
-          var hasWpUser:Bool {
+          var hasWpuser:Bool {
                get {
-                    return builderResult.hasWpUser
+                    return builderResult.hasWpuser
                }
           }
-          var wpUser:String {
+          var wpuser:String {
                get {
-                    return builderResult.wpUser
+                    return builderResult.wpuser
                }
                set (value) {
-                   builderResult.hasWpUser = true
-                   builderResult.wpUser = value
+                   builderResult.hasWpuser = true
+                   builderResult.wpuser = value
                }
           }
-          func setWpUser(value:String) -> Motion.Message_.MotionUser.Builder {
-            self.wpUser = value
+          func setWpuser(value:String) -> Motion.Message_.MotionUser.Builder {
+            self.wpuser = value
             return self
           }
-          internal func clearWpUser() -> Motion.Message_.MotionUser.Builder{
-               builderResult.hasWpUser = false
-               builderResult.wpUser = ""
+          internal func clearWpuser() -> Motion.Message_.MotionUser.Builder{
+               builderResult.hasWpuser = false
+               builderResult.wpuser = ""
                return self
           }
-          var hasWpPassword:Bool {
+          var hasWppassword:Bool {
                get {
-                    return builderResult.hasWpPassword
+                    return builderResult.hasWppassword
                }
           }
-          var wpPassword:String {
+          var wppassword:String {
                get {
-                    return builderResult.wpPassword
+                    return builderResult.wppassword
                }
                set (value) {
-                   builderResult.hasWpPassword = true
-                   builderResult.wpPassword = value
+                   builderResult.hasWppassword = true
+                   builderResult.wppassword = value
                }
           }
-          func setWpPassword(value:String) -> Motion.Message_.MotionUser.Builder {
-            self.wpPassword = value
+          func setWppassword(value:String) -> Motion.Message_.MotionUser.Builder {
+            self.wppassword = value
             return self
           }
-          internal func clearWpPassword() -> Motion.Message_.MotionUser.Builder{
-               builderResult.hasWpPassword = false
-               builderResult.wpPassword = ""
+          internal func clearWppassword() -> Motion.Message_.MotionUser.Builder{
+               builderResult.hasWppassword = false
+               builderResult.wppassword = ""
                return self
           }
-          var hasWpServerUrl:Bool {
+          var hasWpserverurl:Bool {
                get {
-                    return builderResult.hasWpServerUrl
+                    return builderResult.hasWpserverurl
                }
           }
-          var wpServerUrl:String {
+          var wpserverurl:String {
                get {
-                    return builderResult.wpServerUrl
+                    return builderResult.wpserverurl
                }
                set (value) {
-                   builderResult.hasWpServerUrl = true
-                   builderResult.wpServerUrl = value
+                   builderResult.hasWpserverurl = true
+                   builderResult.wpserverurl = value
                }
           }
-          func setWpServerUrl(value:String) -> Motion.Message_.MotionUser.Builder {
-            self.wpServerUrl = value
+          func setWpserverurl(value:String) -> Motion.Message_.MotionUser.Builder {
+            self.wpserverurl = value
             return self
           }
-          internal func clearWpServerUrl() -> Motion.Message_.MotionUser.Builder{
-               builderResult.hasWpServerUrl = false
-               builderResult.wpServerUrl = ""
+          internal func clearWpserverurl() -> Motion.Message_.MotionUser.Builder{
+               builderResult.hasWpserverurl = false
+               builderResult.wpserverurl = ""
                return self
           }
-          var hasWpUserid:Bool {
+          var hasWpuserid:Bool {
                get {
-                    return builderResult.hasWpUserid
+                    return builderResult.hasWpuserid
                }
           }
-          var wpUserid:Int32 {
+          var wpuserid:Int32 {
                get {
-                    return builderResult.wpUserid
+                    return builderResult.wpuserid
                }
                set (value) {
-                   builderResult.hasWpUserid = true
-                   builderResult.wpUserid = value
+                   builderResult.hasWpuserid = true
+                   builderResult.wpuserid = value
                }
           }
-          func setWpUserid(value:Int32) -> Motion.Message_.MotionUser.Builder {
-            self.wpUserid = value
+          func setWpuserid(value:Int32) -> Motion.Message_.MotionUser.Builder {
+            self.wpuserid = value
             return self
           }
-          internal func clearWpUserid() -> Motion.Message_.MotionUser.Builder{
-               builderResult.hasWpUserid = false
-               builderResult.wpUserid = Int32(0)
+          internal func clearWpuserid() -> Motion.Message_.MotionUser.Builder{
+               builderResult.hasWpuserid = false
+               builderResult.wpuserid = Int32(0)
                return self
           }
-          var hasWpClientId:Bool {
+          var hasWpclientid:Bool {
                get {
-                    return builderResult.hasWpClientId
+                    return builderResult.hasWpclientid
                }
           }
-          var wpClientId:Int32 {
+          var wpclientid:Int32 {
                get {
-                    return builderResult.wpClientId
+                    return builderResult.wpclientid
                }
                set (value) {
-                   builderResult.hasWpClientId = true
-                   builderResult.wpClientId = value
+                   builderResult.hasWpclientid = true
+                   builderResult.wpclientid = value
                }
           }
-          func setWpClientId(value:Int32) -> Motion.Message_.MotionUser.Builder {
-            self.wpClientId = value
+          func setWpclientid(value:Int32) -> Motion.Message_.MotionUser.Builder {
+            self.wpclientid = value
             return self
           }
-          internal func clearWpClientId() -> Motion.Message_.MotionUser.Builder{
-               builderResult.hasWpClientId = false
-               builderResult.wpClientId = Int32(0)
+          internal func clearWpclientid() -> Motion.Message_.MotionUser.Builder{
+               builderResult.hasWpclientid = false
+               builderResult.wpclientid = Int32(0)
                return self
           }
-          var hasWpClientMediaid:Bool {
+          var hasWpclientmediaid:Bool {
                get {
-                    return builderResult.hasWpClientMediaid
+                    return builderResult.hasWpclientmediaid
                }
           }
-          var wpClientMediaid:Int32 {
+          var wpclientmediaid:Int32 {
                get {
-                    return builderResult.wpClientMediaid
+                    return builderResult.wpclientmediaid
                }
                set (value) {
-                   builderResult.hasWpClientMediaid = true
-                   builderResult.wpClientMediaid = value
+                   builderResult.hasWpclientmediaid = true
+                   builderResult.wpclientmediaid = value
                }
           }
-          func setWpClientMediaid(value:Int32) -> Motion.Message_.MotionUser.Builder {
-            self.wpClientMediaid = value
+          func setWpclientmediaid(value:Int32) -> Motion.Message_.MotionUser.Builder {
+            self.wpclientmediaid = value
             return self
           }
-          internal func clearWpClientMediaid() -> Motion.Message_.MotionUser.Builder{
-               builderResult.hasWpClientMediaid = false
-               builderResult.wpClientMediaid = Int32(0)
+          internal func clearWpclientmediaid() -> Motion.Message_.MotionUser.Builder{
+               builderResult.hasWpclientmediaid = false
+               builderResult.wpclientmediaid = Int32(0)
                return self
           }
           var hasPfobjectid:Bool {
@@ -1894,50 +1895,50 @@ internal extension Motion {
                builderResult.email = ""
                return self
           }
-          var hasFirstName:Bool {
+          var hasFirstname:Bool {
                get {
-                    return builderResult.hasFirstName
+                    return builderResult.hasFirstname
                }
           }
-          var firstName:String {
+          var firstname:String {
                get {
-                    return builderResult.firstName
+                    return builderResult.firstname
                }
                set (value) {
-                   builderResult.hasFirstName = true
-                   builderResult.firstName = value
+                   builderResult.hasFirstname = true
+                   builderResult.firstname = value
                }
           }
-          func setFirstName(value:String) -> Motion.Message_.MotionUser.Builder {
-            self.firstName = value
+          func setFirstname(value:String) -> Motion.Message_.MotionUser.Builder {
+            self.firstname = value
             return self
           }
-          internal func clearFirstName() -> Motion.Message_.MotionUser.Builder{
-               builderResult.hasFirstName = false
-               builderResult.firstName = ""
+          internal func clearFirstname() -> Motion.Message_.MotionUser.Builder{
+               builderResult.hasFirstname = false
+               builderResult.firstname = ""
                return self
           }
-          var hasLastName:Bool {
+          var hasLastname:Bool {
                get {
-                    return builderResult.hasLastName
+                    return builderResult.hasLastname
                }
           }
-          var lastName:String {
+          var lastname:String {
                get {
-                    return builderResult.lastName
+                    return builderResult.lastname
                }
                set (value) {
-                   builderResult.hasLastName = true
-                   builderResult.lastName = value
+                   builderResult.hasLastname = true
+                   builderResult.lastname = value
                }
           }
-          func setLastName(value:String) -> Motion.Message_.MotionUser.Builder {
-            self.lastName = value
+          func setLastname(value:String) -> Motion.Message_.MotionUser.Builder {
+            self.lastname = value
             return self
           }
-          internal func clearLastName() -> Motion.Message_.MotionUser.Builder{
-               builderResult.hasLastName = false
-               builderResult.lastName = ""
+          internal func clearLastname() -> Motion.Message_.MotionUser.Builder{
+               builderResult.hasLastname = false
+               builderResult.lastname = ""
                return self
           }
           var hasLocation:Bool {
@@ -2036,23 +2037,23 @@ internal extension Motion {
             if other.hasClientnumber {
                  clientnumber = other.clientnumber
             }
-            if other.hasWpUser {
-                 wpUser = other.wpUser
+            if other.hasWpuser {
+                 wpuser = other.wpuser
             }
-            if other.hasWpPassword {
-                 wpPassword = other.wpPassword
+            if other.hasWppassword {
+                 wppassword = other.wppassword
             }
-            if other.hasWpServerUrl {
-                 wpServerUrl = other.wpServerUrl
+            if other.hasWpserverurl {
+                 wpserverurl = other.wpserverurl
             }
-            if other.hasWpUserid {
-                 wpUserid = other.wpUserid
+            if other.hasWpuserid {
+                 wpuserid = other.wpuserid
             }
-            if other.hasWpClientId {
-                 wpClientId = other.wpClientId
+            if other.hasWpclientid {
+                 wpclientid = other.wpclientid
             }
-            if other.hasWpClientMediaid {
-                 wpClientMediaid = other.wpClientMediaid
+            if other.hasWpclientmediaid {
+                 wpclientmediaid = other.wpclientmediaid
             }
             if other.hasPfobjectid {
                  pfobjectid = other.pfobjectid
@@ -2063,11 +2064,11 @@ internal extension Motion {
             if other.hasEmail {
                  email = other.email
             }
-            if other.hasFirstName {
-                 firstName = other.firstName
+            if other.hasFirstname {
+                 firstname = other.firstname
             }
-            if other.hasLastName {
-                 lastName = other.lastName
+            if other.hasLastname {
+                 lastname = other.lastname
             }
             if other.hasLocation {
                  location = other.location
@@ -2097,22 +2098,22 @@ internal extension Motion {
                 clientnumber = try input.readInt32()
 
               case 18 :
-                wpUser = try input.readString()
+                wpuser = try input.readString()
 
               case 26 :
-                wpPassword = try input.readString()
+                wppassword = try input.readString()
 
               case 34 :
-                wpServerUrl = try input.readString()
+                wpserverurl = try input.readString()
 
               case 40 :
-                wpUserid = try input.readInt32()
+                wpuserid = try input.readInt32()
 
               case 48 :
-                wpClientId = try input.readInt32()
+                wpclientid = try input.readInt32()
 
               case 56 :
-                wpClientMediaid = try input.readInt32()
+                wpclientmediaid = try input.readInt32()
 
               case 66 :
                 pfobjectid = try input.readString()
@@ -2124,10 +2125,10 @@ internal extension Motion {
                 email = try input.readString()
 
               case 90 :
-                firstName = try input.readString()
+                firstname = try input.readString()
 
               case 98 :
-                lastName = try input.readString()
+                lastname = try input.readString()
 
               case 106 :
                 location = try input.readString()
@@ -8212,6 +8213,9 @@ internal extension Motion {
     private(set) var hasActivecamnum:Bool = false
     private(set) var activecamnum:Int32 = Int32(0)
 
+    private(set) var hasIncludethubmnails:Bool = false
+    private(set) var includethubmnails:Bool = false
+
     required internal init() {
          super.init()
     }
@@ -8295,6 +8299,9 @@ internal extension Motion {
       if hasActivecamnum {
         try output.writeInt32(21, value:activecamnum)
       }
+      if hasIncludethubmnails {
+        try output.writeBool(22, value:includethubmnails)
+      }
       try unknownFields.writeToCodedOutputStream(output)
     }
     override internal func serializedSize() -> Int32 {
@@ -8366,6 +8373,9 @@ internal extension Motion {
       }
       if hasActivecamnum {
         serialize_size += activecamnum.computeInt32Size(21)
+      }
+      if hasIncludethubmnails {
+        serialize_size += includethubmnails.computeBoolSize(22)
       }
       serialize_size += unknownFields.serializedSize()
       memoizedSerializedSize = serialize_size
@@ -8493,6 +8503,9 @@ internal extension Motion {
       if hasActivecamnum {
         output += "\(indent) activecamnum: \(activecamnum) \n"
       }
+      if hasIncludethubmnails {
+        output += "\(indent) includethubmnails: \(includethubmnails) \n"
+      }
       unknownFields.writeDescriptionTo(&output, indent:indent)
     }
     override internal var hashValue:Int {
@@ -8560,6 +8573,9 @@ internal extension Motion {
             }
             if hasActivecamnum {
                hashCode = (hashCode &* 31) &+ activecamnum.hashValue
+            }
+            if hasIncludethubmnails {
+               hashCode = (hashCode &* 31) &+ includethubmnails.hashValue
             }
             hashCode = (hashCode &* 31) &+  unknownFields.hashValue
             return hashCode
@@ -9051,6 +9067,29 @@ internal extension Motion {
            builderResult.activecamnum = Int32(0)
            return self
       }
+      var hasIncludethubmnails:Bool {
+           get {
+                return builderResult.hasIncludethubmnails
+           }
+      }
+      var includethubmnails:Bool {
+           get {
+                return builderResult.includethubmnails
+           }
+           set (value) {
+               builderResult.hasIncludethubmnails = true
+               builderResult.includethubmnails = value
+           }
+      }
+      func setIncludethubmnails(value:Bool) -> Motion.Message_.Builder {
+        self.includethubmnails = value
+        return self
+      }
+      internal func clearIncludethubmnails() -> Motion.Message_.Builder{
+           builderResult.hasIncludethubmnails = false
+           builderResult.includethubmnails = false
+           return self
+      }
       override internal var internalGetResult:GeneratedMessage {
            get {
               return builderResult
@@ -9137,6 +9176,9 @@ internal extension Motion {
         }
         if other.hasActivecamnum {
              activecamnum = other.activecamnum
+        }
+        if other.hasIncludethubmnails {
+             includethubmnails = other.includethubmnails
         }
         try mergeUnknownFields(other.unknownFields)
         return self
@@ -9226,6 +9268,9 @@ internal extension Motion {
 
           case 168 :
             activecamnum = try input.readInt32()
+
+          case 176 :
+            includethubmnails = try input.readBool()
 
           default:
             if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:tag))) {

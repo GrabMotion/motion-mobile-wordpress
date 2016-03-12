@@ -46,6 +46,8 @@ CLLocationManagerDelegate
     var TYPE_TWITTER    = 2
     
     @IBOutlet weak var facebook: UIView!
+    
+     var geoPoint = PFGeoPoint()
 
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
@@ -57,6 +59,7 @@ CLLocationManagerDelegate
 
         self.locationManager = CLLocationManager()
         self.locationManager.delegate = self
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         
         let FBtapGestureRecognizer = UITapGestureRecognizer(target:self, action:Selector("facebookSignIn:"))
         FacebookLoginButton.userInteractionEnabled = true
@@ -106,6 +109,7 @@ CLLocationManagerDelegate
 
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus)
     {
+        print(status)
     
         if (status == CLAuthorizationStatus.AuthorizedAlways)
         {
@@ -125,6 +129,7 @@ CLLocationManagerDelegate
             //self.getProfileData()
             //self.setGeoLocation()
             //self.getInitialPicture()
+            
 
         
         } else if (status == CLAuthorizationStatus.Denied)
@@ -274,11 +279,8 @@ CLLocationManagerDelegate
                     
                     NSUserDefaults.standardUserDefaults().setBool(true, forKey: "registered")
                     NSUserDefaults.standardUserDefaults().synchronize()
-
-                    self.appDelegate.setGeoLocation()
                     
-                    self.loadMain()
-                }
+                    self.storeLocation()                }
                 
             } else {
                 
@@ -359,10 +361,7 @@ CLLocationManagerDelegate
                 NSUserDefaults.standardUserDefaults().setBool(true, forKey: "registered")
                 NSUserDefaults.standardUserDefaults().synchronize()
 
-                self.appDelegate.setGeoLocation()
-            
-                self.loadMain()
-                
+                self.storeLocation()
             }
             
         })
@@ -396,9 +395,9 @@ CLLocationManagerDelegate
                     NSUserDefaults.standardUserDefaults().setBool(true, forKey: "registered")
                     NSUserDefaults.standardUserDefaults().synchronize()
 
-                    self.appDelegate.setGeoLocation()
                     
-                    self.loadMain()
+                    self.storeLocation()
+
                     
                 } else
                 {
@@ -406,6 +405,63 @@ CLLocationManagerDelegate
                 }
         }
         
+    }
+    
+    func storeLocation()
+    {
+        
+        PFGeoPoint.geoPointForCurrentLocationInBackground {
+            (geoPoint: PFGeoPoint?, error: NSError?) -> Void in
+            
+            print(error)
+            
+            print(geoPoint)
+            
+            if error == nil
+            {
+                PFUser.currentUser()!.setValue(geoPoint, forKey: "location")
+                PFUser.currentUser()!.saveInBackgroundWithBlock
+                {
+                    (success: Bool, error: NSError?) -> Void in
+                    
+                    if (success)
+                    {
+                        print("location stored")
+
+                        self.geoPoint = geoPoint!
+
+                        self.appDelegate.geoPoint = geoPoint!
+
+                        self.appDelegate.annotation.coordinate = CLLocationCoordinate2DMake(geoPoint!.latitude, geoPoint!.longitude)
+                        
+                        self.loadMain()
+
+                    } else 
+                    {
+                        print("location cannot be stored")
+
+                        let message = "The application cannot obtain your location. Please uninstall, install again and authorize."
+                        // Create the alert controller
+                        let alertController = UIAlertController(title: "Location error", message: "\(message)", preferredStyle: .Alert)
+                    
+                        // Create the actions
+                        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default)
+                        {
+                            UIAlertAction in
+                        }
+                        
+                        // Add the actions
+                        alertController.addAction(okAction)
+                        
+                        // Present the controller
+                        self.presentViewController(alertController, animated: true, completion: nil)
+
+                    }
+                }
+                
+                
+            }
+        }
     }
 
     func loadMain()

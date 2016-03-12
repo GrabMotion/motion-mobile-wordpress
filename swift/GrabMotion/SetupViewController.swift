@@ -37,6 +37,7 @@ class Device
     var diskavailable           = Int() 
     var disk_percentage_used    = Int() 
     var temperature             = Int()
+    var uuid_installation       = String()
 
     var collapsed = Bool()
     
@@ -81,6 +82,8 @@ SocketProtocolDelegate
     @IBOutlet weak var tableContainer: UIView!
     
     var serverUrl = String()
+
+    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     var delegate:RemoteIpDelegate? = nil
     
@@ -113,7 +116,6 @@ SocketProtocolDelegate
         
         self.delegate = self
         self.socket.delegate = self
-
     }
 
     func getWiFiAddress() -> String? 
@@ -178,20 +180,22 @@ SocketProtocolDelegate
     {
         timerUdp.invalidate()
         
-        remoteServerIp = info
+        self.remoteServerIp = info
         print ("llega: " + info)
         SwiftSpinner.hide()
         
-        //self.tableviewData.append(info)
+        self.appDelegate.localaddrip = localaddrip
+        self.appDelegate.localaddrip = localaddrip
         
-        socket.deviceIp = remoteServerIp
+        socket.deviceIp = info
         socket.setLocaladdrip(localaddrip)
         
         let message = Motion.Message_.Builder()
         message.setTypes(.Engage)
         message.setServerip(info)
         message.setPackagesize(socket.packagesize)
-        
+        message.setIncludethubmnails(false)
+        message.setImagefilepath("kdafkdfhkjasdhfkaskdjfhaksdjfh asdhf kasdh fkasjhd fkjahsd fasdhfjkashd faksdhf akdshf akdshf akh")
         socket.sendMessage(message)
         
     }
@@ -201,7 +205,10 @@ SocketProtocolDelegate
         
         switch message.types.hashValue
         {
-            case Motion.Message_.ActionType.Engage.hashValue:
+            case Motion.Message_.ActionType.Engage.hashValue: 
+                self.engage(message)
+            break
+            case Motion.Message_.ActionType.ServerInfo.hashValue:
                 self.engage(message)
             break
             
@@ -242,7 +249,46 @@ SocketProtocolDelegate
                device.diskused             = Int(rdevice.diskused)                
                device.diskavailable        = Int(rdevice.diskavailable)           
                device.disk_percentage_used = Int(rdevice.diskPercentageUsed)    
-               device.temperature          = Int(rdevice.temperature)             
+               device.temperature          = Int(rdevice.temperature)  
+
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0))
+                {
+                   let device = PFObject(className: "Device")
+
+                   let uuid_raspberry_installation = NSUUID().UUIDString
+                   device.setObject(uuid_raspberry_installation, forKey: "uuid_installation")
+
+                   device.setObject(rdevice.ipnumber, forKey: "ipaddress")
+
+                   device.setObject(rdevice.ippublic, forKey: "publicipaddress")
+
+                   device.setObject(rdevice.hostname, forKey: "hostname")
+
+                   device.setObject(rdevice.model, forKey: "model")
+
+                   device.setObject(rdevice.location, forKey: "location")
+
+                   device.saveInBackgroundWithBlock ({
+                        (success: Bool, error: NSError?) -> Void in
+
+                        let pfuser:PFUser  = PFUser.currentUser()!
+
+                        let raspRel:PFRelation = pfuser.relationForKey("device") as PFRelation
+                        raspRel.addObject(device)
+
+                        pfuser.saveInBackgroundWithBlock
+                        {
+                            (success: Bool , error: NSError?) -> Void in
+                             
+                            if success
+                            {
+                                print("Device Stored.")                       
+                            } else {
+                                print("Device Not Stored.") 
+                            }
+                        }
+                    })   
+                }
         }
 
 
@@ -273,70 +319,22 @@ SocketProtocolDelegate
                     device.running = true
                 }
 
-                //let rnsdata = rcamera.thumbnail
-                
-                //Get length of [UInt8]
-                //let length = rnsdata.length
-                        
-                //Convert NSData to [UInt8] array
-                //var myArray = [UInt8](count: length, repeatedValue: 0)
-                //rnsdata.getBytes(&myArray, length: length)
-                        
-                //Convert [UInt8] to NSData
-                //let resultNSData = NSData(bytes: &myArray, length: length)
-                        
-                //Convert NSData to NSString
-                //let resultNSString = NSString(data: resultNSData, encoding: NSUTF8StringEncoding)!
-
-                /*let thubmnailstr:String = self.socket.files[count]
-
-                print("___________________________________")
-                print(thubmnailstr)
-
-                let cameraImg64:String? = self.decodebase64(thubmnailstr)
-
-                print("___________________________________")
-                print(cameraImg64)
-
-                if (cameraImg64?.characters.count != 0)
+                if message.includethubmnails
                 {
-                    let decodedData = NSData(base64EncodedString: cameraImg64!, options: NSDataBase64DecodingOptions(rawValue: 0))
-                    
-                    let decodedimage = UIImage(data: decodedData!)
 
-                    camera.thumbnail = decodedimage!
-                }
-                device.cameras.append(camera)*/
+                    let thubmnailstr:String = self.socket.files[count]
 
-                let thubmnailstr:String = self.socket.files[count]
-
-                print(":::::::::::::::::::::::::::")
-                print(thubmnailstr.characters.count)
-                print(":::::::::::::::::::::::::::")
-                
-                if thubmnailstr.characters.count > 0
-                {
-                    //let decodedData:NSData = NSData(base64EncodedString: thubmnailstr, options: NSDataBase64DecodingOptions(rawValue: 0))
-                    
-                    //let decodedData = NSData(base64EncodedString: thubmnailstr, options: NSDataBase64DecodingOptions.IgnoreUnknownCharacters) 
-
-                    //let imageData = NSData(base64EncodedString: thubmnailstr, options: NSDataBase64EncodingOptions.allZeros)
-
-                    //let decodedimage = UIImage(data: decodedData!)
-
-                    //let decodedimage:UIImage = self.convertBase64ToImage(thubmnailstr)
-                    
-                    let decodedData = NSData(base64EncodedString: thubmnailstr, options: NSDataBase64DecodingOptions(rawValue: 0))
-                    if let decodedImage = UIImage(data: decodedData!) 
+                    if thubmnailstr.characters.count > 0
                     {
-                        camera.thumbnail = decodedImage
+                              
+                        let stitchedImage:UIImage = CVWrapper.processImageWithStrToCVMat(thubmnailstr)
+                        
+                        camera.thumbnail = stitchedImage
+                    
                     }
 
-                    //if let decoded:Uiimage = decodedimage?
-                    //{
-                    //    camera.thumbnail = decodedimage
-                    //}
                 }
+                
                 device.cameras.append(camera)
                 
                 count++
@@ -346,6 +344,8 @@ SocketProtocolDelegate
         self.devices.append(device)
 
         self.setupTableView!.devices  = self.devices
+
+        self.appDelegate.deviceIp = self.remoteServerIp
 
         self.setupTableView.reload()
         
@@ -379,6 +379,7 @@ SocketProtocolDelegate
         if segue.identifier == "SegueSetupDeviceList"
         {   
             self.setupTableView = segue.destinationViewController as! SetupCameraTableViewController
+
         }
     }
     

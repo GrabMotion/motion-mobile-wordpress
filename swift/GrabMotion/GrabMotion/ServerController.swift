@@ -39,6 +39,8 @@ class ServerController
     lazy var json : JSON = JSON.null
 
     var profileImage:UIImage!
+
+    var deviceIp = String()
   
     init() 
     {
@@ -372,7 +374,8 @@ class ServerController
                         Alamofire.request(.POST, usersWordpress, parameters: parameters as! [String : AnyObject])
                             .responseJSON { response in
 
-                            print("\(response)")
+                
+                                print("\(response)")
                             
                             if response.result.isSuccess
                             {
@@ -470,7 +473,7 @@ class ServerController
                     }*/
                     
                     if response.result.isSuccess
- 	                   {
+ 	                {
 
                         if let value: AnyObject = response.result.value
                         {
@@ -481,42 +484,22 @@ class ServerController
                         
                             if let clientId = post["ID"].int
                             {
-                                 
-                                let pfuser:PFUser  = PFUser.currentUser()!
-                                pfuser.setObject(clientId, forKey: "wp_client_media_id")
-
-                                let uuid_raspberry_installation = NSUUID().UUIDString
-
-                                let raspberry = PFObject(className: "Raspberry")
-                                raspberry.setObject(uuid_raspberry_installation, forKey: "uuid_raspberry_installation") 
-
-                                raspberry.saveInBackgroundWithBlock
-                                {
-                                    (success: Bool , error: NSError?) -> Void in
-                                     
-                                    if success
-                                    {
-                                        let rapsberryRel:PFRelation = pfuser.relationForKey("raspberry") as PFRelation
-                                        rapsberryRel.addObject(raspberry)
+                                                                 
+                                    let pfuser:PFUser  = PFUser.currentUser()!
+                                    pfuser.setObject(clientId, forKey: "wp_client_media_id")
                                     
-                                        pfuser.saveInBackgroundWithBlock
+                                    pfuser.saveInBackgroundWithBlock
+                                    {
+                                        (success: Bool , error: NSError?) -> Void in
+                                         
+                                        if	 success
                                         {
-                                            (success: Bool , error: NSError?) -> Void in
-                                             
-                                            if success
-                                            {
-                                                print("User Setup Finished.")                    
-                                                self.delegateServer.registrationCompleted()
-                                                
-                                            }
+                                            print("User Setup Finished.")                    
+                                            self.delegateServer.registrationCompleted()
+                                            
                                         }
-                                        
                                     }
-                                }
-
-
-                                
-                                
+                                             
                             } else if let message = post["message"].string
                             {
                                 self.delegateServer.popover(message)
