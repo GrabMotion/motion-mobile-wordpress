@@ -43,7 +43,7 @@ class Socket
 
     var files = [String]()
     
-    func sendMessage(message: Motion.Message_.Builder)
+    func sendMessage(data: NSData)
     {
         
         print("deviceIp: \(deviceIp) remotetcpport: \(remotetcpport)")
@@ -54,26 +54,11 @@ class Socket
         if success
         {
             
-            message.setPackagesize(packagesize)
+            var base64String = String()
             
-            var dataencoded = String()
+            base64String = data.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
             
-            do
-            {
-                let m = try message.build()
-                
-                let data:NSData = m.data()
-                
-                dataencoded = data.base64EncodedStringWithOptions(NSDataBase64EncodingOptions.Encoding64CharacterLineLength)
-                
-                //print(dataencoded)
-                
-            } catch
-            {
-                print(error)
-            }
-            
-            var (success,errmsg) = client.send(str: dataencoded)
+            var (success,errmsg) = client.send(str: base64String)
             if success
             {
                 print("packagesize \(packagesize)")
@@ -182,7 +167,9 @@ class Socket
         print(payload.characters.count)
         print(imagespayload.characters.count)
 
-        return (payload, parseAppendedFiles(imagespayload))
+        let files = self.parseAppendedFiles(imagespayload) as [String]
+
+        return (payload, files)
     }
 
    
@@ -311,7 +298,23 @@ class Socket
             let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
             dispatch_async(dispatch_get_global_queue(priority, 0)) 
             {
-                self.sendMessage(mreply)
+
+                let error:NSError!
+
+                var data:NSData!
+                do
+                {
+                    let m = try mreply.build()
+                    data = m.data()
+
+                } catch
+                {
+                    print(error)
+                }
+
+                 self.sendMessage(data)
+
+                //self.sendMessage(mreply)
             }
         
         }
@@ -325,8 +328,7 @@ class Socket
 extension String 
 {
 
-
-  func substringWithRange(start: Int, end: Int) -> String
+    func substringWithRange(start: Int, end: Int) -> String
     {
         if (start < 0 || start > self.characters.count)
         {
@@ -343,3 +345,29 @@ extension String
     }
 
 }
+
+extension String {
+    
+    func base64Encoded() -> String {
+        
+        guard let plainData = (self as NSString).dataUsingEncoding(NSUTF8StringEncoding) else {
+            fatalError()
+        }
+
+        let base64String = plainData.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+        
+        return base64String as String
+    }
+    
+    func base64Decoded() -> String {
+        
+       if let decodedData = NSData(base64EncodedString: self, options:NSDataBase64DecodingOptions(rawValue: 0)),
+        let decodedString = NSString(data: decodedData, encoding: NSUTF8StringEncoding) {
+            return decodedString as String
+       } else {
+            return self
+        }
+        
+    }
+}
+

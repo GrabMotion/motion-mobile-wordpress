@@ -18,9 +18,9 @@ internal func == (lhs: Motion.Message_, rhs: Motion.Message_) -> Bool {
   fieldCheck = fieldCheck && (lhs.motioncamera == rhs.motioncamera)
   fieldCheck = fieldCheck && (lhs.motiondevice == rhs.motiondevice)
   fieldCheck = fieldCheck && (lhs.hasTime == rhs.hasTime) && (!lhs.hasTime || lhs.time == rhs.time)
-  fieldCheck = fieldCheck && (lhs.hasData == rhs.hasData) && (!lhs.hasData || lhs.data == rhs.data)
-  fieldCheck = fieldCheck && (lhs.hasDataAmount == rhs.hasDataAmount) && (!lhs.hasDataAmount || lhs.dataAmount == rhs.dataAmount)
-  fieldCheck = fieldCheck && (lhs.hasDataTotal == rhs.hasDataTotal) && (!lhs.hasDataTotal || lhs.dataTotal == rhs.dataTotal)
+  fieldCheck = fieldCheck && (lhs.hasDatafile == rhs.hasDatafile) && (!lhs.hasDatafile || lhs.datafile == rhs.datafile)
+  fieldCheck = fieldCheck && (lhs.hasDataamount == rhs.hasDataamount) && (!lhs.hasDataamount || lhs.dataamount == rhs.dataamount)
+  fieldCheck = fieldCheck && (lhs.hasDatatotal == rhs.hasDatatotal) && (!lhs.hasDatatotal || lhs.datatotal == rhs.datatotal)
   fieldCheck = fieldCheck && (lhs.hasServerip == rhs.hasServerip) && (!lhs.hasServerip || lhs.serverip == rhs.serverip)
   fieldCheck = fieldCheck && (lhs.hasClientip == rhs.hasClientip) && (!lhs.hasClientip || lhs.clientip == rhs.clientip)
   fieldCheck = fieldCheck && (lhs.hasDevicestarttime == rhs.hasDevicestarttime) && (!lhs.hasDevicestarttime || lhs.devicestarttime == rhs.devicestarttime)
@@ -8168,14 +8168,14 @@ internal extension Motion {
     private(set) var hasTime:Bool = false
     private(set) var time:String = ""
 
-    private(set) var hasData:Bool = false
-    private(set) var data:NSData = NSData()
+    private(set) var hasDatafile:Bool = false
+    private(set) var datafile:NSData = NSData()
 
-    private(set) var hasDataAmount:Bool = false
-    private(set) var dataAmount:Int32 = Int32(0)
+    private(set) var hasDataamount:Bool = false
+    private(set) var dataamount:Int32 = Int32(0)
 
-    private(set) var hasDataTotal:Bool = false
-    private(set) var dataTotal:Int32 = Int32(0)
+    private(set) var hasDatatotal:Bool = false
+    private(set) var datatotal:Int32 = Int32(0)
 
     private(set) var hasServerip:Bool = false
     private(set) var serverip:String = ""
@@ -8254,14 +8254,14 @@ internal extension Motion {
       if hasTime {
         try output.writeString(6, value:time)
       }
-      if hasData {
-        try output.writeData(7, value:data)
+      if hasDatafile {
+        try output.writeData(7, value:datafile)
       }
-      if hasDataAmount {
-        try output.writeInt32(8, value:dataAmount)
+      if hasDataamount {
+        try output.writeInt32(8, value:dataamount)
       }
-      if hasDataTotal {
-        try output.writeInt32(9, value:dataTotal)
+      if hasDatatotal {
+        try output.writeInt32(9, value:datatotal)
       }
       if hasServerip {
         try output.writeString(10, value:serverip)
@@ -8329,14 +8329,14 @@ internal extension Motion {
       if hasTime {
         serialize_size += time.computeStringSize(6)
       }
-      if hasData {
-        serialize_size += data.computeDataSize(7)
+      if hasDatafile {
+        serialize_size += datafile.computeDataSize(7)
       }
-      if hasDataAmount {
-        serialize_size += dataAmount.computeInt32Size(8)
+      if hasDataamount {
+        serialize_size += dataamount.computeInt32Size(8)
       }
-      if hasDataTotal {
-        serialize_size += dataTotal.computeInt32Size(9)
+      if hasDatatotal {
+        serialize_size += datatotal.computeInt32Size(9)
       }
       if hasServerip {
         serialize_size += serverip.computeStringSize(10)
@@ -8458,14 +8458,14 @@ internal extension Motion {
       if hasTime {
         output += "\(indent) time: \(time) \n"
       }
-      if hasData {
-        output += "\(indent) data: \(data) \n"
+      if hasDatafile {
+        output += "\(indent) datafile: \(datafile) \n"
       }
-      if hasDataAmount {
-        output += "\(indent) dataAmount: \(dataAmount) \n"
+      if hasDataamount {
+        output += "\(indent) dataamount: \(dataamount) \n"
       }
-      if hasDataTotal {
-        output += "\(indent) dataTotal: \(dataTotal) \n"
+      if hasDatatotal {
+        output += "\(indent) datatotal: \(datatotal) \n"
       }
       if hasServerip {
         output += "\(indent) serverip: \(serverip) \n"
@@ -8529,14 +8529,14 @@ internal extension Motion {
             if hasTime {
                hashCode = (hashCode &* 31) &+ time.hashValue
             }
-            if hasData {
-               hashCode = (hashCode &* 31) &+ data.hashValue
+            if hasDatafile {
+               hashCode = (hashCode &* 31) &+ datafile.hashValue
             }
-            if hasDataAmount {
-               hashCode = (hashCode &* 31) &+ dataAmount.hashValue
+            if hasDataamount {
+               hashCode = (hashCode &* 31) &+ dataamount.hashValue
             }
-            if hasDataTotal {
-               hashCode = (hashCode &* 31) &+ dataTotal.hashValue
+            if hasDatatotal {
+               hashCode = (hashCode &* 31) &+ datatotal.hashValue
             }
             if hasServerip {
                hashCode = (hashCode &* 31) &+ serverip.hashValue
@@ -8722,73 +8722,73 @@ internal extension Motion {
            builderResult.time = ""
            return self
       }
-      var hasData:Bool {
+      var hasDatafile:Bool {
            get {
-                return builderResult.hasData
+                return builderResult.hasDatafile
            }
       }
-      var data:NSData {
+      var datafile:NSData {
            get {
-                return builderResult.data
+                return builderResult.datafile
            }
            set (value) {
-               builderResult.hasData = true
-               builderResult.data = value
+               builderResult.hasDatafile = true
+               builderResult.datafile = value
            }
       }
-      func setData(value:NSData) -> Motion.Message_.Builder {
-        self.data = value
+      func setDatafile(value:NSData) -> Motion.Message_.Builder {
+        self.datafile = value
         return self
       }
-      internal func clearData() -> Motion.Message_.Builder{
-           builderResult.hasData = false
-           builderResult.data = NSData()
+      internal func clearDatafile() -> Motion.Message_.Builder{
+           builderResult.hasDatafile = false
+           builderResult.datafile = NSData()
            return self
       }
-      var hasDataAmount:Bool {
+      var hasDataamount:Bool {
            get {
-                return builderResult.hasDataAmount
+                return builderResult.hasDataamount
            }
       }
-      var dataAmount:Int32 {
+      var dataamount:Int32 {
            get {
-                return builderResult.dataAmount
+                return builderResult.dataamount
            }
            set (value) {
-               builderResult.hasDataAmount = true
-               builderResult.dataAmount = value
+               builderResult.hasDataamount = true
+               builderResult.dataamount = value
            }
       }
-      func setDataAmount(value:Int32) -> Motion.Message_.Builder {
-        self.dataAmount = value
+      func setDataamount(value:Int32) -> Motion.Message_.Builder {
+        self.dataamount = value
         return self
       }
-      internal func clearDataAmount() -> Motion.Message_.Builder{
-           builderResult.hasDataAmount = false
-           builderResult.dataAmount = Int32(0)
+      internal func clearDataamount() -> Motion.Message_.Builder{
+           builderResult.hasDataamount = false
+           builderResult.dataamount = Int32(0)
            return self
       }
-      var hasDataTotal:Bool {
+      var hasDatatotal:Bool {
            get {
-                return builderResult.hasDataTotal
+                return builderResult.hasDatatotal
            }
       }
-      var dataTotal:Int32 {
+      var datatotal:Int32 {
            get {
-                return builderResult.dataTotal
+                return builderResult.datatotal
            }
            set (value) {
-               builderResult.hasDataTotal = true
-               builderResult.dataTotal = value
+               builderResult.hasDatatotal = true
+               builderResult.datatotal = value
            }
       }
-      func setDataTotal(value:Int32) -> Motion.Message_.Builder {
-        self.dataTotal = value
+      func setDatatotal(value:Int32) -> Motion.Message_.Builder {
+        self.datatotal = value
         return self
       }
-      internal func clearDataTotal() -> Motion.Message_.Builder{
-           builderResult.hasDataTotal = false
-           builderResult.dataTotal = Int32(0)
+      internal func clearDatatotal() -> Motion.Message_.Builder{
+           builderResult.hasDatatotal = false
+           builderResult.datatotal = Int32(0)
            return self
       }
       var hasServerip:Bool {
@@ -9132,14 +9132,14 @@ internal extension Motion {
         if other.hasTime {
              time = other.time
         }
-        if other.hasData {
-             data = other.data
+        if other.hasDatafile {
+             datafile = other.datafile
         }
-        if other.hasDataAmount {
-             dataAmount = other.dataAmount
+        if other.hasDataamount {
+             dataamount = other.dataamount
         }
-        if other.hasDataTotal {
-             dataTotal = other.dataTotal
+        if other.hasDatatotal {
+             datatotal = other.datatotal
         }
         if other.hasServerip {
              serverip = other.serverip
@@ -9225,13 +9225,13 @@ internal extension Motion {
             time = try input.readString()
 
           case 58 :
-            data = try input.readData()
+            datafile = try input.readData()
 
           case 64 :
-            dataAmount = try input.readInt32()
+            dataamount = try input.readInt32()
 
           case 72 :
-            dataTotal = try input.readInt32()
+            datatotal = try input.readInt32()
 
           case 82 :
             serverip = try input.readString()

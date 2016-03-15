@@ -11,7 +11,7 @@ import Parse
 
 
 
-class SetupCameraTableViewContrsoller: UITableViewController,
+class SetupCameraTableViewController: UITableViewController,
 SocketProtocolDelegate 
 {
 
@@ -36,6 +36,7 @@ SocketProtocolDelegate
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int 
     {
+        print(self.devices.count)
         return self.devices.count
     }
 
@@ -205,8 +206,6 @@ SocketProtocolDelegate
                                             print( "_location            :\(_location           )")
                                             print("....................................")   
 
-
-
                                             struct UserToProto 
                                             {
                                                 var serverType = Int32()
@@ -239,7 +238,7 @@ SocketProtocolDelegate
                                             pfuser.setUiidinstallation(uiidinstallation)
                                             pfuser.setClientnumber(_wp_userid_)*/
 
-                                            do
+                                            /*do
                                             {                            
                                                 try message.motionuser += [pfuser.build()]
                                             } catch
@@ -249,7 +248,7 @@ SocketProtocolDelegate
 
                                             self.socket.deviceIp = deviceIp
                                             self.socket.setLocaladdrip(self.appDelegate.localaddrip)
-                                            self.socket.sendMessage(message)   
+                                            self.socket.sendMessage(message) */
 
                                         }
                                     }

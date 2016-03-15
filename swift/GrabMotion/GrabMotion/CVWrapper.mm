@@ -5,14 +5,14 @@
 //  Created by Washe on 02/01/2013.
 //  Copyright (c) 2013 foundry. All rights reserved.
 //
-
+  
 #import "CVWrapper.h"
 #import "UIImage+OpenCV.h"
 #import "stitching.h"
 #import "UIImage+Rotate.h"
-
+  
 @implementation CVWrapper
-
+  
 + (UIImage*) processImageWithStrToCVMat:(NSString*) strMat
 {
     std::string * matstr = new std::string([strMat UTF8String]);
@@ -20,21 +20,21 @@
     UIImage* resultMat =  [UIImage imageWithCVMat:strdatamat];
     return resultMat;
 }
-
+  
 + (UIImage*) processImageWithOpenCV: (UIImage*) inputImage
 {
     NSArray* imageArray = [NSArray arrayWithObject:inputImage];
     UIImage* result = [[self class] processWithArray:imageArray];
     return result;
 }
-
+  
 + (UIImage*) processWithOpenCVImage1:(UIImage*)inputImage1 image2:(UIImage*)inputImage2;
 {
     NSArray* imageArray = [NSArray arrayWithObjects:inputImage1,inputImage2,nil];
     UIImage* result = [[self class] processWithArray:imageArray];
     return result;
 }
-
+  
 + (UIImage*) processWithArray:(NSArray*)imageArray
 {
     if ([imageArray count]==0){
@@ -42,7 +42,7 @@
         return 0;
         }
     std::vector<cv::Mat> matImages;
-
+  
     for (id image in imageArray) {
         if ([image isKindOfClass: [UIImage class]]) {
             /*
@@ -59,6 +59,6 @@
     UIImage* result =  [UIImage imageWithCVMat:stitchedMat];
     return result;
 }
-
-
+  
+  
 @end

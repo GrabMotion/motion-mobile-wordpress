@@ -69,6 +69,9 @@
 		D7C2EA521C5B3FD700115E5A /* gear.png in Resources */ = {isa = PBXBuildFile; fileRef = D7C2EA511C5B3FD700115E5A /* gear.png */; };
 		D7C2EA561C5BC6E300115E5A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C2EA551C5BC6E300115E5A /* LoginViewController.swift */; };
 		D7C2EA601C5C05EF00115E5A /* grabmotion_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = D7C2EA5F1C5C05EF00115E5A /* grabmotion_logo.png */; };
+		D7DD28281C9693D00041F264 /* Icon-60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7DD28251C9693D00041F264 /* Icon-60@3x.png */; };
+		D7DD28291C9693D00041F264 /* Icon-Small-40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7DD28261C9693D00041F264 /* Icon-Small-40@3x.png */; };
+		D7DD282A1C9693D00041F264 /* Icon-Small@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D7DD28271C9693D00041F264 /* Icon-Small@3x.png */; };
 		D7FF1B2A1C5DB641007415AD /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7FF1B291C5DB641007415AD /* Accounts.framework */; };
 		D7FF1B2C1C5DB665007415AD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7FF1B2B1C5DB665007415AD /* CoreGraphics.framework */; };
 		D7FF1B2E1C5DB68B007415AD /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7FF1B2D1C5DB68B007415AD /* Social.framework */; };
@@ -148,6 +151,9 @@
 		D7C2EA511C5B3FD700115E5A /* gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gear.png; sourceTree = "<group>"; };
 		D7C2EA551C5BC6E300115E5A /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		D7C2EA5F1C5C05EF00115E5A /* grabmotion_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grabmotion_logo.png; sourceTree = "<group>"; };
+		D7DD28251C9693D00041F264 /* Icon-60@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-60@3x.png"; sourceTree = "<group>"; };
+		D7DD28261C9693D00041F264 /* Icon-Small-40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-40@3x.png"; sourceTree = "<group>"; };
+		D7DD28271C9693D00041F264 /* Icon-Small@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@3x.png"; sourceTree = "<group>"; };
 		D7FF1B291C5DB641007415AD /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		D7FF1B2B1C5DB665007415AD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		D7FF1B2D1C5DB68B007415AD /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
@@ -389,6 +395,7 @@
 		D7C2EA481C5B30D900115E5A /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				D7DD28241C9693A10041F264 /* icons */,
 				D7BEB26D1C90A908009B1BBB /* checkmark-50.png */,
 				D7BEB26F1C90A92B009B1BBB /* New-50.png */,
 				D70DB66A1C8A0F870088C1BE /* camerano.png */,
@@ -420,6 +427,16 @@
 				D7AE2DBD1C80771000877EAB /* ServerController.swift */,
 			);
 			name = Communications;
+			sourceTree = "<group>";
+		};
+		D7DD28241C9693A10041F264 /* icons */ = {
+			isa = PBXGroup;
+			children = (
+				D7DD28251C9693D00041F264 /* Icon-60@3x.png */,
+				D7DD28261C9693D00041F264 /* Icon-Small-40@3x.png */,
+				D7DD28271C9693D00041F264 /* Icon-Small@3x.png */,
+			);
+			name = icons;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -492,12 +509,15 @@
 				D71384B31C5D1CA9004773EA /* FB-f-Logo__blue_100.png in Resources */,
 				D7C2EA601C5C05EF00115E5A /* grabmotion_logo.png in Resources */,
 				D70DB66D1C8A0F870088C1BE /* camerarunning.png in Resources */,
+				D7DD282A1C9693D00041F264 /* Icon-Small@3x.png in Resources */,
 				D7BEB2701C90A92B009B1BBB /* New-50.png in Resources */,
 				D7C2EA4E1C5B34BF00115E5A /* circle-user-7.png in Resources */,
 				D71384B11C5CFF10004773EA /* pass.png in Resources */,
+				D7DD28281C9693D00041F264 /* Icon-60@3x.png in Resources */,
 				D71384AD1C5CFEAD004773EA /* mail.png in Resources */,
 				D70A630B1C52EE0C00E759C6 /* grabmotion_logo.png in Resources */,
 				D7C2EA521C5B3FD700115E5A /* gear.png in Resources */,
+				D7DD28291C9693D00041F264 /* Icon-Small-40@3x.png in Resources */,
 				D70A62CA1C52990300E759C6 /* LaunchScreen.storyboard in Resources */,
 				D70A62C71C52990300E759C6 /* Assets.xcassets in Resources */,
 				D7B756911C6416C20020A13A /* Help-50.png in Resources */,

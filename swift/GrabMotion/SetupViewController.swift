@@ -185,18 +185,83 @@ SocketProtocolDelegate
         SwiftSpinner.hide()
         
         self.appDelegate.localaddrip = localaddrip
-        self.appDelegate.localaddrip = localaddrip
-        
+              
         socket.deviceIp = info
         socket.setLocaladdrip(localaddrip)
         
         let message = Motion.Message_.Builder()
-        message.setTypes(.Engage)
-        message.setServerip(info)
-        message.setPackagesize(socket.packagesize)
-        message.setIncludethubmnails(false)
-        message.setImagefilepath("kdafkdfhkjasdhfkaskdjfhaksdjfh asdhf kasdh fkasjhd fkjahsd fasdhfjkashd faksdhf akdshf akdshf akh")
-        socket.sendMessage(message)
+        message.types = Motion.Message_.ActionType.Engage
+        message.serverip = info
+
+        message.packagesize = socket.packagesize
+        message.includethubmnails = false
+        
+        let error:NSError!
+
+        var data:NSData!
+        do
+        {
+            let m = try message.build()
+            data = m.data()
+
+        } catch
+        {
+            print(error)
+        }
+        
+        if (data != nil)
+        {
+            print(data.length)
+        }
+
+        //let pfuser = Motion.Message_.MotionUser.Builder()
+        //pfuser.setWpserverurl(wpserverurlbase64.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)
+        //pfuser.setWpuser("dlskfjlfdsfsldsajfadsfasdfasdlkjsdflkasjdflkjaslkjdflkajsdflkjaslkdfjlksajdflkdfsdfsdfdssdfskdfjl".stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)
+        //pfuser.setWppassword("fglkfgdd__asdfasdlkfjdsf_DFA_SDAfjlk".stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)
+        //pfuser.setWpclientid(40)
+        //pfuser.setWpclientmediaid(222)
+
+       //pfuser.setWpServerUrl("gfdgdfsgsdgsfgsdfgsdfg") //wpserverurlbase64)
+        //pfuser.setuiidinstallation("UIID") //uiidinstallation)
+        //spfuser.setwpuserid(33) //_wp_userid_)
+        /*pfuser.setWpClientId(_wp_client_id_)
+        pfuser.setWpClientMediaid(_wp_client_mediaid_)
+        pfuser.setUsername(_username)
+        pfuser.setEmail(_email)
+        pfuser.setFirstName(_first_name)
+        pfuser.setLastName(_last_name)
+        pfuser.setLocation("\(_location.latitude) \(_location.longitude)")
+        pfuser.setUiidinstallation(uiidinstallation)
+        pfuser.setClientnumber(_wp_userid_)
+
+        do
+        {                            
+            try message.motionuser += [pfuser.build()]
+        } catch
+        {
+            print(error)
+        }*/
+
+        socket.sendMessage(data)
+
+       
+        
+        
+       
+        /*do
+        {
+            let message = try message.build()
+
+            print("\(message)")
+
+            print("\(message.data())")
+
+        } catch
+        {
+            print(error)
+        }*/
+
+        //socket.sendMessage(message)
         
     }
     
@@ -243,7 +308,7 @@ SocketProtocolDelegate
                device.db_local             = Int(rdevice.dbLocal)
                device.model                = rdevice.model                   
                device.hardware             = rdevice.hardware                
-               device.serial               = rdevice.serial                  
+               device.serial               = 		rdevice.serial
                device.revision             = rdevice.revision                
                device.disktotal            = Int(rdevice.disktotal)               
                device.diskused             = Int(rdevice.diskused)                
@@ -271,20 +336,24 @@ SocketProtocolDelegate
                    device.saveInBackgroundWithBlock ({
                         (success: Bool, error: NSError?) -> Void in
 
-                        let pfuser:PFUser  = PFUser.currentUser()!
-
-                        let raspRel:PFRelation = pfuser.relationForKey("device") as PFRelation
-                        raspRel.addObject(device)
-
-                        pfuser.saveInBackgroundWithBlock
+                        let pfuser  = PFUser.currentUser()
+                    
+                        if pfuser != nil
                         {
-                            (success: Bool , error: NSError?) -> Void in
-                             
-                            if success
+
+                            let raspRel:PFRelation = pfuser!.relationForKey("device") as PFRelation
+                            raspRel.addObject(device)
+
+                            pfuser!.saveInBackgroundWithBlock
                             {
-                                print("Device Stored.")                       
-                            } else {
-                                print("Device Not Stored.") 
+                                (success: Bool , error: NSError?) -> Void in
+                                 
+                                if success
+                                {
+                                    print("Device Stored.")                       
+                                } else {
+                                    print("Device Not Stored.") 
+                                }
                             }
                         }
                     })   
@@ -379,7 +448,6 @@ SocketProtocolDelegate
         if segue.identifier == "SegueSetupDeviceList"
         {   
             self.setupTableView = segue.destinationViewController as! SetupCameraTableViewController
-
         }
     }
     

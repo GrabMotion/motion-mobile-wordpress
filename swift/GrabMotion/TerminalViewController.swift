@@ -36,10 +36,10 @@ class TerminalViewController: UIViewController {
         print(socket.deviceIp)
         print(socket.localaddrip)
         
-        let message = Motion.Message_.Builder()
-        message.setTypes(Motion.Message_.ActionType.Engage)
-        message.setServerip(socket.localaddrip)
-        socket.sendMessage(message)
+        //let message = Motion.Message_.Builder()
+        //message.setTypes(Motion.Message_.ActionType.Engage)
+        //message.setServerip(socket.localaddrip)
+        //socket.sendMessage(message)
         
     }
 
