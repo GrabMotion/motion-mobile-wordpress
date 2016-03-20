@@ -86,7 +86,14 @@ internal func == (lhs: Motion.Message_.MotionUser, rhs: Motion.Message_.MotionUs
   fieldCheck = fieldCheck && (lhs.hasLastname == rhs.hasLastname) && (!lhs.hasLastname || lhs.lastname == rhs.lastname)
   fieldCheck = fieldCheck && (lhs.hasLocation == rhs.hasLocation) && (!lhs.hasLocation || lhs.location == rhs.location)
   fieldCheck = fieldCheck && (lhs.hasUiidinstallation == rhs.hasUiidinstallation) && (!lhs.hasUiidinstallation || lhs.uiidinstallation == rhs.uiidinstallation)
-  fieldCheck = fieldCheck && (lhs.hasServiceType == rhs.hasServiceType) && (!lhs.hasServiceType || lhs.serviceType == rhs.serviceType)
+  fieldCheck = fieldCheck && (lhs.hasServicetype == rhs.hasServicetype) && (!lhs.hasServicetype || lhs.servicetype == rhs.servicetype)
+  fieldCheck = fieldCheck && (lhs.hasWpslug == rhs.hasWpslug) && (!lhs.hasWpslug || lhs.wpslug == rhs.wpslug)
+  fieldCheck = fieldCheck && (lhs.hasWplink == rhs.hasWplink) && (!lhs.hasWplink || lhs.wplink == rhs.wplink)
+  fieldCheck = fieldCheck && (lhs.hasWpapilink == rhs.hasWpapilink) && (!lhs.hasWpapilink || lhs.wpapilink == rhs.wpapilink)
+  fieldCheck = fieldCheck && (lhs.hasWpfeaturedimage == rhs.hasWpfeaturedimage) && (!lhs.hasWpfeaturedimage || lhs.wpfeaturedimage == rhs.wpfeaturedimage)
+  fieldCheck = fieldCheck && (lhs.hasWptype == rhs.hasWptype) && (!lhs.hasWptype || lhs.wptype == rhs.wptype)
+  fieldCheck = fieldCheck && (lhs.hasWpparent == rhs.hasWpparent) && (!lhs.hasWpparent || lhs.wpparent == rhs.wpparent)
+  fieldCheck = fieldCheck && (lhs.hasWpmodified == rhs.hasWpmodified) && (!lhs.hasWpmodified || lhs.wpmodified == rhs.wpmodified)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
   return fieldCheck
 }
@@ -1382,8 +1389,29 @@ internal extension Motion {
         private(set) var hasUiidinstallation:Bool = false
         private(set) var uiidinstallation:String = ""
 
-        private(set) var hasServiceType:Bool = false
-        private(set) var serviceType:Int32 = Int32(0)
+        private(set) var hasServicetype:Bool = false
+        private(set) var servicetype:Int32 = Int32(0)
+
+        private(set) var hasWpslug:Bool = false
+        private(set) var wpslug:String = ""
+
+        private(set) var hasWplink:Bool = false
+        private(set) var wplink:String = ""
+
+        private(set) var hasWpapilink:Bool = false
+        private(set) var wpapilink:String = ""
+
+        private(set) var hasWpfeaturedimage:Bool = false
+        private(set) var wpfeaturedimage:String = ""
+
+        private(set) var hasWptype:Bool = false
+        private(set) var wptype:String = ""
+
+        private(set) var hasWpparent:Bool = false
+        private(set) var wpparent:Int32 = Int32(0)
+
+        private(set) var hasWpmodified:Bool = false
+        private(set) var wpmodified:String = ""
 
         required internal init() {
              super.init()
@@ -1434,8 +1462,29 @@ internal extension Motion {
           if hasUiidinstallation {
             try output.writeString(14, value:uiidinstallation)
           }
-          if hasServiceType {
-            try output.writeInt32(15, value:serviceType)
+          if hasServicetype {
+            try output.writeInt32(15, value:servicetype)
+          }
+          if hasWpslug {
+            try output.writeString(16, value:wpslug)
+          }
+          if hasWplink {
+            try output.writeString(17, value:wplink)
+          }
+          if hasWpapilink {
+            try output.writeString(18, value:wpapilink)
+          }
+          if hasWpfeaturedimage {
+            try output.writeString(19, value:wpfeaturedimage)
+          }
+          if hasWptype {
+            try output.writeString(20, value:wptype)
+          }
+          if hasWpparent {
+            try output.writeInt32(21, value:wpparent)
+          }
+          if hasWpmodified {
+            try output.writeString(22, value:wpmodified)
           }
           try unknownFields.writeToCodedOutputStream(output)
         }
@@ -1488,8 +1537,29 @@ internal extension Motion {
           if hasUiidinstallation {
             serialize_size += uiidinstallation.computeStringSize(14)
           }
-          if hasServiceType {
-            serialize_size += serviceType.computeInt32Size(15)
+          if hasServicetype {
+            serialize_size += servicetype.computeInt32Size(15)
+          }
+          if hasWpslug {
+            serialize_size += wpslug.computeStringSize(16)
+          }
+          if hasWplink {
+            serialize_size += wplink.computeStringSize(17)
+          }
+          if hasWpapilink {
+            serialize_size += wpapilink.computeStringSize(18)
+          }
+          if hasWpfeaturedimage {
+            serialize_size += wpfeaturedimage.computeStringSize(19)
+          }
+          if hasWptype {
+            serialize_size += wptype.computeStringSize(20)
+          }
+          if hasWpparent {
+            serialize_size += wpparent.computeInt32Size(21)
+          }
+          if hasWpmodified {
+            serialize_size += wpmodified.computeStringSize(22)
           }
           serialize_size += unknownFields.serializedSize()
           memoizedSerializedSize = serialize_size
@@ -1584,8 +1654,29 @@ internal extension Motion {
           if hasUiidinstallation {
             output += "\(indent) uiidinstallation: \(uiidinstallation) \n"
           }
-          if hasServiceType {
-            output += "\(indent) serviceType: \(serviceType) \n"
+          if hasServicetype {
+            output += "\(indent) servicetype: \(servicetype) \n"
+          }
+          if hasWpslug {
+            output += "\(indent) wpslug: \(wpslug) \n"
+          }
+          if hasWplink {
+            output += "\(indent) wplink: \(wplink) \n"
+          }
+          if hasWpapilink {
+            output += "\(indent) wpapilink: \(wpapilink) \n"
+          }
+          if hasWpfeaturedimage {
+            output += "\(indent) wpfeaturedimage: \(wpfeaturedimage) \n"
+          }
+          if hasWptype {
+            output += "\(indent) wptype: \(wptype) \n"
+          }
+          if hasWpparent {
+            output += "\(indent) wpparent: \(wpparent) \n"
+          }
+          if hasWpmodified {
+            output += "\(indent) wpmodified: \(wpmodified) \n"
           }
           unknownFields.writeDescriptionTo(&output, indent:indent)
         }
@@ -1634,8 +1725,29 @@ internal extension Motion {
                 if hasUiidinstallation {
                    hashCode = (hashCode &* 31) &+ uiidinstallation.hashValue
                 }
-                if hasServiceType {
-                   hashCode = (hashCode &* 31) &+ serviceType.hashValue
+                if hasServicetype {
+                   hashCode = (hashCode &* 31) &+ servicetype.hashValue
+                }
+                if hasWpslug {
+                   hashCode = (hashCode &* 31) &+ wpslug.hashValue
+                }
+                if hasWplink {
+                   hashCode = (hashCode &* 31) &+ wplink.hashValue
+                }
+                if hasWpapilink {
+                   hashCode = (hashCode &* 31) &+ wpapilink.hashValue
+                }
+                if hasWpfeaturedimage {
+                   hashCode = (hashCode &* 31) &+ wpfeaturedimage.hashValue
+                }
+                if hasWptype {
+                   hashCode = (hashCode &* 31) &+ wptype.hashValue
+                }
+                if hasWpparent {
+                   hashCode = (hashCode &* 31) &+ wpparent.hashValue
+                }
+                if hasWpmodified {
+                   hashCode = (hashCode &* 31) &+ wpmodified.hashValue
                 }
                 hashCode = (hashCode &* 31) &+  unknownFields.hashValue
                 return hashCode
@@ -1987,27 +2099,188 @@ internal extension Motion {
                builderResult.uiidinstallation = ""
                return self
           }
-          var hasServiceType:Bool {
+          var hasServicetype:Bool {
                get {
-                    return builderResult.hasServiceType
+                    return builderResult.hasServicetype
                }
           }
-          var serviceType:Int32 {
+          var servicetype:Int32 {
                get {
-                    return builderResult.serviceType
+                    return builderResult.servicetype
                }
                set (value) {
-                   builderResult.hasServiceType = true
-                   builderResult.serviceType = value
+                   builderResult.hasServicetype = true
+                   builderResult.servicetype = value
                }
           }
-          func setServiceType(value:Int32) -> Motion.Message_.MotionUser.Builder {
-            self.serviceType = value
+          func setServicetype(value:Int32) -> Motion.Message_.MotionUser.Builder {
+            self.servicetype = value
             return self
           }
-          internal func clearServiceType() -> Motion.Message_.MotionUser.Builder{
-               builderResult.hasServiceType = false
-               builderResult.serviceType = Int32(0)
+          internal func clearServicetype() -> Motion.Message_.MotionUser.Builder{
+               builderResult.hasServicetype = false
+               builderResult.servicetype = Int32(0)
+               return self
+          }
+          var hasWpslug:Bool {
+               get {
+                    return builderResult.hasWpslug
+               }
+          }
+          var wpslug:String {
+               get {
+                    return builderResult.wpslug
+               }
+               set (value) {
+                   builderResult.hasWpslug = true
+                   builderResult.wpslug = value
+               }
+          }
+          func setWpslug(value:String) -> Motion.Message_.MotionUser.Builder {
+            self.wpslug = value
+            return self
+          }
+          internal func clearWpslug() -> Motion.Message_.MotionUser.Builder{
+               builderResult.hasWpslug = false
+               builderResult.wpslug = ""
+               return self
+          }
+          var hasWplink:Bool {
+               get {
+                    return builderResult.hasWplink
+               }
+          }
+          var wplink:String {
+               get {
+                    return builderResult.wplink
+               }
+               set (value) {
+                   builderResult.hasWplink = true
+                   builderResult.wplink = value
+               }
+          }
+          func setWplink(value:String) -> Motion.Message_.MotionUser.Builder {
+            self.wplink = value
+            return self
+          }
+          internal func clearWplink() -> Motion.Message_.MotionUser.Builder{
+               builderResult.hasWplink = false
+               builderResult.wplink = ""
+               return self
+          }
+          var hasWpapilink:Bool {
+               get {
+                    return builderResult.hasWpapilink
+               }
+          }
+          var wpapilink:String {
+               get {
+                    return builderResult.wpapilink
+               }
+               set (value) {
+                   builderResult.hasWpapilink = true
+                   builderResult.wpapilink = value
+               }
+          }
+          func setWpapilink(value:String) -> Motion.Message_.MotionUser.Builder {
+            self.wpapilink = value
+            return self
+          }
+          internal func clearWpapilink() -> Motion.Message_.MotionUser.Builder{
+               builderResult.hasWpapilink = false
+               builderResult.wpapilink = ""
+               return self
+          }
+          var hasWpfeaturedimage:Bool {
+               get {
+                    return builderResult.hasWpfeaturedimage
+               }
+          }
+          var wpfeaturedimage:String {
+               get {
+                    return builderResult.wpfeaturedimage
+               }
+               set (value) {
+                   builderResult.hasWpfeaturedimage = true
+                   builderResult.wpfeaturedimage = value
+               }
+          }
+          func setWpfeaturedimage(value:String) -> Motion.Message_.MotionUser.Builder {
+            self.wpfeaturedimage = value
+            return self
+          }
+          internal func clearWpfeaturedimage() -> Motion.Message_.MotionUser.Builder{
+               builderResult.hasWpfeaturedimage = false
+               builderResult.wpfeaturedimage = ""
+               return self
+          }
+          var hasWptype:Bool {
+               get {
+                    return builderResult.hasWptype
+               }
+          }
+          var wptype:String {
+               get {
+                    return builderResult.wptype
+               }
+               set (value) {
+                   builderResult.hasWptype = true
+                   builderResult.wptype = value
+               }
+          }
+          func setWptype(value:String) -> Motion.Message_.MotionUser.Builder {
+            self.wptype = value
+            return self
+          }
+          internal func clearWptype() -> Motion.Message_.MotionUser.Builder{
+               builderResult.hasWptype = false
+               builderResult.wptype = ""
+               return self
+          }
+          var hasWpparent:Bool {
+               get {
+                    return builderResult.hasWpparent
+               }
+          }
+          var wpparent:Int32 {
+               get {
+                    return builderResult.wpparent
+               }
+               set (value) {
+                   builderResult.hasWpparent = true
+                   builderResult.wpparent = value
+               }
+          }
+          func setWpparent(value:Int32) -> Motion.Message_.MotionUser.Builder {
+            self.wpparent = value
+            return self
+          }
+          internal func clearWpparent() -> Motion.Message_.MotionUser.Builder{
+               builderResult.hasWpparent = false
+               builderResult.wpparent = Int32(0)
+               return self
+          }
+          var hasWpmodified:Bool {
+               get {
+                    return builderResult.hasWpmodified
+               }
+          }
+          var wpmodified:String {
+               get {
+                    return builderResult.wpmodified
+               }
+               set (value) {
+                   builderResult.hasWpmodified = true
+                   builderResult.wpmodified = value
+               }
+          }
+          func setWpmodified(value:String) -> Motion.Message_.MotionUser.Builder {
+            self.wpmodified = value
+            return self
+          }
+          internal func clearWpmodified() -> Motion.Message_.MotionUser.Builder{
+               builderResult.hasWpmodified = false
+               builderResult.wpmodified = ""
                return self
           }
           override internal var internalGetResult:GeneratedMessage {
@@ -2076,8 +2349,29 @@ internal extension Motion {
             if other.hasUiidinstallation {
                  uiidinstallation = other.uiidinstallation
             }
-            if other.hasServiceType {
-                 serviceType = other.serviceType
+            if other.hasServicetype {
+                 servicetype = other.servicetype
+            }
+            if other.hasWpslug {
+                 wpslug = other.wpslug
+            }
+            if other.hasWplink {
+                 wplink = other.wplink
+            }
+            if other.hasWpapilink {
+                 wpapilink = other.wpapilink
+            }
+            if other.hasWpfeaturedimage {
+                 wpfeaturedimage = other.wpfeaturedimage
+            }
+            if other.hasWptype {
+                 wptype = other.wptype
+            }
+            if other.hasWpparent {
+                 wpparent = other.wpparent
+            }
+            if other.hasWpmodified {
+                 wpmodified = other.wpmodified
             }
             try mergeUnknownFields(other.unknownFields)
             return self
@@ -2137,7 +2431,28 @@ internal extension Motion {
                 uiidinstallation = try input.readString()
 
               case 120 :
-                serviceType = try input.readInt32()
+                servicetype = try input.readInt32()
+
+              case 130 :
+                wpslug = try input.readString()
+
+              case 138 :
+                wplink = try input.readString()
+
+              case 146 :
+                wpapilink = try input.readString()
+
+              case 154 :
+                wpfeaturedimage = try input.readString()
+
+              case 162 :
+                wptype = try input.readString()
+
+              case 168 :
+                wpparent = try input.readInt32()
+
+              case 178 :
+                wpmodified = try input.readString()
 
               default:
                 if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:tag))) {

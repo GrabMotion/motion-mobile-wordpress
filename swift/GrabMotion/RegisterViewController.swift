@@ -413,9 +413,8 @@ CLLocationManagerDelegate
         PFGeoPoint.geoPointForCurrentLocationInBackground {
             (geoPoint: PFGeoPoint?, error: NSError?) -> Void in
             
-            print(error)
-            
-            print(geoPoint)
+            //print(error)
+            //print(geoPoint)
             
             if error == nil
             {
@@ -458,8 +457,6 @@ CLLocationManagerDelegate
 
                     }
                 }
-                
-                
             }
         }
     }

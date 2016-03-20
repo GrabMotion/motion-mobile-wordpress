@@ -1,4 +1,4 @@
-//
+
 //  SetupCameraTableViewController.swift
 //  GrabMotion
 //
@@ -18,6 +18,8 @@ SocketProtocolDelegate
     var devices = [Device]()
 
     var socket = Socket()
+
+    let defaults = NSUserDefaults.standardUserDefaults()
 
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 
@@ -122,7 +124,9 @@ SocketProtocolDelegate
         print(recognizer.view?.tag)
         let indexPath : NSIndexPath = NSIndexPath(forRow: 0, inSection:(recognizer.view?.tag as Int!)!)
 
-        if !self.devices[indexPath.section].joined
+        let rdevice = self.devices[indexPath.section]
+        
+        if !rdevice.joined
         {
 
             let message = "Would you like to join device \(self.devices[indexPath.section].hostname)?"
@@ -131,133 +135,61 @@ SocketProtocolDelegate
                             
             alert.addAction(UIAlertAction(title: "Yes", style: UIAlertActionStyle.Default, handler: { action -> Void in
 
-                let query = PFQuery(className:"_User")
-                query.whereKey("user", notEqualTo: PFUser.currentUser()!)
-            
-                query.findObjectsInBackgroundWithBlock {(userObjects:[PFObject]?, error: NSError?) -> Void in
-                
-                if error != nil
+                if let profile_stored:Bool = self.defaults.boolForKey("device_stored")
                 {
-                    print("error")
-                    
-                } else
-                {
-
-                     if let userArray = userObjects
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0))
                     {
+                       let pdevice = PFObject(className: "Device")
+
+                       let uuid_raspberry_installation = NSUUID().UUIDString
+                       pdevice.setObject(uuid_raspberry_installation, forKey: "uuid_installation")
+
+                       pdevice.setObject(rdevice.ipnumber, forKey: "ipaddress")
+
+                       pdevice.setObject(rdevice.ippublic, forKey: "publicipaddress")
+
+                       pdevice.setObject(rdevice.hostname, forKey: "hostname")
+
+                       pdevice.setObject(rdevice.model, forKey: "model")
+
+                       pdevice.setObject(rdevice.location, forKey: "location")
+
+                       pdevice.saveInBackgroundWithBlock ({
+                            (success: Bool, error: NSError?) -> Void in
+
+                            let pfuser  = PFUser.currentUser()
                         
-                        for quser in userArray
-                        {
-                            let _username = quser["username"] as! String
-                            let _wp_user = quser["wp_user"] as! String
-                            let _wp_password = quser["wp_password"] as! String
-                            let _wp_server_url = quser["wp_server_url"] as! String
-                            let _wp_userid = quser["wp_userid"] as! Int
-                            let _wp_userid_ = Int32(_wp_userid) 
-                            let _wp_client_id = quser["wp_client_id"] as! Int
-                            let _wp_client_id_ = Int32(_wp_client_id)
-                            let _wp_client_mediaid = quser["wp_client_media_id"] as! Int
-                            let _wp_client_mediaid_ = Int32(_wp_client_mediaid)
-                            let _email = quser["email"] as! String
-                            let _first_name = quser["first_name"] as! String
-                            let _last_name = quser["last_name"] as! String
-                            let _location = quser["location"] as! PFGeoPoint
+                            if pfuser != nil
+                            {
 
-                            let deviceRelation  = quser["device"] as? PFRelation
-                            
-                            let queryDevice = deviceRelation!.query()
-    
-                            queryDevice.findObjectsInBackgroundWithBlock {(deviceobjects:[PFObject]?, error:
-                                NSError?) -> Void in
+                                let raspRel:PFRelation = pfuser!.relationForKey("device") as PFRelation
+                                raspRel.addObject(pdevice)
 
-                                if error != nil
+                                pfuser!.saveInBackgroundWithBlock
                                 {
-                                    print("error")
-                                } else {
-                                
-                                    if let deviceArray = deviceobjects
+                                    (success: Bool , error: NSError?) -> Void in
+                                     
+                                    if success
                                     {
-                                        for device in deviceArray
-                                        {
+                                        print("Device Stored.")  
 
+                                        NSUserDefaults.standardUserDefaults().setBool(true, forKey: "device_stored")
+                                        NSUserDefaults.standardUserDefaults().synchronize()
 
-                                           
+                                        self.sendClientToRasp()
 
-                                            let objectId = device.objectId! as String
-                                            
-                                            let uiidinstallation = device["uuid_installation"] as! String
-
-                                            let deviceIp = device["ipaddress"] as! String
-
-                                            let wpserverurl = (_wp_server_url as NSString).dataUsingEncoding(NSUTF8StringEncoding)
-                                            let wpserverurlbase64  = wpserverurl!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
-
-                                            print("....................................")
-                                            //print( "_username            :\(_username           )")
-                                            print( "_wp_user             :\(_wp_user            )")
-                                            print( "_wp_password         :\(_wp_password        )")
-                                            print( "_wp_server_url       :\(_wp_server_url      )")
-                                            print( "_wp_userid_          :\(_wp_userid_         )")
-                                            print( "_wp_client_id_       :\(_wp_client_id_      )")
-                                            print( "_wp_client_mediaid_  :\(_wp_client_mediaid_ )")
-                                            print( "_email               :\(_email              )")
-                                            print( "_first_name          :\(_first_name         )")
-                                            print( "_last_name           :\(_last_name          )")
-                                            print( "_location            :\(_location           )")
-                                            print("....................................")   
-
-                                            struct UserToProto 
-                                            {
-                                                var serverType = Int32()
-                                                var type = Int32()
-                                                var packagesize = Int32()
-                                                var includethubmnails = Bool()
-                                                var imagefilepath = String() 
-                                            }
-
-                                            
-                                            let pfuser = Motion.Message_.MotionUser.Builder()
-                                            //pfuser.setWpserverurl(wpserverurlbase64.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)
-                                            pfuser.setWpuser("dlskfjlfdsfsldsajfadsfasdfasdlkjsdflkasjdflkjaslkjdflkajsdflkjaslkdfjlksajdflkdfsdfsdfdssdfskdfjl".stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)
-                                            //pfuser.setWppassword("fglkfgdd__asdfasdlkfjdsf_DFA_SDAfjlk".stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)
-                                            //pfuser.setWpclientid(40)
-                                            //pfuser.setWpclientmediaid(222)
-
-
-                                            
-                                           //pfuser.setWpServerUrl("gfdgdfsgsdgsfgsdfgsdfg") //wpserverurlbase64)
-                                            //pfuser.setuiidinstallation("UIID") //uiidinstallation)
-                                            //spfuser.setwpuserid(33) //_wp_userid_)
-                                            /*pfuser.setWpClientId(_wp_client_id_)
-                                            pfuser.setWpClientMediaid(_wp_client_mediaid_)
-                                            pfuser.setUsername(_username)
-                                            pfuser.setEmail(_email)
-                                            pfuser.setFirstName(_first_name)
-                                            pfuser.setLastName(_last_name)
-                                            pfuser.setLocation("\(_location.latitude) \(_location.longitude)")
-                                            pfuser.setUiidinstallation(uiidinstallation)
-                                            pfuser.setClientnumber(_wp_userid_)*/
-
-                                            /*do
-                                            {                            
-                                                try message.motionuser += [pfuser.build()]
-                                            } catch
-                                            {
-                                                print(error)
-                                            }
-
-                                            self.socket.deviceIp = deviceIp
-                                            self.socket.setLocaladdrip(self.appDelegate.localaddrip)
-                                            self.socket.sendMessage(message) */
-
-                                        }
+                                    } else 
+                                    {
+                                        print("Device Not Stored.") 
                                     }
                                 }
                             }
-                        }
-                   }
+                        })   
+                    }
                 }
-            }
+                
+                
+            
             
             return
 
@@ -276,6 +208,193 @@ SocketProtocolDelegate
         }
 
 
+    }
+
+    func sendClientToRasp()
+    {
+
+        let query = PFQuery(className:"_User")
+        query.whereKey("user", notEqualTo: PFUser.currentUser()!)
+    
+        query.findObjectsInBackgroundWithBlock {(userObjects:[PFObject]?, error: NSError?) -> Void in
+        
+            if error != nil
+            {
+                print("error")
+                
+            } else
+            {
+
+                if let userArray = userObjects
+                {
+                    
+                    for quser in userArray
+                    {
+
+                        var _username = quser["username"] as! String
+                        var _email = quser["email"] as! String
+                        var _first_name = quser["first_name"] as! String
+                        var _last_name = quser["last_name"] as! String
+                        var _location = quser["location"] as! PFGeoPoint
+        
+                        let relDevice:PFRelation = quser["device"] as! PFRelation
+
+                        let queryDevice:PFQuery = relDevice.query()
+
+                        queryDevice.findObjectsInBackgroundWithBlock {(deviceobjects:[PFObject]?, error:
+                            NSError?) -> Void in
+                                                        
+                            if error != nil
+                            {
+                                print("error")
+                            } else {
+                                
+                                if let deviceArray = deviceobjects
+                                {
+                                    
+                                    for qdevice in deviceArray
+                                    {
+                                        let pfobjectid = quser.objectId
+                                        
+                                        let uiidinstallation = qdevice["uuid_installation"] as! String
+
+                                        let deviceIp = qdevice["ipaddress"] as! String
+                                        
+                                        // CLIENT
+
+                                        let clientRelation  = quser["client"] as? PFRelation
+                                        
+                                        let queryClient = clientRelation!.query()
+
+                                        queryClient.findObjectsInBackgroundWithBlock {(clientobjects:[PFObject]?, error:
+                                            NSError?) -> Void in
+
+                                            if error != nil
+                                            {
+                                                print("error")
+
+                                            } else {
+                                            
+                                                if let clientArray = clientobjects
+                                                {
+                                                    for qclient in clientArray
+                                                    {
+
+                                                        let _wp_user            = qclient["wp_user"] as! String
+                                                        let _wp_password        = qclient["wp_password"] as! String
+                                                        let _wp_server_url      = qclient["wp_server_url"] as! String
+                                                        let _wp_userid          = qclient["wp_userid"] as! Int
+                                                        let _wp_userid_         = Int32(_wp_userid) 
+                                                        let _wp_client_id       = qclient["wp_client_id"] as! Int
+                                                        let _wp_client_id_      = Int32(_wp_client_id)
+                                                        let _wp_client_mediaid  = qclient["wp_client_media_id"] as! Int
+                                                        let _wp_client_mediaid_ = Int32(_wp_client_mediaid)
+                                                        let _wp_slug            = qclient["wp_slug"] as! String
+                                                        let _wp_link            = qclient["wp_link"] as! String
+                                                        let _wp_api_link        = qclient["wp_api_link"] as! String
+                                                        let _wp_featured_image  = qclient["wp_featured_image"] as! String
+                                                        let _wp_type            = qclient["wp_type"] as! String
+                                                        let _wp_modified        = qclient["wp_modified"] as! String
+                                                        let _wp_parent          = qclient["wp_parent"] as! Int
+                                                        let _wp_parent_         = Int32(_wp_parent)
+                                                             
+                                                        let wpserverurl = (_wp_server_url as NSString).dataUsingEncoding(NSUTF8StringEncoding)
+                                                        let wpserverurlbase64  = wpserverurl!.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+
+                                                        print("....................................")
+                                                        print( "_email               :\(_email              )")
+                                                        print( "_first_name          :\(_first_name         )")
+                                                        print( "_last_name           :\(_last_name          )")
+                                                        print( "_location            :\(_location           )")
+                                                        print("------------------------------------")
+                                                        print( "_wp_user             :\(_wp_user            )")
+                                                        print( "_wp_password         :\(_wp_password        )")
+                                                        print( "_wp_server_url       :\(_wp_server_url      )")
+                                                        print( "_wp_userid_          :\(_wp_userid_         )")
+                                                        print( "_wp_client_id_       :\(_wp_client_id_      )")
+                                                        print( "_wp_client_mediaid_  :\(_wp_client_mediaid_ )")
+                                                        print( "_wp_slug             :\(_wp_slug            )")
+                                                        print( "_wp_link             :\(_wp_link            )")
+                                                        print( "_wp_api_link         :\(_wp_api_link        )")
+                                                        print( "_wp_featured_image   :\(_wp_featured_image  )")
+                                                        print( "_wp_type             :\(_wp_type            )")
+                                                        print( "_wp_modified         :\(_wp_modified        )")
+                                                        print( "_wp_parent_          :\(_wp_parent_         )")
+                                                        print("....................................")   
+                                                    
+                                                        let message                 = Motion.Message_.Builder()
+                                                        message.types               = Motion.Message_.ActionType.ServerInfo
+                                                        message.serverip            = deviceIp
+                                                        print(deviceIp)
+                                                        message.packagesize         = self.socket.packagesize
+                                                        message.includethubmnails   = false
+
+                                                        let pfuser              = Motion.Message_.MotionUser.Builder()
+                                                        pfuser.username         = _username
+                                                        pfuser.wpuser           = _wp_user
+                                                        pfuser.wppassword       = _wp_password
+                                                        pfuser.wpserverurl      = _wp_server_url    
+                                                        pfuser.wpclientid       = _wp_client_id_
+                                                        pfuser.wpclientmediaid  = _wp_client_mediaid_
+                                                        
+                                                        pfuser.email            = _email
+                                                        pfuser.firstname        = _first_name
+                                                        pfuser.lastname         = _last_name
+                                                        pfuser.location         = "\(_location.latitude), \(_location.longitude)"
+                                                        
+                                                        pfuser.uiidinstallation = uiidinstallation
+                                                        pfuser.clientnumber     = _wp_userid_
+                                                        pfuser.pfobjectid       = pfobjectid!
+
+                                                        pfuser.wpslug           = _wp_slug
+                                                        pfuser.wplink           = _wp_link
+                                                        pfuser.wpapilink        = _wp_api_link
+                                                        pfuser.wpfeaturedimage  = _wp_featured_image
+                                                        pfuser.wpmodified       = _wp_modified
+                                                        pfuser.wpparent         = _wp_parent_
+
+                                                        do
+                                                        {                            
+                                                            try message.motionuser += [pfuser.build()]
+                                                        } catch
+                                                        {
+                                                            print(error)
+                                                        }
+
+
+                                                        let error:NSError!
+
+                                                        var data:NSData!
+                                                        do
+                                                        {
+                                                            let m = try message.build()
+                                                            data = m.data()
+
+                                                        } catch
+                                                        {
+                                                            print(error)
+                                                        }
+                                                        
+                                                        if (data != nil)
+                                                        {
+                                                            print(data.length)
+                                                        }
+
+                                                        self.socket.deviceIp = deviceIp
+                                                        self.socket.sendMessage(data)
+                                                        
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+               }
+            }
+        }
     }
 
     func simpleMessageReceived(message: Motion.Message_)

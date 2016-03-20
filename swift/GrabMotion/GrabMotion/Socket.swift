@@ -46,9 +46,9 @@ class Socket
     func sendMessage(data: NSData)
     {
         
-        print("deviceIp: \(deviceIp) remotetcpport: \(remotetcpport)")
+        print("deviceIp: \(self.deviceIp) remotetcpport: \(self.remotetcpport)")
         
-        let client:TCPClient = TCPClient(addr: deviceIp, port: remotetcpport)
+        let client:TCPClient = TCPClient(addr: self.deviceIp, port: self.remotetcpport)
         
         var (success,errmsg) = client.connect(timeout: 10)
         if success

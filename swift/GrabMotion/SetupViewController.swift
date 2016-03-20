@@ -85,6 +85,8 @@ SocketProtocolDelegate
 
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
+    let defaults = NSUserDefaults.standardUserDefaults()
+
     var delegate:RemoteIpDelegate? = nil
     
     var networkaddrip = String()
@@ -102,8 +104,6 @@ SocketProtocolDelegate
     
     var mainController:MainViewController?
     
-    let defaults = NSUserDefaults.standardUserDefaults()
-
     var setupTableView : SetupCameraTableViewController!
     
     override func viewDidLoad() {
@@ -214,54 +214,8 @@ SocketProtocolDelegate
             print(data.length)
         }
 
-        //let pfuser = Motion.Message_.MotionUser.Builder()
-        //pfuser.setWpserverurl(wpserverurlbase64.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)
-        //pfuser.setWpuser("dlskfjlfdsfsldsajfadsfasdfasdlkjsdflkasjdflkjaslkjdflkajsdflkjaslkdfjlksajdflkdfsdfsdfdssdfskdfjl".stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)
-        //pfuser.setWppassword("fglkfgdd__asdfasdlkfjdsf_DFA_SDAfjlk".stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!)
-        //pfuser.setWpclientid(40)
-        //pfuser.setWpclientmediaid(222)
-
-       //pfuser.setWpServerUrl("gfdgdfsgsdgsfgsdfgsdfg") //wpserverurlbase64)
-        //pfuser.setuiidinstallation("UIID") //uiidinstallation)
-        //spfuser.setwpuserid(33) //_wp_userid_)
-        /*pfuser.setWpClientId(_wp_client_id_)
-        pfuser.setWpClientMediaid(_wp_client_mediaid_)
-        pfuser.setUsername(_username)
-        pfuser.setEmail(_email)
-        pfuser.setFirstName(_first_name)
-        pfuser.setLastName(_last_name)
-        pfuser.setLocation("\(_location.latitude) \(_location.longitude)")
-        pfuser.setUiidinstallation(uiidinstallation)
-        pfuser.setClientnumber(_wp_userid_)
-
-        do
-        {                            
-            try message.motionuser += [pfuser.build()]
-        } catch
-        {
-            print(error)
-        }*/
-
         socket.sendMessage(data)
 
-       
-        
-        
-       
-        /*do
-        {
-            let message = try message.build()
-
-            print("\(message)")
-
-            print("\(message.data())")
-
-        } catch
-        {
-            print(error)
-        }*/
-
-        //socket.sendMessage(message)
         
     }
     
@@ -274,6 +228,10 @@ SocketProtocolDelegate
                 self.engage(message)
             break
             case Motion.Message_.ActionType.ServerInfo.hashValue:
+                self.serviceInfoOk(message)
+            break
+
+            case Motion.Message_.ActionType.ServerInfoOk.hashValue:
                 self.engage(message)
             break
             
@@ -284,6 +242,20 @@ SocketProtocolDelegate
             default:
                 break
         }  
+    }
+
+    func serviceInfoOk(message: Motion.Message_)
+    {
+
+        let ruser:[Motion.Message_.MotionUser] = message.motionuser
+
+        if ruser.count > 0
+        {
+            print("device joined")
+        } 
+
+        self.engage(message)
+
     }
     
     func engage(message: Motion.Message_)
@@ -296,7 +268,8 @@ SocketProtocolDelegate
         for rdevice:Motion.Message_.MotionDevice in rdevices
         {
                device.ipnumber             = rdevice.ipnumber                
-               device.ippublic             = rdevice.ippublic                
+               device.ippublic             = rdevice.ippublic  
+               print(device.ippublic)              
                device.macaddress           = rdevice.macaddress              
                device.hostname             = rdevice.hostname                
                device.city                 = rdevice.city                    
@@ -308,56 +281,13 @@ SocketProtocolDelegate
                device.db_local             = Int(rdevice.dbLocal)
                device.model                = rdevice.model                   
                device.hardware             = rdevice.hardware                
-               device.serial               = 		rdevice.serial
+               device.serial               = rdevice.serial
                device.revision             = rdevice.revision                
                device.disktotal            = Int(rdevice.disktotal)               
                device.diskused             = Int(rdevice.diskused)                
                device.diskavailable        = Int(rdevice.diskavailable)           
                device.disk_percentage_used = Int(rdevice.diskPercentageUsed)    
-               device.temperature          = Int(rdevice.temperature)  
-
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0))
-                {
-                   let device = PFObject(className: "Device")
-
-                   let uuid_raspberry_installation = NSUUID().UUIDString
-                   device.setObject(uuid_raspberry_installation, forKey: "uuid_installation")
-
-                   device.setObject(rdevice.ipnumber, forKey: "ipaddress")
-
-                   device.setObject(rdevice.ippublic, forKey: "publicipaddress")
-
-                   device.setObject(rdevice.hostname, forKey: "hostname")
-
-                   device.setObject(rdevice.model, forKey: "model")
-
-                   device.setObject(rdevice.location, forKey: "location")
-
-                   device.saveInBackgroundWithBlock ({
-                        (success: Bool, error: NSError?) -> Void in
-
-                        let pfuser  = PFUser.currentUser()
-                    
-                        if pfuser != nil
-                        {
-
-                            let raspRel:PFRelation = pfuser!.relationForKey("device") as PFRelation
-                            raspRel.addObject(device)
-
-                            pfuser!.saveInBackgroundWithBlock
-                            {
-                                (success: Bool , error: NSError?) -> Void in
-                                 
-                                if success
-                                {
-                                    print("Device Stored.")                       
-                                } else {
-                                    print("Device Not Stored.") 
-                                }
-                            }
-                        }
-                    })   
-                }
+               device.temperature          = Int(rdevice.temperature)      
         }
 
 

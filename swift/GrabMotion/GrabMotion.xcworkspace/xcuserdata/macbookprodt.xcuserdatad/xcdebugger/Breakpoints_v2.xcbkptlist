@@ -105,13 +105,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SetupViewController.swift"
-            timestampString = "479774738.111838"
+            filePath = "GrabMotion/SetupCameraTableViewController.swift"
+            timestampString = "480109384.345258"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "341"
-            endingLineNumber = "341"
-            landmarkName = "engage(_:)"
+            startingLineNumber = "216"
+            endingLineNumber = "216"
+            landmarkName = "sendClientToRasp()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SetupViewController.swift"
+            timestampString = "480134585.991831"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "250"
+            endingLineNumber = "250"
+            landmarkName = "serviceInfoOk(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

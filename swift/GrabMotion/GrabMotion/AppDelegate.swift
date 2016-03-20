@@ -45,7 +45,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         PFTwitterUtils.initializeWithConsumerKey("MDtm7P8102QqmviczXiPKNuBB", consumerSecret:"sPrMVRaDwKMYtQZSNSQLheNiHDxCyg9M8C2XNrG1HqnP2DHQ9K")
         
         PFFacebookUtils.initializeFacebookWithApplicationLaunchOptions(launchOptions)
-
         
         // [Optional] Track statistics around application opens.
         PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
