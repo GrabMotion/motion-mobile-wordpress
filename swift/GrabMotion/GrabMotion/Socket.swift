@@ -111,20 +111,10 @@ class Socket
                             {
                                 let mresponse = try Motion.Message_.parseFromData(decodedData!)
                                 
-                                /*if mresponse.types.hashValue == Motion.Message_.ActionType.Engage.hashValue
+                                if mresponse.types.hashValue == Motion.Message_.ActionType.ServerInfoOk.hashValue
                                 {
-                                    let rcameras:[Motion.Message_.MotionCamera] = mresponse.motioncamera
-                                    
-                                    let count:Int
-                                    if rcameras.count > 0
-                                    {   
-                                        for rcamera:Motion.Message_.MotionCamera in rcameras
-                                        {
-                                            rcamera.setThumbnail(files[count].dataUsingEncoding(NSUTF8StringEncoding))
-                                        }
-                                        count++
-                                    }
-                                }*/  
+                                    print(mresponse.types)
+                                }
 
                                 if (delegate != nil)
                                 {
@@ -294,6 +284,8 @@ class Socket
             var mreply = Motion.Message_.Builder()
             mreply.setTypes(.ResponseNext)            
             mreply.setPackagesize(packagesize)
+            
+            //sleep(2)
         
             let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
             dispatch_async(dispatch_get_global_queue(priority, 0)) 

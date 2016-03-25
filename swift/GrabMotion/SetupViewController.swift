@@ -1,5 +1,5 @@
 //
-//  SetupViewController.swift
+//  1123SetupViewController.swift
 //  GrabMotion
 //
 //  Created by Macbook Pro DT on 2/5/16.
@@ -101,6 +101,8 @@ SocketProtocolDelegate
     var deviceIp = String()
     
     var socket = Socket()
+
+    var device = Device()
     
     var mainController:MainViewController?
     
@@ -182,7 +184,6 @@ SocketProtocolDelegate
         
         self.remoteServerIp = info
         print ("llega: " + info)
-        SwiftSpinner.hide()
         
         self.appDelegate.localaddrip = localaddrip
               
@@ -194,7 +195,7 @@ SocketProtocolDelegate
         message.serverip = info
 
         message.packagesize = socket.packagesize
-        message.includethubmnails = false
+        message.includethubmnails = true
         
         let error:NSError!
 
@@ -221,18 +222,21 @@ SocketProtocolDelegate
     
     func simpleMessageReceived(message: Motion.Message_)
     {
-        
         switch message.types.hashValue
         {
             case Motion.Message_.ActionType.Engage.hashValue: 
+                SwiftSpinner.hide()
                 self.engage(message)
             break
             case Motion.Message_.ActionType.ServerInfo.hashValue:
                 self.serviceInfoOk(message)
-            break
+            break	
 
             case Motion.Message_.ActionType.ServerInfoOk.hashValue:
-                self.engage(message)
+                
+                self.device.joined = true
+                self.setupTableView.reload()
+
             break
             
             case Motion.Message_.ActionType.GetImage.hashValue:
@@ -261,7 +265,7 @@ SocketProtocolDelegate
     func engage(message: Motion.Message_)
     {
 
-        var device = Device()
+        self.device = Device()
 
         let rdevices:[Motion.Message_.MotionDevice] = message.motiondevice
 

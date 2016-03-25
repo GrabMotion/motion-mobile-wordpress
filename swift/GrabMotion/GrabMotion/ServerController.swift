@@ -23,10 +23,10 @@ protocol ServerControllerDelegate
 class ServerController 
 {
    
-    var userServer = String()
-    var passServer = String()
-    var passWord = String()
-    var userName = String()
+    var userServer  = String()
+    var passServer  = String()
+    var passWord    = String()
+    var userName    = String()
      
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
    
@@ -177,14 +177,9 @@ class ServerController
                       
                     return
                 }
-                  
-                print(self.json["data"])
+                
                    
                 let name = self.json["data"]["user_login"].string    
-                 
-                print(name)
-
-                //self.delegateServer?.remoteLoginResponse(Motion.Message_.ResponseType.LoginSuccessful, resutl: name!, type:endpoint)
                  
                 if name == self.userServer
                 {
@@ -287,22 +282,6 @@ class ServerController
   
                                             self.createWPClient()
 
-                                            //pfuser.setObject(self.passWord, forKey: "wp_password")
-                                            //pfuser.setObject(Int(userId)!, forKey: "wp_userid")
-                                            //pfuser.setObject(self.myWordPressSite, forKey: "wp_server_url")
-                                            //pfuser.setObject(self.userName, forKey: "wp_user")
-                       
-                                            //pfuser.saveInBackgroundWithBlock
-                                            //{
-                                                //(success: Bool , error: NSError?) -> Void in
-                                                  
-                                                //print(success)
-  
-                                                //if success
-                                                //{
-                                                    
-                                                //}
-                                            //}
                                         }
                                     }
                                 }
@@ -342,12 +321,8 @@ class ServerController
                         let email = quser["email"] as! String
   
                         let wp_username = quser["username"] as! String
-                        
-                        //let wp_password = quser["wp_password"] as! String
 
-                        let wp_password = self.defaults.stringForKey("wp_password")! as String
-  
-                        //let wp_userid = quser["wp_userid"] as! Int                        
+                        var wp_password = self.defaults.stringForKey("wp_password")! as String                        
 
                         let wp_userid = self.defaults.stringForKey("wp_userid")! as String
   
@@ -415,21 +390,12 @@ class ServerController
                                                 {
                                                     
                                                     let clientPost = JSON(value)
-                            
-                                                    let iId         = clientPost["id"].int
-                                                    print(iId)
 
-                                                    let wp_modified = clientPost["modified"].string
-                                                    print(wp_modified)
-                                                    
-                                                    let wp_type     = clientPost["type"].string
-                                                    print(wp_type)
-                                                    
-                                                    let wp_slug     = clientPost["slug"].string
-                                                    print(wp_slug)
-                                                    
-                                                    let wp_link     = clientPost["link"].string
-                                                    print(wp_link)
+                                                    let iId         = clientPost["id"].int                                  
+                                                    let wp_modified = clientPost["modified"].string         
+                                                    let wp_type     = clientPost["type"].string                                             
+                                                    let wp_slug     = clientPost["slug"].string                                     
+                                                    let wp_link     = clientPost["link"].string                                                   
 
                                                     var wp_api_link = String()
 
@@ -450,56 +416,33 @@ class ServerController
                                                     let wp_featured_media  = clientPost["featured_media"].int
                                                     print(wp_featured_media)
 
-                                                    let wp_user     = self.defaults.stringForKey("wp_user")! as String
+                                                    
                                                     let wp_server_url     = self.defaults.stringForKey("wp_server_url")! as String
+                                                    let wp_user = self.defaults.stringForKey("wp_username")! as String                        
+                                                    let wp_pass = self.defaults.stringForKey("wp_password")! as String                        
                                                     
-                                                    let client = PFObject(className: "Client")
-
-                                                    client.setObject(wp_user, forKey: "wp_user")
-                                                    
-                                                    client.setObject(wp_password, forKey: "wp_password")
-                                                    
-                                                    client.setObject(iId!, forKey: "wp_client_id")
-
-                                                    client.setObject(Int(wp_userid)!, forKey: "wp_userid")
-                                                    
-                                                    client.setObject(wp_server_url, forKey: "wp_server_url")
-                                                    
-                                                    client.setObject(wp_modified!, forKey: "wp_modified")
-                                                    
-                                                    client.setObject(wp_type!, forKey: "wp_type")
-                                                    
-                                                    client.setObject(wp_slug!, forKey: "wp_slug")
-
-                                                    client.setObject(wp_link!, forKey: "wp_link")
-
-                                                    client.setObject(wp_api_link, forKey: "wp_api_link")
-
-                                                    client.setObject(wp_featured_media!, forKey: "wp_client_media_id")
-
-                                                    client.setObject(wp_post_parent, forKey: "wp_post_parent")
-                                                    
-                                                    /*
-                                                    wp_user
-                                                    wp_password 
-                                                    wp_client_id
-                                                    wp_userid
-                                                    wp_server_url
-                                                    wp_modified
-                                                    wp_type
-                                                    wp_link
-                                                    wp_client_media_id 
-                                                    */
-                                                    
-                                                    client.saveInBackgroundWithBlock ({
+                                                    let clt = PFObject(className: "Client")
+                                                    clt.setObject(wp_user, forKey: "wp_user")                                                    
+                                                    clt.setObject(wp_pass, forKey: "wp_password")                                                    
+                                                    clt.setObject(iId!, forKey: "wp_client_id")
+                                                    clt.setObject(Int(wp_userid)!, forKey: "wp_userid")             
+                                                    clt.setObject(wp_server_url, forKey: "wp_server_url")
+                                                    clt.setObject(wp_modified!, forKey: "wp_modified")                                                    
+                                                    clt.setObject(wp_type!, forKey: "wp_type")
+                                                    clt.setObject(wp_slug!, forKey: "wp_slug")
+                                                    clt.setObject(wp_link!, forKey: "wp_link")
+                                                    clt.setObject(wp_api_link, forKey: "wp_api_link")
+                                                    clt.setObject(wp_featured_media!, forKey: "wp_client_media_id")
+                                                    clt.setObject(wp_post_parent, forKey: "wp_post_parent")
+                                                  
+                                                    clt.saveInBackgroundWithBlock ({
                                                         (success: Bool, error: NSError?) -> Void in
                                                         
                                                         if success == true
                                                         {
-                                                            self.uploadProfilePicture(client, clientId:Int(iId!), post_author : Int(wp_userid)! )
+                                                            self.uploadProfilePicture(clt, clientId:Int(iId!), post_author : Int(wp_userid)! )
                                                         }
-                                                    })
-                                                    
+                                                    })  
                                                 }
                                             }
                                         }
@@ -530,8 +473,7 @@ class ServerController
         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
         dispatch_async(dispatch_get_global_queue(priority, 0)) 
         {
-            // do some task
-             
+                       
             dispatch_async(dispatch_get_main_queue()) 
             {
   
@@ -635,15 +577,15 @@ class ServerController
   
     //https://github.com/Alamofire/Alamofire/issues/32
   
-  /*func postClientThumbnail(
+    /*func postClientThumbnail(
         userServer:String, 
         passServer:String,  
         name: String, 
         image: UIImage?)
     {
   
-        //media << "curl --user jose:joselon -X POST -H 'Content-Disposition: filename=" << fineandextension << 
-        //        "' --data-binary @'"<< maximagepath << "' -d title='" << recname << "' -H \"Expect: \" " << SERVER_BASE_URL << "/wp-json/wp/v2/media";
+        //media << "curl --user " << WP_USER << ":" << WP_PASS << " -X POST -H 'Content-Disposition: filename=" << fineandextension << 
+        //        "' --data-binary @'"<< maximagepath << "' -d title='" << recname << "' -H \"Expect: \" " << SERVER_BASE_URL << "media";
        
         var usersWordpress:String = "\(self.myWordPressSite)/media/"
   
@@ -698,7 +640,6 @@ class ServerController
                 }
             }
         )
-  
    }
   
     func saveImage (image: UIImage, path: String ) -> Bool{

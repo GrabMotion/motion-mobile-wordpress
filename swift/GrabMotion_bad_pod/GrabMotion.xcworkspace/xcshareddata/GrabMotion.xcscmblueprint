@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "D2098E2244FA993DE1E823F17E79FEC1EFA896D1",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "D2098E2244FA993DE1E823F17E79FEC1EFA896D1" : 0,
+    "F62412DB1CF8AA9A425C65792819A5C9329F4CAC" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "102CB6EE-3202-43D3-8023-256D0A94E371",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "D2098E2244FA993DE1E823F17E79FEC1EFA896D1" : "motionapps\/",
+    "F62412DB1CF8AA9A425C65792819A5C9329F4CAC" : "auction\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "GrabMotion",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "swift\/GrabMotion\/GrabMotion.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "roamtouch.unfuddle.com:roamtouch\/motionapps.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "D2098E2244FA993DE1E823F17E79FEC1EFA896D1"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "roamtouch.unfuddle.com:roamtouch\/auction.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "F62412DB1CF8AA9A425C65792819A5C9329F4CAC"
+    }
+  ]
+}
