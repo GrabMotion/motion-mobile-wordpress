@@ -16,6 +16,7 @@ PODS:
   - FBSDKShareKit (4.9.1):
     - FBSDKCoreKit
   - KeychainAccess (2.3.3)
+  - KYCircularProgress (0.5.1)
   - OpenCV (2.4.9)
   - Parse (1.12.0):
     - Bolts/Tasks (~> 1.5)
@@ -38,6 +39,7 @@ DEPENDENCIES:
   - FBSDKCoreKit
   - FBSDKLoginKit
   - FBSDKShareKit
+  - KYCircularProgress
   - OpenCV (= 2.4.9)
   - Parse
   - ParseFacebookUtilsV4
@@ -63,6 +65,7 @@ SPEC CHECKSUMS:
   FBSDKLoginKit: ec22dc49bd372b064e93d6773df4ffefb3a552a2
   FBSDKShareKit: b8c8ef0ed173f9fc1b3c8df384a0202ce53008d4
   KeychainAccess: 9b7e49e48277e329b1b3195e54697ed313d30acf
+  KYCircularProgress: 69a6d6852d96ca2be2830cc659b85aab3bb1cee6
   OpenCV: bb17904e55fc19b1f0f6c3e29bc04a7dd31eddb9
   Parse: de2c52a9a1421b91ae7594ab8ce191afd184f19b
   ParseFacebookUtilsV4: 216e03bd560404eed09a4875c75f0c1cdf758070

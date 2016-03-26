@@ -21,6 +21,10 @@ SocketProtocolDelegate
 
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 
+    var jobView : JobViewController!
+
+    var deviceIp = String()    
+
     override func viewDidLoad() 
     {
         super.viewDidLoad()        
@@ -51,7 +55,8 @@ SocketProtocolDelegate
         tableView.estimatedRowHeight = 75.0
     }
 
-    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? 
+    {
         
         let headerView = UIView(frame: CGRectMake(0, 0, tableView.frame.size.width, 80))
         headerView.backgroundColor = UIColor.lightGrayColor()
@@ -305,7 +310,7 @@ SocketProtocolDelegate
                                         
                                         let uiidinstallation = qdevice["uuid_installation"] as! String
 
-                                        let deviceIp = qdevice["ipaddress"] as! String
+                                        self.deviceIp = qdevice["ipaddress"] as! String
                                         
                                         // CLIENT
 
@@ -377,7 +382,7 @@ SocketProtocolDelegate
                                                 
                                                     let message                 = Motion.Message_.Builder()
                                                     message.types               = Motion.Message_.ActionType.ServerInfo
-                                                    message.serverip            = deviceIp                                                    
+                                                    message.serverip            = self.deviceIp                                                    
                                                     message.packagesize         = self.socket.packagesize  
                                                     message.includethubmnails   = false
 
@@ -433,7 +438,7 @@ SocketProtocolDelegate
                                                         print(data.length)
                                                     }
 
-                                                    self.socket.deviceIp = deviceIp
+                                                    self.socket.deviceIp = self.deviceIp
                                                     self.socket.sendMessage(data)
                                                    
                                                 }
@@ -539,16 +544,45 @@ SocketProtocolDelegate
 
     }
 
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
+    {
+
+        //self.jobView.device = self.devices[indexPath.row]
+        //let nav = segue.destinationViewController as! UINavigationController
+        //self.jobView = nav.topViewController as! JobViewController 
+        //self.performSegueWithIdentifier("SegueJobCreation", sender: self)
+
+        let jobViewStory = self.storyboard?.instantiateViewControllerWithIdentifier("JobViewController") as! JobViewController
+        
+        jobViewStory.deviceIp = self.deviceIp
+
+        let jobViewNav = UINavigationController(rootViewController: jobViewStory)
+    
+        self.appDelegate.window?.rootViewController = jobViewNav
+
+    }
+
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat
     {
         return 80
     }
     
-    override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat 
+    {
         return 1
     }
-  
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) 
+    {
+        
+        if segue.identifier == "SegueJobCreation"
+        {
+            let nav = segue.destinationViewController as! UINavigationController
+            self.jobView = nav.topViewController as! JobViewController      
+        }
+
+    }
+  
     override func didReceiveMemoryWarning() 
     {
         super.didReceiveMemoryWarning() 

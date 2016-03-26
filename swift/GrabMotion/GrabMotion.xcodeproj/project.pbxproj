@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B8D99DBF6FE3E002034586D4 /* Pods_GrabMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A4ECA889A7743CAC88CFB47 /* Pods_GrabMotion.framework */; };
+		D70026E41CA626940076485A /* JobViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70026E31CA626930076485A /* JobViewController.swift */; };
 		D70A62C01C52990300E759C6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70A62BF1C52990300E759C6 /* AppDelegate.swift */; };
 		D70A62C51C52990300E759C6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D70A62C31C52990300E759C6 /* Main.storyboard */; };
 		D70A62C71C52990300E759C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D70A62C61C52990300E759C6 /* Assets.xcassets */; };
@@ -82,6 +83,7 @@
 		003A29F84F603B168D373BE5 /* Pods-GrabMotion.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GrabMotion.release.xcconfig"; path = "Pods/Target Support Files/Pods-GrabMotion/Pods-GrabMotion.release.xcconfig"; sourceTree = "<group>"; };
 		3A4ECA889A7743CAC88CFB47 /* Pods_GrabMotion.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GrabMotion.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1E92113F894BE0A768513C2 /* Pods-GrabMotion.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GrabMotion.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GrabMotion/Pods-GrabMotion.debug.xcconfig"; sourceTree = "<group>"; };
+		D70026E31CA626930076485A /* JobViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobViewController.swift; sourceTree = "<group>"; };
 		D70A62BC1C52990300E759C6 /* GrabMotion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GrabMotion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D70A62BF1C52990300E759C6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D70A62C41C52990300E759C6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -370,6 +372,7 @@
 				D7B7574C1C667A900020A13A /* Advanced */,
 				D7B7569B1C644E5F0020A13A /* SetupViewController.swift */,
 				D782B0B21C8B60BB004FF21D /* SetupCameraTableViewController.swift */,
+				D70026E31CA626930076485A /* JobViewController.swift */,
 			);
 			name = Setup;
 			path = GrabMotion;
@@ -601,6 +604,7 @@
 				D70A62C01C52990300E759C6 /* AppDelegate.swift in Sources */,
 				D7B756F91C6547510020A13A /* DeviceViewController.swift in Sources */,
 				D70A62EB1C52E32F00E759C6 /* ysocket.swift in Sources */,
+				D70026E41CA626940076485A /* JobViewController.swift in Sources */,
 				D7C2EA341C599F1500115E5A /* TerminalViewController.swift in Sources */,
 				D75101191C5604950001147E /* DeviceTableViewCell.swift in Sources */,
 				D782B0B11C8B3F0C004FF21D /* CameraTableViewCell.swift in Sources */,

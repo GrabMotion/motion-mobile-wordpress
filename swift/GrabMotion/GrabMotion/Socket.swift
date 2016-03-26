@@ -12,6 +12,7 @@ import ProtocolBuffers
 protocol SocketProtocolDelegate
 {
     func simpleMessageReceived(message: Motion.Message_)
+    func imageProgress(progress : Int,  total : Int)
 }
 
 class Socket
@@ -241,7 +242,7 @@ class Socket
         print("total__packages: \(total__packages)")
         
         current_package = Int(vpay[2])!
-        print("current_package: \(current_package)")
+        print("current_package: \(current_package)")        
         
         current____type = Int(vpay[3])!
         print("current____type: \(current____type)")
@@ -251,6 +252,8 @@ class Socket
         
         package____size = Int(vpay[0])!
         print("package____size: \(package____size)")
+
+        self.delegate.imageProgress(current_package, total : total__packages)
         
         let resultpayload = String(proto.characters.dropFirst(from))
 

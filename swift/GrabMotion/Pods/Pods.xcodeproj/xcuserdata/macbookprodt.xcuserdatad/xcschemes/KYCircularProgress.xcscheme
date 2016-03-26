@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '8A1F0B9D2358A059253E935B'
-               BlueprintName = 'FBSDKLoginKit'
+               BlueprintIdentifier = 'E872C44F34F4A207335A0828'
+               BlueprintName = 'KYCircularProgress'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'FBSDKLoginKit.framework'>
+               BuildableName = 'KYCircularProgress.framework'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

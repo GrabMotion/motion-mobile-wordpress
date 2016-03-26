@@ -81,6 +81,9 @@ SocketProtocolDelegate
 
     @IBOutlet weak var tableContainer: UIView!
     
+    @IBOutlet weak var setup: UILabel!
+    @IBOutlet weak var steps: UILabel!
+    
     var serverUrl = String()
 
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
@@ -227,6 +230,10 @@ SocketProtocolDelegate
             case Motion.Message_.ActionType.Engage.hashValue: 
                 SwiftSpinner.hide()
                 self.engage(message)
+
+                self.setup.text = "Join Terminals"
+                self.setup.text = "Step 2"
+
             break
             case Motion.Message_.ActionType.ServerInfo.hashValue:
                 self.serviceInfoOk(message)
@@ -271,7 +278,7 @@ SocketProtocolDelegate
 
         for rdevice:Motion.Message_.MotionDevice in rdevices
         {
-               device.ipnumber             = rdevice.ipnumber                
+                              
                device.ippublic             = rdevice.ippublic  
                print(device.ippublic)              
                device.macaddress           = rdevice.macaddress              
@@ -351,6 +358,8 @@ SocketProtocolDelegate
         self.appDelegate.deviceIp = self.remoteServerIp
 
         self.setupTableView.reload()
+
+        
         
     }
 
