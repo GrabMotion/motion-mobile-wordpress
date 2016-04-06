@@ -45,14 +45,19 @@ class MainViewController: UITabBarController
         self.setupViewController =  self.viewControllers![SETUP] as? SetupViewController
         self.setupViewController!.mainController = self
          
-        self.deviceViewController   = self.viewControllers![DEVICES] as? DeviceViewController
-        self.deviceViewController!.mainController = self
-  
         self.pushNotificationViewController  = self.viewControllers![NOTIFICATIONS] as? PushNotificationViewController
-        self.pushNotificationViewController!.mainController = self  
-  
+        self.pushNotificationViewController!.mainController = self
+        
         self.proFileViewController = self.viewControllers![PROFILE] as? ProFileViewController
         self.proFileViewController!.mainController = self
+        
+        self.deviceViewController   = self.viewControllers![DEVICES] as? DeviceViewController
+
+        if (self.deviceViewController != nil)
+        {        
+                  
+            self.deviceViewController!.mainController = self            
+        }
   
         guard defaults.boolForKey("user_setup_saved") else
         {       

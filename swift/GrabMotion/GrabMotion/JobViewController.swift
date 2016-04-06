@@ -17,18 +17,16 @@ SocketProtocolDelegate
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 
     @IBOutlet weak var image: UIImageView!
+
     
-    @IBOutlet weak var progress: UIView!
+    @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var percentage: UILabel!
 
     @IBOutlet weak var nameInput: UITextField!
     
-    @IBOutlet weak var percentage: UILabel!
-      
     var device = Device()
 
-    var socket = Socket()
-
-    var deviceIp = String()
+    var socket = Socket()    
 
 	override func viewDidLoad()
     {
@@ -48,13 +46,37 @@ SocketProtocolDelegate
     }
     
     @IBAction func shot(sender: AnyObject)
-    {
-        socket.deviceIp = deviceIp
-        socket.setLocaladdrip(self.appDelegate.localaddrip)
+    {       
 
         let message = Motion.Message_.Builder()
         message.types = Motion.Message_.ActionType.TakePicture
-        message.serverip = deviceIp
+        message.serverip = self.device.ipnumber
+        message.packagesize = self.socket.packagesize //Int32(Motion.Message_.SocketType.SocketBufferMicroSize.rawValue) //self.socket.packagesize
+        message.includethubmnails = false
+        
+        let error:NSError!
+
+        var data:NSData!
+        do
+        {
+            let m = try message.build()
+            data = m.data()
+
+        } catch
+        {
+            print(error)
+        }
+        
+        if (data != nil)
+        {
+            print(data.length)
+        }
+
+        self.socket.deviceIp = self.device.ipnumber
+        print(self.device.ipnumber)
+        self.socket.setLocaladdrip(self.appDelegate.localaddrip)        
+        self.socket.sendMessage(data)
+
     }
     
     @IBAction func back(sender: AnyObject)
@@ -62,15 +84,10 @@ SocketProtocolDelegate
         
     }
     
-    
     @IBAction func add(sender: AnyObject)
     {
         
     }
-    
-    
-    
-    
     
     @IBAction func save(sender: AnyObject)
     {
@@ -79,7 +96,13 @@ SocketProtocolDelegate
     
     func simpleMessageReceived(message: Motion.Message_)
     {
+        print("recevied")
+        
+        let camerastr:String = self.socket.files[0]
 
+        let cameraImage:UIImage = CVWrapper.processImageWithStrToCVMat(camerastr)
+                        
+        self.image.image = cameraImage
     }
 
     func imageProgress(progress : Int,  total : Int)
@@ -88,6 +111,10 @@ SocketProtocolDelegate
         
             dispatch_async(dispatch_get_main_queue(), {
               
+                self.progressView.setProgress(Float(progress), animated: true)
+                let progressValue = self.progressView.progress
+                self.percentage?.text = "\(progressValue * 100) %"
+
               return
             })
         })

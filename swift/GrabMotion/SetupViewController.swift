@@ -9,7 +9,8 @@
 import UIKit
 import Parse
 
-class Device
+
+class Device 
 {
     var user = User()
     var cameras = [Camera]()
@@ -88,7 +89,7 @@ SocketProtocolDelegate
 
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
-    let defaults = NSUserDefaults.standardUserDefaults()
+    var defaults = NSUserDefaults.standardUserDefaults()
 
     var delegate:RemoteIpDelegate? = nil
     
@@ -121,6 +122,33 @@ SocketProtocolDelegate
         
         self.delegate = self
         self.socket.delegate = self
+
+        if let data64 = defaults.objectForKey("message") as? String
+        {
+    
+            let decodedData = NSData(base64EncodedString: data64, options: NSDataBase64DecodingOptions(rawValue: 0))
+             
+            do
+            {
+                let message = try Motion.Message_.parseFromData(decodedData!)       
+
+                let rdevices:[Motion.Message_.MotionDevice] = message.motiondevice
+
+                 print(rdevices[0].ipnumber)            
+           
+                self.engage(message, stored: true)
+
+            } catch
+            {
+                print(error)
+            }          
+
+           
+
+        } else {
+
+            self.device = Device()
+        }
     }
 
     func getWiFiAddress() -> String? 
@@ -189,7 +217,9 @@ SocketProtocolDelegate
         print ("llega: " + info)
         
         self.appDelegate.localaddrip = localaddrip
-              
+        
+        self.device.ipnumber = info           
+        
         socket.deviceIp = info
         socket.setLocaladdrip(localaddrip)
         
@@ -197,8 +227,14 @@ SocketProtocolDelegate
         message.types = Motion.Message_.ActionType.Engage
         message.serverip = info
 
+        var includethumbs = false
+        if self.devices.count == 0
+        {
+            includethumbs = true
+        } 
+
         message.packagesize = socket.packagesize
-        message.includethubmnails = true
+        message.includethubmnails = includethumbs
         
         let error:NSError!
 
@@ -229,7 +265,7 @@ SocketProtocolDelegate
         {
             case Motion.Message_.ActionType.Engage.hashValue: 
                 SwiftSpinner.hide()
-                self.engage(message)
+                self.engage(message, stored: false)
 
                 self.setup.text = "Join Terminals"
                 self.setup.text = "Step 2"
@@ -255,6 +291,11 @@ SocketProtocolDelegate
         }  
     }
 
+    func imageProgress(progress : Int,  total : Int)
+    {
+
+    }
+
     func serviceInfoOk(message: Motion.Message_)
     {
 
@@ -265,20 +306,22 @@ SocketProtocolDelegate
             print("device joined")
         } 
 
-        self.engage(message)
+        self.engage(message, stored: false)
 
     }
     
-    func engage(message: Motion.Message_)
+    func engage(message: Motion.Message_, stored : Bool)
     {
-
-        self.device = Device()
 
         let rdevices:[Motion.Message_.MotionDevice] = message.motiondevice
 
         for rdevice:Motion.Message_.MotionDevice in rdevices
         {
                               
+               if stored 
+               {
+                    device.ipnumber        = rdevice.ipnumber
+               }              
                device.ippublic             = rdevice.ippublic  
                print(device.ippublic)              
                device.macaddress           = rdevice.macaddress              
@@ -329,7 +372,7 @@ SocketProtocolDelegate
                     device.running = true
                 }
 
-                if message.includethubmnails
+                if message.includethubmnails && !stored
                 {
 
                     let thubmnailstr:String = self.socket.files[count]
@@ -340,7 +383,7 @@ SocketProtocolDelegate
                         let stitchedImage:UIImage = CVWrapper.processImageWithStrToCVMat(thubmnailstr)
                         
                         camera.thumbnail = stitchedImage
-                    
+            
                     }
 
                 }
@@ -358,9 +401,30 @@ SocketProtocolDelegate
         self.appDelegate.deviceIp = self.remoteServerIp
 
         self.setupTableView.reload()
+        
+        if !stored
+        {
+            let error:NSError!
 
-        
-        
+            var data:NSData!
+            do
+            {                
+                data = message.data()
+
+            } catch
+            {
+                print(error)
+            }
+
+            var base64String = String()
+            
+            base64String = data.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+                        
+            self.defaults.setObject(base64String, forKey: "message")
+            self.defaults.synchronize()
+        }
+
+
     }
 
     func convertBase64ToImage(base64String: String) -> UIImage {
@@ -377,7 +441,7 @@ SocketProtocolDelegate
     {
 
         let decodedData     = NSData(base64EncodedString: str, options:NSDataBase64DecodingOptions(rawValue: 0))
-            let decodedString   = String(data: decodedData!, encoding: NSUTF8StringEncoding)
+        let decodedString   = String(data: decodedData!, encoding: NSUTF8StringEncoding)
         return decodedString!
     }
     

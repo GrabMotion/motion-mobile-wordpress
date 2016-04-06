@@ -564,9 +564,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="560" height="348"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Jm-fw-Kot">
-                                <rect key="frame" x="135" y="44" width="320" height="240"/>
-                            </imageView>
                             <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="L9t-YK-u0o" userLabel="Panel">
                                 <rect key="frame" x="218" y="238" width="154" height="110"/>
                                 <subviews>
@@ -642,15 +639,20 @@
                                     <constraint firstAttribute="width" constant="154" id="yH0-ED-tKA"/>
                                 </constraints>
                             </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8Jm-fw-Kot">
+                                <rect key="frame" x="135" y="75" width="320" height="240"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="320" id="FXW-cS-cCA"/>
+                                    <constraint firstAttribute="height" constant="240" id="qTl-TC-6MV"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="8Jm-fw-Kot" firstAttribute="leading" secondItem="J8B-H1-1uW" secondAttribute="leading" id="5sz-c6-Qrk"/>
-                            <constraint firstAttribute="trailing" secondItem="8Jm-fw-Kot" secondAttribute="trailing" id="IZ1-IQ-yKI"/>
-                            <constraint firstItem="8Jm-fw-Kot" firstAttribute="top" secondItem="0HO-lW-5s6" secondAttribute="bottom" id="OLh-tP-3xa"/>
+                            <constraint firstItem="8Jm-fw-Kot" firstAttribute="centerY" secondItem="J8B-H1-1uW" secondAttribute="centerY" id="5zC-ai-NzF"/>
                             <constraint firstItem="ULV-ff-35b" firstAttribute="top" secondItem="L9t-YK-u0o" secondAttribute="bottom" id="UyQ-GT-ijN"/>
                             <constraint firstItem="L9t-YK-u0o" firstAttribute="centerX" secondItem="J8B-H1-1uW" secondAttribute="centerX" id="fG2-9B-vjC"/>
-                            <constraint firstItem="8Jm-fw-Kot" firstAttribute="centerX" secondItem="J8B-H1-1uW" secondAttribute="centerX" id="xCh-LS-fgj"/>
+                            <constraint firstItem="8Jm-fw-Kot" firstAttribute="centerX" secondItem="J8B-H1-1uW" secondAttribute="centerX" id="uZY-Sn-1bN"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="New Recognition" id="6uE-XS-YL7">
@@ -671,7 +673,7 @@
                         <outlet property="image" destination="8Jm-fw-Kot" id="348-js-BTP"/>
                         <outlet property="nameInput" destination="z7w-hd-1HO" id="eY4-9f-m0M"/>
                         <outlet property="percentage" destination="BWY-Fz-YOf" id="ouV-jy-2uY"/>
-                        <outlet property="progress" destination="L9t-YK-u0o" id="GPL-j5-lMF"/>
+                        <outlet property="progressView" destination="EtH-rG-kM9" id="nrI-W2-BlH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6YR-Lb-zsY" userLabel="First Responder" sceneMemberID="firstResponder"/>

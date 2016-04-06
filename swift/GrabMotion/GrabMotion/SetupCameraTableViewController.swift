@@ -21,9 +21,7 @@ SocketProtocolDelegate
 
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 
-    var jobView : JobViewController!
-
-    var deviceIp = String()    
+    var jobView : JobViewController!    
 
     override func viewDidLoad() 
     {
@@ -310,7 +308,7 @@ SocketProtocolDelegate
                                         
                                         let uiidinstallation = qdevice["uuid_installation"] as! String
 
-                                        self.deviceIp = qdevice["ipaddress"] as! String
+                                        var deviceIp = qdevice["ipaddress"] as! String
                                         
                                         // CLIENT
 
@@ -382,7 +380,7 @@ SocketProtocolDelegate
                                                 
                                                     let message                 = Motion.Message_.Builder()
                                                     message.types               = Motion.Message_.ActionType.ServerInfo
-                                                    message.serverip            = self.deviceIp                                                    
+                                                    message.serverip            = deviceIp                                                    
                                                     message.packagesize         = self.socket.packagesize  
                                                     message.includethubmnails   = false
 
@@ -438,7 +436,7 @@ SocketProtocolDelegate
                                                         print(data.length)
                                                     }
 
-                                                    self.socket.deviceIp = self.deviceIp
+                                                    self.socket.deviceIp = deviceIp
                                                     self.socket.sendMessage(data)
                                                    
                                                 }
@@ -453,6 +451,11 @@ SocketProtocolDelegate
             }
         }
     }  
+
+    func imageProgress(progress : Int,  total : Int)
+    {
+
+    }
 
     func simpleMessageReceived(message: Motion.Message_)
     {
@@ -545,16 +548,17 @@ SocketProtocolDelegate
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
-    {
-
-        //self.jobView.device = self.devices[indexPath.row]
-        //let nav = segue.destinationViewController as! UINavigationController
-        //self.jobView = nav.topViewController as! JobViewController 
-        //self.performSegueWithIdentifier("SegueJobCreation", sender: self)
+    {        
 
         let jobViewStory = self.storyboard?.instantiateViewControllerWithIdentifier("JobViewController") as! JobViewController
         
-        jobViewStory.deviceIp = self.deviceIp
+        let index = indexPath.section
+
+        print(index)
+        
+        jobViewStory.device = self.devices[index]
+
+        print(jobViewStory.device.ipnumber)
 
         let jobViewNav = UINavigationController(rootViewController: jobViewStory)
     
