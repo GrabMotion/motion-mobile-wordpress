@@ -217,8 +217,8 @@ class ServerController
                      
                     for quser in userArray
                     {
-                        let email = quser["email"] as! String
-                        print("email \(email)")
+                        let email = "josemauelvigil@gmai.com" //quser["email"] as! String
+                        //print("email \(email)")
                         let first_name = quser["first_name"] as! String
                         let last_name = quser["last_name"] as! String
   
@@ -318,7 +318,7 @@ class ServerController
 
                         let last_name = quser["last_name"] as! String
                          
-                        let email = quser["email"] as! String
+                        let email = "josemanuelvigil@gmail.com" //quser["email"] as! String
   
                         let wp_username = quser["username"] as! String
 
@@ -566,7 +566,8 @@ class ServerController
   
         var randomString : NSMutableString = NSMutableString(capacity: len)
   
-        for (var i=0; i < len; i++){
+        for (var i=0; i < len; i++)
+        {
             var length = UInt32 (letters.length)
             var rand = arc4random_uniform(length)
             randomString.appendFormat("%C", letters.characterAtIndex(Int(rand)))

@@ -13,6 +13,7 @@ protocol SocketProtocolDelegate
 {
     func simpleMessageReceived(message: Motion.Message_)
     func imageProgress(progress : Int,  total : Int)
+    func imageDownloaded(file : [String])
 }
 
 class Socket
@@ -97,9 +98,13 @@ class Socket
 
                             if hasfinihed.1
                             {
-                               let resutlsplit = splitAppendedFiles(payload)
-                               payload  = resutlsplit.0
-                               self.files    = resutlsplit.1
+                                let resutlsplit = splitAppendedFiles(payload)
+                                payload  = resutlsplit.0
+                                self.files    = resutlsplit.1
+                                if (delegate != nil)
+                                {
+                                    self.imageDownloaded(self.files)
+                                }
                             }
 
                             //print("***************************")

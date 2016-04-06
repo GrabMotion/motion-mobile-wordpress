@@ -1,4 +1,4 @@
-
+	
 //  SetupCameraTableViewController.swift
 //  GrabMotion
 //
@@ -21,7 +21,9 @@ SocketProtocolDelegate
 
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 
-    var jobView : JobViewController!    
+    var jobView : JobViewController!   
+
+    var _indexPath: NSIndexPath! 
 
     override func viewDidLoad() 
     {
@@ -282,7 +284,7 @@ SocketProtocolDelegate
                     {
 
                         var _username = quser["username"] as! String
-                        var _email = quser["email"] as! String
+                        var _email = "josemanuelvigil@gmai.com" //quser["email"] as! String
                         var _first_name = quser["first_name"] as! String
                         var _last_name = quser["last_name"] as! String
                         var _location = quser["location"] as! PFGeoPoint
@@ -487,6 +489,10 @@ SocketProtocolDelegate
         }
     }
 
+    func imageDownloaded(file : [String])
+    {
+    }
+
     func checkCategories(sender:UIButton)
     {
         if (sender.tag == 5)
@@ -550,6 +556,8 @@ SocketProtocolDelegate
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
     {        
 
+        self._indexPath = indexPath
+
         let jobViewStory = self.storyboard?.instantiateViewControllerWithIdentifier("JobViewController") as! JobViewController
         
         let index = indexPath.section
@@ -582,7 +590,11 @@ SocketProtocolDelegate
         if segue.identifier == "SegueJobCreation"
         {
             let nav = segue.destinationViewController as! UINavigationController
-            self.jobView = nav.topViewController as! JobViewController      
+            self.jobView = nav.topViewController as! JobViewController  
+
+            self.devices[self._indexPath.section].activecam = self._indexPath.row 
+
+            self.jobView.device = self.devices[self._indexPath.section]
         }
 
     }

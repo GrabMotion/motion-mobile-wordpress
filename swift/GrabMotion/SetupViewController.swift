@@ -14,6 +14,7 @@ class Device
 {
     var user = User()
     var cameras = [Camera]()
+    var activecam = Int()
    
     var joined = Bool()
     var running = Bool()
@@ -48,11 +49,17 @@ class Device
 
 class Camera
 {
-    var cameranumber = Int()
-    var cameraname = String()
-    var recognizing = Bool()
-    var thumbnail = UIImage()
+    var cameranumber      = Int()
+    var cameraname        = String()
+    var recognizing       = Bool()
+    var idmat             = Int()
+    var thumbnail         = UIImage()
 
+    var matrows           = Int()
+    var matcols           = Int()
+    var matheight         = Int()
+    var matwidth          = Int()
+    
     init(){}
 }
 
@@ -363,9 +370,15 @@ SocketProtocolDelegate
             {
 
                 let camera = Camera()
+                camera.idmat        = rcamera.db_idmat
                 camera.cameranumber = Int(rcamera.cameranumber)
                 camera.cameraname   = rcamera.cameraname
                 camera.recognizing  = rcamera.recognizing
+
+                camera.matrows           = rcamera.matrows  
+                camera.matcols           = rcamera.matcols  
+                camera.matheight         = rcamera.matheight
+                camera.matwidth          = rcamera.matwidth 
 
                 if camera.recognizing
                 {

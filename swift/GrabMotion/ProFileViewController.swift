@@ -402,7 +402,7 @@ class ProFileViewController: UIViewController,
                         
                         for quser in userArray
                         {
-                            self.email = quser["email"] as! String
+                            //self.email = quser["email"] as! String
 
                             self.getProfileImageAndName()
 
@@ -452,51 +452,64 @@ class ProFileViewController: UIViewController,
         let priority = DISPATCH_QUEUE_PRIORITY_DEFAULT
         dispatch_async(dispatch_get_global_queue(priority, 0)) 
         {
-
-            let ac = UIAlertController(title: "Pleases provide a picture of yourself in order to identify you on the system.", message: nil, preferredStyle: .ActionSheet)
-            
-            let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .Cancel) { action -> Void in
-                self.presentViewController(self.imagePicker, animated: true, completion: nil)
-            }
-            ac.addAction(cancelAction)
-            
-            ac.addAction(UIAlertAction(title: "Camera", style: .Default, handler: { (UIAlertAction) -> Void in
-                self.imagePicker.allowsEditing = false
-                self.imagePicker.sourceType = .Camera
-                self.presentViewController(self.imagePicker, animated: true, completion: nil)
-                
-            }))
-            
-            ac.addAction(UIAlertAction(title: "Gallery", style: .Default, handler: { (UIAlertAction) -> Void in
-                self.imagePicker.allowsEditing = false
-                self.imagePicker.sourceType = .PhotoLibrary
-                self.presentViewController(self.imagePicker, animated: true, completion: nil)
-                
-            }))
-            
-            if self.social == "facebook" || self.social == "twitter"
+            // do some task
+            dispatch_async(dispatch_get_main_queue()) 
             {
-                let socialPic = "Use \(self.socialLabel) profile picture"
-                ac.addAction(UIAlertAction(title: socialPic, style: .Default, handler: { (UIAlertAction) -> Void in
+
+                let ac = UIAlertController(title: "Pleases provide a picture of yourself in order to identify you on the system.", message: nil, preferredStyle: .ActionSheet)
+                
+                let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .Cancel) { action -> Void in
+                    self.presentViewController(self.imagePicker, animated: true, completion: nil)
+                }
+                ac.addAction(cancelAction)
+                
+                ac.addAction(UIAlertAction(title: "Camera", style: .Default, handler: { (UIAlertAction) -> Void in
+                    self.imagePicker.allowsEditing = false
+                    self.imagePicker.sourceType = .Camera
+                    self.presentViewController(self.imagePicker, animated: true, completion: nil)
                     
-                    self.user_social_profile_picture = true
-
-                    NSUserDefaults.standardUserDefaults().setBool(true, forKey: "profile_picture_updated")
-                    NSUserDefaults.standardUserDefaults().synchronize()
-
                 }))
-            }
-            
-            let popover = ac.popoverPresentationController
-            popover?.permittedArrowDirections = UIPopoverArrowDirection.Any
-            
-            self.presentViewController(ac, animated: true, completion: nil)
+                
+                ac.addAction(UIAlertAction(title: "Gallery", style: .Default, handler: { (UIAlertAction) -> Void in
+                    self.imagePicker.allowsEditing = false
+                    self.imagePicker.sourceType = .PhotoLibrary
+                    self.presentViewController(self.imagePicker, animated: true, completion: nil)
+                    
+                }))
+                
+                print(self.social)
 
+                if self.social == "facebook" || self.social == "twitter"
+                {
+                    let socialPic = "Use \(self.socialLabel) profile picture"
+                    ac.addAction(UIAlertAction(title: socialPic, style: .Default, handler: { (UIAlertAction) -> Void in
+                        
+                        self.user_social_profile_picture = true
+
+                        NSUserDefaults.standardUserDefaults().setBool(true, forKey: "profile_picture_updated")
+                        NSUserDefaults.standardUserDefaults().synchronize()
+
+                    }))
+                }
+                
+                let popover = ac.popoverPresentationController
+                popover?.permittedArrowDirections = UIPopoverArrowDirection.Any
+                
+                //ac.popoverPresentationController?.sourceView = self.view
+                //ac.popoverPresentationController?.sourceRect = self.view.bounds
+                // this is the center of the screen currently but it can be any point in the view
+                
+                ac.popoverPresentationController!.sourceView = self.view
+                ac.popoverPresentationController!.sourceRect = CGRectMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height / 2.0, 1.0, 1.0)
+
+                self.presentViewController(ac, animated: true, completion: nil)
+
+            }
         }
     
     }
 
-    
+        
 
     @IBAction func showComponent(sender: AnyObject)
     {
