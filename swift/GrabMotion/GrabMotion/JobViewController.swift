@@ -129,8 +129,6 @@ SocketProtocolDelegate
     @IBAction func save(sender: AnyObject)
     {
 
-
-        
         let msg_save = Motion.Message_.Builder()
         msg_save.types = Motion.Message_.ActionType.Save
         msg_save.serverip = self.device.ipnumber
@@ -143,7 +141,7 @@ SocketProtocolDelegate
 
         //let pcam = Motion.Message_.MotionCamera.Builder()      
 
-        let pcam:Motion.Message_.MotionCamera = Motion.Message_.MotionCamera.Builder
+        let pcam = Motion.Message_.MotionCamera.Builder()
 
         pcam.cameranumber     = Int32(self.camera.cameranumber)
         //Int(rcamera.cameranumber)

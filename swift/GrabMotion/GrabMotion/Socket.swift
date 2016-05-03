@@ -103,7 +103,7 @@ class Socket
                                 self.files    = resutlsplit.1
                                 if (delegate != nil)
                                 {
-                                    self.imageDownloaded(self.files)
+                                    self.delegate!.imageDownloaded(self.files)
                                 }
                             }
 

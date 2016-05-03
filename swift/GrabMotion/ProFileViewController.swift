@@ -196,10 +196,10 @@ class ProFileViewController: UIViewController,
                     if(result != nil)
                     {
                         
-                        let userId:String = result["id"] as! String
-                        let userFirstName:String? = result["first_name"] as? String
-                        let userLastName:String? = result["last_name"] as? String
-                        let userEmail:String? = result["email"] as? String
+                        let userId          = result.objectForKey("id") as? String
+                        let userFirstName   = result.objectForKey("first_name") as? String
+                        let userLastName    = result.objectForKey("last_name") as? String
+                        let userEmail       = result.objectForKey("email") as? String
                         
                         print("\(userEmail)")
                         
@@ -228,7 +228,7 @@ class ProFileViewController: UIViewController,
                         {
                                 
                                 // Get Facebook profile picture
-                                let userProfile = "https://graph.facebook.com/" + userId + "/picture?type=large"
+                                let userProfile = "https://graph.facebook.com/" + userId! + "/picture?type=large"
                                 
                                 let profilePictureUrl = NSURL(string: userProfile)
                                 
