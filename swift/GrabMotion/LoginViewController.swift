@@ -21,7 +21,7 @@ class LoginViewController: UIViewController {
     
     let defaults = NSUserDefaults.standardUserDefaults()
 
-    var myWordPressSite:String = "http://192.168.0.12/grabmotion/"
+    var myWordPressSite:String = "http://grabmotion.co/"
 
     override func viewDidLoad()
     {

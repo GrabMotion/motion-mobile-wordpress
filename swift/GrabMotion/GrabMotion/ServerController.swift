@@ -32,7 +32,7 @@ class ServerController
    
     var delegateServer:ServerControllerDelegate! = nil
    
-    var myWordPressSite:String = "http://192.168.0.4/grabmotion/wp-json/wp/v2/"
+    var myWordPressSite:String = "http://grabmotion.co/wp-json/wp/v2/"
   
     let defaults = NSUserDefaults.standardUserDefaults()
       
@@ -230,8 +230,8 @@ class ServerController
   
                         let parameters = [
                             "check_login": 3,
-                            "ios_userlogin":self.userServer,
-                            "ios_userpassword":self.passServer,
+                            "ios_userlogin":"\(self.userServer)",
+                            "ios_userpassword":"\(self.passServer)",
                             "new_username":"\(self.userName)",
                             "new_password":"\(self.passWord)",
                             "new_email":"\(email)",
@@ -242,15 +242,17 @@ class ServerController
                
                         print("\(parameters)")   
   
-                        print("++++++++++++++++++++++++++++++++++++++++")  
+                        print("++++++++++++++++++++++++++++++++++++++++")             
   
-                        print(self.myWordPressSite)   
-  
-                        let usersURL =  "\(self.myWordPressSite)users"         
+                        let usersURL =  "\(self.myWordPressSite)users"
+                        
+                        print(usersURL)
                    
-                        Alamofire.request(.POST, usersURL, parameters: parameters as! [String : AnyObject])
+                        var request = Alamofire.request(.POST, usersURL, parameters: parameters as? [String : AnyObject])
                             .responseJSON { response in
-                 
+                
+                            print(response)
+                                
                             if response.result.isSuccess
                             {
   
@@ -287,6 +289,7 @@ class ServerController
                                 }
                             }
                         }
+                        print(request)
                     }
                 }
             }
@@ -325,6 +328,8 @@ class ServerController
                         var wp_password = self.defaults.stringForKey("wp_password")! as String                        
 
                         let wp_userid = self.defaults.stringForKey("wp_userid")! as String
+                        
+                        print(wp_userid)
   
                         let geopoint = quser["location"] as! PFGeoPoint
   
@@ -356,7 +361,7 @@ class ServerController
                          
                         print("usersWordpress: \(usersWordpress)")
                                           
-                        Alamofire.request(.POST, usersWordpress, parameters: parameters as! [String : AnyObject])
+                        var request = Alamofire.request(.POST, usersWordpress, parameters: parameters as! [String : AnyObject])
                             .responseJSON { response in
 
                             print("\(response)")
@@ -458,6 +463,7 @@ class ServerController
                                 }   
                             }
                         }
+                        print(request)
                     }
                 }
             }

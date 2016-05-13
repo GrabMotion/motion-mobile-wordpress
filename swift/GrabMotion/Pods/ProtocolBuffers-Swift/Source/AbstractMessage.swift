@@ -45,6 +45,11 @@ public protocol Message:class,MessageInit
     static func classBuilder()-> MessageBuilder
     func classBuilder()-> MessageBuilder
     
+    //JSON
+    func encode() throws -> Dictionary<String,AnyObject>
+    static func decode(jsonMap:Dictionary<String,AnyObject>) throws -> Self
+    func toJSON() throws -> NSData
+    static func fromJSON(data:NSData) throws -> Self
 }
 
 public protocol MessageBuilder: class
@@ -62,6 +67,8 @@ public protocol MessageBuilder: class
      func mergeFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Self
      //Delimited Encoding/Decoding
      func mergeDelimitedFromInputStream(input:NSInputStream) throws -> Self?
+     static func decodeToBuilder(jsonMap:Dictionary<String,AnyObject>) throws -> Self
+     static func fromJSONToBuilder(data:NSData) throws -> Self
 }
 
 public func == (lhs: AbstractMessage, rhs: AbstractMessage) -> Bool
@@ -91,6 +98,7 @@ public class AbstractMessage:Hashable, Message {
         
         return stream.buffer.buffer
     }
+    
     public func isInitialized() -> Bool {
         return false
     }
@@ -98,10 +106,10 @@ public class AbstractMessage:Hashable, Message {
         return 0
     }
     
-    public func writeDescriptionTo(inout output:String, indent:String) throws {
+    public func getDescription(indent:String) throws -> String {
         throw ProtocolBuffersError.Obvious("Override")
     }
-    
+        
     public func writeToCodedOutputStream(output: CodedOutputStream) throws {
         throw ProtocolBuffersError.Obvious("Override")
     }
@@ -136,6 +144,25 @@ public class AbstractMessage:Hashable, Message {
         get {
             return unknownFields.hashValue
         }
+    }
+    
+    
+    //JSON
+    public func encode() throws -> Dictionary<String, AnyObject> {
+        throw ProtocolBuffersError.Obvious("JSON Encoding/Decoding available only in syntax=\"proto3\"")
+    }
+    
+    public class func decode(jsonMap: Dictionary<String, AnyObject>) throws -> Self {
+        throw ProtocolBuffersError.Obvious("JSON Encoding/Decoding available only in syntax=\"proto3\"")
+    }
+    
+    public func toJSON() throws -> NSData {
+        let json = try NSJSONSerialization.dataWithJSONObject(encode(), options: NSJSONWritingOptions(rawValue:0))
+        return json
+    }
+    
+    public class func fromJSON(data:NSData) throws -> Self {
+        throw ProtocolBuffersError.Obvious("JSON Encoding/Decoding available only in syntax=\"proto3\"")
     }
     
 }
@@ -195,7 +222,6 @@ public class AbstractMessageBuilder:MessageBuilder
         return self
     }
     
-    
     public func mergeFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws ->  Self
     {
         let input:CodedInputStream = CodedInputStream(data:data)
@@ -231,6 +257,15 @@ public class AbstractMessageBuilder:MessageBuilder
         let pointer = UnsafeMutablePointer<UInt8>(data!.mutableBytes)
         input.read(pointer, maxLength: Int(rSize))
         return  try mergeFromData(data!)
+    }
+    
+    //JSON
+    class public func decodeToBuilder(jsonMap: Dictionary<String, AnyObject>) throws -> Self {
+        throw ProtocolBuffersError.Obvious("JSON Encoding/Decoding available only in syntax=\"proto3\"")
+    }
+    
+    public class func fromJSONToBuilder(data: NSData) throws -> Self {
+        throw ProtocolBuffersError.Obvious("JSON Encoding/Decoding available only in syntax=\"proto3\"")
     }
 
 }

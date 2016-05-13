@@ -88,7 +88,7 @@ public class CodedOutputStream
     public func writeDoubleNoTag(value:Double) throws
     {
         var returnValue:Int64 = 0
-        WireFormat.convertTypes(convertValue: value, retValue: &returnValue)
+        returnValue = WireFormat.convertTypes(convertValue: value, defaultValue:returnValue)
         try writeRawLittleEndian64(returnValue)
     }
     
@@ -100,9 +100,8 @@ public class CodedOutputStream
     
     public func writeFloatNoTag(value:Float) throws
     {
-        let convertValue = value
         var returnValue:Int32 = 0
-        WireFormat.convertTypes(convertValue: convertValue, retValue: &returnValue)
+        returnValue = WireFormat.convertTypes(convertValue: value, defaultValue:returnValue)
         try writeRawLittleEndian32(returnValue)
     }
     
@@ -115,7 +114,7 @@ public class CodedOutputStream
     public func writeUInt64NoTag(value:UInt64) throws
     {
         var retvalue:Int64 = 0
-        WireFormat.convertTypes(convertValue: value, retValue: &retvalue)
+        retvalue = WireFormat.convertTypes(convertValue: value, defaultValue:retvalue)
         try writeRawVarint64(retvalue)
     }
     
@@ -155,7 +154,7 @@ public class CodedOutputStream
     public func writeFixed64NoTag(value:UInt64) throws
     {
         var retvalue:Int64 = 0
-        WireFormat.convertTypes(convertValue: value, retValue: &retvalue)
+        retvalue = WireFormat.convertTypes(convertValue: value, defaultValue:retvalue)
         try writeRawLittleEndian64(retvalue)
     }
     
@@ -168,7 +167,7 @@ public class CodedOutputStream
     public func writeFixed32NoTag(value:UInt32) throws
     {
         var retvalue:Int32 = 0
-        WireFormat.convertTypes(convertValue: value, retValue: &retvalue)
+        retvalue = WireFormat.convertTypes(convertValue: value, defaultValue:retvalue)
         try writeRawLittleEndian32(retvalue)
     }
     
@@ -253,7 +252,7 @@ public class CodedOutputStream
     public func writeUInt32NoTag(value:UInt32) throws
     {
         var retvalue:Int32 = 0
-        WireFormat.convertTypes(convertValue: value, retValue: &retvalue)
+        retvalue = WireFormat.convertTypes(convertValue: value, defaultValue:retvalue)
         try writeRawVarint32(retvalue)
     }
     
@@ -360,27 +359,29 @@ public class CodedOutputStream
     }
     
     
-    public func writeRawVarint32(var value:Int32) throws {
+    public func writeRawVarint32(value:Int32) throws {
+        var valueToWrite = value
         while (true) {
-            if ((value & ~0x7F) == 0) {
-                try writeRawByte(byte:UInt8(value))
+            if ((valueToWrite & ~0x7F) == 0) {
+                try writeRawByte(byte:UInt8(valueToWrite))
                 break
             } else
             {
-                try writeRawByte(byte: UInt8((value & 0x7F) | 0x80))
-                value = WireFormat.logicalRightShift32(value:value,spaces: 7)
+                try writeRawByte(byte: UInt8((valueToWrite & 0x7F) | 0x80))
+                valueToWrite = WireFormat.logicalRightShift32(value:valueToWrite,spaces: 7)
             }
         }
     }
     
-    public func writeRawVarint64(var value:Int64) throws {
+    public func writeRawVarint64(value:Int64) throws {
+        var valueToWrite = value
         while (true) {
-            if ((value & ~0x7F) == 0) {
-                try writeRawByte(byte:UInt8(value))
+            if ((valueToWrite & ~0x7F) == 0) {
+                try writeRawByte(byte:UInt8(valueToWrite))
                 break
             } else {
-                try writeRawByte(byte: UInt8((value & 0x7F) | 0x80))
-                value = WireFormat.logicalRightShift64(value:value, spaces: 7)
+                try writeRawByte(byte: UInt8((valueToWrite & 0x7F) | 0x80))
+                valueToWrite = WireFormat.logicalRightShift64(value:valueToWrite, spaces: 7)
             }
         }
     }

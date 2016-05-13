@@ -297,6 +297,11 @@ SocketProtocolDelegate
                 break
         }  
     }
+    
+    func imageDownloaded(file : [String])
+    {
+        
+    }
 
     func imageProgress(progress : Int,  total : Int)
     {
@@ -370,15 +375,15 @@ SocketProtocolDelegate
             {
 
                 let camera = Camera()
-                camera.idmat        = rcamera.db_idmat
+                camera.idmat        = Int(rcamera.dbIdmat)
                 camera.cameranumber = Int(rcamera.cameranumber)
                 camera.cameraname   = rcamera.cameraname
                 camera.recognizing  = rcamera.recognizing
 
-                camera.matrows           = rcamera.matrows  
-                camera.matcols           = rcamera.matcols  
-                camera.matheight         = rcamera.matheight
-                camera.matwidth          = rcamera.matwidth 
+                camera.matrows           = Int(rcamera.matrows)
+                camera.matcols           = Int(rcamera.matcols)
+                camera.matheight         = Int(rcamera.matheight)
+                camera.matwidth          = Int(rcamera.matwidth)
 
                 if camera.recognizing
                 {

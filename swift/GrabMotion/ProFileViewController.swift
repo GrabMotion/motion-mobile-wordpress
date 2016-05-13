@@ -458,10 +458,10 @@ class ProFileViewController: UIViewController,
 
                 let ac = UIAlertController(title: "Pleases provide a picture of yourself in order to identify you on the system.", message: nil, preferredStyle: .ActionSheet)
                 
-                let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .Cancel) { action -> Void in
+                ac.addAction(UIAlertAction(title: "Cancel", style: .Cancel) { action -> Void in
                     self.presentViewController(self.imagePicker, animated: true, completion: nil)
-                }
-                ac.addAction(cancelAction)
+                })
+                
                 
                 ac.addAction(UIAlertAction(title: "Camera", style: .Default, handler: { (UIAlertAction) -> Void in
                     self.imagePicker.allowsEditing = false
@@ -496,11 +496,16 @@ class ProFileViewController: UIViewController,
                 popover?.permittedArrowDirections = UIPopoverArrowDirection.Any
                 
                 //ac.popoverPresentationController?.sourceView = self.view
-                //ac.popoverPresentationController?.sourceRect = self.view.bounds
+                ac.popoverPresentationController?.sourceRect = self.view.bounds
+                
+                ac.modalPresentationStyle = .Popover
+                
+             
+                
                 // this is the center of the screen currently but it can be any point in the view
                 
-                ac.popoverPresentationController!.sourceView = self.view
-                ac.popoverPresentationController!.sourceRect = CGRectMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height / 2.0, 1.0, 1.0)
+                //ac.popoverPresentationController!.sourceView = self.view
+                //ac.popoverPresentationController!.sourceRect = CGRectMake(self.view.bounds.size.width / 2.0, self.view.bounds.size.height / 2.0, 1.0, 1.0)
 
                 self.presentViewController(ac, animated: true, completion: nil)
 

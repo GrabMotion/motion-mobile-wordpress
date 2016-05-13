@@ -341,6 +341,7 @@ SocketProtocolDelegate
                                                     let _wp_password            = qclient["wp_password"] as! String
                                                     let _wp_server_url          = qclient["wp_server_url"] as! String
                                                     let _wp_userid              = qclient["wp_userid"] as! Int
+                                                    print(_wp_userid)
                                                     let _wp_userid_             = Int32(_wp_userid) 
                                                     let _wp_client_id           = qclient["wp_client_id"] as! Int
                                                     let _wp_client_id_          = Int32(_wp_client_id)
@@ -389,6 +390,7 @@ SocketProtocolDelegate
                                                     let pfuser              = Motion.Message_.MotionUser.Builder()
                                                     pfuser.username         = _username
                                                     pfuser.wpuser           = _wp_user
+                                                    pfuser.wpuserid         = _wp_userid_
                                                     pfuser.wppassword       = _wp_password
                                                     pfuser.wpserverurl      = _wp_server_url    
                                                     pfuser.wpclientid       = _wp_client_id_

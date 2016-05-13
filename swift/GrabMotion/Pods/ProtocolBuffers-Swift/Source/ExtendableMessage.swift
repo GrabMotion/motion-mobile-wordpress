@@ -118,18 +118,19 @@ public class ExtendableMessage : GeneratedMessage
         }
     }
     
-    public func writeExtensionDescription(inout output:String, startInclusive:Int32 ,endExclusive:Int32, indent:String) throws {
+    public func getExtensionDescription(startInclusive:Int32 ,endExclusive:Int32, indent:String) throws -> String {
+        var output = ""
         var keys = Array(extensionMap.keys)
         keys.sortInPlace { $0 < $1 }
         for fieldNumber in keys {
             if (fieldNumber >= startInclusive && fieldNumber < endExclusive) {
                 let extensions = extensionRegistry[fieldNumber]!
                 let value = extensionMap[fieldNumber]!
-                try extensions.writeDescriptionOf(value, output: &output, indent: indent)
-                
+                output += try extensions.getDescription(value, indent: indent)
             }
             
         }
+        return output
     }
     
     public func isEqualExtensionsInOther(otherMessage:ExtendableMessage, startInclusive:Int32, endExclusive:Int32) -> Bool {
@@ -416,7 +417,7 @@ public class ExtendableMessageBuilder:GeneratedMessageBuilder
         return self
     }
 
-    private func mergeRepeatedExtensionFields<T where T:CollectionType>(otherList:T, var extensionMap:[Int32:Any], fieldNumber:Int32) -> [T.Generator.Element]
+    private func mergeRepeatedExtensionFields<T where T:CollectionType>(otherList:T, extensionMap:[Int32:Any], fieldNumber:Int32) -> [T.Generator.Element]
     {
         var list:[T.Generator.Element]! = extensionMap[fieldNumber] as? [T.Generator.Element] ?? []
         list! += otherList

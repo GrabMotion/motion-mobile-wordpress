@@ -214,7 +214,7 @@ SocketProtocolDelegate
     
     func imageDownloaded(file : [String])
     {
-        let camerastr:String = files[0]
+        let camerastr:String = file[0]
 
         let cameraImage:UIImage = CVWrapper.processImageWithStrToCVMat(camerastr)
                         
