@@ -30,6 +30,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var annotation = MKPointAnnotation()
 
     let defaults = NSUserDefaults.standardUserDefaults()
+    var ParseApplicationId  = "fsLv65faQqwqhliCGF7oGqcT8MxPDFjmcxIuonGw"
+    var ParseClientKey      = "T3PK1u0NQ36eZm91jM0TslCREDj8LBeKzGCsrudE"
+    var RestApiKey          = "o0cSPLyhD9u7vz19zliIwqXQgP9On6Dxx1yGUplB"
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
@@ -38,9 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Parse.enableLocalDatastore()
         
         // Initialize Parse.
-        Parse.setApplicationId("fsLv65faQqwqhliCGF7oGqcT8MxPDFjmcxIuonGw",
-            clientKey: "T3PK1u0NQ36eZm91jM0TslCREDj8LBeKzGCsrudE")
-        
+        Parse.setApplicationId(ParseApplicationId, clientKey: ParseClientKey)
         
         PFTwitterUtils.initializeWithConsumerKey("MDtm7P8102QqmviczXiPKNuBB", consumerSecret:"sPrMVRaDwKMYtQZSNSQLheNiHDxCyg9M8C2XNrG1HqnP2DHQ9K")
         
@@ -118,8 +119,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             PFAnalytics.trackAppOpenedWithRemoteNotificationPayload(userInfo)
         }
                     
-        if let pushText = userInfo["alert"] as? String
+        if let pushText = userInfo["data"] as? String
         {
+
+            let notiHandler = NotificationViewController()
                 
         }
                     

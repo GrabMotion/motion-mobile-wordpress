@@ -94,6 +94,10 @@ public func == (lhs: Motion.Message_.MotionUser, rhs: Motion.Message_.MotionUser
   fieldCheck = fieldCheck && (lhs.hasWptype == rhs.hasWptype) && (!lhs.hasWptype || lhs.wptype == rhs.wptype)
   fieldCheck = fieldCheck && (lhs.hasWpparent == rhs.hasWpparent) && (!lhs.hasWpparent || lhs.wpparent == rhs.wpparent)
   fieldCheck = fieldCheck && (lhs.hasWpmodified == rhs.hasWpmodified) && (!lhs.hasWpmodified || lhs.wpmodified == rhs.wpmodified)
+  fieldCheck = fieldCheck && (lhs.hasDbUserId == rhs.hasDbUserId) && (!lhs.hasDbUserId || lhs.dbUserId == rhs.dbUserId)
+  fieldCheck = fieldCheck && (lhs.hasPfuser == rhs.hasPfuser) && (!lhs.hasPfuser || lhs.pfuser == rhs.pfuser)
+  fieldCheck = fieldCheck && (lhs.hasPfappid == rhs.hasPfappid) && (!lhs.hasPfappid || lhs.pfappid == rhs.pfappid)
+  fieldCheck = fieldCheck && (lhs.hasPfrestapikey == rhs.hasPfrestapikey) && (!lhs.hasPfrestapikey || lhs.pfrestapikey == rhs.pfrestapikey)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
   return fieldCheck
 }
@@ -1415,6 +1419,18 @@ public extension Motion {
         public private(set) var wpmodified:String = ""
 
         public private(set) var hasWpmodified:Bool = false
+        public private(set) var dbUserId:Int32 = Int32(0)
+
+        public private(set) var hasDbUserId:Bool = false
+        public private(set) var pfuser:String = ""
+
+        public private(set) var hasPfuser:Bool = false
+        public private(set) var pfappid:String = ""
+
+        public private(set) var hasPfappid:Bool = false
+        public private(set) var pfrestapikey:String = ""
+
+        public private(set) var hasPfrestapikey:Bool = false
         required public init() {
              super.init()
         }
@@ -1487,6 +1503,18 @@ public extension Motion {
           }
           if hasWpmodified {
             try output.writeString(22, value:wpmodified)
+          }
+          if hasDbUserId {
+            try output.writeInt32(23, value:dbUserId)
+          }
+          if hasPfuser {
+            try output.writeString(24, value:pfuser)
+          }
+          if hasPfappid {
+            try output.writeString(25, value:pfappid)
+          }
+          if hasPfrestapikey {
+            try output.writeString(26, value:pfrestapikey)
           }
           try unknownFields.writeToCodedOutputStream(output)
         }
@@ -1562,6 +1590,18 @@ public extension Motion {
           }
           if hasWpmodified {
             serialize_size += wpmodified.computeStringSize(22)
+          }
+          if hasDbUserId {
+            serialize_size += dbUserId.computeInt32Size(23)
+          }
+          if hasPfuser {
+            serialize_size += pfuser.computeStringSize(24)
+          }
+          if hasPfappid {
+            serialize_size += pfappid.computeStringSize(25)
+          }
+          if hasPfrestapikey {
+            serialize_size += pfrestapikey.computeStringSize(26)
           }
           serialize_size += unknownFields.serializedSize()
           memoizedSerializedSize = serialize_size
@@ -1681,6 +1721,18 @@ public extension Motion {
           if hasWpmodified {
             output += "\(indent) wpmodified: \(wpmodified) \n"
           }
+          if hasDbUserId {
+            output += "\(indent) dbUserId: \(dbUserId) \n"
+          }
+          if hasPfuser {
+            output += "\(indent) pfuser: \(pfuser) \n"
+          }
+          if hasPfappid {
+            output += "\(indent) pfappid: \(pfappid) \n"
+          }
+          if hasPfrestapikey {
+            output += "\(indent) pfrestapikey: \(pfrestapikey) \n"
+          }
           output += unknownFields.getDescription(indent)
           return output
         }
@@ -1752,6 +1804,18 @@ public extension Motion {
                 }
                 if hasWpmodified {
                    hashCode = (hashCode &* 31) &+ wpmodified.hashValue
+                }
+                if hasDbUserId {
+                   hashCode = (hashCode &* 31) &+ dbUserId.hashValue
+                }
+                if hasPfuser {
+                   hashCode = (hashCode &* 31) &+ pfuser.hashValue
+                }
+                if hasPfappid {
+                   hashCode = (hashCode &* 31) &+ pfappid.hashValue
+                }
+                if hasPfrestapikey {
+                   hashCode = (hashCode &* 31) &+ pfrestapikey.hashValue
                 }
                 hashCode = (hashCode &* 31) &+  unknownFields.hashValue
                 return hashCode
@@ -2287,6 +2351,98 @@ public extension Motion {
                builderResult.wpmodified = ""
                return self
           }
+          public var hasDbUserId:Bool {
+               get {
+                    return builderResult.hasDbUserId
+               }
+          }
+          public var dbUserId:Int32 {
+               get {
+                    return builderResult.dbUserId
+               }
+               set (value) {
+                   builderResult.hasDbUserId = true
+                   builderResult.dbUserId = value
+               }
+          }
+          public func setDbUserId(_ value:Int32) -> Motion.Message_.MotionUser.Builder {
+            self.dbUserId = value
+            return self
+          }
+          public func clearDbUserId() -> Motion.Message_.MotionUser.Builder{
+               builderResult.hasDbUserId = false
+               builderResult.dbUserId = Int32(0)
+               return self
+          }
+          public var hasPfuser:Bool {
+               get {
+                    return builderResult.hasPfuser
+               }
+          }
+          public var pfuser:String {
+               get {
+                    return builderResult.pfuser
+               }
+               set (value) {
+                   builderResult.hasPfuser = true
+                   builderResult.pfuser = value
+               }
+          }
+          public func setPfuser(_ value:String) -> Motion.Message_.MotionUser.Builder {
+            self.pfuser = value
+            return self
+          }
+          public func clearPfuser() -> Motion.Message_.MotionUser.Builder{
+               builderResult.hasPfuser = false
+               builderResult.pfuser = ""
+               return self
+          }
+          public var hasPfappid:Bool {
+               get {
+                    return builderResult.hasPfappid
+               }
+          }
+          public var pfappid:String {
+               get {
+                    return builderResult.pfappid
+               }
+               set (value) {
+                   builderResult.hasPfappid = true
+                   builderResult.pfappid = value
+               }
+          }
+          public func setPfappid(_ value:String) -> Motion.Message_.MotionUser.Builder {
+            self.pfappid = value
+            return self
+          }
+          public func clearPfappid() -> Motion.Message_.MotionUser.Builder{
+               builderResult.hasPfappid = false
+               builderResult.pfappid = ""
+               return self
+          }
+          public var hasPfrestapikey:Bool {
+               get {
+                    return builderResult.hasPfrestapikey
+               }
+          }
+          public var pfrestapikey:String {
+               get {
+                    return builderResult.pfrestapikey
+               }
+               set (value) {
+                   builderResult.hasPfrestapikey = true
+                   builderResult.pfrestapikey = value
+               }
+          }
+          public func setPfrestapikey(_ value:String) -> Motion.Message_.MotionUser.Builder {
+            self.pfrestapikey = value
+            return self
+          }
+          public func clearPfrestapikey() -> Motion.Message_.MotionUser.Builder{
+               builderResult.hasPfrestapikey = false
+               builderResult.pfrestapikey = ""
+               return self
+          }
           override public var internalGetResult:GeneratedMessage {
                get {
                   return builderResult
@@ -2377,6 +2533,18 @@ public extension Motion {
             if other.hasWpmodified {
                  wpmodified = other.wpmodified
             }
+            if other.hasDbUserId {
+                 dbUserId = other.dbUserId
+            }
+            if other.hasPfuser {
+                 pfuser = other.pfuser
+            }
+            if other.hasPfappid {
+                 pfappid = other.pfappid
+            }
+            if other.hasPfrestapikey {
+                 pfrestapikey = other.pfrestapikey
+            }
             try mergeUnknownFields(other.unknownFields)
             return self
           }
@@ -2457,6 +2625,18 @@ public extension Motion {
 
               case 178 :
                 wpmodified = try input.readString()
+
+              case 184 :
+                dbUserId = try input.readInt32()
+
+              case 194 :
+                pfuser = try input.readString()
+
+              case 202 :
+                pfappid = try input.readString()
+
+              case 210 :
+                pfrestapikey = try input.readString()
 
               default:
                 if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
@@ -6582,7 +6762,7 @@ public extension Motion {
         public class func builderWithPrototype(_ prototype:Motion.Message_.Instance) throws -> Motion.Message_.Instance.Builder {
           return try Motion.Message_.Instance.Builder().mergeFrom(prototype)
         }
-        public override func getDescription(_ indent:String) throws -> String {
+        override public func getDescription(_ indent:String) throws -> String {
           var output:String = ""
           if hasIdinstance {
             output += "\(indent) idinstance: \(idinstance) \n"
@@ -7620,7 +7800,7 @@ public extension Motion {
         public class func builderWithPrototype(_ prototype:Motion.Message_.Image) throws -> Motion.Message_.Image.Builder {
           return try Motion.Message_.Image.Builder().mergeFrom(prototype)
         }
-        public override func getDescription(_ indent:String) throws -> String {
+        override public func getDescription(_ indent:String) throws -> String {
           var output:String = ""
           if hasPath {
             output += "\(indent) path: \(path) \n"
@@ -7938,7 +8118,7 @@ public extension Motion {
         public class func builderWithPrototype(_ prototype:Motion.Message_.Crop) throws -> Motion.Message_.Crop.Builder {
           return try Motion.Message_.Crop.Builder().mergeFrom(prototype)
         }
-        public override func getDescription(_ indent:String) throws -> String {
+        override public func getDescription(_ indent:String) throws -> String {
           var output:String = ""
           if hasRect {
             output += "\(indent) rect: \(rect) \n"
@@ -8195,7 +8375,7 @@ public extension Motion {
         public class func builderWithPrototype(_ prototype:Motion.Message_.Video) throws -> Motion.Message_.Video.Builder {
           return try Motion.Message_.Video.Builder().mergeFrom(prototype)
         }
-        public override func getDescription(_ indent:String) throws -> String {
+        override public func getDescription(_ indent:String) throws -> String {
           var output:String = ""
           if hasPath {
             output += "\(indent) path: \(path) \n"
@@ -8857,7 +9037,7 @@ public extension Motion {
     public class func builderWithPrototype(_ prototype:Motion.Message_) throws -> Motion.Message_.Builder {
       return try Motion.Message_.Builder().mergeFrom(prototype)
     }
-    public override func getDescription(_ indent:String) throws -> String {
+    override public func getDescription(_ indent:String) throws -> String {
       var output:String = ""
       if hasActivecam {
         output += "\(indent) activecam: \(activecam) \n"

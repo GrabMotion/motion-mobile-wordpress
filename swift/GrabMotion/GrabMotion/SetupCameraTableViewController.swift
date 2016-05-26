@@ -1,4 +1,4 @@
-	
+
 //  SetupCameraTableViewController.swift
 //  GrabMotion
 //
@@ -34,7 +34,7 @@ SocketProtocolDelegate
 
         self.configureTableView() 
 
-        self.socket.delegate = self
+        self.socket.delegate = self      
 
     }
 
@@ -311,7 +311,8 @@ SocketProtocolDelegate
                                         let uiidinstallation = qdevice["uuid_installation"] as! String
 
                                         var deviceIp = qdevice["ipaddress"] as! String
-                                        
+                                                                                
+                                                    
                                         // CLIENT
 
                                         let clientRelation  = quser["client"] as? PFRelation
@@ -412,6 +413,13 @@ SocketProtocolDelegate
                                                     pfuser.wpfeaturedimage  = _wp_client_media_id_
                                                     pfuser.wpmodified       = _wp_modified
                                                     pfuser.wpparent         = _wp_post_parent_
+
+                                                    if let objectid = String?(PFUser.currentUser()!.objectId!)
+                                                    {
+                                                        pfuser.pfuser           = objectid
+                                                    }
+                                                    pfuser.pfappid          = self.appDelegate.ParseApplicationId
+                                                    pfuser.pfrestapikey     = self.appDelegate.RestApiKey
 
                                                     do
                                                     {                            

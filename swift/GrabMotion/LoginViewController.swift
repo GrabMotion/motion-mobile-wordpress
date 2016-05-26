@@ -28,11 +28,9 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
 
         if PFTwitterUtils.isLinkedWithUser(PFUser.currentUser()) || (FBSDKAccessToken.currentAccessToken() != nil)
-        {
-            self.loadMain()
-            //self.performSegueWithIdentifier("SegueMain", sender: self)
+       {
+            self.loadMain()                   
         }
-
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "rotated", name: UIDeviceOrientationDidChangeNotification, object: nil)
 

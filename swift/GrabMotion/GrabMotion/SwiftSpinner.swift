@@ -317,7 +317,7 @@ public class SwiftSpinner: UIView {
     private var blurView: UIVisualEffectView!
     private var vibrancyView: UIVisualEffectView!
     
-    var defaultTitleFont = UIFont(name: "HelveticaNeue", size: 22.0)!
+    var defaultTitleFont = UIFont.init(name: "HelveticaNeue", size: 22.0)!
     let frameSize = CGSize(width: 200.0, height: 200.0)
     
     private lazy var outerCircleView = UIView()

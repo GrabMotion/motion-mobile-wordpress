@@ -86,10 +86,9 @@ CLLocationManagerDelegate
         }*/
 
         self.authorizeLocation()
-        
-        setInputTexts()
-
     
+        self.setInputTexts()
+       
     }
 
     func authorizeLocation()
@@ -143,6 +142,10 @@ CLLocationManagerDelegate
         didUpdateLocations locations: [CLLocation])
     {
         let currentLocation = locations.last! as CLLocation
+
+        self.geoPoint.latitude = currentLocation.coordinate.latitude
+        self.geoPoint.longitude = currentLocation.coordinate.longitude
+
         print(currentLocation)
     }
     
@@ -408,57 +411,46 @@ CLLocationManagerDelegate
     }
     
     func storeLocation()
-    {
-        
-        PFGeoPoint.geoPointForCurrentLocationInBackground {
-            (geoPoint: PFGeoPoint?, error: NSError?) -> Void in
+    {        
+      
+        PFUser.currentUser()!.setValue(self.geoPoint, forKey: "location")
+        PFUser.currentUser()!.saveInBackgroundWithBlock
+        {
+            (success: Bool, error: NSError?) -> Void in
             
-            //print(error)
-            //print(geoPoint)
-            
-            if error == nil
+            if (success)
             {
-                PFUser.currentUser()!.setValue(geoPoint, forKey: "location")
-                PFUser.currentUser()!.saveInBackgroundWithBlock
+                print("location stored")
+
+                self.appDelegate.geoPoint = self.geoPoint
+
+                self.appDelegate.annotation.coordinate = CLLocationCoordinate2DMake(self.geoPoint.latitude, self.geoPoint.longitude)
+                
+                self.loadMain()
+
+            } else 
+            {
+                print("location cannot be stored")
+
+                let message = "The application cannot obtain your location. Please uninstall, install again and authorize."
+                // Create the alert controller
+                let alertController = UIAlertController(title: "Location error", message: "\(message)", preferredStyle: .Alert)
+            
+                // Create the actions
+                let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default)
                 {
-                    (success: Bool, error: NSError?) -> Void in
-                    
-                    if (success)
-                    {
-                        print("location stored")
-
-                        self.geoPoint = geoPoint!
-
-                        self.appDelegate.geoPoint = geoPoint!
-
-                        self.appDelegate.annotation.coordinate = CLLocationCoordinate2DMake(geoPoint!.latitude, geoPoint!.longitude)
-                        
-                        self.loadMain()
-
-                    } else 
-                    {
-                        print("location cannot be stored")
-
-                        let message = "The application cannot obtain your location. Please uninstall, install again and authorize."
-                        // Create the alert controller
-                        let alertController = UIAlertController(title: "Location error", message: "\(message)", preferredStyle: .Alert)
-                    
-                        // Create the actions
-                        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default)
-                        {
-                            UIAlertAction in
-                        }
-                        
-                        // Add the actions
-                        alertController.addAction(okAction)
-                        
-                        // Present the controller
-                        self.presentViewController(alertController, animated: true, completion: nil)
-
-                    }
+                    UIAlertAction in
                 }
+                
+                // Add the actions
+                alertController.addAction(okAction)
+                
+                // Present the controller
+                self.presentViewController(alertController, animated: true, completion: nil)
+
             }
         }
+         
     }
 
     func loadMain()

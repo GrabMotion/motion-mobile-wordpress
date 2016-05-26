@@ -156,6 +156,28 @@ SocketProtocolDelegate
 
             self.device = Device()
         }
+
+        let installation = PFInstallation.currentInstallation()
+                                      
+        let device = Device()
+        
+        installation.setObject("\(device)", forKey: "device")
+
+        installation.setObject((PFUser.currentUser()!), forKey: "user")
+
+        installation.saveInBackgroundWithBlock
+        {
+            (success: Bool , error: NSError?) -> Void in
+            
+            if success
+            {
+                
+                print("saved")
+            } else 
+            {
+                print("error: \(error)")
+            }
+        }   
     }
 
     func getWiFiAddress() -> String? 
