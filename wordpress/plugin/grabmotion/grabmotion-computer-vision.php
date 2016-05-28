@@ -29,8 +29,7 @@ Text Domain: grabmotion-computer-vision
     add_action('rest_api_init', 'client_add_post_children');
     add_action('rest_api_init', 'client_add_client_first_name');
     add_action('rest_api_init', 'client_add_client_last_name');
-    add_action('rest_api_init', 'client_add_client_user_name');
-    //add_action('rest_api_init', 'client_add_client_authdata');
+    add_action('rest_api_init', 'client_add_client_user_name');    
     add_action('rest_api_init', 'client_add_client_email');
     add_action('rest_api_init', 'client_add_client_thumbnail_url');
     add_action('rest_api_init', 'client_add_client_thumbnail_id');
@@ -2201,18 +2200,61 @@ Text Domain: grabmotion-computer-vision
 
     function append_children_meta( $meta_id, $post_id, $meta_key, $meta_value )
     {        
-        write_log_file("LLEGA"); 
+        
         $post = get_post($post_id);   
-        if ($meta_key == "post_parent")
-        { 
-          $log = "parent: ".$meta_value;                    
-          $array_child  = get_post_meta($post_id, "post_children", true);
-          $log = "array_child: ".var_dump($array_child);                    
-          $parent = $meta_key;     
-          array_push($array_child, $meta_key);           
-          write_log_file($log); 
-          update_post_meta($array_child, 'post_children', $post_id );
-        }        
+
+        $type = get_post_type($post_id);
+
+        write_log_file("____________________");   
+        write_log_file("type: ".$type);   
+
+        /*$parent = get_post_meta($post_id, 'post_parent', true);
+        if (!is_float($parent)) 
+        {
+          $p = floatval($parent);
+          update_post_meta($post_id, 'post_parent', $p); 
+        }*/
+
+        if ($type != "client")
+        {        
+
+          if ($meta_key == "post_parent")
+          {
+              $parentId = $meta_value;    
+
+              write_log_file("parentId: ".$parentId);  
+              
+              $childata = get_post_meta($parentId, 'post_children', true);
+
+              $count = count($childata);
+
+              write_log_file("childata : ".$childata);
+              write_log_file("count    : ".$count);
+
+              $array = Array();
+
+              if ( $count > 0 ) 
+              {
+
+                foreach ( $childata as $child ) 
+                { 
+                    write_log_file("child: ".$child);                    
+                    array_push($array, $child);
+                }
+
+                array_push($array, $post_id);
+                
+                update_post_meta($parentId, 'post_children', $array);  
+
+              } else 
+              {      
+                update_post_meta($parentId, 'post_children', $post_id);  
+              } 
+            
+          }        
+
+        }
+              
     }
 
     ///////////
@@ -2415,7 +2457,7 @@ Text Domain: grabmotion-computer-vision
 
                     $new_first_name     = $userdata['new_first_name'];
                     $new_last_name      = $userdata['new_last_name'];
-                    $new_role     = $userdata['new_role'];
+                    $new_role           = $userdata['new_role'];
 
                     $user_id = username_exists( $userdata['new_username'] );
 
@@ -2483,8 +2525,7 @@ Text Domain: grabmotion-computer-vision
             {
                  
                 $clientdata['user_login'] = $clientdata['wp_userlogin'];
-                $clientdata['user_password'] = $clientdata['wp_userpassword'];
-                
+                $clientdata['user_password'] = $clientdata['wp_userpassword'];             
                 //wp_signon sanitizes login input
                 $user_client = wp_signon( $clientdata, false );
                 
@@ -2499,8 +2540,8 @@ Text Domain: grabmotion-computer-vision
                     } elseif (isset($user_client->errors['incorrect_password']))
                     {
                         $message['error'] = 2;
-                    }
-                    
+                    }                   
+
                     echo json_encode($message);
                     exit(); 
                     
@@ -2512,9 +2553,7 @@ Text Domain: grabmotion-computer-vision
                     $client_user_name   = $clientdata['client_user_name'];
                     $client_email       = $clientdata['client_email'];
                     $client_location    = $clientdata['client_location'];
-                    $client_parent      = $clientdata['client_post_parent'];
-                    $client_children    = $clientdata['client_post_children'];
-
+                    $client_parent      = $clientdata['client_post_parent'];      
                     $client_post = array(
                           'post_title' => $client_first_name." ".$client_last_name,
                           'post_status' => 'publish',
@@ -2536,20 +2575,19 @@ Text Domain: grabmotion-computer-vision
 
                         add_post_meta( $client_post_id, 'client_location', $client_location );
 
-                        add_post_meta( $client_post_id, 'post_parent', $client_parent );
-
-                        add_post_meta( $client_post_id, 'post_children', $client_children );
+                        add_post_meta( $client_post_id, 'post_parent', $client_parent );                                   
 
                         $client_created = get_post( $client_post_id );
-
-                        echo json_encode( $client_created );
+                        
+                        echo json_encode($client_created);
 
                         wp_logout();
                           
                     } else {
                       
                         $error = 'Cannot insert Client.';
-                        $message['error'] = $error;
+                        writelog(" error:".$error);
+                        $message['error'] = $error;                        
                         echo json_encode($message);
                         exit(); 
 
@@ -2804,32 +2842,22 @@ Text Domain: grabmotion-computer-vision
             $table_field = "pfrestapikey";
 
           if ($meta_key == "post_parent")
-            $table_field = "post_parent";         
-
-          write_log_file("***********");
+            $table_field = "post_parent";                   
 
           $log = "post_id: ".$post_id." meta_key: ".$meta_key." meta_value: ".$meta_value." table_field: ".$table_field; 
 
-          write_log_file($log);
-
           $count_query = "SELECT * FROM wp_gm_notification WHERE post_id=".$post_id;  
-
-          write_log_file($count_query);              
 
           global $wpdb;
           $wpdb->get_results($count_query);          
-          $count = $wpdb->num_rows;         
-
-          write_log_file("count: ".$count);
+          $count = $wpdb->num_rows;                  
 
           if ($count > 0)
           {
                         
             $count_updates_query = "SELECT count_updates FROM wp_gm_notification WHERE post_id=".$post_id.";";
 
-            $upcate_count = $wpdb->get_var($wpdb->prepare($count_updates_query)); 
-
-            write_log_file("upcate_count: ".$upcate_count); 
+            $upcate_count = $wpdb->get_var($wpdb->prepare($count_updates_query));
             
             $wpdb->query($wpdb->prepare ("UPDATE wp_gm_notification SET ".$table_field."='".$meta_value."',count_updates = count_updates + 1  WHERE post_id=".$post_id.""));      
 
@@ -2854,19 +2882,13 @@ Text Domain: grabmotion-computer-vision
     
 
     function send_push_notification_on_post( $post_id ) 
-    {       
-
-      write_log_file ("-------------------------------------------");  
-
-      write_log_file ("send_push_notification_on_post :::: ".$post_id);
+    { 
 
       $query_push = "SELECT pfuser, pfappid, pfrestapikey, post_parent FROM wp_gm_notification WHERE post_id=".$post_id.";";
 
       global $wpdb;
       $resutls = $wpdb->get_results($query_push);          
-      $count = $wpdb->num_rows;
-
-      write_log_file ("count: ".$count);  
+      $count = $wpdb->num_rows;     
 
       if ($count>0)
       {     
@@ -2881,7 +2903,7 @@ Text Domain: grabmotion-computer-vision
 
             $log = "pfuser: ".$pfuser." pfappid: ".$pfappid." pfrestapikey: ".$pfrestapikey." postparent: ".$postparent;
 
-            write_log_file($log); 
+            //write_log_file($log); 
 
             $dayid = get_post_meta($post_id, "post_parent", true);
             $recognitionid  = get_post_meta($dayid, "post_parent", true);
@@ -2895,9 +2917,9 @@ Text Domain: grabmotion-computer-vision
             $endrec       = $recognitionid;           
             $endcamera    = $cameraid;
 
-            write_log_file($endinstance); 
-            write_log_file($recognitionid); 
-            write_log_file($endcamera); 
+            //write_log_file($endinstance); 
+            //write_log_file($recognitionid); 
+            //write_log_file($endcamera); 
 
             $url = 'https://api.parse.com/1/push';
             $data = array(                                
@@ -2920,8 +2942,8 @@ Text Domain: grabmotion-computer-vision
                 'Content-Type:application/json'         
             );
 
-            write_log_file("data: ".$_data); 
-            write_log_file("headers: ".$_headers); 
+            //write_log_file("data: ".$_data); 
+            //write_log_file("headers: ".$_headers); 
 
             $curl = curl_init($url);            
             curl_setopt($curl, CURLOPT_POSTFIELDS, $_data);
@@ -2932,7 +2954,7 @@ Text Domain: grabmotion-computer-vision
             curl_setopt($curl,CURLOPT_SSL_VERIFYHOST  ,false);
             $response = curl_exec($curl);
 
-            write_log_file("response: ".$response); 
+            //write_log_file("response: ".$response); 
 
             if ($reponse)
             {
@@ -2997,7 +3019,7 @@ Text Domain: grabmotion-computer-vision
 
         $logparams = "parent: ".$parent." latFrom: ".$latFrom." lonFrom: ".$lonFrom." dist: ".$dist;
 
-        write_log_file($logparams); 
+        //write_log_file($logparams); 
 
         $d = floatval($dist);   
 
@@ -3028,7 +3050,7 @@ Text Domain: grabmotion-computer-vision
 
                 global $post;
 
-                write_log_file("ID: ".$post->ID); 
+                //write_log_file("ID: ".$post->ID); 
 
                 $latitudeTo  = get_post_meta($post->ID,'locaton_latitude',true);
                 $longitudeTo = get_post_meta($post->ID,'locaton_longitude',true);
@@ -3038,11 +3060,11 @@ Text Domain: grabmotion-computer-vision
 
                 $basecords  = " latTo: ".$latTo." lonTo: ".$lonTo;
 
-                write_log_file($basecords); 
+                //write_log_file($basecords); 
 
                 $distance_between = greatCircleDistance($latFrom, $lonFrom, $latTo, $lonTo);
 
-                write_log_file("distance_between: ".$distance_between." d: ".$d); 
+                //write_log_file("distance_between: ".$distance_between." d: ".$d); 
 
                 if ( $distance_between < $d )
                 {
@@ -3121,7 +3143,7 @@ Text Domain: grabmotion-computer-vision
 
         $logparams = "parent: ".$parent." description: ".$description;
 
-        write_log_file($logparams);          
+        //write_log_file($logparams);          
 
         $args = Array(
             'post_type'         => 'terminal',
@@ -3150,11 +3172,11 @@ Text Domain: grabmotion-computer-vision
 
                 global $post;
 
-                write_log_file("ID: ".$post->ID); 
+                //write_log_file("ID: ".$post->ID); 
 
                 $tserial = get_post_meta($post->ID,'terminal_serial',true);
                 
-                write_log_file(" tserial: ".$tserial." serial: ".$serial); 
+                //write_log_file(" tserial: ".$tserial." serial: ".$serial); 
 
                 if ($tserial==$serial)
                 {         
@@ -3193,7 +3215,7 @@ Text Domain: grabmotion-computer-vision
 
         $logparams = "parent: ".$parent." name: ".$name;
 
-        write_log_file($logparams);          
+        //write_log_file($logparams);          
 
         $args = Array (
             'post_type'         => 'camera',
@@ -3222,11 +3244,11 @@ Text Domain: grabmotion-computer-vision
 
                 global $post;
 
-                write_log_file("ID: ".$post->ID); 
+                //write_log_file("ID: ".$post->ID); 
 
                 $cameraname = get_post_meta($post->ID,'camera_name',true);
                 
-                write_log_file(" cameraname: ".$cameraname." name: ".$name); 
+                //write_log_file(" cameraname: ".$cameraname." name: ".$name); 
 
                 if ($cameraname==$name)
                 {         
@@ -3270,7 +3292,7 @@ Text Domain: grabmotion-computer-vision
 
         $logparams = "parent: ".$parent." name: ".$name;
 
-        write_log_file($logparams);          
+        //write_log_file($logparams);          
 
         $args = Array (
             'post_type'         => 'recognition',
@@ -3299,13 +3321,13 @@ Text Domain: grabmotion-computer-vision
 
                 global $post;
 
-                write_log_file("ID: ".$post->ID); 
+                //write_log_file("ID: ".$post->ID); 
 
                 $recognitionname = get_post_meta($post->ID,'recognition_name',true);
 
                 $recognition_thumbnail_id = get_post_meta($post->ID,'recognition_thumbnail_id', true);               
                 
-                write_log_file(" recognitionname: ".$recognitionname." name: ".$name); 
+                //write_log_file(" recognitionname: ".$recognitionname." name: ".$name); 
 
                 if ( $recognitionname == $name )
                 {         
@@ -3344,7 +3366,7 @@ Text Domain: grabmotion-computer-vision
 
         $logparams = "parent: ".$parent." name: ".$name;
 
-        write_log_file($logparams);          
+        //write_log_file($logparams);          
 
         $args = Array (
             'post_type'         => 'day',
@@ -3373,11 +3395,11 @@ Text Domain: grabmotion-computer-vision
 
                 global $post;
 
-                write_log_file("ID: ".$post->ID); 
+                //write_log_file("ID: ".$post->ID); 
 
                 $dayname = get_post_meta($post->ID,'day_label',true);
                 
-                write_log_file(" dayname: ".$dayname." name: ".$name); 
+                //write_log_file(" dayname: ".$dayname." name: ".$name); 
 
                 if ( $dayname == $name )
                 {         
@@ -3400,12 +3422,12 @@ Text Domain: grabmotion-computer-vision
 
     // WEB / MOBILE APP RESPONSES // 
 
-    add_action( 'rest_api_init', 'wpc_register_wp_api_endpoints' );
+    add_action('rest_api_init', 'wpc_register_wp_api_endpoints');
 
     function wpc_register_wp_api_endpoints() 
     {
 
-      register_rest_route('gm/v1', 'client/(?P<client>[0-9]+)', array('methods' => 'GET', 'callback' => 'wpc_get_client_callback'));
+      register_rest_route('gm/v1', 'terminal_by_client/(?P<client>[0-9]+)', array('methods' => 'GET', 'callback' => 'wpc_get_client_callback'));
 
     }     
 
@@ -3420,7 +3442,7 @@ Text Domain: grabmotion-computer-vision
         $client             = floatval($clientinfo);
         
         $logparams = "client: ".$client;
-
+        
         write_log_file($logparams);           
        
     }
