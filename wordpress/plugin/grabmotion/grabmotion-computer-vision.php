@@ -3416,7 +3416,7 @@ Text Domain: grabmotion-computer-vision
     function wpc_register_wp_api_endpoints() 
     {
 
-      register_rest_route('gm/v1', 'terminal_by_client/(?P<client>[0-9]+)', array('methods' => 'GET', 'callback' => 'wpc_get_client_callback'));
+      register_rest_route('gm/v1', 'devices/(?P<client>[0-9]+)', array('methods' => 'GET', 'callback' => 'wpc_get_client_callback'));
 
     }     
 
@@ -3450,6 +3450,7 @@ Text Domain: grabmotion-computer-vision
         write_log_file("client_thumbnail_url: ".$client_thumbnail_url); 
 
         $array_response = Array();
+        $array_camera_terminal = Array();
        
         $array_client = Array (
             'id'  => $clientId,            
@@ -3498,25 +3499,126 @@ Text Domain: grabmotion-computer-vision
                  $terminal_disk_available = get_post_meta($post->ID,'terminal_disk_available',true);
                  $terminal_keepalive_time = get_post_meta($post->ID,'terminal_keepalive_time',true);      
 
-                $array_terminal   = Array (
-                      'terminal'        => Array (
-                      'hardare'         =>    $terminal_hardware,
-                      'serial'          =>    $terminal_serial,
-                      'uptime'          =>    $terminal_uptime,
-                      'ip_number_lan'     =>  $terminal_ipnumber,
-                      'public_ip_number'  =>  $terminal_public_ipnumber,
-                      'hostname'          =>  $terminal_hostname,
-                      'macaddress'        =>  $terminal_macaddress,
-                      'disk_used'         =>  $terminal_disk_used,
-                      'disk_available'    =>  $terminal_disk_available,
-                      'keep_alive'        =>  $terminal_keepalive_time,
-                    ),
+                $array_terminal   = Array (                      
+                    'hardare'         =>    $terminal_hardware,
+                    'serial'          =>    $terminal_serial,
+                    'uptime'          =>    $terminal_uptime,
+                    'ip_number_lan'     =>  $terminal_ipnumber,
+                    'public_ip_number'  =>  $terminal_public_ipnumber,
+                    'hostname'          =>  $terminal_hostname,
+                    'macaddress'        =>  $terminal_macaddress,
+                    'disk_used'         =>  $terminal_disk_used,
+                    'disk_available'    =>  $terminal_disk_available,
+                    'keep_alive'        =>  $terminal_keepalive_time,                                         
                 );
 
-                $array_response = array_merge($array_client, $array_terminal);
+                $array_cameras = Array();
+
+                $post_terminal_children = get_post_meta($post->ID,'post_children',true);
+
+                foreach ( $post_terminal_children as $cameraid ) 
+                {                     
+                    write_log_file("cameraid: ".$cameraid);                    
+
+                    $camera_name = get_post_meta($cameraid,'camera_name',true);
+                    $camera_number = get_post_meta($cameraid,'camera_number',true);
+                    $camera_keepalive_time = get_post_meta($cameraid,'camera_keepalive_time',true);
+
+                    //write_log_file("camera_name: ".$camera_name);
+                    //write_log_file("camera_number: ".$camera_number);
+                    //write_log_file("client_user_name: ".$camera_keepalive_time); 
+                    
+                    $array_camera   = Array (                          
+                          'name'            =>    $camera_name,
+                          'number'          =>    $camera_number,
+                          'keep_alive'      =>    $camera_keepalive_time,                                              
+                    );                    
+
+                    $post_camera_children = get_post_meta($cameraid,'post_children',true);   
+
+                    foreach ( $post_terminal_children as $recognitionid ) 
+                    { 
+
+                      write_log_file("recognitionid: ".$recognitionid);           
+
+                      $recognition_name = get_post_meta($recognitionid,'recognition_name',true);
+                      $recognition_region = get_post_meta($recognitionid,'recognition_region',true);
+                      $recognition_delay = get_post_meta($recognitionid,'recognition_delay',true);                     
+                      $recognition_runatstartup = get_post_meta($recognitionid,'recognition_runatstartup',true);                     
+                      $recognition_interval = get_post_meta($recognitionid,'recognition_interval',true);                     
+                      $recognition_screen = get_post_meta($recognitionid,'recognition_screen',true);                     
+                      $recognition_running = get_post_meta($recognitionid,'recognition_running',true);  
+                      $recognition_media_url = get_post_meta($recognitionid,'recognition_media_url',true);                    
+                      $recognition_keepalive_time = get_post_meta($recognitionid,'recognition_keepalive_time',true);         
+                      
+                      $array_recognition   = Array (                          
+                          'name'            =>    $recognition_name,
+                          'region'          =>    $recognition_region,
+                          'delay'           =>    $recognition_delay,
+                          'runatstartup'    =>    $recognition_runatstartup,
+                          'interval'        =>    $recognition_interval,
+                          'screen'          =>    $recognition_screen,
+                          'running'         =>    $recognition_running,
+                          'media_url'       =>    $recognition_media_url,
+                          'keep_alive'      =>    $recognition_keepalive_time,                          
+                      );
+
+                      $post_recognition_children = get_post_meta($recognitionid,'post_children',true); 
+
+                      foreach ( $post_recognition_children as $dayid ) 
+                      {
+
+                          write_log_file("dayid: ".$dayid);
+                          
+                          $day_label = get_post_meta($dayid,'day_label',true);
+
+                          $day_keepalive_time = get_post_meta($dayid,'day_keepalive_time',true);
+
+                          $array_day   = Array(                          
+                            'label'       =>    $day_label,
+                            'keep_alive'  =>    $recognition_region,
+                          );
+
+                          $post_instance_children = get_post_meta($recognitionid,'post_children',true); 
+
+                          foreach ( $post_instance_children as $instanceid ) 
+                          {
+
+                              write_log_file("instanceid: ".$instanceid);
+                          
+                              $instance_number = get_post_meta($dayid,'instance_number',true);
+                              $instance_begintime = get_post_meta($dayid,'instance_begintime',true);
+                              $instance_endtime = get_post_meta($dayid,'instance_endtime',true);
+                              $instance_code = get_post_meta($dayid,'instance_code',true);
+                              $instance_media_url = get_post_meta($dayid,'instance_media_url',true);                        
+                              $array_instance   = Array(                          
+                                'number'      =>    $instance_number,
+                                'begin_time'  =>    $instance_begintime,
+                                'end_time'    =>    $instance_endtime,
+                                'code'        =>    $instance_code,
+                                'media_url'   =>    $instance_media_url,
+                              );
+
+                              $array_day['instances'][] = $array_instance;
+                          }
+                          
+                          $array_recognition['days'][] = $array_day; 
+
+                      } 
+
+                      $array_camera['recognitions'][] = $array_recognition;
+
+                    }   
+
+                    $array_terminal['cameras'][] = $array_camera;             
+
+                }                           
+
+                $array_client['terminals'][] = $array_terminal;               
+
             }    
 
-            $response = new WP_REST_Response( $array_response );                 
+            $response = new WP_REST_Response( $array_client );                 
             $response->set_status( $status ); 
             return $response;  
 
