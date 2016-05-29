@@ -2205,9 +2205,6 @@ Text Domain: grabmotion-computer-vision
 
         $type = get_post_type($post_id);
 
-        write_log_file("____________________");   
-        write_log_file("type: ".$type);   
-
         /*$parent = get_post_meta($post_id, 'post_parent', true);
         if (!is_float($parent)) 
         {
@@ -2220,25 +2217,19 @@ Text Domain: grabmotion-computer-vision
 
           if ($meta_key == "post_parent")
           {
-              $parentId = $meta_value;    
-
-              write_log_file("parentId: ".$parentId);  
+              $parentId = $meta_value;                
               
               $childata = get_post_meta($parentId, 'post_children', true);
 
               $count = count($childata);
-
-              write_log_file("childata : ".$childata);
-              write_log_file("count    : ".$count);
-
+        
               $array = Array();
 
               if ( $count > 0 ) 
               {
 
                 foreach ( $childata as $child ) 
-                { 
-                    write_log_file("child: ".$child);                    
+                {                     
                     array_push($array, $child);
                 }
 
@@ -2249,12 +2240,10 @@ Text Domain: grabmotion-computer-vision
               } else 
               {      
                 update_post_meta($parentId, 'post_children', $post_id);  
-              } 
-            
-          }        
+              }            
+          }       
 
-        }
-              
+        }              
     }
 
     ///////////
@@ -3439,11 +3428,104 @@ Text Domain: grabmotion-computer-vision
           return array( 'error' => 'no_parameter_given' );
       
         $clientinfo         = $parameters['client'];           
-        $client             = floatval($clientinfo);
+        $clientId           = floatval($clientinfo);
         
-        $logparams = "client: ".$client;
+        write_log_file("************************"); 
+
+        $logparams = "client: ".$clientId;
         
-        write_log_file($logparams);           
+        write_log_file($logparams);               
+
+        $array_response  = Array();
+
+        $client_first_name  = get_post_meta($clientId,'client_first_name',true);
+        $client_last_name   = get_post_meta($clientId,'client_last_name',true);
+        $client_user_name   = get_post_meta($clientId,'client_user_name',true);
+        $client_thumbnail_url   = get_post_meta($clientId,'client_thumbnail_url',true);
+        $client_thumbnail_id   = get_post_meta($clientId,'client_thumbnail_id',true);
+
+        write_log_file("client_first_name: ".$client_first_name);
+        write_log_file("client_last_name: ".$client_last_name);
+        write_log_file("client_user_name: ".$client_user_name); 
+        write_log_file("client_thumbnail_url: ".$client_thumbnail_url); 
+
+        $array_response = Array();
+       
+        $array_client = Array (
+            'id'  => $clientId,            
+            'first_name' => $client_first_name,
+            'last_name'  => $client_last_name,
+            'client_user_name' => $client_user_name,
+            'client_thumbnail_url' => $client_thumbnail_url,
+            'client_thumbnail_id' => $client_thumbnail_id,
+        );       
+
+        $args = Array (
+            'post_type'         => 'terminal',
+            'posts_per_page'    => -1,
+            'meta_key'          => 'post_parent',            
+            'meta_query'        => array (
+                 array (
+                        'key'       => 'post_parent',
+                        'compare'   => '=',
+                        'value'     => $clientId,
+                        'type'      => 'numeric'
+                 )
+            ),
+        );
+
+        $query = new WP_Query( $args );
+
+        if ($query->have_posts())
+        {
+            while ($query->have_posts())
+            {               
+
+                $query->the_post();
+
+                global $post;
+
+                write_log_file("ID: ".$post->ID); 
+
+                $terminal_hardware = get_post_meta($post->ID,'terminal_hardware',true);                               
+                $terminal_serial = get_post_meta($post->ID,'terminal_serial',true);    
+                $terminal_uptime = get_post_meta($post->ID,'terminal_uptime',true);         
+                $terminal_public_ipnumber = get_post_meta($post->ID,'terminal_public_ipnumber',true);  
+                $terminal_hostname = get_post_meta($post->ID,'terminal_hostname',true);
+                 $terminal_ipnumber = get_post_meta($post->ID,'terminal_ipnumber',true);
+                 $terminal_macaddress = get_post_meta($post->ID,'terminal_macaddress',true);                   
+                 $terminal_disk_used = get_post_meta($post->ID,'terminal_disk_used',true);  
+                 $terminal_disk_available = get_post_meta($post->ID,'terminal_disk_available',true);
+                 $terminal_keepalive_time = get_post_meta($post->ID,'terminal_keepalive_time',true);      
+
+                $array_terminal   = Array (
+                      'terminal'        => Array (
+                      'hardare'         =>    $terminal_hardware,
+                      'serial'          =>    $terminal_serial,
+                      'uptime'          =>    $terminal_uptime,
+                      'ip_number_lan'     =>  $terminal_ipnumber,
+                      'public_ip_number'  =>  $terminal_public_ipnumber,
+                      'hostname'          =>  $terminal_hostname,
+                      'macaddress'        =>  $terminal_macaddress,
+                      'disk_used'         =>  $terminal_disk_used,
+                      'disk_available'    =>  $terminal_disk_available,
+                      'keep_alive'        =>  $terminal_keepalive_time,
+                    ),
+                );
+
+                $array_response = array_merge($array_client, $array_terminal);
+            }    
+
+            $response = new WP_REST_Response( $array_response );                 
+            $response->set_status( $status ); 
+            return $response;  
+
+        } else 
+        {
+          write_log_file("query_no_posts"); 
+        }
+
+                   
        
     }
    
