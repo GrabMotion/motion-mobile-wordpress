@@ -2108,18 +2108,18 @@ Text Domain: grabmotion-computer-vision
     function instance_add_media_url()
     {
         register_rest_field('instance',
-                            'instance_media_url',
+                            'instance_media_id',
                             array(
-                                  'get_callback'    => 'get_instance_media_url',
-                                  'update_callback' => 'update_instance_media_url',
+                                  'get_callback'    => 'get_instance_media_id',
+                                  'update_callback' => 'update_instance_media_id',
                                   'schema'          => null,
                                   )
                             );
     }
-    function get_instance_media_url($object, $field_name, $request) {
+    function get_instance_media_id($object, $field_name, $request) {
         return get_post_meta($object[ 'id' ], $field_name);
     }
-    function update_instance_media_url( $value, $object, $field_name ) {
+    function update_instance_media_id( $value, $object, $field_name ) {
         if ( ! $value || ! is_string( $value ) ) {
             return;
         }
@@ -2755,7 +2755,8 @@ Text Domain: grabmotion-computer-vision
     ////////////////////
     // NOTIFICATIONS  //
     ////////////////////       
-    
+   
+
     add_action( 'init', 'create_notification_table' );
 
     function create_notification_table()
@@ -2893,29 +2894,43 @@ Text Domain: grabmotion-computer-vision
 
             $log = "pfuser: ".$pfuser." pfappid: ".$pfappid." pfrestapikey: ".$pfrestapikey." postparent: ".$postparent;
 
-            //write_log_file($log); 
+            write_log_file($log); 
 
             $dayid = get_post_meta($post_id, "post_parent", true);
             $recognitionid  = get_post_meta($dayid, "post_parent", true);
-            $cameraid       = get_post_meta($recognitionid, "post_parent", true);
-
-            //$endinstance = "http://grabmotion.co/wp-json/wp/v2/instance/".$post_id;
-            //$endrec = "http://grabmotion.co/wp-json/wp/v2/recognition/".$recognitionid;           
-            //$endcamera = "http://grabmotion.co/wp-json/wp/v2/camera/".$cameraid;
+            $cameraid       = get_post_meta($recognitionid, "post_parent", true);           
 
             $endinstance  = $post_id;
             $endrec       = $recognitionid;           
             $endcamera    = $cameraid;
 
-            //write_log_file($endinstance); 
-            //write_log_file($recognitionid); 
-            //write_log_file($endcamera); 
+            write_log_file($endinstance); 
+            write_log_file($endrec); 
+            write_log_file($endcamera);
 
-            $url = 'https://api.parse.com/1/push';
-            $data = array(                                
+            //$userId = $pfuser;               
+
+            /*ParsePush::send(array(
                 'where'    => array (                    
-                  'user' => $pfuser,
+                  'user' => $user,
                 ),
+                'data'    => array (
+                    'title'       => 'Movement at camera '.$cameraid,
+                    'endinstance' => $endinstance,
+                    'endrec'      => $endrec,
+                    'endcamera'   => $endcamera,
+                ),
+            ));*/
+
+            //$userId = $pfuser; 
+
+            /*$query = ParseUser::query();
+            $query->equalTo("objectId", array("__type" => "Pointer", "className" => "_User", "objectId" => $userId));
+            $user = $query->find();*/            
+
+            $url = 'https://api.parse.com/1/push';            
+            $data = array (                                   
+                'channel' => "user_".$pfuser,
                 'data'    => array (
                     'title'       => 'Movement at camera '.$cameraid,
                     'endinstance' => $endinstance,
@@ -2926,25 +2941,27 @@ Text Domain: grabmotion-computer-vision
 
             $_data = json_encode($data);          
 
-            $_headers = array(
+            $_headers = array (
                 'X-Parse-Application-Id:'.$pfappid,
                 'X-Parse-REST-API-Key:'.$pfrestapikey,
                 'Content-Type:application/json'         
             );
 
-            //write_log_file("data: ".$_data); 
-            //write_log_file("headers: ".$_headers); 
+            write_log_file("data: ".$_data); 
+            write_log_file("headers: ".$_headers); 
 
             $curl = curl_init($url);            
             curl_setopt($curl, CURLOPT_POSTFIELDS, $_data);
             curl_setopt($curl, CURLOPT_HTTPHEADER, $_headers);
             curl_setopt($curl, CURLOPT_VERBOSE, 1);
             curl_setopt($curl, CURLOPT_POST, true);
-            curl_setopt($curl,CURLOPT_SSL_VERIFYPEER ,false);
-            curl_setopt($curl,CURLOPT_SSL_VERIFYHOST  ,false);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER ,false);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYHOST  ,false);
+            //curl_setopt($curl, CURLOPT_RETURNTRANSFER  ,false);
+
             $response = curl_exec($curl);
 
-            //write_log_file("response: ".$response); 
+            write_log_file("response: ".$response);
 
             if ($reponse)
             {
@@ -3372,7 +3389,7 @@ Text Domain: grabmotion-computer-vision
             ),
         );        
         
-        $status = 8001;
+        $status = 400;
 
         $query = new WP_Query( $args );
 
@@ -3393,7 +3410,7 @@ Text Domain: grabmotion-computer-vision
 
                 if ( $dayname == $name )
                 {         
-                  $status = 8001;
+                  $status = 200;
                   $data = array ( true, $post->ID);
                   $response = response($data, $status);   
                   return $response;                     
@@ -3430,6 +3447,10 @@ Text Domain: grabmotion-computer-vision
       
         $clientinfo         = $parameters['client'];           
         $clientId           = floatval($clientinfo);
+
+        //302 encontrado
+        //303 encontrar otro
+        //400 bad request
         
         write_log_file("************************"); 
 
@@ -3665,16 +3686,18 @@ Text Domain: grabmotion-computer-vision
                                 $instance_number      = get_post_meta($instanceid,'instance_number',true);
                                 $instance_begintime   = get_post_meta($instanceid,'instance_begintime',true);
                                 $instance_endtime     = get_post_meta($instanceid,'instance_endtime',true);        
-                                $instance_media_url   = get_post_meta($instanceid,'instance_media_url',true);
+                                $instance_media_id   = get_post_meta($instanceid,'instance_media_id',true);
                                 $instance_elapsed     = strval($instance_endtime) - strval($instance_begintime);
                                 $instance_permalink   = get_post_permalink($instanceid);  
                                 $instance_href        = get_bloginfo('url').'/wp-json/wp/v2/instance/'.$instanceid;
+
+                                $instance_media = wp_get_attachment_image_src($instance_media_id)[0];
 
                                 $array_instance   = Array(        
                                   'id'            =>  $instanceid,              
                                   'number'        =>  $instance_number,
                                   'elapsed_time'  =>  $instance_elapsed,            
-                                  'media_url'     =>  $instance_media_url,
+                                  'media_url'     =>  $instance_media,
                                   'instance_permalink'  =>    $instance_permalink,
                                   'instance_href'       =>    $instance_href,   
                                 );
@@ -3686,9 +3709,9 @@ Text Domain: grabmotion-computer-vision
 
                             $last_post_id_for_camera_image = max($array_instances_for_camera);                    
 
-                            $last_instance_media_url = get_post_meta($last_post_id_for_camera_image,'instance_media_url',true);                         
-                            
-                            $array_camera['last_media_url'] = $last_instance_media_url;
+                            $last_instance_media_id = get_post_meta($last_post_id_for_camera_image,'instance_media_id',true);                   
+
+                            $array_camera['last_media_url'] = wp_get_attachment_image_src($last_instance_media_id)[0];
                             
                             //////////////// 
 
@@ -3708,13 +3731,15 @@ Text Domain: grabmotion-computer-vision
                 
             }    
 
-            $response = new WP_REST_Response( $array_client );                 
-            $response->set_status( $status ); 
+            $response = new WP_REST_Response( $array_client );       
+            $response->set_status( 200 ); 
             return $response;  
 
         } else 
-        {
-          write_log_file("query_no_posts"); 
+        {          
+          $response = new WP_REST_Response( "error" );                 
+          $response->set_status( 410 ); 
+          return $response;
         }
 
                    
