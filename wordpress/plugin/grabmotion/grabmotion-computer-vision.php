@@ -2782,7 +2782,7 @@ Text Domain: grabmotion-computer-vision
              ) $charset_collate;";
              require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
              dbDelta( $sql );
-        }        
+        }   
     }
     
    
@@ -2904,38 +2904,18 @@ Text Domain: grabmotion-computer-vision
             $endrec       = $recognitionid;           
             $endcamera    = $cameraid;
 
+            $camera_name       = get_post_meta($cameraid, "camera_name", true);
+
             write_log_file($endinstance); 
             write_log_file($endrec); 
             write_log_file($endcamera);
-
-            //$userId = $pfuser;               
-
-            /*ParsePush::send(array(
-                'where'    => array (                    
-                  'user' => $user,
-                ),
-                'data'    => array (
-                    'title'       => 'Movement at camera '.$cameraid,
-                    'endinstance' => $endinstance,
-                    'endrec'      => $endrec,
-                    'endcamera'   => $endcamera,
-                ),
-            ));*/
-
-            //$userId = $pfuser; 
-
-            /*$query = ParseUser::query();
-            $query->equalTo("objectId", array("__type" => "Pointer", "className" => "_User", "objectId" => $userId));
-            $user = $query->find();*/            
 
             $url = 'https://api.parse.com/1/push';            
             $data = array (                                   
                 'channel' => "user_".$pfuser,
                 'data'    => array (
-                    'title'       => 'Movement at camera '.$cameraid,
-                    'endinstance' => $endinstance,
-                    'endrec'      => $endrec,
-                    'endcamera'   => $endcamera,
+                    'title'       => 'Movement on '.$camera_name,
+                    'postId'   => $post_id,
                 ),
             );
 
@@ -3436,6 +3416,8 @@ Text Domain: grabmotion-computer-vision
 
       register_rest_route('gm/v1', 'devices/(?P<client>[0-9]+)', array('methods' => 'GET', 'callback' => 'wpc_get_client_callback'));
 
+      register_rest_route('gm/v1', 'notification/(?P<postid>[0-9]+)', array('methods' => 'GET', 'callback' => 'wpc_get_notification_callback'));
+
     }     
 
     function wpc_get_client_callback( $request_data ) 
@@ -3742,10 +3724,125 @@ Text Domain: grabmotion-computer-vision
           return $response;
         }
 
-                   
-       
     }
-   
+    
+    ////////////// NOTIFICATION ENDPOINT //////////////
+
+      function wpc_get_notification_callback( $request_data ) 
+      {
+          $parameters = $request_data->get_params();     
+
+          if ( !isset( $parameters['postid'] ) || empty($parameters['postid']) )
+            return array( 'error' => 'no_parameter_given' );
+        
+          $instanceid     = $parameters['postid'];                      
+
+          //NOTIFICATION IDS
+          $dayid          = get_post_meta($instanceid, "post_parent", true);
+          $recognitionid  = get_post_meta($dayid, "post_parent", true);
+          $cameraid       = get_post_meta($recognitionid, "post_parent", true);
+          $terminalid     = get_post_meta($cameraid, "post_parent", true);
+          $locationid     = get_post_meta($terminalid, "post_parent", true);
+         
+          //LOCATION
+          $locaton_city             = get_post_meta($locationid, 'locaton_city',true);
+          $locaton_country          = get_post_meta($locationid, 'locaton_country',true);           
+          $locaton_latitude         = get_post_meta($locationid, 'locaton_latitude',true);
+          $locaton_longitude        = get_post_meta($locationid, 'locaton_longitude',true);
+          $location_permalink       = get_post_permalink($locationid);
+          $location_href            = get_bloginfo('url').'/wp-json/wp/v2/location/'.$locationid;                        
+
+          //TERMINAL 
+          $terminal_hardware        = get_post_meta($terminalid,'terminal_hardware',true);                           
+          $terminal_uptime          = get_post_meta($terminalid,'terminal_uptime',true);                     
+          $terminal_hostname        = get_post_meta($terminalid,'terminal_hostname',true);              
+          $terminal_permalink       = get_post_permalink($terminalid);   
+          $terminal_href            = get_bloginfo('url').'/wp-json/wp/v2/terminal/'.$terminalid;   
+
+          //CAMERA
+          $camera_name            = get_post_meta($cameraid,'camera_name',true);
+          $camera_number          = get_post_meta($cameraid,'camera_number',true);
+          $camera_keepalive_time  = get_post_meta($cameraid,'camera_keepalive_time',true);
+          $camera_permalink       = get_post_permalink($cameraid);  
+          $camera_href            = get_bloginfo('url').'/wp-json/wp/v2/camera/'.$cameraid;
+                         
+          //RECOGNITION
+          $recognition_name           = get_post_meta($recognitionid,'recognition_name',true);         
+          $recognition_interval       = get_post_meta($recognitionid,'recognition_interval',true);        
+          $recognition_screen         = get_post_meta($recognitionid,'recognition_screen',true);          
+          $recognition_running        = get_post_meta($recognitionid,'recognition_running',true);  
+          $recognition_media_url      = get_post_meta($recognitionid,'recognition_media_url',true);       
+          $recognition_keepalive_time = get_post_meta($recognitionid,'recognition_keepalive_time',true);
+          $recognition_permalink      = get_post_permalink($recognitionid);  
+          $recognition_href           = get_bloginfo('url').'/wp-json/wp/v2/recognition/'.$recognitionid;           
+
+          //DAY
+          $day_label            = get_post_meta($dayid,'day_label',true);
+          $day_keepalive_time   = get_post_meta($dayid,'day_keepalive_time',true);
+          $day_permalink        = get_post_permalink($dayid);  
+          $day_href             = get_bloginfo('url').'/wp-json/wp/v2/day/'.$dayid;
+
+          $instance_number      = get_post_meta($instanceid,'instance_number',true);
+          $instance_begintime   = get_post_meta($instanceid,'instance_begintime',true);
+          $instance_endtime     = get_post_meta($instanceid,'instance_endtime',true);        
+          $instance_media_id    = get_post_meta($instanceid,'instance_media_id',true);
+          $instance_elapsed     = strval($instance_endtime) - strval($instance_begintime);
+          $instance_permalink   = get_post_permalink($instanceid);  
+          $instance_href        = get_bloginfo('url').'/wp-json/wp/v2/instance/'.$instanceid;
+          $instance_media       = wp_get_attachment_image_src($instance_media_id)[0];          
+
+          $array_notification   = Array ( 
+              'locaton_id'                  =>  $locationid,                  
+              'locaton_city'                =>  $locaton_city,
+              'locaton_country'             =>  $locaton_country,              
+              'locaton_latitude'            =>  $locaton_latitude,
+              'locaton_longitude'           =>  $locaton_longitude,                  
+              'location_permalink'          =>  $location_permalink,
+              'location_href'               =>  $location_href,
+              ////////////////////////////////////////////////////////////                    
+              'terminal_id'                 =>  $terminalid,
+              'terminal_hardare'            =>  $terminal_hardware,
+              'terminal_uptime'             =>  $terminal_uptime,                  
+              'terminal_hostname'           =>  $terminal_hostname,           
+              'terminal_permalink'          =>  $terminal_permalink,
+              'terminal_href'               =>  $terminal_href,                      
+              //////////////////////////////////////////////////////////// 
+              'camera_id'                   =>  $cameraid,                   
+              'camera_name'                 =>  $camera_name,
+              'camera_number'               =>  $camera_number,
+              'camera_keep_alive'           =>  $camera_keepalive_time,
+              'camera_permalink'            =>  $camera_permalink,
+              'camera_href'                 =>  $camera_href,              
+              ////////////////////////////////////////////////////////////   
+              'recognition_id'              =>    $recognitionid,        
+              'recognition_name'            =>    $recognition_name,
+              'recognition_interval'        =>    $recognition_interval,                
+              'recognition_running'         =>    $recognition_running,
+              'recognition_media_url'       =>    $recognition_media_url,
+              'recognition_keep_alive'      =>    $recognition_keepalive_time,
+              'recognition_permalink'       =>    $recognition_permalink,
+              'recognition_href'            =>    $recognition_href, 
+              ////////////////////////////////////////////////////////////   
+              'day_id'                      =>    $recognitionid,  
+              'day_label'                   =>    $day_label,
+              'day_keep_alive'              =>    $day_keepalive_time,
+              'day_permalink'               =>    $day_permalink,
+              'day_href'                    =>    $day_href, 
+              ////////////////////////////////////////////////////////////   
+              'instance_id'                 =>  $instanceid,              
+              'instance_number'             =>  $instance_number,
+              'instance_elapsed_time'       =>  $instance_elapsed,            
+              'instance_media_url'          =>  $instance_media,
+              'instance_instance_permalink' =>  $instance_permalink,
+              'instance_href'               =>  $instance_href,                         
+          );
+
+          $response = new WP_REST_Response( $array_notification );       
+          $response->set_status( 200 ); 
+          return $response; 
+      }
+       
+       
 ?>
 
 
