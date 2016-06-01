@@ -127,8 +127,7 @@ CLLocationManagerDelegate
             //self.getUserEmail()
             //self.getProfileData()
             //self.setGeoLocation()
-            //self.getInitialPicture()
-            
+            //self.getInitialPicture()       
 
         
         } else if (status == CLAuthorizationStatus.Denied)

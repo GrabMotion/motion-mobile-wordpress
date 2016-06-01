@@ -32,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let defaults = NSUserDefaults.standardUserDefaults()
     var ParseApplicationId  = "fsLv65faQqwqhliCGF7oGqcT8MxPDFjmcxIuonGw"
     var ParseClientKey      = "T3PK1u0NQ36eZm91jM0TslCREDj8LBeKzGCsrudE"
-    var RestApiKey          = "o0cSPLyhD9u7vz19zliIwqXQgP9On6Dxx1yGUplB"
+    var RestApiKey          = "ZRfqjSe0ju8XejHHmJdsfzsYKYsQYBWsYLU40FDB"
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
@@ -50,11 +50,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // [Optional] Track statistics around application opens.
         PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
         
-        let userNotificationTypes: UIUserNotificationType = [.Alert, .Badge, .Sound]
+        let userNotificationTypes: UIUserNotificationType = [.Badge, .Sound]
         
-        /*let settings = UIUserNotificationSettings(forTypes: userNotificationTypes, categories: nil)
+        let settings = UIUserNotificationSettings(forTypes: userNotificationTypes, categories: nil)
         application.registerUserNotificationSettings(settings)
-        application.registerForRemoteNotifications()*/
+        application.registerForRemoteNotifications()
         
         // Register for Push Notitications
         if application.applicationState != UIApplicationState.Background {
@@ -88,9 +88,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
-            let installation = PFInstallation.currentInstallation()
-            installation.setDeviceTokenFromData(deviceToken)
-            installation.saveInBackground()
+        let installation = PFInstallation.currentInstallation()
+        installation.setDeviceTokenFromData(deviceToken)
+        installation.saveInBackground()
     }
     
     func application(application: UIApplication,

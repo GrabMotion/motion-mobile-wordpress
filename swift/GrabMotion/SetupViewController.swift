@@ -163,7 +163,17 @@ SocketProtocolDelegate
         
         installation.setObject("\(device)", forKey: "device")
 
-        installation.setObject((PFUser.currentUser()!), forKey: "user")
+        installation.setObject(PFUser.currentUser()!, forKey: "user")
+
+        var objectID = String()
+        
+        if let user = PFUser.currentUser() {
+           objectID  = user.objectId!
+        }
+
+        let usr_channel = "user_\(objectID)"
+
+        installation.addUniqueObject(usr_channel, forKey: "channels")
 
         installation.saveInBackgroundWithBlock
         {
@@ -256,14 +266,15 @@ SocketProtocolDelegate
         message.types = Motion.Message_.ActionType.Engage
         message.serverip = info
 
-        var includethumbs = false
-        if self.devices.count == 0
-        {
-            includethumbs = true
-        } 
+        
+        //var includethumbs = false
+        //if self.devices.count == 0
+        //{
+        //    includethumbs = true
+        //}
 
         message.packagesize = socket.packagesize
-        message.includethubmnails = includethumbs
+        message.includethubmnails = false //includethumbs
         
         let error:NSError!
 
