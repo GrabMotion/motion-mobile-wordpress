@@ -3137,7 +3137,7 @@ Text Domain: grabmotion-computer-vision
             'posts_per_page'    => -1,
             'meta_key'          => 'post_parent',            
             'meta_query'        => array(
-                 array(
+                 array (
                         'key'       => 'post_parent',
                         'compare'   => '=',
                         'value'     => $parent,
@@ -3417,6 +3417,10 @@ Text Domain: grabmotion-computer-vision
       register_rest_route('gm/v1', 'devices/(?P<client>[0-9]+)', array('methods' => 'GET', 'callback' => 'wpc_get_client_callback'));
 
       register_rest_route('gm/v1', 'notification/(?P<postid>[0-9]+)', array('methods' => 'GET', 'callback' => 'wpc_get_notification_callback'));
+
+      register_rest_route('gm/v1', 'client/', array('methods' => 'GET', 'callback' => 'wpc_get_grabmoclients_callback'));
+
+      register_rest_route('gm/v1', 'client/me', array('methods' => 'GET', 'callback' => 'wpc_get_grabmoclient_me_callback'));
 
     }     
 
@@ -3791,7 +3795,8 @@ Text Domain: grabmotion-computer-vision
           $instance_href        = get_bloginfo('url').'/wp-json/wp/v2/instance/'.$instanceid;
           $instance_media       = wp_get_attachment_image_src($instance_media_id)[0];          
 
-          $array_notification   = Array ( 
+          $array_notification   = Array (
+
               'locaton_id'                  =>  $locationid,                  
               'locaton_city'                =>  $locaton_city,
               'locaton_country'             =>  $locaton_country,              
@@ -3841,6 +3846,136 @@ Text Domain: grabmotion-computer-vision
           $response->set_status( 200 ); 
           return $response; 
       }
+
+      //// CLIENT ////
+
+      function wpc_get_grabmoclient_me_callback()
+      {        
+
+          $user_id = apply_filters( 'determine_current_user', false );
+          wp_set_current_user( $user_id );
+
+          $current_user_id = floatval(get_current_user_id());                     
+
+          $args = array(
+              'author' => $current_user_id,
+              'post_type' => 'client',
+          );       
+
+          write_log_file("current_user_id: ".$current_user_id);
+
+          $query = new WP_Query( $args );
+
+          if ($query->have_posts())
+          {
+              
+              while ($query->have_posts())
+              {               
+
+                  $query->the_post();
+
+                  global $post;
+
+                  $client_array = get_client_info($post);
+
+                  $response = new WP_REST_Response( $client_array );       
+                  $response->set_status( 200 ); 
+                  return $response;
+
+              }
+
+          } else 
+          {          
+            $response = new WP_REST_Response( "error, not found" );                 
+            $response->set_status( 410 ); 
+            return $response;
+          }
+     }
+
+     function get_client_info($post)
+     {
+
+        $client_author      = $post->post_author; 
+        $client_date        = $post->post_date_gmt;
+        $client_author_url  = get_bloginfo('url').'/wp-json/wp/v2/users/'.$post->ID;
+        $client_permalink   = get_post_permalink($post->ID);
+        $client_children    = get_post_meta($post->ID, "post_children", true);
+        $count = count($client_children); 
+        $arraychilds = Array();
+        if ( $count > 0 ) 
+        {
+          foreach ( $client_children as $child ) 
+          {                     
+              array_push($arraychilds, $child);
+          }
+        }
+        $client_first_name  = get_post_meta($post->ID, "client_first_name", true);
+        $client_last_name   = get_post_meta($post->ID, "client_last_name", true);
+        $client_user_name   = get_post_meta($post->ID, "client_user_name", true);
+        $client_email       = get_post_meta($post->ID, "client_email", true);
+        $client_thumbnail_url   = get_post_meta($post->ID, "client_thumbnail_url", true);
+        $client_thumbnail_id    = get_post_meta($post->ID, "client_thumbnail_id", true);
+        $client_location    = get_post_meta($post->ID, "client_location", true); 
+        $client_href        = get_bloginfo('url').'/wp-json/wp/v2/client/'.$post->ID;       
+
+        $array_client  = Array (
+              'id'              =>  $post->ID,     
+              'author'          =>  $client_author,
+              'date'            =>  $client_date,
+              'author_url'      =>  $client_author_url,
+              'permalink'       =>  $client_permalink, 
+              'clidren'         =>  $arraychilds,
+              'first_name'      =>  $client_first_name,
+              'last_name'       =>  $client_last_name,
+              'user_name'       =>  $client_user_name,
+              'email'           =>  $client_email,
+              'thumbnail_url'   =>  $client_thumbnail_url,
+              'thumbnail_id'    =>  $client_thumbnail_id,
+              'location'        =>  $client_location,
+              'href'            =>  $client_href,
+            ); 
+
+        return $array_client;
+
+     }    
+
+     function wpc_get_grabmoclients_callback()
+     {        
+
+          $args = array('post_type' => 'client');       
+
+          $query = new WP_Query( $args );
+
+          $array_clients = Array();
+
+          if ($query->have_posts())
+          {
+              
+              while ($query->have_posts())
+              {               
+
+                  $query->the_post();
+
+                  global $post;
+
+                  $client_array = get_client_info($post);
+
+                  $array_clients['clients'][] = $client_array;
+
+              }
+
+              $response = new WP_REST_Response( $array_clients );       
+              $response->set_status( 200 ); 
+              return $response;
+
+          } else 
+          {          
+            $response = new WP_REST_Response( "error, not found" );                 
+            $response->set_status( 410 ); 
+            return $response;
+          }
+     }
+
        
        
 ?>
@@ -3849,3 +3984,7 @@ Text Domain: grabmotion-computer-vision
     
    
     
+
+
+
+
