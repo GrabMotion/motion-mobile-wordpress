@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		82AE2CD11CF2B46700DFDC51 /* NotificationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82AE2CD01CF2B46700DFDC51 /* NotificationTableViewCell.swift */; };
+		82C3E2F81CF33BDC006F8B09 /* NotificationHandlerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82C3E2F71CF33BDC006F8B09 /* NotificationHandlerViewController.swift */; };
 		B8D99DBF6FE3E002034586D4 /* Pods_GrabMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A4ECA889A7743CAC88CFB47 /* Pods_GrabMotion.framework */; };
 		D70026E41CA626940076485A /* JobViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70026E31CA626930076485A /* JobViewController.swift */; };
 		D70A62C01C52990300E759C6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D70A62BF1C52990300E759C6 /* AppDelegate.swift */; };
@@ -82,6 +84,8 @@
 /* Begin PBXFileReference section */
 		003A29F84F603B168D373BE5 /* Pods-GrabMotion.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GrabMotion.release.xcconfig"; path = "Pods/Target Support Files/Pods-GrabMotion/Pods-GrabMotion.release.xcconfig"; sourceTree = "<group>"; };
 		3A4ECA889A7743CAC88CFB47 /* Pods_GrabMotion.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GrabMotion.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		82AE2CD01CF2B46700DFDC51 /* NotificationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationTableViewCell.swift; sourceTree = "<group>"; };
+		82C3E2F71CF33BDC006F8B09 /* NotificationHandlerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationHandlerViewController.swift; sourceTree = "<group>"; };
 		A1E92113F894BE0A768513C2 /* Pods-GrabMotion.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GrabMotion.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GrabMotion/Pods-GrabMotion.debug.xcconfig"; sourceTree = "<group>"; };
 		D70026E31CA626930076485A /* JobViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobViewController.swift; sourceTree = "<group>"; };
 		D70A62BC1C52990300E759C6 /* GrabMotion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GrabMotion.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -204,6 +208,14 @@
 				3A4ECA889A7743CAC88CFB47 /* Pods_GrabMotion.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		82AE2CCF1CF2B44E00DFDC51 /* cell */ = {
+			isa = PBXGroup;
+			children = (
+				82AE2CD01CF2B46700DFDC51 /* NotificationTableViewCell.swift */,
+			);
+			name = cell;
 			sourceTree = "<group>";
 		};
 		97D92BE6B7CA6210D2576893 /* Pods */ = {
@@ -352,6 +364,8 @@
 		D7B757481C6675400020A13A /* Notification */ = {
 			isa = PBXGroup;
 			children = (
+				82C3E2F71CF33BDC006F8B09 /* NotificationHandlerViewController.swift */,
+				82AE2CCF1CF2B44E00DFDC51 /* cell */,
 				D7644BD81C758D8700B5545E /* PushNotificationViewController.swift */,
 			);
 			name = Notification;
@@ -592,6 +606,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				82C3E2F81CF33BDC006F8B09 /* NotificationHandlerViewController.swift in Sources */,
 				D782B0CB1C8E48E9004FF21D /* UIImage+Rotate.m in Sources */,
 				D7B757501C667EBF0020A13A /* AdvancedSetupTableViewController.swift in Sources */,
 				D7FF1B461C5E42F5007415AD /* ProFileViewController.swift in Sources */,
@@ -613,6 +628,7 @@
 				D7644BED1C7A4C1C00B5545E /* PaidPlanViewController.swift in Sources */,
 				D7B7569C1C644E5F0020A13A /* SetupViewController.swift in Sources */,
 				D70A62D21C529D1600E759C6 /* Motion.Motion.proto.swift in Sources */,
+				82AE2CD11CF2B46700DFDC51 /* NotificationTableViewCell.swift in Sources */,
 				D782B0B31C8B60BB004FF21D /* SetupCameraTableViewController.swift in Sources */,
 				D782B0C91C8E48E9004FF21D /* SwViewController.swift in Sources */,
 				D71384B91C5D260E004773EA /* RegisterViewController.swift in Sources */,
@@ -686,7 +702,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -726,7 +742,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -739,6 +755,7 @@
 			baseConfigurationReference = A1E92113F894BE0A768513C2 /* Pods-GrabMotion.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -759,6 +776,7 @@
 			baseConfigurationReference = 003A29F84F603B168D373BE5 /* Pods-GrabMotion.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (

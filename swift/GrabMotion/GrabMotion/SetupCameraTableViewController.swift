@@ -21,9 +21,9 @@ SocketProtocolDelegate
 
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 
-    var jobView : JobViewController!
+    var jobView : JobViewController!   
 
-    var deviceIp = String()    
+    var _indexPath: NSIndexPath! 
 
     override func viewDidLoad() 
     {
@@ -34,7 +34,7 @@ SocketProtocolDelegate
 
         self.configureTableView() 
 
-        self.socket.delegate = self
+        self.socket.delegate = self      
 
     }
 
@@ -284,7 +284,7 @@ SocketProtocolDelegate
                     {
 
                         var _username = quser["username"] as! String
-                        var _email = quser["email"] as! String
+                        var _email = "josemanuelvigil@gmai.com" //quser["email"] as! String
                         var _first_name = quser["first_name"] as! String
                         var _last_name = quser["last_name"] as! String
                         var _location = quser["location"] as! PFGeoPoint
@@ -310,8 +310,9 @@ SocketProtocolDelegate
                                         
                                         let uiidinstallation = qdevice["uuid_installation"] as! String
 
-                                        self.deviceIp = qdevice["ipaddress"] as! String
-                                        
+                                        var deviceIp = qdevice["ipaddress"] as! String
+                                                                                
+                                                    
                                         // CLIENT
 
                                         let clientRelation  = quser["client"] as? PFRelation
@@ -341,6 +342,7 @@ SocketProtocolDelegate
                                                     let _wp_password            = qclient["wp_password"] as! String
                                                     let _wp_server_url          = qclient["wp_server_url"] as! String
                                                     let _wp_userid              = qclient["wp_userid"] as! Int
+                                                    print(_wp_userid)
                                                     let _wp_userid_             = Int32(_wp_userid) 
                                                     let _wp_client_id           = qclient["wp_client_id"] as! Int
                                                     let _wp_client_id_          = Int32(_wp_client_id)
@@ -382,13 +384,14 @@ SocketProtocolDelegate
                                                 
                                                     let message                 = Motion.Message_.Builder()
                                                     message.types               = Motion.Message_.ActionType.ServerInfo
-                                                    message.serverip            = self.deviceIp                                                    
+                                                    message.serverip            = deviceIp                                                    
                                                     message.packagesize         = self.socket.packagesize  
                                                     message.includethubmnails   = false
 
                                                     let pfuser              = Motion.Message_.MotionUser.Builder()
                                                     pfuser.username         = _username
                                                     pfuser.wpuser           = _wp_user
+                                                    pfuser.wpuserid         = _wp_userid_
                                                     pfuser.wppassword       = _wp_password
                                                     pfuser.wpserverurl      = _wp_server_url    
                                                     pfuser.wpclientid       = _wp_client_id_
@@ -410,6 +413,13 @@ SocketProtocolDelegate
                                                     pfuser.wpfeaturedimage  = _wp_client_media_id_
                                                     pfuser.wpmodified       = _wp_modified
                                                     pfuser.wpparent         = _wp_post_parent_
+
+                                                    if let objectid = String?(PFUser.currentUser()!.objectId!)
+                                                    {
+                                                        pfuser.pfuser           = objectid
+                                                    }
+                                                    pfuser.pfappid          = self.appDelegate.ParseApplicationId
+                                                    pfuser.pfrestapikey     = self.appDelegate.RestApiKey
 
                                                     do
                                                     {                            
@@ -438,7 +448,7 @@ SocketProtocolDelegate
                                                         print(data.length)
                                                     }
 
-                                                    self.socket.deviceIp = self.deviceIp
+                                                    self.socket.deviceIp = deviceIp
                                                     self.socket.sendMessage(data)
                                                    
                                                 }
@@ -453,6 +463,11 @@ SocketProtocolDelegate
             }
         }
     }  
+
+    func imageProgress(progress : Int,  total : Int)
+    {
+
+    }
 
     func simpleMessageReceived(message: Motion.Message_)
     {
@@ -482,6 +497,10 @@ SocketProtocolDelegate
             break
             
         }
+    }
+
+    func imageDownloaded(file : [String])
+    {
     }
 
     func checkCategories(sender:UIButton)
@@ -545,16 +564,19 @@ SocketProtocolDelegate
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
-    {
+    {        
 
-        //self.jobView.device = self.devices[indexPath.row]
-        //let nav = segue.destinationViewController as! UINavigationController
-        //self.jobView = nav.topViewController as! JobViewController 
-        //self.performSegueWithIdentifier("SegueJobCreation", sender: self)
+        self._indexPath = indexPath
 
         let jobViewStory = self.storyboard?.instantiateViewControllerWithIdentifier("JobViewController") as! JobViewController
         
-        jobViewStory.deviceIp = self.deviceIp
+        let index = indexPath.section
+
+        print(index)
+        
+        jobViewStory.device = self.devices[index]
+
+        print(jobViewStory.device.ipnumber)
 
         let jobViewNav = UINavigationController(rootViewController: jobViewStory)
     
@@ -578,7 +600,11 @@ SocketProtocolDelegate
         if segue.identifier == "SegueJobCreation"
         {
             let nav = segue.destinationViewController as! UINavigationController
-            self.jobView = nav.topViewController as! JobViewController      
+            self.jobView = nav.topViewController as! JobViewController  
+
+            self.devices[self._indexPath.section].activecam = self._indexPath.row 
+
+            self.jobView.device = self.devices[self._indexPath.section]
         }
 
     }

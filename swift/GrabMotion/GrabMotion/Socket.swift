@@ -13,6 +13,7 @@ protocol SocketProtocolDelegate
 {
     func simpleMessageReceived(message: Motion.Message_)
     func imageProgress(progress : Int,  total : Int)
+    func imageDownloaded(file : [String])
 }
 
 class Socket
@@ -97,9 +98,13 @@ class Socket
 
                             if hasfinihed.1
                             {
-                               let resutlsplit = splitAppendedFiles(payload)
-                               payload  = resutlsplit.0
-                               self.files    = resutlsplit.1
+                                let resutlsplit = splitAppendedFiles(payload)
+                                payload  = resutlsplit.0
+                                self.files    = resutlsplit.1
+                                if (delegate != nil)
+                                {
+                                    self.delegate!.imageDownloaded(self.files)
+                                }
                             }
 
                             //print("***************************")
@@ -143,7 +148,8 @@ class Socket
     }
 
     func splitAppendedFiles(proto: String) -> (payload:String, files:[String])
-    {
+    {      
+        
         let filedelimiter = "PROFILE"
 
         print("proto \(proto.characters.count)")
@@ -152,20 +158,30 @@ class Socket
 
         //let arr = split(proto.characters){$0 == "PROFILE"}.map(String.init)
 
-        let payload = arr[0]
+        let payload = arr[0]        
+        
         let imagespayload  = arr[1]
 
         print(payload.characters.count)
         print(imagespayload.characters.count)
 
-        let files = self.parseAppendedFiles(imagespayload) as [String]
-
-        return (payload, files)
+        var fls = [String]() 
+        if imagespayload.rangeOfString("THUMBNAILSTART") != nil
+        {
+            fls = self.parseAppendedFiles(imagespayload) as [String]
+        } else 
+        {
+            fls.append(imagespayload)
+        }
+        
+        return (payload, fls)
     }
 
    
     func parseAppendedFiles(files:String) -> [String]
     {
+        
+        print(files)
 
         var allfiles = [String]()
 
@@ -253,7 +269,7 @@ class Socket
         package____size = Int(vpay[0])!
         print("package____size: \(package____size)")
 
-        self.delegate.imageProgress(current_package, total : total__packages)
+        self.delegate!.imageProgress(current_package, total : total__packages)
         
         let resultpayload = String(proto.characters.dropFirst(from))
 
@@ -364,5 +380,11 @@ extension String {
         }
         
     }
+
+
+
+    
+
+
 }
 

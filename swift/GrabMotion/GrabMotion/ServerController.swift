@@ -32,7 +32,7 @@ class ServerController
    
     var delegateServer:ServerControllerDelegate! = nil
    
-    var myWordPressSite:String = "http://192.168.0.4/grabmotion/wp-json/wp/v2/"
+    var myWordPressSite:String = "http://grabmotion.co/wp-json/wp/v2/"
   
     let defaults = NSUserDefaults.standardUserDefaults()
       
@@ -217,8 +217,8 @@ class ServerController
                      
                     for quser in userArray
                     {
-                        let email = quser["email"] as! String
-                        print("email \(email)")
+                        let email = "josemauelvigil@gmai.com" //quser["email"] as! String
+                        //print("email \(email)")
                         let first_name = quser["first_name"] as! String
                         let last_name = quser["last_name"] as! String
   
@@ -230,8 +230,8 @@ class ServerController
   
                         let parameters = [
                             "check_login": 3,
-                            "ios_userlogin":self.userServer,
-                            "ios_userpassword":self.passServer,
+                            "ios_userlogin":"\(self.userServer)",
+                            "ios_userpassword":"\(self.passServer)",
                             "new_username":"\(self.userName)",
                             "new_password":"\(self.passWord)",
                             "new_email":"\(email)",
@@ -242,15 +242,17 @@ class ServerController
                
                         print("\(parameters)")   
   
-                        print("++++++++++++++++++++++++++++++++++++++++")  
+                        print("++++++++++++++++++++++++++++++++++++++++")             
   
-                        print(self.myWordPressSite)   
-  
-                        let usersURL =  "\(self.myWordPressSite)users"         
+                        let usersURL =  "\(self.myWordPressSite)users"
+                        
+                        print(usersURL)
                    
-                        Alamofire.request(.POST, usersURL, parameters: parameters as! [String : AnyObject])
+                        var request = Alamofire.request(.POST, usersURL, parameters: parameters as? [String : AnyObject])
                             .responseJSON { response in
-                 
+                
+                            print(response)
+                                
                             if response.result.isSuccess
                             {
   
@@ -287,6 +289,7 @@ class ServerController
                                 }
                             }
                         }
+                        print(request)
                     }
                 }
             }
@@ -318,13 +321,15 @@ class ServerController
 
                         let last_name = quser["last_name"] as! String
                          
-                        let email = quser["email"] as! String
+                        let email = "josemanuelvigil@gmail.com" //quser["email"] as! String
   
                         let wp_username = quser["username"] as! String
 
                         var wp_password = self.defaults.stringForKey("wp_password")! as String                        
 
                         let wp_userid = self.defaults.stringForKey("wp_userid")! as String
+                        
+                        print(wp_userid)
   
                         let geopoint = quser["location"] as! PFGeoPoint
   
@@ -356,7 +361,7 @@ class ServerController
                          
                         print("usersWordpress: \(usersWordpress)")
                                           
-                        Alamofire.request(.POST, usersWordpress, parameters: parameters as! [String : AnyObject])
+                        var request = Alamofire.request(.POST, usersWordpress, parameters: parameters as! [String : AnyObject])
                             .responseJSON { response in
 
                             print("\(response)")
@@ -458,6 +463,7 @@ class ServerController
                                 }   
                             }
                         }
+                        print(request)
                     }
                 }
             }
@@ -566,7 +572,8 @@ class ServerController
   
         var randomString : NSMutableString = NSMutableString(capacity: len)
   
-        for (var i=0; i < len; i++){
+        for (var i=0; i < len; i++)
+        {
             var length = UInt32 (letters.length)
             var rand = arc4random_uniform(length)
             randomString.appendFormat("%C", letters.characterAtIndex(Int(rand)))

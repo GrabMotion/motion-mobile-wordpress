@@ -1,12 +1,12 @@
 #Protocol Buffers for Swift
 
-[![Build Status](https://travis-ci.org/alexeyxo/protobuf-swift.svg?branch=master)](https://travis-ci.org/alexeyxo/protobuf-swift) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) [![Version](http://img.shields.io/cocoapods/v/ProtocolBuffers-Swift.svg)](http://cocoapods.org/?q=ProtocolBuffers-Swift) [![Platform](http://img.shields.io/cocoapods/p/ProtocolBuffers-Swift.svg)](http://cocoapods.org/?q=ProtocolBuffers)
+[![Build Status](https://travis-ci.org/alexeyxo/protobuf-swift.svg?branch=Compiler2.0-ProtoBuf3.0-Swift1.2)](https://travis-ci.org/alexeyxo/protobuf-swift) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) [![Version](http://img.shields.io/cocoapods/v/ProtocolBuffers-Swift.svg)](http://cocoapods.org/?q=ProtocolBuffers-Swift) [![Platform](http://img.shields.io/cocoapods/p/ProtocolBuffers-Swift.svg)](http://cocoapods.org/?q=ProtocolBuffers)
 
 An implementation of Protocol Buffers in Swift.
 
 Protocol Buffers are a way of encoding structured data in an efficient yet extensible format. This project is based on an implementation of Protocol Buffers from Google. See the [Google protobuf project](https://developers.google.com/protocol-buffers/docs/overview) for more information.
 
-####Required Protocol Buffers 2.6
+####Required Protocol Buffers 3.0
 
 ##How To Install Protobuf Compiler from Homebrew
 
@@ -65,7 +65,7 @@ message Person {
 ```
 
 ```swift
-let personBuilder = Person.Builder()
+let personBuilder = Person.builder()
 personBuilder.id = 123
 personBuilder.name = "Bob"
 personBuilder.email = "bob@example.com"
@@ -165,6 +165,18 @@ final internal class MessageContainsMap : GeneratedMessage, GeneratedMessageProt
     private(set) var mapInt32Enum:Dictionary<Int32,MessageContainsMap.EnumMapValue> = Dictionary<Int32,MessageContainsMap.EnumMapValue>()
     ...
 }
+```
+
+##JSON(proto3)
+```swift
+let personBuilder = Person.builder()
+personBuilder.id = 123
+personBuilder.name = "Bob"
+personBuilder.email = "bob@example.com"
+let person = personBuilder.build()
+let jsonData = person.toJSON() //return NSData
+let jsonDictionaryObject:Dictionary<String,AnyObject> = person.encode()
+let personFromJson = Person.fromJSON(jsonData) //Person
 ```
 
 ##Deserializing

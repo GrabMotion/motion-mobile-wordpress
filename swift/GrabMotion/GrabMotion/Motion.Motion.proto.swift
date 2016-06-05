@@ -5,9 +5,9 @@ import Foundation
 import ProtocolBuffers
 
 
-internal struct Motion { }
+public struct Motion { }
 
-internal func == (lhs: Motion.Message_, rhs: Motion.Message_) -> Bool {
+public func == (lhs: Motion.Message_, rhs: Motion.Message_) -> Bool {
   if (lhs === rhs) {
     return true
   }
@@ -38,7 +38,7 @@ internal func == (lhs: Motion.Message_, rhs: Motion.Message_) -> Bool {
   return fieldCheck
 }
 
-internal func == (lhs: Motion.Message_.MotionDevice, rhs: Motion.Message_.MotionDevice) -> Bool {
+public func == (lhs: Motion.Message_.MotionDevice, rhs: Motion.Message_.MotionDevice) -> Bool {
   if (lhs === rhs) {
     return true
   }
@@ -67,7 +67,7 @@ internal func == (lhs: Motion.Message_.MotionDevice, rhs: Motion.Message_.Motion
   return fieldCheck
 }
 
-internal func == (lhs: Motion.Message_.MotionUser, rhs: Motion.Message_.MotionUser) -> Bool {
+public func == (lhs: Motion.Message_.MotionUser, rhs: Motion.Message_.MotionUser) -> Bool {
   if (lhs === rhs) {
     return true
   }
@@ -94,11 +94,15 @@ internal func == (lhs: Motion.Message_.MotionUser, rhs: Motion.Message_.MotionUs
   fieldCheck = fieldCheck && (lhs.hasWptype == rhs.hasWptype) && (!lhs.hasWptype || lhs.wptype == rhs.wptype)
   fieldCheck = fieldCheck && (lhs.hasWpparent == rhs.hasWpparent) && (!lhs.hasWpparent || lhs.wpparent == rhs.wpparent)
   fieldCheck = fieldCheck && (lhs.hasWpmodified == rhs.hasWpmodified) && (!lhs.hasWpmodified || lhs.wpmodified == rhs.wpmodified)
+  fieldCheck = fieldCheck && (lhs.hasDbUserId == rhs.hasDbUserId) && (!lhs.hasDbUserId || lhs.dbUserId == rhs.dbUserId)
+  fieldCheck = fieldCheck && (lhs.hasPfuser == rhs.hasPfuser) && (!lhs.hasPfuser || lhs.pfuser == rhs.pfuser)
+  fieldCheck = fieldCheck && (lhs.hasPfappid == rhs.hasPfappid) && (!lhs.hasPfappid || lhs.pfappid == rhs.pfappid)
+  fieldCheck = fieldCheck && (lhs.hasPfrestapikey == rhs.hasPfrestapikey) && (!lhs.hasPfrestapikey || lhs.pfrestapikey == rhs.pfrestapikey)
   fieldCheck = (fieldCheck && (lhs.unknownFields == rhs.unknownFields))
   return fieldCheck
 }
 
-internal func == (lhs: Motion.Message_.MotionCamera, rhs: Motion.Message_.MotionCamera) -> Bool {
+public func == (lhs: Motion.Message_.MotionCamera, rhs: Motion.Message_.MotionCamera) -> Bool {
   if (lhs === rhs) {
     return true
   }
@@ -127,7 +131,7 @@ internal func == (lhs: Motion.Message_.MotionCamera, rhs: Motion.Message_.Motion
   return fieldCheck
 }
 
-internal func == (lhs: Motion.Message_.MotionTrack, rhs: Motion.Message_.MotionTrack) -> Bool {
+public func == (lhs: Motion.Message_.MotionTrack, rhs: Motion.Message_.MotionTrack) -> Bool {
   if (lhs === rhs) {
     return true
   }
@@ -137,7 +141,7 @@ internal func == (lhs: Motion.Message_.MotionTrack, rhs: Motion.Message_.MotionT
   return fieldCheck
 }
 
-internal func == (lhs: Motion.Message_.MotionRec, rhs: Motion.Message_.MotionRec) -> Bool {
+public func == (lhs: Motion.Message_.MotionRec, rhs: Motion.Message_.MotionRec) -> Bool {
   if (lhs === rhs) {
     return true
   }
@@ -180,7 +184,7 @@ internal func == (lhs: Motion.Message_.MotionRec, rhs: Motion.Message_.MotionRec
   return fieldCheck
 }
 
-internal func == (lhs: Motion.Message_.MotionCron, rhs: Motion.Message_.MotionCron) -> Bool {
+public func == (lhs: Motion.Message_.MotionCron, rhs: Motion.Message_.MotionCron) -> Bool {
   if (lhs === rhs) {
     return true
   }
@@ -191,7 +195,7 @@ internal func == (lhs: Motion.Message_.MotionCron, rhs: Motion.Message_.MotionCr
   return fieldCheck
 }
 
-internal func == (lhs: Motion.Message_.MotionMonth, rhs: Motion.Message_.MotionMonth) -> Bool {
+public func == (lhs: Motion.Message_.MotionMonth, rhs: Motion.Message_.MotionMonth) -> Bool {
   if (lhs === rhs) {
     return true
   }
@@ -203,7 +207,7 @@ internal func == (lhs: Motion.Message_.MotionMonth, rhs: Motion.Message_.MotionM
   return fieldCheck
 }
 
-internal func == (lhs: Motion.Message_.MotionDay, rhs: Motion.Message_.MotionDay) -> Bool {
+public func == (lhs: Motion.Message_.MotionDay, rhs: Motion.Message_.MotionDay) -> Bool {
   if (lhs === rhs) {
     return true
   }
@@ -217,7 +221,7 @@ internal func == (lhs: Motion.Message_.MotionDay, rhs: Motion.Message_.MotionDay
   return fieldCheck
 }
 
-internal func == (lhs: Motion.Message_.Instance, rhs: Motion.Message_.Instance) -> Bool {
+public func == (lhs: Motion.Message_.Instance, rhs: Motion.Message_.Instance) -> Bool {
   if (lhs === rhs) {
     return true
   }
@@ -249,7 +253,7 @@ internal func == (lhs: Motion.Message_.Instance, rhs: Motion.Message_.Instance) 
   return fieldCheck
 }
 
-internal func == (lhs: Motion.Message_.Image, rhs: Motion.Message_.Image) -> Bool {
+public func == (lhs: Motion.Message_.Image, rhs: Motion.Message_.Image) -> Bool {
   if (lhs === rhs) {
     return true
   }
@@ -262,7 +266,7 @@ internal func == (lhs: Motion.Message_.Image, rhs: Motion.Message_.Image) -> Boo
   return fieldCheck
 }
 
-internal func == (lhs: Motion.Message_.Crop, rhs: Motion.Message_.Crop) -> Bool {
+public func == (lhs: Motion.Message_.Crop, rhs: Motion.Message_.Crop) -> Bool {
   if (lhs === rhs) {
     return true
   }
@@ -273,7 +277,7 @@ internal func == (lhs: Motion.Message_.Crop, rhs: Motion.Message_.Crop) -> Bool 
   return fieldCheck
 }
 
-internal func == (lhs: Motion.Message_.Video, rhs: Motion.Message_.Video) -> Bool {
+public func == (lhs: Motion.Message_.Video, rhs: Motion.Message_.Video) -> Bool {
   if (lhs === rhs) {
     return true
   }
@@ -285,97 +289,97 @@ internal func == (lhs: Motion.Message_.Video, rhs: Motion.Message_.Video) -> Boo
   return fieldCheck
 }
 
-internal extension Motion {
-  internal struct MotionRoot {
-    internal static var sharedInstance : MotionRoot {
+public extension Motion {
+  public struct MotionRoot {
+    public static var sharedInstance : MotionRoot {
      struct Static {
          static let instance : MotionRoot = MotionRoot()
      }
      return Static.instance
     }
-    internal var extensionRegistry:ExtensionRegistry
+    public var extensionRegistry:ExtensionRegistry
 
     init() {
       extensionRegistry = ExtensionRegistry()
       registerAllExtensions(extensionRegistry)
     }
-    internal func registerAllExtensions(registry:ExtensionRegistry) {
+    public func registerAllExtensions(_ registry:ExtensionRegistry) {
     }
   }
 
-  final internal class Message_ : GeneratedMessage, GeneratedMessageProtocol {
+  final public class Message_ : GeneratedMessage, GeneratedMessageProtocol {
 
 
     //Nested type declaration start
 
-      final internal class MotionDevice : GeneratedMessage, GeneratedMessageProtocol {
-        private(set) var hasIpnumber:Bool = false
-        private(set) var ipnumber:String = ""
+      final public class MotionDevice : GeneratedMessage, GeneratedMessageProtocol {
+        public private(set) var ipnumber:String = ""
 
-        private(set) var hasIppublic:Bool = false
-        private(set) var ippublic:String = ""
+        public private(set) var hasIpnumber:Bool = false
+        public private(set) var ippublic:String = ""
 
-        private(set) var hasMacaddress:Bool = false
-        private(set) var macaddress:String = ""
+        public private(set) var hasIppublic:Bool = false
+        public private(set) var macaddress:String = ""
 
-        private(set) var hasHostname:Bool = false
-        private(set) var hostname:String = ""
+        public private(set) var hasMacaddress:Bool = false
+        public private(set) var hostname:String = ""
 
-        private(set) var hasCity:Bool = false
-        private(set) var city:String = ""
+        public private(set) var hasHostname:Bool = false
+        public private(set) var city:String = ""
 
-        private(set) var hasCountry:Bool = false
-        private(set) var country:String = ""
+        public private(set) var hasCity:Bool = false
+        public private(set) var country:String = ""
 
-        private(set) var hasLocation:Bool = false
-        private(set) var location:String = ""
+        public private(set) var hasCountry:Bool = false
+        public private(set) var location:String = ""
 
-        private(set) var hasNetworkProvider:Bool = false
-        private(set) var networkProvider:String = ""
+        public private(set) var hasLocation:Bool = false
+        public private(set) var networkProvider:String = ""
 
-        private(set) var hasUptime:Bool = false
-        private(set) var uptime:String = ""
+        public private(set) var hasNetworkProvider:Bool = false
+        public private(set) var uptime:String = ""
 
-        private(set) var hasStarttime:Bool = false
-        private(set) var starttime:String = ""
+        public private(set) var hasUptime:Bool = false
+        public private(set) var starttime:String = ""
 
-        private(set) var hasDbLocal:Bool = false
-        private(set) var dbLocal:Int32 = Int32(0)
+        public private(set) var hasStarttime:Bool = false
+        public private(set) var dbLocal:Int32 = Int32(0)
 
-        private(set) var hasModel:Bool = false
-        private(set) var model:String = ""
+        public private(set) var hasDbLocal:Bool = false
+        public private(set) var model:String = ""
 
-        private(set) var hasHardware:Bool = false
-        private(set) var hardware:String = ""
+        public private(set) var hasModel:Bool = false
+        public private(set) var hardware:String = ""
 
-        private(set) var hasSerial:Bool = false
-        private(set) var serial:String = ""
+        public private(set) var hasHardware:Bool = false
+        public private(set) var serial:String = ""
 
-        private(set) var hasRevision:Bool = false
-        private(set) var revision:String = ""
+        public private(set) var hasSerial:Bool = false
+        public private(set) var revision:String = ""
 
-        private(set) var hasDisktotal:Bool = false
-        private(set) var disktotal:Int32 = Int32(0)
+        public private(set) var hasRevision:Bool = false
+        public private(set) var disktotal:Int32 = Int32(0)
 
-        private(set) var hasDiskused:Bool = false
-        private(set) var diskused:Int32 = Int32(0)
+        public private(set) var hasDisktotal:Bool = false
+        public private(set) var diskused:Int32 = Int32(0)
 
-        private(set) var hasDiskavailable:Bool = false
-        private(set) var diskavailable:Int32 = Int32(0)
+        public private(set) var hasDiskused:Bool = false
+        public private(set) var diskavailable:Int32 = Int32(0)
 
-        private(set) var hasDiskPercentageUsed:Bool = false
-        private(set) var diskPercentageUsed:Int32 = Int32(0)
+        public private(set) var hasDiskavailable:Bool = false
+        public private(set) var diskPercentageUsed:Int32 = Int32(0)
 
-        private(set) var hasTemperature:Bool = false
-        private(set) var temperature:Int32 = Int32(0)
+        public private(set) var hasDiskPercentageUsed:Bool = false
+        public private(set) var temperature:Int32 = Int32(0)
 
-        required internal init() {
+        public private(set) var hasTemperature:Bool = false
+        required public init() {
              super.init()
         }
-        override internal func isInitialized() -> Bool {
+        override public func isInitialized() -> Bool {
          return true
         }
-        override internal func writeToCodedOutputStream(output:CodedOutputStream) throws {
+        override public func writeToCodedOutputStream(_ output:CodedOutputStream) throws {
           if hasIpnumber {
             try output.writeString(1, value:ipnumber)
           }
@@ -438,7 +442,7 @@ internal extension Motion {
           }
           try unknownFields.writeToCodedOutputStream(output)
         }
-        override internal func serializedSize() -> Int32 {
+        override public func serializedSize() -> Int32 {
           var serialize_size:Int32 = memoizedSerializedSize
           if serialize_size != -1 {
            return serialize_size
@@ -509,53 +513,54 @@ internal extension Motion {
           memoizedSerializedSize = serialize_size
           return serialize_size
         }
-        internal class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Motion.Message_.MotionDevice> {
+        public class func parseArrayDelimitedFromInputStream(_ input:NSInputStream) throws -> Array<Motion.Message_.MotionDevice> {
           var mergedArray = Array<Motion.Message_.MotionDevice>()
           while let value = try parseFromDelimitedFromInputStream(input) {
             mergedArray += [value]
           }
           return mergedArray
         }
-        internal class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Motion.Message_.MotionDevice? {
+        public class func parseFromDelimitedFromInputStream(_ input:NSInputStream) throws -> Motion.Message_.MotionDevice? {
           return try Motion.Message_.MotionDevice.Builder().mergeDelimitedFromInputStream(input)?.build()
         }
-        internal class func parseFromData(data:NSData) throws -> Motion.Message_.MotionDevice {
+        public class func parseFromData(_ data:NSData) throws -> Motion.Message_.MotionDevice {
           return try Motion.Message_.MotionDevice.Builder().mergeFromData(data, extensionRegistry:Motion.MotionRoot.sharedInstance.extensionRegistry).build()
         }
-        internal class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionDevice {
+        public class func parseFromData(_ data:NSData, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionDevice {
           return try Motion.Message_.MotionDevice.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
         }
-        internal class func parseFromInputStream(input:NSInputStream) throws -> Motion.Message_.MotionDevice {
+        public class func parseFromInputStream(_ input:NSInputStream) throws -> Motion.Message_.MotionDevice {
           return try Motion.Message_.MotionDevice.Builder().mergeFromInputStream(input).build()
         }
-        internal class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionDevice {
+        public class func parseFromInputStream(_ input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionDevice {
           return try Motion.Message_.MotionDevice.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
         }
-        internal class func parseFromCodedInputStream(input:CodedInputStream) throws -> Motion.Message_.MotionDevice {
+        public class func parseFromCodedInputStream(_ input:CodedInputStream) throws -> Motion.Message_.MotionDevice {
           return try Motion.Message_.MotionDevice.Builder().mergeFromCodedInputStream(input).build()
         }
-        internal class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionDevice {
+        public class func parseFromCodedInputStream(_ input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionDevice {
           return try Motion.Message_.MotionDevice.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
         }
-        internal class func getBuilder() -> Motion.Message_.MotionDevice.Builder {
+        public class func getBuilder() -> Motion.Message_.MotionDevice.Builder {
           return Motion.Message_.MotionDevice.classBuilder() as! Motion.Message_.MotionDevice.Builder
         }
-        internal func getBuilder() -> Motion.Message_.MotionDevice.Builder {
+        public func getBuilder() -> Motion.Message_.MotionDevice.Builder {
           return classBuilder() as! Motion.Message_.MotionDevice.Builder
         }
-        internal override class func classBuilder() -> MessageBuilder {
+        public override class func classBuilder() -> MessageBuilder {
           return Motion.Message_.MotionDevice.Builder()
         }
-        internal override func classBuilder() -> MessageBuilder {
+        public override func classBuilder() -> MessageBuilder {
           return Motion.Message_.MotionDevice.Builder()
         }
-        internal func toBuilder() throws -> Motion.Message_.MotionDevice.Builder {
+        public func toBuilder() throws -> Motion.Message_.MotionDevice.Builder {
           return try Motion.Message_.MotionDevice.builderWithPrototype(self)
         }
-        internal class func builderWithPrototype(prototype:Motion.Message_.MotionDevice) throws -> Motion.Message_.MotionDevice.Builder {
+        public class func builderWithPrototype(_ prototype:Motion.Message_.MotionDevice) throws -> Motion.Message_.MotionDevice.Builder {
           return try Motion.Message_.MotionDevice.Builder().mergeFrom(prototype)
         }
-        override internal func writeDescriptionTo(inout output:String, indent:String) throws {
+        override public func getDescription(_ indent:String) throws -> String {
+          var output:String = ""
           if hasIpnumber {
             output += "\(indent) ipnumber: \(ipnumber) \n"
           }
@@ -616,9 +621,10 @@ internal extension Motion {
           if hasTemperature {
             output += "\(indent) temperature: \(temperature) \n"
           }
-          unknownFields.writeDescriptionTo(&output, indent:indent)
+          output += unknownFields.getDescription(indent)
+          return output
         }
-        override internal var hashValue:Int {
+        override public var hashValue:Int {
             get {
                 var hashCode:Int = 7
                 if hasIpnumber {
@@ -689,32 +695,32 @@ internal extension Motion {
 
         //Meta information declaration start
 
-        override internal class func className() -> String {
+        override public class func className() -> String {
             return "Motion.Message_.MotionDevice"
         }
-        override internal func className() -> String {
+        override public func className() -> String {
             return "Motion.Message_.MotionDevice"
         }
-        override internal func classMetaType() -> GeneratedMessage.Type {
+        override public func classMetaType() -> GeneratedMessage.Type {
             return Motion.Message_.MotionDevice.self
         }
         //Meta information declaration end
 
-        final internal class Builder : GeneratedMessageBuilder {
+        final public class Builder : GeneratedMessageBuilder {
           private var builderResult:Motion.Message_.MotionDevice = Motion.Message_.MotionDevice()
-          internal func getMessage() -> Motion.Message_.MotionDevice {
+          public func getMessage() -> Motion.Message_.MotionDevice {
               return builderResult
           }
 
-          required override internal init () {
+          required override public init () {
              super.init()
           }
-          var hasIpnumber:Bool {
+          public var hasIpnumber:Bool {
                get {
                     return builderResult.hasIpnumber
                }
           }
-          var ipnumber:String {
+          public var ipnumber:String {
                get {
                     return builderResult.ipnumber
                }
@@ -723,21 +729,21 @@ internal extension Motion {
                    builderResult.ipnumber = value
                }
           }
-          func setIpnumber(value:String) -> Motion.Message_.MotionDevice.Builder {
+          public func setIpnumber(_ value:String) -> Motion.Message_.MotionDevice.Builder {
             self.ipnumber = value
             return self
           }
-          internal func clearIpnumber() -> Motion.Message_.MotionDevice.Builder{
+          public func clearIpnumber() -> Motion.Message_.MotionDevice.Builder{
                builderResult.hasIpnumber = false
                builderResult.ipnumber = ""
                return self
           }
-          var hasIppublic:Bool {
+          public var hasIppublic:Bool {
                get {
                     return builderResult.hasIppublic
                }
           }
-          var ippublic:String {
+          public var ippublic:String {
                get {
                     return builderResult.ippublic
                }
@@ -746,21 +752,21 @@ internal extension Motion {
                    builderResult.ippublic = value
                }
           }
-          func setIppublic(value:String) -> Motion.Message_.MotionDevice.Builder {
+          public func setIppublic(_ value:String) -> Motion.Message_.MotionDevice.Builder {
             self.ippublic = value
             return self
           }
-          internal func clearIppublic() -> Motion.Message_.MotionDevice.Builder{
+          public func clearIppublic() -> Motion.Message_.MotionDevice.Builder{
                builderResult.hasIppublic = false
                builderResult.ippublic = ""
                return self
           }
-          var hasMacaddress:Bool {
+          public var hasMacaddress:Bool {
                get {
                     return builderResult.hasMacaddress
                }
           }
-          var macaddress:String {
+          public var macaddress:String {
                get {
                     return builderResult.macaddress
                }
@@ -769,21 +775,21 @@ internal extension Motion {
                    builderResult.macaddress = value
                }
           }
-          func setMacaddress(value:String) -> Motion.Message_.MotionDevice.Builder {
+          public func setMacaddress(_ value:String) -> Motion.Message_.MotionDevice.Builder {
             self.macaddress = value
             return self
           }
-          internal func clearMacaddress() -> Motion.Message_.MotionDevice.Builder{
+          public func clearMacaddress() -> Motion.Message_.MotionDevice.Builder{
                builderResult.hasMacaddress = false
                builderResult.macaddress = ""
                return self
           }
-          var hasHostname:Bool {
+          public var hasHostname:Bool {
                get {
                     return builderResult.hasHostname
                }
           }
-          var hostname:String {
+          public var hostname:String {
                get {
                     return builderResult.hostname
                }
@@ -792,21 +798,21 @@ internal extension Motion {
                    builderResult.hostname = value
                }
           }
-          func setHostname(value:String) -> Motion.Message_.MotionDevice.Builder {
+          public func setHostname(_ value:String) -> Motion.Message_.MotionDevice.Builder {
             self.hostname = value
             return self
           }
-          internal func clearHostname() -> Motion.Message_.MotionDevice.Builder{
+          public func clearHostname() -> Motion.Message_.MotionDevice.Builder{
                builderResult.hasHostname = false
                builderResult.hostname = ""
                return self
           }
-          var hasCity:Bool {
+          public var hasCity:Bool {
                get {
                     return builderResult.hasCity
                }
           }
-          var city:String {
+          public var city:String {
                get {
                     return builderResult.city
                }
@@ -815,21 +821,21 @@ internal extension Motion {
                    builderResult.city = value
                }
           }
-          func setCity(value:String) -> Motion.Message_.MotionDevice.Builder {
+          public func setCity(_ value:String) -> Motion.Message_.MotionDevice.Builder {
             self.city = value
             return self
           }
-          internal func clearCity() -> Motion.Message_.MotionDevice.Builder{
+          public func clearCity() -> Motion.Message_.MotionDevice.Builder{
                builderResult.hasCity = false
                builderResult.city = ""
                return self
           }
-          var hasCountry:Bool {
+          public var hasCountry:Bool {
                get {
                     return builderResult.hasCountry
                }
           }
-          var country:String {
+          public var country:String {
                get {
                     return builderResult.country
                }
@@ -838,21 +844,21 @@ internal extension Motion {
                    builderResult.country = value
                }
           }
-          func setCountry(value:String) -> Motion.Message_.MotionDevice.Builder {
+          public func setCountry(_ value:String) -> Motion.Message_.MotionDevice.Builder {
             self.country = value
             return self
           }
-          internal func clearCountry() -> Motion.Message_.MotionDevice.Builder{
+          public func clearCountry() -> Motion.Message_.MotionDevice.Builder{
                builderResult.hasCountry = false
                builderResult.country = ""
                return self
           }
-          var hasLocation:Bool {
+          public var hasLocation:Bool {
                get {
                     return builderResult.hasLocation
                }
           }
-          var location:String {
+          public var location:String {
                get {
                     return builderResult.location
                }
@@ -861,21 +867,21 @@ internal extension Motion {
                    builderResult.location = value
                }
           }
-          func setLocation(value:String) -> Motion.Message_.MotionDevice.Builder {
+          public func setLocation(_ value:String) -> Motion.Message_.MotionDevice.Builder {
             self.location = value
             return self
           }
-          internal func clearLocation() -> Motion.Message_.MotionDevice.Builder{
+          public func clearLocation() -> Motion.Message_.MotionDevice.Builder{
                builderResult.hasLocation = false
                builderResult.location = ""
                return self
           }
-          var hasNetworkProvider:Bool {
+          public var hasNetworkProvider:Bool {
                get {
                     return builderResult.hasNetworkProvider
                }
           }
-          var networkProvider:String {
+          public var networkProvider:String {
                get {
                     return builderResult.networkProvider
                }
@@ -884,21 +890,21 @@ internal extension Motion {
                    builderResult.networkProvider = value
                }
           }
-          func setNetworkProvider(value:String) -> Motion.Message_.MotionDevice.Builder {
+          public func setNetworkProvider(_ value:String) -> Motion.Message_.MotionDevice.Builder {
             self.networkProvider = value
             return self
           }
-          internal func clearNetworkProvider() -> Motion.Message_.MotionDevice.Builder{
+          public func clearNetworkProvider() -> Motion.Message_.MotionDevice.Builder{
                builderResult.hasNetworkProvider = false
                builderResult.networkProvider = ""
                return self
           }
-          var hasUptime:Bool {
+          public var hasUptime:Bool {
                get {
                     return builderResult.hasUptime
                }
           }
-          var uptime:String {
+          public var uptime:String {
                get {
                     return builderResult.uptime
                }
@@ -907,21 +913,21 @@ internal extension Motion {
                    builderResult.uptime = value
                }
           }
-          func setUptime(value:String) -> Motion.Message_.MotionDevice.Builder {
+          public func setUptime(_ value:String) -> Motion.Message_.MotionDevice.Builder {
             self.uptime = value
             return self
           }
-          internal func clearUptime() -> Motion.Message_.MotionDevice.Builder{
+          public func clearUptime() -> Motion.Message_.MotionDevice.Builder{
                builderResult.hasUptime = false
                builderResult.uptime = ""
                return self
           }
-          var hasStarttime:Bool {
+          public var hasStarttime:Bool {
                get {
                     return builderResult.hasStarttime
                }
           }
-          var starttime:String {
+          public var starttime:String {
                get {
                     return builderResult.starttime
                }
@@ -930,21 +936,21 @@ internal extension Motion {
                    builderResult.starttime = value
                }
           }
-          func setStarttime(value:String) -> Motion.Message_.MotionDevice.Builder {
+          public func setStarttime(_ value:String) -> Motion.Message_.MotionDevice.Builder {
             self.starttime = value
             return self
           }
-          internal func clearStarttime() -> Motion.Message_.MotionDevice.Builder{
+          public func clearStarttime() -> Motion.Message_.MotionDevice.Builder{
                builderResult.hasStarttime = false
                builderResult.starttime = ""
                return self
           }
-          var hasDbLocal:Bool {
+          public var hasDbLocal:Bool {
                get {
                     return builderResult.hasDbLocal
                }
           }
-          var dbLocal:Int32 {
+          public var dbLocal:Int32 {
                get {
                     return builderResult.dbLocal
                }
@@ -953,21 +959,21 @@ internal extension Motion {
                    builderResult.dbLocal = value
                }
           }
-          func setDbLocal(value:Int32) -> Motion.Message_.MotionDevice.Builder {
+          public func setDbLocal(_ value:Int32) -> Motion.Message_.MotionDevice.Builder {
             self.dbLocal = value
             return self
           }
-          internal func clearDbLocal() -> Motion.Message_.MotionDevice.Builder{
+          public func clearDbLocal() -> Motion.Message_.MotionDevice.Builder{
                builderResult.hasDbLocal = false
                builderResult.dbLocal = Int32(0)
                return self
           }
-          var hasModel:Bool {
+          public var hasModel:Bool {
                get {
                     return builderResult.hasModel
                }
           }
-          var model:String {
+          public var model:String {
                get {
                     return builderResult.model
                }
@@ -976,21 +982,21 @@ internal extension Motion {
                    builderResult.model = value
                }
           }
-          func setModel(value:String) -> Motion.Message_.MotionDevice.Builder {
+          public func setModel(_ value:String) -> Motion.Message_.MotionDevice.Builder {
             self.model = value
             return self
           }
-          internal func clearModel() -> Motion.Message_.MotionDevice.Builder{
+          public func clearModel() -> Motion.Message_.MotionDevice.Builder{
                builderResult.hasModel = false
                builderResult.model = ""
                return self
           }
-          var hasHardware:Bool {
+          public var hasHardware:Bool {
                get {
                     return builderResult.hasHardware
                }
           }
-          var hardware:String {
+          public var hardware:String {
                get {
                     return builderResult.hardware
                }
@@ -999,21 +1005,21 @@ internal extension Motion {
                    builderResult.hardware = value
                }
           }
-          func setHardware(value:String) -> Motion.Message_.MotionDevice.Builder {
+          public func setHardware(_ value:String) -> Motion.Message_.MotionDevice.Builder {
             self.hardware = value
             return self
           }
-          internal func clearHardware() -> Motion.Message_.MotionDevice.Builder{
+          public func clearHardware() -> Motion.Message_.MotionDevice.Builder{
                builderResult.hasHardware = false
                builderResult.hardware = ""
                return self
           }
-          var hasSerial:Bool {
+          public var hasSerial:Bool {
                get {
                     return builderResult.hasSerial
                }
           }
-          var serial:String {
+          public var serial:String {
                get {
                     return builderResult.serial
                }
@@ -1022,21 +1028,21 @@ internal extension Motion {
                    builderResult.serial = value
                }
           }
-          func setSerial(value:String) -> Motion.Message_.MotionDevice.Builder {
+          public func setSerial(_ value:String) -> Motion.Message_.MotionDevice.Builder {
             self.serial = value
             return self
           }
-          internal func clearSerial() -> Motion.Message_.MotionDevice.Builder{
+          public func clearSerial() -> Motion.Message_.MotionDevice.Builder{
                builderResult.hasSerial = false
                builderResult.serial = ""
                return self
           }
-          var hasRevision:Bool {
+          public var hasRevision:Bool {
                get {
                     return builderResult.hasRevision
                }
           }
-          var revision:String {
+          public var revision:String {
                get {
                     return builderResult.revision
                }
@@ -1045,21 +1051,21 @@ internal extension Motion {
                    builderResult.revision = value
                }
           }
-          func setRevision(value:String) -> Motion.Message_.MotionDevice.Builder {
+          public func setRevision(_ value:String) -> Motion.Message_.MotionDevice.Builder {
             self.revision = value
             return self
           }
-          internal func clearRevision() -> Motion.Message_.MotionDevice.Builder{
+          public func clearRevision() -> Motion.Message_.MotionDevice.Builder{
                builderResult.hasRevision = false
                builderResult.revision = ""
                return self
           }
-          var hasDisktotal:Bool {
+          public var hasDisktotal:Bool {
                get {
                     return builderResult.hasDisktotal
                }
           }
-          var disktotal:Int32 {
+          public var disktotal:Int32 {
                get {
                     return builderResult.disktotal
                }
@@ -1068,21 +1074,21 @@ internal extension Motion {
                    builderResult.disktotal = value
                }
           }
-          func setDisktotal(value:Int32) -> Motion.Message_.MotionDevice.Builder {
+          public func setDisktotal(_ value:Int32) -> Motion.Message_.MotionDevice.Builder {
             self.disktotal = value
             return self
           }
-          internal func clearDisktotal() -> Motion.Message_.MotionDevice.Builder{
+          public func clearDisktotal() -> Motion.Message_.MotionDevice.Builder{
                builderResult.hasDisktotal = false
                builderResult.disktotal = Int32(0)
                return self
           }
-          var hasDiskused:Bool {
+          public var hasDiskused:Bool {
                get {
                     return builderResult.hasDiskused
                }
           }
-          var diskused:Int32 {
+          public var diskused:Int32 {
                get {
                     return builderResult.diskused
                }
@@ -1091,21 +1097,21 @@ internal extension Motion {
                    builderResult.diskused = value
                }
           }
-          func setDiskused(value:Int32) -> Motion.Message_.MotionDevice.Builder {
+          public func setDiskused(_ value:Int32) -> Motion.Message_.MotionDevice.Builder {
             self.diskused = value
             return self
           }
-          internal func clearDiskused() -> Motion.Message_.MotionDevice.Builder{
+          public func clearDiskused() -> Motion.Message_.MotionDevice.Builder{
                builderResult.hasDiskused = false
                builderResult.diskused = Int32(0)
                return self
           }
-          var hasDiskavailable:Bool {
+          public var hasDiskavailable:Bool {
                get {
                     return builderResult.hasDiskavailable
                }
           }
-          var diskavailable:Int32 {
+          public var diskavailable:Int32 {
                get {
                     return builderResult.diskavailable
                }
@@ -1114,21 +1120,21 @@ internal extension Motion {
                    builderResult.diskavailable = value
                }
           }
-          func setDiskavailable(value:Int32) -> Motion.Message_.MotionDevice.Builder {
+          public func setDiskavailable(_ value:Int32) -> Motion.Message_.MotionDevice.Builder {
             self.diskavailable = value
             return self
           }
-          internal func clearDiskavailable() -> Motion.Message_.MotionDevice.Builder{
+          public func clearDiskavailable() -> Motion.Message_.MotionDevice.Builder{
                builderResult.hasDiskavailable = false
                builderResult.diskavailable = Int32(0)
                return self
           }
-          var hasDiskPercentageUsed:Bool {
+          public var hasDiskPercentageUsed:Bool {
                get {
                     return builderResult.hasDiskPercentageUsed
                }
           }
-          var diskPercentageUsed:Int32 {
+          public var diskPercentageUsed:Int32 {
                get {
                     return builderResult.diskPercentageUsed
                }
@@ -1137,21 +1143,21 @@ internal extension Motion {
                    builderResult.diskPercentageUsed = value
                }
           }
-          func setDiskPercentageUsed(value:Int32) -> Motion.Message_.MotionDevice.Builder {
+          public func setDiskPercentageUsed(_ value:Int32) -> Motion.Message_.MotionDevice.Builder {
             self.diskPercentageUsed = value
             return self
           }
-          internal func clearDiskPercentageUsed() -> Motion.Message_.MotionDevice.Builder{
+          public func clearDiskPercentageUsed() -> Motion.Message_.MotionDevice.Builder{
                builderResult.hasDiskPercentageUsed = false
                builderResult.diskPercentageUsed = Int32(0)
                return self
           }
-          var hasTemperature:Bool {
+          public var hasTemperature:Bool {
                get {
                     return builderResult.hasTemperature
                }
           }
-          var temperature:Int32 {
+          public var temperature:Int32 {
                get {
                     return builderResult.temperature
                }
@@ -1160,36 +1166,36 @@ internal extension Motion {
                    builderResult.temperature = value
                }
           }
-          func setTemperature(value:Int32) -> Motion.Message_.MotionDevice.Builder {
+          public func setTemperature(_ value:Int32) -> Motion.Message_.MotionDevice.Builder {
             self.temperature = value
             return self
           }
-          internal func clearTemperature() -> Motion.Message_.MotionDevice.Builder{
+          public func clearTemperature() -> Motion.Message_.MotionDevice.Builder{
                builderResult.hasTemperature = false
                builderResult.temperature = Int32(0)
                return self
           }
-          override internal var internalGetResult:GeneratedMessage {
+          override public var internalGetResult:GeneratedMessage {
                get {
                   return builderResult
                }
           }
-          internal override func clear() -> Motion.Message_.MotionDevice.Builder {
+          public override func clear() -> Motion.Message_.MotionDevice.Builder {
             builderResult = Motion.Message_.MotionDevice()
             return self
           }
-          internal override func clone() throws -> Motion.Message_.MotionDevice.Builder {
+          public override func clone() throws -> Motion.Message_.MotionDevice.Builder {
             return try Motion.Message_.MotionDevice.builderWithPrototype(builderResult)
           }
-          internal override func build() throws -> Motion.Message_.MotionDevice {
+          public override func build() throws -> Motion.Message_.MotionDevice {
                try checkInitialized()
                return buildPartial()
           }
-          internal func buildPartial() -> Motion.Message_.MotionDevice {
+          public func buildPartial() -> Motion.Message_.MotionDevice {
             let returnMe:Motion.Message_.MotionDevice = builderResult
             return returnMe
           }
-          internal func mergeFrom(other:Motion.Message_.MotionDevice) throws -> Motion.Message_.MotionDevice.Builder {
+          public func mergeFrom(_ other:Motion.Message_.MotionDevice) throws -> Motion.Message_.MotionDevice.Builder {
             if other == Motion.Message_.MotionDevice() {
              return self
             }
@@ -1256,14 +1262,14 @@ internal extension Motion {
             try mergeUnknownFields(other.unknownFields)
             return self
           }
-          internal override func mergeFromCodedInputStream(input:CodedInputStream) throws -> Motion.Message_.MotionDevice.Builder {
+          public override func mergeFromCodedInputStream(_ input:CodedInputStream) throws -> Motion.Message_.MotionDevice.Builder {
                return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
           }
-          internal override func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionDevice.Builder {
+          public override func mergeFromCodedInputStream(_ input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionDevice.Builder {
             let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
             while (true) {
-              let tag = try input.readTag()
-              switch tag {
+              let protobufTag = try input.readTag()
+              switch protobufTag {
               case 0: 
                 self.unknownFields = try unknownFieldsBuilder.build()
                 return self
@@ -1329,7 +1335,7 @@ internal extension Motion {
                 temperature = try input.readInt32()
 
               default:
-                if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:tag))) {
+                if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                    unknownFields = try unknownFieldsBuilder.build()
                    return self
                 }
@@ -1346,80 +1352,92 @@ internal extension Motion {
 
     //Nested type declaration start
 
-      final internal class MotionUser : GeneratedMessage, GeneratedMessageProtocol {
-        private(set) var hasClientnumber:Bool = false
-        private(set) var clientnumber:Int32 = Int32(0)
+      final public class MotionUser : GeneratedMessage, GeneratedMessageProtocol {
+        public private(set) var clientnumber:Int32 = Int32(0)
 
-        private(set) var hasWpuser:Bool = false
-        private(set) var wpuser:String = ""
+        public private(set) var hasClientnumber:Bool = false
+        public private(set) var wpuser:String = ""
 
-        private(set) var hasWppassword:Bool = false
-        private(set) var wppassword:String = ""
+        public private(set) var hasWpuser:Bool = false
+        public private(set) var wppassword:String = ""
 
-        private(set) var hasWpserverurl:Bool = false
-        private(set) var wpserverurl:String = ""
+        public private(set) var hasWppassword:Bool = false
+        public private(set) var wpserverurl:String = ""
 
-        private(set) var hasWpuserid:Bool = false
-        private(set) var wpuserid:Int32 = Int32(0)
+        public private(set) var hasWpserverurl:Bool = false
+        public private(set) var wpuserid:Int32 = Int32(0)
 
-        private(set) var hasWpclientid:Bool = false
-        private(set) var wpclientid:Int32 = Int32(0)
+        public private(set) var hasWpuserid:Bool = false
+        public private(set) var wpclientid:Int32 = Int32(0)
 
-        private(set) var hasWpclientmediaid:Bool = false
-        private(set) var wpclientmediaid:Int32 = Int32(0)
+        public private(set) var hasWpclientid:Bool = false
+        public private(set) var wpclientmediaid:Int32 = Int32(0)
 
-        private(set) var hasPfobjectid:Bool = false
-        private(set) var pfobjectid:String = ""
+        public private(set) var hasWpclientmediaid:Bool = false
+        public private(set) var pfobjectid:String = ""
 
-        private(set) var hasUsername:Bool = false
-        private(set) var username:String = ""
+        public private(set) var hasPfobjectid:Bool = false
+        public private(set) var username:String = ""
 
-        private(set) var hasEmail:Bool = false
-        private(set) var email:String = ""
+        public private(set) var hasUsername:Bool = false
+        public private(set) var email:String = ""
 
-        private(set) var hasFirstname:Bool = false
-        private(set) var firstname:String = ""
+        public private(set) var hasEmail:Bool = false
+        public private(set) var firstname:String = ""
 
-        private(set) var hasLastname:Bool = false
-        private(set) var lastname:String = ""
+        public private(set) var hasFirstname:Bool = false
+        public private(set) var lastname:String = ""
 
-        private(set) var hasLocation:Bool = false
-        private(set) var location:String = ""
+        public private(set) var hasLastname:Bool = false
+        public private(set) var location:String = ""
 
-        private(set) var hasUiidinstallation:Bool = false
-        private(set) var uiidinstallation:String = ""
+        public private(set) var hasLocation:Bool = false
+        public private(set) var uiidinstallation:String = ""
 
-        private(set) var hasServicetype:Bool = false
-        private(set) var servicetype:Int32 = Int32(0)
+        public private(set) var hasUiidinstallation:Bool = false
+        public private(set) var servicetype:Int32 = Int32(0)
 
-        private(set) var hasWpslug:Bool = false
-        private(set) var wpslug:String = ""
+        public private(set) var hasServicetype:Bool = false
+        public private(set) var wpslug:String = ""
 
-        private(set) var hasWplink:Bool = false
-        private(set) var wplink:String = ""
+        public private(set) var hasWpslug:Bool = false
+        public private(set) var wplink:String = ""
 
-        private(set) var hasWpapilink:Bool = false
-        private(set) var wpapilink:String = ""
+        public private(set) var hasWplink:Bool = false
+        public private(set) var wpapilink:String = ""
 
-        private(set) var hasWpfeaturedimage:Bool = false
-        private(set) var wpfeaturedimage:String = ""
+        public private(set) var hasWpapilink:Bool = false
+        public private(set) var wpfeaturedimage:String = ""
 
-        private(set) var hasWptype:Bool = false
-        private(set) var wptype:String = ""
+        public private(set) var hasWpfeaturedimage:Bool = false
+        public private(set) var wptype:String = ""
 
-        private(set) var hasWpparent:Bool = false
-        private(set) var wpparent:Int32 = Int32(0)
+        public private(set) var hasWptype:Bool = false
+        public private(set) var wpparent:Int32 = Int32(0)
 
-        private(set) var hasWpmodified:Bool = false
-        private(set) var wpmodified:String = ""
+        public private(set) var hasWpparent:Bool = false
+        public private(set) var wpmodified:String = ""
 
-        required internal init() {
+        public private(set) var hasWpmodified:Bool = false
+        public private(set) var dbUserId:Int32 = Int32(0)
+
+        public private(set) var hasDbUserId:Bool = false
+        public private(set) var pfuser:String = ""
+
+        public private(set) var hasPfuser:Bool = false
+        public private(set) var pfappid:String = ""
+
+        public private(set) var hasPfappid:Bool = false
+        public private(set) var pfrestapikey:String = ""
+
+        public private(set) var hasPfrestapikey:Bool = false
+        required public init() {
              super.init()
         }
-        override internal func isInitialized() -> Bool {
+        override public func isInitialized() -> Bool {
          return true
         }
-        override internal func writeToCodedOutputStream(output:CodedOutputStream) throws {
+        override public func writeToCodedOutputStream(_ output:CodedOutputStream) throws {
           if hasClientnumber {
             try output.writeInt32(1, value:clientnumber)
           }
@@ -1486,9 +1504,21 @@ internal extension Motion {
           if hasWpmodified {
             try output.writeString(22, value:wpmodified)
           }
+          if hasDbUserId {
+            try output.writeInt32(23, value:dbUserId)
+          }
+          if hasPfuser {
+            try output.writeString(24, value:pfuser)
+          }
+          if hasPfappid {
+            try output.writeString(25, value:pfappid)
+          }
+          if hasPfrestapikey {
+            try output.writeString(26, value:pfrestapikey)
+          }
           try unknownFields.writeToCodedOutputStream(output)
         }
-        override internal func serializedSize() -> Int32 {
+        override public func serializedSize() -> Int32 {
           var serialize_size:Int32 = memoizedSerializedSize
           if serialize_size != -1 {
            return serialize_size
@@ -1561,57 +1591,70 @@ internal extension Motion {
           if hasWpmodified {
             serialize_size += wpmodified.computeStringSize(22)
           }
+          if hasDbUserId {
+            serialize_size += dbUserId.computeInt32Size(23)
+          }
+          if hasPfuser {
+            serialize_size += pfuser.computeStringSize(24)
+          }
+          if hasPfappid {
+            serialize_size += pfappid.computeStringSize(25)
+          }
+          if hasPfrestapikey {
+            serialize_size += pfrestapikey.computeStringSize(26)
+          }
           serialize_size += unknownFields.serializedSize()
           memoizedSerializedSize = serialize_size
           return serialize_size
         }
-        internal class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Motion.Message_.MotionUser> {
+        public class func parseArrayDelimitedFromInputStream(_ input:NSInputStream) throws -> Array<Motion.Message_.MotionUser> {
           var mergedArray = Array<Motion.Message_.MotionUser>()
           while let value = try parseFromDelimitedFromInputStream(input) {
             mergedArray += [value]
           }
           return mergedArray
         }
-        internal class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Motion.Message_.MotionUser? {
+        public class func parseFromDelimitedFromInputStream(_ input:NSInputStream) throws -> Motion.Message_.MotionUser? {
           return try Motion.Message_.MotionUser.Builder().mergeDelimitedFromInputStream(input)?.build()
         }
-        internal class func parseFromData(data:NSData) throws -> Motion.Message_.MotionUser {
+        public class func parseFromData(_ data:NSData) throws -> Motion.Message_.MotionUser {
           return try Motion.Message_.MotionUser.Builder().mergeFromData(data, extensionRegistry:Motion.MotionRoot.sharedInstance.extensionRegistry).build()
         }
-        internal class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionUser {
+        public class func parseFromData(_ data:NSData, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionUser {
           return try Motion.Message_.MotionUser.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
         }
-        internal class func parseFromInputStream(input:NSInputStream) throws -> Motion.Message_.MotionUser {
+        public class func parseFromInputStream(_ input:NSInputStream) throws -> Motion.Message_.MotionUser {
           return try Motion.Message_.MotionUser.Builder().mergeFromInputStream(input).build()
         }
-        internal class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionUser {
+        public class func parseFromInputStream(_ input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionUser {
           return try Motion.Message_.MotionUser.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
         }
-        internal class func parseFromCodedInputStream(input:CodedInputStream) throws -> Motion.Message_.MotionUser {
+        public class func parseFromCodedInputStream(_ input:CodedInputStream) throws -> Motion.Message_.MotionUser {
           return try Motion.Message_.MotionUser.Builder().mergeFromCodedInputStream(input).build()
         }
-        internal class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionUser {
+        public class func parseFromCodedInputStream(_ input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionUser {
           return try Motion.Message_.MotionUser.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
         }
-        internal class func getBuilder() -> Motion.Message_.MotionUser.Builder {
+        public class func getBuilder() -> Motion.Message_.MotionUser.Builder {
           return Motion.Message_.MotionUser.classBuilder() as! Motion.Message_.MotionUser.Builder
         }
-        internal func getBuilder() -> Motion.Message_.MotionUser.Builder {
+        public func getBuilder() -> Motion.Message_.MotionUser.Builder {
           return classBuilder() as! Motion.Message_.MotionUser.Builder
         }
-        internal override class func classBuilder() -> MessageBuilder {
+        public override class func classBuilder() -> MessageBuilder {
           return Motion.Message_.MotionUser.Builder()
         }
-        internal override func classBuilder() -> MessageBuilder {
+        public override func classBuilder() -> MessageBuilder {
           return Motion.Message_.MotionUser.Builder()
         }
-        internal func toBuilder() throws -> Motion.Message_.MotionUser.Builder {
+        public func toBuilder() throws -> Motion.Message_.MotionUser.Builder {
           return try Motion.Message_.MotionUser.builderWithPrototype(self)
         }
-        internal class func builderWithPrototype(prototype:Motion.Message_.MotionUser) throws -> Motion.Message_.MotionUser.Builder {
+        public class func builderWithPrototype(_ prototype:Motion.Message_.MotionUser) throws -> Motion.Message_.MotionUser.Builder {
           return try Motion.Message_.MotionUser.Builder().mergeFrom(prototype)
         }
-        override internal func writeDescriptionTo(inout output:String, indent:String) throws {
+        override public func getDescription(_ indent:String) throws -> String {
+          var output:String = ""
           if hasClientnumber {
             output += "\(indent) clientnumber: \(clientnumber) \n"
           }
@@ -1678,9 +1721,22 @@ internal extension Motion {
           if hasWpmodified {
             output += "\(indent) wpmodified: \(wpmodified) \n"
           }
-          unknownFields.writeDescriptionTo(&output, indent:indent)
+          if hasDbUserId {
+            output += "\(indent) dbUserId: \(dbUserId) \n"
+          }
+          if hasPfuser {
+            output += "\(indent) pfuser: \(pfuser) \n"
+          }
+          if hasPfappid {
+            output += "\(indent) pfappid: \(pfappid) \n"
+          }
+          if hasPfrestapikey {
+            output += "\(indent) pfrestapikey: \(pfrestapikey) \n"
+          }
+          output += unknownFields.getDescription(indent)
+          return output
         }
-        override internal var hashValue:Int {
+        override public var hashValue:Int {
             get {
                 var hashCode:Int = 7
                 if hasClientnumber {
@@ -1749,6 +1805,18 @@ internal extension Motion {
                 if hasWpmodified {
                    hashCode = (hashCode &* 31) &+ wpmodified.hashValue
                 }
+                if hasDbUserId {
+                   hashCode = (hashCode &* 31) &+ dbUserId.hashValue
+                }
+                if hasPfuser {
+                   hashCode = (hashCode &* 31) &+ pfuser.hashValue
+                }
+                if hasPfappid {
+                   hashCode = (hashCode &* 31) &+ pfappid.hashValue
+                }
+                if hasPfrestapikey {
+                   hashCode = (hashCode &* 31) &+ pfrestapikey.hashValue
+                }
                 hashCode = (hashCode &* 31) &+  unknownFields.hashValue
                 return hashCode
             }
@@ -1757,32 +1825,32 @@ internal extension Motion {
 
         //Meta information declaration start
 
-        override internal class func className() -> String {
+        override public class func className() -> String {
             return "Motion.Message_.MotionUser"
         }
-        override internal func className() -> String {
+        override public func className() -> String {
             return "Motion.Message_.MotionUser"
         }
-        override internal func classMetaType() -> GeneratedMessage.Type {
+        override public func classMetaType() -> GeneratedMessage.Type {
             return Motion.Message_.MotionUser.self
         }
         //Meta information declaration end
 
-        final internal class Builder : GeneratedMessageBuilder {
+        final public class Builder : GeneratedMessageBuilder {
           private var builderResult:Motion.Message_.MotionUser = Motion.Message_.MotionUser()
-          internal func getMessage() -> Motion.Message_.MotionUser {
+          public func getMessage() -> Motion.Message_.MotionUser {
               return builderResult
           }
 
-          required override internal init () {
+          required override public init () {
              super.init()
           }
-          var hasClientnumber:Bool {
+          public var hasClientnumber:Bool {
                get {
                     return builderResult.hasClientnumber
                }
           }
-          var clientnumber:Int32 {
+          public var clientnumber:Int32 {
                get {
                     return builderResult.clientnumber
                }
@@ -1791,21 +1859,21 @@ internal extension Motion {
                    builderResult.clientnumber = value
                }
           }
-          func setClientnumber(value:Int32) -> Motion.Message_.MotionUser.Builder {
+          public func setClientnumber(_ value:Int32) -> Motion.Message_.MotionUser.Builder {
             self.clientnumber = value
             return self
           }
-          internal func clearClientnumber() -> Motion.Message_.MotionUser.Builder{
+          public func clearClientnumber() -> Motion.Message_.MotionUser.Builder{
                builderResult.hasClientnumber = false
                builderResult.clientnumber = Int32(0)
                return self
           }
-          var hasWpuser:Bool {
+          public var hasWpuser:Bool {
                get {
                     return builderResult.hasWpuser
                }
           }
-          var wpuser:String {
+          public var wpuser:String {
                get {
                     return builderResult.wpuser
                }
@@ -1814,21 +1882,21 @@ internal extension Motion {
                    builderResult.wpuser = value
                }
           }
-          func setWpuser(value:String) -> Motion.Message_.MotionUser.Builder {
+          public func setWpuser(_ value:String) -> Motion.Message_.MotionUser.Builder {
             self.wpuser = value
             return self
           }
-          internal func clearWpuser() -> Motion.Message_.MotionUser.Builder{
+          public func clearWpuser() -> Motion.Message_.MotionUser.Builder{
                builderResult.hasWpuser = false
                builderResult.wpuser = ""
                return self
           }
-          var hasWppassword:Bool {
+          public var hasWppassword:Bool {
                get {
                     return builderResult.hasWppassword
                }
           }
-          var wppassword:String {
+          public var wppassword:String {
                get {
                     return builderResult.wppassword
                }
@@ -1837,21 +1905,21 @@ internal extension Motion {
                    builderResult.wppassword = value
                }
           }
-          func setWppassword(value:String) -> Motion.Message_.MotionUser.Builder {
+          public func setWppassword(_ value:String) -> Motion.Message_.MotionUser.Builder {
             self.wppassword = value
             return self
           }
-          internal func clearWppassword() -> Motion.Message_.MotionUser.Builder{
+          public func clearWppassword() -> Motion.Message_.MotionUser.Builder{
                builderResult.hasWppassword = false
                builderResult.wppassword = ""
                return self
           }
-          var hasWpserverurl:Bool {
+          public var hasWpserverurl:Bool {
                get {
                     return builderResult.hasWpserverurl
                }
           }
-          var wpserverurl:String {
+          public var wpserverurl:String {
                get {
                     return builderResult.wpserverurl
                }
@@ -1860,21 +1928,21 @@ internal extension Motion {
                    builderResult.wpserverurl = value
                }
           }
-          func setWpserverurl(value:String) -> Motion.Message_.MotionUser.Builder {
+          public func setWpserverurl(_ value:String) -> Motion.Message_.MotionUser.Builder {
             self.wpserverurl = value
             return self
           }
-          internal func clearWpserverurl() -> Motion.Message_.MotionUser.Builder{
+          public func clearWpserverurl() -> Motion.Message_.MotionUser.Builder{
                builderResult.hasWpserverurl = false
                builderResult.wpserverurl = ""
                return self
           }
-          var hasWpuserid:Bool {
+          public var hasWpuserid:Bool {
                get {
                     return builderResult.hasWpuserid
                }
           }
-          var wpuserid:Int32 {
+          public var wpuserid:Int32 {
                get {
                     return builderResult.wpuserid
                }
@@ -1883,21 +1951,21 @@ internal extension Motion {
                    builderResult.wpuserid = value
                }
           }
-          func setWpuserid(value:Int32) -> Motion.Message_.MotionUser.Builder {
+          public func setWpuserid(_ value:Int32) -> Motion.Message_.MotionUser.Builder {
             self.wpuserid = value
             return self
           }
-          internal func clearWpuserid() -> Motion.Message_.MotionUser.Builder{
+          public func clearWpuserid() -> Motion.Message_.MotionUser.Builder{
                builderResult.hasWpuserid = false
                builderResult.wpuserid = Int32(0)
                return self
           }
-          var hasWpclientid:Bool {
+          public var hasWpclientid:Bool {
                get {
                     return builderResult.hasWpclientid
                }
           }
-          var wpclientid:Int32 {
+          public var wpclientid:Int32 {
                get {
                     return builderResult.wpclientid
                }
@@ -1906,21 +1974,21 @@ internal extension Motion {
                    builderResult.wpclientid = value
                }
           }
-          func setWpclientid(value:Int32) -> Motion.Message_.MotionUser.Builder {
+          public func setWpclientid(_ value:Int32) -> Motion.Message_.MotionUser.Builder {
             self.wpclientid = value
             return self
           }
-          internal func clearWpclientid() -> Motion.Message_.MotionUser.Builder{
+          public func clearWpclientid() -> Motion.Message_.MotionUser.Builder{
                builderResult.hasWpclientid = false
                builderResult.wpclientid = Int32(0)
                return self
           }
-          var hasWpclientmediaid:Bool {
+          public var hasWpclientmediaid:Bool {
                get {
                     return builderResult.hasWpclientmediaid
                }
           }
-          var wpclientmediaid:Int32 {
+          public var wpclientmediaid:Int32 {
                get {
                     return builderResult.wpclientmediaid
                }
@@ -1929,21 +1997,21 @@ internal extension Motion {
                    builderResult.wpclientmediaid = value
                }
           }
-          func setWpclientmediaid(value:Int32) -> Motion.Message_.MotionUser.Builder {
+          public func setWpclientmediaid(_ value:Int32) -> Motion.Message_.MotionUser.Builder {
             self.wpclientmediaid = value
             return self
           }
-          internal func clearWpclientmediaid() -> Motion.Message_.MotionUser.Builder{
+          public func clearWpclientmediaid() -> Motion.Message_.MotionUser.Builder{
                builderResult.hasWpclientmediaid = false
                builderResult.wpclientmediaid = Int32(0)
                return self
           }
-          var hasPfobjectid:Bool {
+          public var hasPfobjectid:Bool {
                get {
                     return builderResult.hasPfobjectid
                }
           }
-          var pfobjectid:String {
+          public var pfobjectid:String {
                get {
                     return builderResult.pfobjectid
                }
@@ -1952,21 +2020,21 @@ internal extension Motion {
                    builderResult.pfobjectid = value
                }
           }
-          func setPfobjectid(value:String) -> Motion.Message_.MotionUser.Builder {
+          public func setPfobjectid(_ value:String) -> Motion.Message_.MotionUser.Builder {
             self.pfobjectid = value
             return self
           }
-          internal func clearPfobjectid() -> Motion.Message_.MotionUser.Builder{
+          public func clearPfobjectid() -> Motion.Message_.MotionUser.Builder{
                builderResult.hasPfobjectid = false
                builderResult.pfobjectid = ""
                return self
           }
-          var hasUsername:Bool {
+          public var hasUsername:Bool {
                get {
                     return builderResult.hasUsername
                }
           }
-          var username:String {
+          public var username:String {
                get {
                     return builderResult.username
                }
@@ -1975,21 +2043,21 @@ internal extension Motion {
                    builderResult.username = value
                }
           }
-          func setUsername(value:String) -> Motion.Message_.MotionUser.Builder {
+          public func setUsername(_ value:String) -> Motion.Message_.MotionUser.Builder {
             self.username = value
             return self
           }
-          internal func clearUsername() -> Motion.Message_.MotionUser.Builder{
+          public func clearUsername() -> Motion.Message_.MotionUser.Builder{
                builderResult.hasUsername = false
                builderResult.username = ""
                return self
           }
-          var hasEmail:Bool {
+          public var hasEmail:Bool {
                get {
                     return builderResult.hasEmail
                }
           }
-          var email:String {
+          public var email:String {
                get {
                     return builderResult.email
                }
@@ -1998,21 +2066,21 @@ internal extension Motion {
                    builderResult.email = value
                }
           }
-          func setEmail(value:String) -> Motion.Message_.MotionUser.Builder {
+          public func setEmail(_ value:String) -> Motion.Message_.MotionUser.Builder {
             self.email = value
             return self
           }
-          internal func clearEmail() -> Motion.Message_.MotionUser.Builder{
+          public func clearEmail() -> Motion.Message_.MotionUser.Builder{
                builderResult.hasEmail = false
                builderResult.email = ""
                return self
           }
-          var hasFirstname:Bool {
+          public var hasFirstname:Bool {
                get {
                     return builderResult.hasFirstname
                }
           }
-          var firstname:String {
+          public var firstname:String {
                get {
                     return builderResult.firstname
                }
@@ -2021,21 +2089,21 @@ internal extension Motion {
                    builderResult.firstname = value
                }
           }
-          func setFirstname(value:String) -> Motion.Message_.MotionUser.Builder {
+          public func setFirstname(_ value:String) -> Motion.Message_.MotionUser.Builder {
             self.firstname = value
             return self
           }
-          internal func clearFirstname() -> Motion.Message_.MotionUser.Builder{
+          public func clearFirstname() -> Motion.Message_.MotionUser.Builder{
                builderResult.hasFirstname = false
                builderResult.firstname = ""
                return self
           }
-          var hasLastname:Bool {
+          public var hasLastname:Bool {
                get {
                     return builderResult.hasLastname
                }
           }
-          var lastname:String {
+          public var lastname:String {
                get {
                     return builderResult.lastname
                }
@@ -2044,21 +2112,21 @@ internal extension Motion {
                    builderResult.lastname = value
                }
           }
-          func setLastname(value:String) -> Motion.Message_.MotionUser.Builder {
+          public func setLastname(_ value:String) -> Motion.Message_.MotionUser.Builder {
             self.lastname = value
             return self
           }
-          internal func clearLastname() -> Motion.Message_.MotionUser.Builder{
+          public func clearLastname() -> Motion.Message_.MotionUser.Builder{
                builderResult.hasLastname = false
                builderResult.lastname = ""
                return self
           }
-          var hasLocation:Bool {
+          public var hasLocation:Bool {
                get {
                     return builderResult.hasLocation
                }
           }
-          var location:String {
+          public var location:String {
                get {
                     return builderResult.location
                }
@@ -2067,21 +2135,21 @@ internal extension Motion {
                    builderResult.location = value
                }
           }
-          func setLocation(value:String) -> Motion.Message_.MotionUser.Builder {
+          public func setLocation(_ value:String) -> Motion.Message_.MotionUser.Builder {
             self.location = value
             return self
           }
-          internal func clearLocation() -> Motion.Message_.MotionUser.Builder{
+          public func clearLocation() -> Motion.Message_.MotionUser.Builder{
                builderResult.hasLocation = false
                builderResult.location = ""
                return self
           }
-          var hasUiidinstallation:Bool {
+          public var hasUiidinstallation:Bool {
                get {
                     return builderResult.hasUiidinstallation
                }
           }
-          var uiidinstallation:String {
+          public var uiidinstallation:String {
                get {
                     return builderResult.uiidinstallation
                }
@@ -2090,21 +2158,21 @@ internal extension Motion {
                    builderResult.uiidinstallation = value
                }
           }
-          func setUiidinstallation(value:String) -> Motion.Message_.MotionUser.Builder {
+          public func setUiidinstallation(_ value:String) -> Motion.Message_.MotionUser.Builder {
             self.uiidinstallation = value
             return self
           }
-          internal func clearUiidinstallation() -> Motion.Message_.MotionUser.Builder{
+          public func clearUiidinstallation() -> Motion.Message_.MotionUser.Builder{
                builderResult.hasUiidinstallation = false
                builderResult.uiidinstallation = ""
                return self
           }
-          var hasServicetype:Bool {
+          public var hasServicetype:Bool {
                get {
                     return builderResult.hasServicetype
                }
           }
-          var servicetype:Int32 {
+          public var servicetype:Int32 {
                get {
                     return builderResult.servicetype
                }
@@ -2113,21 +2181,21 @@ internal extension Motion {
                    builderResult.servicetype = value
                }
           }
-          func setServicetype(value:Int32) -> Motion.Message_.MotionUser.Builder {
+          public func setServicetype(_ value:Int32) -> Motion.Message_.MotionUser.Builder {
             self.servicetype = value
             return self
           }
-          internal func clearServicetype() -> Motion.Message_.MotionUser.Builder{
+          public func clearServicetype() -> Motion.Message_.MotionUser.Builder{
                builderResult.hasServicetype = false
                builderResult.servicetype = Int32(0)
                return self
           }
-          var hasWpslug:Bool {
+          public var hasWpslug:Bool {
                get {
                     return builderResult.hasWpslug
                }
           }
-          var wpslug:String {
+          public var wpslug:String {
                get {
                     return builderResult.wpslug
                }
@@ -2136,21 +2204,21 @@ internal extension Motion {
                    builderResult.wpslug = value
                }
           }
-          func setWpslug(value:String) -> Motion.Message_.MotionUser.Builder {
+          public func setWpslug(_ value:String) -> Motion.Message_.MotionUser.Builder {
             self.wpslug = value
             return self
           }
-          internal func clearWpslug() -> Motion.Message_.MotionUser.Builder{
+          public func clearWpslug() -> Motion.Message_.MotionUser.Builder{
                builderResult.hasWpslug = false
                builderResult.wpslug = ""
                return self
           }
-          var hasWplink:Bool {
+          public var hasWplink:Bool {
                get {
                     return builderResult.hasWplink
                }
           }
-          var wplink:String {
+          public var wplink:String {
                get {
                     return builderResult.wplink
                }
@@ -2159,21 +2227,21 @@ internal extension Motion {
                    builderResult.wplink = value
                }
           }
-          func setWplink(value:String) -> Motion.Message_.MotionUser.Builder {
+          public func setWplink(_ value:String) -> Motion.Message_.MotionUser.Builder {
             self.wplink = value
             return self
           }
-          internal func clearWplink() -> Motion.Message_.MotionUser.Builder{
+          public func clearWplink() -> Motion.Message_.MotionUser.Builder{
                builderResult.hasWplink = false
                builderResult.wplink = ""
                return self
           }
-          var hasWpapilink:Bool {
+          public var hasWpapilink:Bool {
                get {
                     return builderResult.hasWpapilink
                }
           }
-          var wpapilink:String {
+          public var wpapilink:String {
                get {
                     return builderResult.wpapilink
                }
@@ -2182,21 +2250,21 @@ internal extension Motion {
                    builderResult.wpapilink = value
                }
           }
-          func setWpapilink(value:String) -> Motion.Message_.MotionUser.Builder {
+          public func setWpapilink(_ value:String) -> Motion.Message_.MotionUser.Builder {
             self.wpapilink = value
             return self
           }
-          internal func clearWpapilink() -> Motion.Message_.MotionUser.Builder{
+          public func clearWpapilink() -> Motion.Message_.MotionUser.Builder{
                builderResult.hasWpapilink = false
                builderResult.wpapilink = ""
                return self
           }
-          var hasWpfeaturedimage:Bool {
+          public var hasWpfeaturedimage:Bool {
                get {
                     return builderResult.hasWpfeaturedimage
                }
           }
-          var wpfeaturedimage:String {
+          public var wpfeaturedimage:String {
                get {
                     return builderResult.wpfeaturedimage
                }
@@ -2205,21 +2273,21 @@ internal extension Motion {
                    builderResult.wpfeaturedimage = value
                }
           }
-          func setWpfeaturedimage(value:String) -> Motion.Message_.MotionUser.Builder {
+          public func setWpfeaturedimage(_ value:String) -> Motion.Message_.MotionUser.Builder {
             self.wpfeaturedimage = value
             return self
           }
-          internal func clearWpfeaturedimage() -> Motion.Message_.MotionUser.Builder{
+          public func clearWpfeaturedimage() -> Motion.Message_.MotionUser.Builder{
                builderResult.hasWpfeaturedimage = false
                builderResult.wpfeaturedimage = ""
                return self
           }
-          var hasWptype:Bool {
+          public var hasWptype:Bool {
                get {
                     return builderResult.hasWptype
                }
           }
-          var wptype:String {
+          public var wptype:String {
                get {
                     return builderResult.wptype
                }
@@ -2228,21 +2296,21 @@ internal extension Motion {
                    builderResult.wptype = value
                }
           }
-          func setWptype(value:String) -> Motion.Message_.MotionUser.Builder {
+          public func setWptype(_ value:String) -> Motion.Message_.MotionUser.Builder {
             self.wptype = value
             return self
           }
-          internal func clearWptype() -> Motion.Message_.MotionUser.Builder{
+          public func clearWptype() -> Motion.Message_.MotionUser.Builder{
                builderResult.hasWptype = false
                builderResult.wptype = ""
                return self
           }
-          var hasWpparent:Bool {
+          public var hasWpparent:Bool {
                get {
                     return builderResult.hasWpparent
                }
           }
-          var wpparent:Int32 {
+          public var wpparent:Int32 {
                get {
                     return builderResult.wpparent
                }
@@ -2251,21 +2319,21 @@ internal extension Motion {
                    builderResult.wpparent = value
                }
           }
-          func setWpparent(value:Int32) -> Motion.Message_.MotionUser.Builder {
+          public func setWpparent(_ value:Int32) -> Motion.Message_.MotionUser.Builder {
             self.wpparent = value
             return self
           }
-          internal func clearWpparent() -> Motion.Message_.MotionUser.Builder{
+          public func clearWpparent() -> Motion.Message_.MotionUser.Builder{
                builderResult.hasWpparent = false
                builderResult.wpparent = Int32(0)
                return self
           }
-          var hasWpmodified:Bool {
+          public var hasWpmodified:Bool {
                get {
                     return builderResult.hasWpmodified
                }
           }
-          var wpmodified:String {
+          public var wpmodified:String {
                get {
                     return builderResult.wpmodified
                }
@@ -2274,36 +2342,128 @@ internal extension Motion {
                    builderResult.wpmodified = value
                }
           }
-          func setWpmodified(value:String) -> Motion.Message_.MotionUser.Builder {
+          public func setWpmodified(_ value:String) -> Motion.Message_.MotionUser.Builder {
             self.wpmodified = value
             return self
           }
-          internal func clearWpmodified() -> Motion.Message_.MotionUser.Builder{
+          public func clearWpmodified() -> Motion.Message_.MotionUser.Builder{
                builderResult.hasWpmodified = false
                builderResult.wpmodified = ""
                return self
           }
-          override internal var internalGetResult:GeneratedMessage {
+          public var hasDbUserId:Bool {
+               get {
+                    return builderResult.hasDbUserId
+               }
+          }
+          public var dbUserId:Int32 {
+               get {
+                    return builderResult.dbUserId
+               }
+               set (value) {
+                   builderResult.hasDbUserId = true
+                   builderResult.dbUserId = value
+               }
+          }
+          public func setDbUserId(_ value:Int32) -> Motion.Message_.MotionUser.Builder {
+            self.dbUserId = value
+            return self
+          }
+          public func clearDbUserId() -> Motion.Message_.MotionUser.Builder{
+               builderResult.hasDbUserId = false
+               builderResult.dbUserId = Int32(0)
+               return self
+          }
+          public var hasPfuser:Bool {
+               get {
+                    return builderResult.hasPfuser
+               }
+          }
+          public var pfuser:String {
+               get {
+                    return builderResult.pfuser
+               }
+               set (value) {
+                   builderResult.hasPfuser = true
+                   builderResult.pfuser = value
+               }
+          }
+          public func setPfuser(_ value:String) -> Motion.Message_.MotionUser.Builder {
+            self.pfuser = value
+            return self
+          }
+          public func clearPfuser() -> Motion.Message_.MotionUser.Builder{
+               builderResult.hasPfuser = false
+               builderResult.pfuser = ""
+               return self
+          }
+          public var hasPfappid:Bool {
+               get {
+                    return builderResult.hasPfappid
+               }
+          }
+          public var pfappid:String {
+               get {
+                    return builderResult.pfappid
+               }
+               set (value) {
+                   builderResult.hasPfappid = true
+                   builderResult.pfappid = value
+               }
+          }
+          public func setPfappid(_ value:String) -> Motion.Message_.MotionUser.Builder {
+            self.pfappid = value
+            return self
+          }
+          public func clearPfappid() -> Motion.Message_.MotionUser.Builder{
+               builderResult.hasPfappid = false
+               builderResult.pfappid = ""
+               return self
+          }
+          public var hasPfrestapikey:Bool {
+               get {
+                    return builderResult.hasPfrestapikey
+               }
+          }
+          public var pfrestapikey:String {
+               get {
+                    return builderResult.pfrestapikey
+               }
+               set (value) {
+                   builderResult.hasPfrestapikey = true
+                   builderResult.pfrestapikey = value
+               }
+          }
+          public func setPfrestapikey(_ value:String) -> Motion.Message_.MotionUser.Builder {
+            self.pfrestapikey = value
+            return self
+          }
+          public func clearPfrestapikey() -> Motion.Message_.MotionUser.Builder{
+               builderResult.hasPfrestapikey = false
+               builderResult.pfrestapikey = ""
+               return self
+          }
+          override public var internalGetResult:GeneratedMessage {
                get {
                   return builderResult
                }
           }
-          internal override func clear() -> Motion.Message_.MotionUser.Builder {
+          public override func clear() -> Motion.Message_.MotionUser.Builder {
             builderResult = Motion.Message_.MotionUser()
             return self
           }
-          internal override func clone() throws -> Motion.Message_.MotionUser.Builder {
+          public override func clone() throws -> Motion.Message_.MotionUser.Builder {
             return try Motion.Message_.MotionUser.builderWithPrototype(builderResult)
           }
-          internal override func build() throws -> Motion.Message_.MotionUser {
+          public override func build() throws -> Motion.Message_.MotionUser {
                try checkInitialized()
                return buildPartial()
           }
-          internal func buildPartial() -> Motion.Message_.MotionUser {
+          public func buildPartial() -> Motion.Message_.MotionUser {
             let returnMe:Motion.Message_.MotionUser = builderResult
             return returnMe
           }
-          internal func mergeFrom(other:Motion.Message_.MotionUser) throws -> Motion.Message_.MotionUser.Builder {
+          public func mergeFrom(_ other:Motion.Message_.MotionUser) throws -> Motion.Message_.MotionUser.Builder {
             if other == Motion.Message_.MotionUser() {
              return self
             }
@@ -2373,17 +2533,29 @@ internal extension Motion {
             if other.hasWpmodified {
                  wpmodified = other.wpmodified
             }
+            if other.hasDbUserId {
+                 dbUserId = other.dbUserId
+            }
+            if other.hasPfuser {
+                 pfuser = other.pfuser
+            }
+            if other.hasPfappid {
+                 pfappid = other.pfappid
+            }
+            if other.hasPfrestapikey {
+                 pfrestapikey = other.pfrestapikey
+            }
             try mergeUnknownFields(other.unknownFields)
             return self
           }
-          internal override func mergeFromCodedInputStream(input:CodedInputStream) throws -> Motion.Message_.MotionUser.Builder {
+          public override func mergeFromCodedInputStream(_ input:CodedInputStream) throws -> Motion.Message_.MotionUser.Builder {
                return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
           }
-          internal override func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionUser.Builder {
+          public override func mergeFromCodedInputStream(_ input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionUser.Builder {
             let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
             while (true) {
-              let tag = try input.readTag()
-              switch tag {
+              let protobufTag = try input.readTag()
+              switch protobufTag {
               case 0: 
                 self.unknownFields = try unknownFieldsBuilder.build()
                 return self
@@ -2454,8 +2626,20 @@ internal extension Motion {
               case 178 :
                 wpmodified = try input.readString()
 
+              case 184 :
+                dbUserId = try input.readInt32()
+
+              case 194 :
+                pfuser = try input.readString()
+
+              case 202 :
+                pfappid = try input.readString()
+
+              case 210 :
+                pfrestapikey = try input.readString()
+
               default:
-                if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:tag))) {
+                if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                    unknownFields = try unknownFieldsBuilder.build()
                    return self
                 }
@@ -2472,65 +2656,65 @@ internal extension Motion {
 
     //Nested type declaration start
 
-      final internal class MotionCamera : GeneratedMessage, GeneratedMessageProtocol {
-        private(set) var motionmonth:Array<Motion.Message_.MotionMonth>  = Array<Motion.Message_.MotionMonth>()
-        private(set) var motionrec:Array<Motion.Message_.MotionRec>  = Array<Motion.Message_.MotionRec>()
-        private(set) var hasCameraid:Bool = false
-        private(set) var cameraid:Int32 = Int32(0)
+      final public class MotionCamera : GeneratedMessage, GeneratedMessageProtocol {
+        public private(set) var motionmonth:Array<Motion.Message_.MotionMonth>  = Array<Motion.Message_.MotionMonth>()
+        public private(set) var motionrec:Array<Motion.Message_.MotionRec>  = Array<Motion.Message_.MotionRec>()
+        public private(set) var cameraid:Int32 = Int32(0)
 
-        private(set) var hasCameranumber:Bool = false
-        private(set) var cameranumber:Int32 = Int32(0)
+        public private(set) var hasCameraid:Bool = false
+        public private(set) var cameranumber:Int32 = Int32(0)
 
-        private(set) var hasCameraname:Bool = false
-        private(set) var cameraname:String = ""
+        public private(set) var hasCameranumber:Bool = false
+        public private(set) var cameraname:String = ""
 
-        private(set) var hasHasrecjob:Bool = false
-        private(set) var hasrecjob:Bool = false
+        public private(set) var hasCameraname:Bool = false
+        public private(set) var hasrecjob:Bool = false
 
-        private(set) var hasRecognizing:Bool = false
-        private(set) var recognizing:Bool = false
+        public private(set) var hasHasrecjob:Bool = false
+        public private(set) var recognizing:Bool = false
 
-        private(set) var hasRecognizingFlag:Bool = false
-        private(set) var recognizingFlag:Bool = false
+        public private(set) var hasRecognizing:Bool = false
+        public private(set) var recognizingFlag:Bool = false
 
-        private(set) var hasDbIdcamera:Bool = false
-        private(set) var dbIdcamera:Int32 = Int32(0)
+        public private(set) var hasRecognizingFlag:Bool = false
+        public private(set) var dbIdcamera:Int32 = Int32(0)
 
-        private(set) var hasDbIdrec:Bool = false
-        private(set) var dbIdrec:Int32 = Int32(0)
+        public private(set) var hasDbIdcamera:Bool = false
+        public private(set) var dbIdrec:Int32 = Int32(0)
 
-        private(set) var hasFromdatabase:Bool = false
-        private(set) var fromdatabase:Bool = false
+        public private(set) var hasDbIdrec:Bool = false
+        public private(set) var fromdatabase:Bool = false
 
-        private(set) var motiontrack:Array<Motion.Message_.MotionTrack>  = Array<Motion.Message_.MotionTrack>()
-        private(set) var hasActivemat:Bool = false
-        private(set) var activemat:Int32 = Int32(0)
+        public private(set) var hasFromdatabase:Bool = false
+        public private(set) var motiontrack:Array<Motion.Message_.MotionTrack>  = Array<Motion.Message_.MotionTrack>()
+        public private(set) var activemat:Int32 = Int32(0)
 
-        private(set) var hasMatcols:Bool = false
-        private(set) var matcols:Int32 = Int32(0)
+        public private(set) var hasActivemat:Bool = false
+        public private(set) var matcols:Int32 = Int32(0)
 
-        private(set) var hasMatrows:Bool = false
-        private(set) var matrows:Int32 = Int32(0)
+        public private(set) var hasMatcols:Bool = false
+        public private(set) var matrows:Int32 = Int32(0)
 
-        private(set) var hasMatwidth:Bool = false
-        private(set) var matwidth:Int32 = Int32(0)
+        public private(set) var hasMatrows:Bool = false
+        public private(set) var matwidth:Int32 = Int32(0)
 
-        private(set) var hasMatheight:Bool = false
-        private(set) var matheight:Int32 = Int32(0)
+        public private(set) var hasMatwidth:Bool = false
+        public private(set) var matheight:Int32 = Int32(0)
 
-        private(set) var hasDbIdmat:Bool = false
-        private(set) var dbIdmat:Int32 = Int32(0)
+        public private(set) var hasMatheight:Bool = false
+        public private(set) var dbIdmat:Int32 = Int32(0)
 
-        private(set) var hasTempdata:Bool = false
-        private(set) var tempdata:NSData = NSData()
+        public private(set) var hasDbIdmat:Bool = false
+        public private(set) var tempdata:NSData = NSData()
 
-        private(set) var hasThumbnail:Bool = false
-        private(set) var thumbnail:NSData = NSData()
+        public private(set) var hasTempdata:Bool = false
+        public private(set) var thumbnail:NSData = NSData()
 
-        required internal init() {
+        public private(set) var hasThumbnail:Bool = false
+        required public init() {
              super.init()
         }
-        override internal func isInitialized() -> Bool {
+        override public func isInitialized() -> Bool {
           var isInitmotionmonth:Bool = true
           for oneElementmotionmonth in motionmonth {
               if (!oneElementmotionmonth.isInitialized()) {
@@ -2543,7 +2727,7 @@ internal extension Motion {
            }
          return true
         }
-        override internal func writeToCodedOutputStream(output:CodedOutputStream) throws {
+        override public func writeToCodedOutputStream(_ output:CodedOutputStream) throws {
           for oneElementmotionmonth in motionmonth {
               try output.writeMessage(1, value:oneElementmotionmonth)
           }
@@ -2606,7 +2790,7 @@ internal extension Motion {
           }
           try unknownFields.writeToCodedOutputStream(output)
         }
-        override internal func serializedSize() -> Int32 {
+        override public func serializedSize() -> Int32 {
           var serialize_size:Int32 = memoizedSerializedSize
           if serialize_size != -1 {
            return serialize_size
@@ -2677,66 +2861,67 @@ internal extension Motion {
           memoizedSerializedSize = serialize_size
           return serialize_size
         }
-        internal class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Motion.Message_.MotionCamera> {
+        public class func parseArrayDelimitedFromInputStream(_ input:NSInputStream) throws -> Array<Motion.Message_.MotionCamera> {
           var mergedArray = Array<Motion.Message_.MotionCamera>()
           while let value = try parseFromDelimitedFromInputStream(input) {
             mergedArray += [value]
           }
           return mergedArray
         }
-        internal class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Motion.Message_.MotionCamera? {
+        public class func parseFromDelimitedFromInputStream(_ input:NSInputStream) throws -> Motion.Message_.MotionCamera? {
           return try Motion.Message_.MotionCamera.Builder().mergeDelimitedFromInputStream(input)?.build()
         }
-        internal class func parseFromData(data:NSData) throws -> Motion.Message_.MotionCamera {
+        public class func parseFromData(_ data:NSData) throws -> Motion.Message_.MotionCamera {
           return try Motion.Message_.MotionCamera.Builder().mergeFromData(data, extensionRegistry:Motion.MotionRoot.sharedInstance.extensionRegistry).build()
         }
-        internal class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionCamera {
+        public class func parseFromData(_ data:NSData, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionCamera {
           return try Motion.Message_.MotionCamera.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
         }
-        internal class func parseFromInputStream(input:NSInputStream) throws -> Motion.Message_.MotionCamera {
+        public class func parseFromInputStream(_ input:NSInputStream) throws -> Motion.Message_.MotionCamera {
           return try Motion.Message_.MotionCamera.Builder().mergeFromInputStream(input).build()
         }
-        internal class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionCamera {
+        public class func parseFromInputStream(_ input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionCamera {
           return try Motion.Message_.MotionCamera.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
         }
-        internal class func parseFromCodedInputStream(input:CodedInputStream) throws -> Motion.Message_.MotionCamera {
+        public class func parseFromCodedInputStream(_ input:CodedInputStream) throws -> Motion.Message_.MotionCamera {
           return try Motion.Message_.MotionCamera.Builder().mergeFromCodedInputStream(input).build()
         }
-        internal class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionCamera {
+        public class func parseFromCodedInputStream(_ input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionCamera {
           return try Motion.Message_.MotionCamera.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
         }
-        internal class func getBuilder() -> Motion.Message_.MotionCamera.Builder {
+        public class func getBuilder() -> Motion.Message_.MotionCamera.Builder {
           return Motion.Message_.MotionCamera.classBuilder() as! Motion.Message_.MotionCamera.Builder
         }
-        internal func getBuilder() -> Motion.Message_.MotionCamera.Builder {
+        public func getBuilder() -> Motion.Message_.MotionCamera.Builder {
           return classBuilder() as! Motion.Message_.MotionCamera.Builder
         }
-        internal override class func classBuilder() -> MessageBuilder {
+        public override class func classBuilder() -> MessageBuilder {
           return Motion.Message_.MotionCamera.Builder()
         }
-        internal override func classBuilder() -> MessageBuilder {
+        public override func classBuilder() -> MessageBuilder {
           return Motion.Message_.MotionCamera.Builder()
         }
-        internal func toBuilder() throws -> Motion.Message_.MotionCamera.Builder {
+        public func toBuilder() throws -> Motion.Message_.MotionCamera.Builder {
           return try Motion.Message_.MotionCamera.builderWithPrototype(self)
         }
-        internal class func builderWithPrototype(prototype:Motion.Message_.MotionCamera) throws -> Motion.Message_.MotionCamera.Builder {
+        public class func builderWithPrototype(_ prototype:Motion.Message_.MotionCamera) throws -> Motion.Message_.MotionCamera.Builder {
           return try Motion.Message_.MotionCamera.Builder().mergeFrom(prototype)
         }
-        override internal func writeDescriptionTo(inout output:String, indent:String) throws {
+        override public func getDescription(_ indent:String) throws -> String {
+          var output:String = ""
           var motionmonthElementIndex:Int = 0
           for oneElementmotionmonth in motionmonth {
               output += "\(indent) motionmonth[\(motionmonthElementIndex)] {\n"
-              try oneElementmotionmonth.writeDescriptionTo(&output, indent:"\(indent)  ")
+              output += try oneElementmotionmonth.getDescription("\(indent)  ")
               output += "\(indent)}\n"
-              motionmonthElementIndex++
+              motionmonthElementIndex += 1
           }
           var motionrecElementIndex:Int = 0
           for oneElementmotionrec in motionrec {
               output += "\(indent) motionrec[\(motionrecElementIndex)] {\n"
-              try oneElementmotionrec.writeDescriptionTo(&output, indent:"\(indent)  ")
+              output += try oneElementmotionrec.getDescription("\(indent)  ")
               output += "\(indent)}\n"
-              motionrecElementIndex++
+              motionrecElementIndex += 1
           }
           if hasCameraid {
             output += "\(indent) cameraid: \(cameraid) \n"
@@ -2768,9 +2953,9 @@ internal extension Motion {
           var motiontrackElementIndex:Int = 0
           for oneElementmotiontrack in motiontrack {
               output += "\(indent) motiontrack[\(motiontrackElementIndex)] {\n"
-              try oneElementmotiontrack.writeDescriptionTo(&output, indent:"\(indent)  ")
+              output += try oneElementmotiontrack.getDescription("\(indent)  ")
               output += "\(indent)}\n"
-              motiontrackElementIndex++
+              motiontrackElementIndex += 1
           }
           if hasActivemat {
             output += "\(indent) activemat: \(activemat) \n"
@@ -2796,9 +2981,10 @@ internal extension Motion {
           if hasThumbnail {
             output += "\(indent) thumbnail: \(thumbnail) \n"
           }
-          unknownFields.writeDescriptionTo(&output, indent:indent)
+          output += unknownFields.getDescription(indent)
+          return output
         }
-        override internal var hashValue:Int {
+        override public var hashValue:Int {
             get {
                 var hashCode:Int = 7
                 for oneElementmotionmonth in motionmonth {
@@ -2869,27 +3055,27 @@ internal extension Motion {
 
         //Meta information declaration start
 
-        override internal class func className() -> String {
+        override public class func className() -> String {
             return "Motion.Message_.MotionCamera"
         }
-        override internal func className() -> String {
+        override public func className() -> String {
             return "Motion.Message_.MotionCamera"
         }
-        override internal func classMetaType() -> GeneratedMessage.Type {
+        override public func classMetaType() -> GeneratedMessage.Type {
             return Motion.Message_.MotionCamera.self
         }
         //Meta information declaration end
 
-        final internal class Builder : GeneratedMessageBuilder {
+        final public class Builder : GeneratedMessageBuilder {
           private var builderResult:Motion.Message_.MotionCamera = Motion.Message_.MotionCamera()
-          internal func getMessage() -> Motion.Message_.MotionCamera {
+          public func getMessage() -> Motion.Message_.MotionCamera {
               return builderResult
           }
 
-          required override internal init () {
+          required override public init () {
              super.init()
           }
-          var motionmonth:Array<Motion.Message_.MotionMonth> {
+          public var motionmonth:Array<Motion.Message_.MotionMonth> {
                get {
                    return builderResult.motionmonth
                }
@@ -2897,15 +3083,15 @@ internal extension Motion {
                    builderResult.motionmonth = value
                }
           }
-          func setMotionmonth(value:Array<Motion.Message_.MotionMonth>) -> Motion.Message_.MotionCamera.Builder {
+          public func setMotionmonth(_ value:Array<Motion.Message_.MotionMonth>) -> Motion.Message_.MotionCamera.Builder {
             self.motionmonth = value
             return self
           }
-          internal func clearMotionmonth() -> Motion.Message_.MotionCamera.Builder {
+          public func clearMotionmonth() -> Motion.Message_.MotionCamera.Builder {
             builderResult.motionmonth.removeAll(keepCapacity: false)
             return self
           }
-          var motionrec:Array<Motion.Message_.MotionRec> {
+          public var motionrec:Array<Motion.Message_.MotionRec> {
                get {
                    return builderResult.motionrec
                }
@@ -2913,20 +3099,20 @@ internal extension Motion {
                    builderResult.motionrec = value
                }
           }
-          func setMotionrec(value:Array<Motion.Message_.MotionRec>) -> Motion.Message_.MotionCamera.Builder {
+          public func setMotionrec(_ value:Array<Motion.Message_.MotionRec>) -> Motion.Message_.MotionCamera.Builder {
             self.motionrec = value
             return self
           }
-          internal func clearMotionrec() -> Motion.Message_.MotionCamera.Builder {
+          public func clearMotionrec() -> Motion.Message_.MotionCamera.Builder {
             builderResult.motionrec.removeAll(keepCapacity: false)
             return self
           }
-          var hasCameraid:Bool {
+          public var hasCameraid:Bool {
                get {
                     return builderResult.hasCameraid
                }
           }
-          var cameraid:Int32 {
+          public var cameraid:Int32 {
                get {
                     return builderResult.cameraid
                }
@@ -2935,21 +3121,21 @@ internal extension Motion {
                    builderResult.cameraid = value
                }
           }
-          func setCameraid(value:Int32) -> Motion.Message_.MotionCamera.Builder {
+          public func setCameraid(_ value:Int32) -> Motion.Message_.MotionCamera.Builder {
             self.cameraid = value
             return self
           }
-          internal func clearCameraid() -> Motion.Message_.MotionCamera.Builder{
+          public func clearCameraid() -> Motion.Message_.MotionCamera.Builder{
                builderResult.hasCameraid = false
                builderResult.cameraid = Int32(0)
                return self
           }
-          var hasCameranumber:Bool {
+          public var hasCameranumber:Bool {
                get {
                     return builderResult.hasCameranumber
                }
           }
-          var cameranumber:Int32 {
+          public var cameranumber:Int32 {
                get {
                     return builderResult.cameranumber
                }
@@ -2958,21 +3144,21 @@ internal extension Motion {
                    builderResult.cameranumber = value
                }
           }
-          func setCameranumber(value:Int32) -> Motion.Message_.MotionCamera.Builder {
+          public func setCameranumber(_ value:Int32) -> Motion.Message_.MotionCamera.Builder {
             self.cameranumber = value
             return self
           }
-          internal func clearCameranumber() -> Motion.Message_.MotionCamera.Builder{
+          public func clearCameranumber() -> Motion.Message_.MotionCamera.Builder{
                builderResult.hasCameranumber = false
                builderResult.cameranumber = Int32(0)
                return self
           }
-          var hasCameraname:Bool {
+          public var hasCameraname:Bool {
                get {
                     return builderResult.hasCameraname
                }
           }
-          var cameraname:String {
+          public var cameraname:String {
                get {
                     return builderResult.cameraname
                }
@@ -2981,21 +3167,21 @@ internal extension Motion {
                    builderResult.cameraname = value
                }
           }
-          func setCameraname(value:String) -> Motion.Message_.MotionCamera.Builder {
+          public func setCameraname(_ value:String) -> Motion.Message_.MotionCamera.Builder {
             self.cameraname = value
             return self
           }
-          internal func clearCameraname() -> Motion.Message_.MotionCamera.Builder{
+          public func clearCameraname() -> Motion.Message_.MotionCamera.Builder{
                builderResult.hasCameraname = false
                builderResult.cameraname = ""
                return self
           }
-          var hasHasrecjob:Bool {
+          public var hasHasrecjob:Bool {
                get {
                     return builderResult.hasHasrecjob
                }
           }
-          var hasrecjob:Bool {
+          public var hasrecjob:Bool {
                get {
                     return builderResult.hasrecjob
                }
@@ -3004,21 +3190,21 @@ internal extension Motion {
                    builderResult.hasrecjob = value
                }
           }
-          func setHasrecjob(value:Bool) -> Motion.Message_.MotionCamera.Builder {
+          public func setHasrecjob(_ value:Bool) -> Motion.Message_.MotionCamera.Builder {
             self.hasrecjob = value
             return self
           }
-          internal func clearHasrecjob() -> Motion.Message_.MotionCamera.Builder{
+          public func clearHasrecjob() -> Motion.Message_.MotionCamera.Builder{
                builderResult.hasHasrecjob = false
                builderResult.hasrecjob = false
                return self
           }
-          var hasRecognizing:Bool {
+          public var hasRecognizing:Bool {
                get {
                     return builderResult.hasRecognizing
                }
           }
-          var recognizing:Bool {
+          public var recognizing:Bool {
                get {
                     return builderResult.recognizing
                }
@@ -3027,21 +3213,21 @@ internal extension Motion {
                    builderResult.recognizing = value
                }
           }
-          func setRecognizing(value:Bool) -> Motion.Message_.MotionCamera.Builder {
+          public func setRecognizing(_ value:Bool) -> Motion.Message_.MotionCamera.Builder {
             self.recognizing = value
             return self
           }
-          internal func clearRecognizing() -> Motion.Message_.MotionCamera.Builder{
+          public func clearRecognizing() -> Motion.Message_.MotionCamera.Builder{
                builderResult.hasRecognizing = false
                builderResult.recognizing = false
                return self
           }
-          var hasRecognizingFlag:Bool {
+          public var hasRecognizingFlag:Bool {
                get {
                     return builderResult.hasRecognizingFlag
                }
           }
-          var recognizingFlag:Bool {
+          public var recognizingFlag:Bool {
                get {
                     return builderResult.recognizingFlag
                }
@@ -3050,21 +3236,21 @@ internal extension Motion {
                    builderResult.recognizingFlag = value
                }
           }
-          func setRecognizingFlag(value:Bool) -> Motion.Message_.MotionCamera.Builder {
+          public func setRecognizingFlag(_ value:Bool) -> Motion.Message_.MotionCamera.Builder {
             self.recognizingFlag = value
             return self
           }
-          internal func clearRecognizingFlag() -> Motion.Message_.MotionCamera.Builder{
+          public func clearRecognizingFlag() -> Motion.Message_.MotionCamera.Builder{
                builderResult.hasRecognizingFlag = false
                builderResult.recognizingFlag = false
                return self
           }
-          var hasDbIdcamera:Bool {
+          public var hasDbIdcamera:Bool {
                get {
                     return builderResult.hasDbIdcamera
                }
           }
-          var dbIdcamera:Int32 {
+          public var dbIdcamera:Int32 {
                get {
                     return builderResult.dbIdcamera
                }
@@ -3073,21 +3259,21 @@ internal extension Motion {
                    builderResult.dbIdcamera = value
                }
           }
-          func setDbIdcamera(value:Int32) -> Motion.Message_.MotionCamera.Builder {
+          public func setDbIdcamera(_ value:Int32) -> Motion.Message_.MotionCamera.Builder {
             self.dbIdcamera = value
             return self
           }
-          internal func clearDbIdcamera() -> Motion.Message_.MotionCamera.Builder{
+          public func clearDbIdcamera() -> Motion.Message_.MotionCamera.Builder{
                builderResult.hasDbIdcamera = false
                builderResult.dbIdcamera = Int32(0)
                return self
           }
-          var hasDbIdrec:Bool {
+          public var hasDbIdrec:Bool {
                get {
                     return builderResult.hasDbIdrec
                }
           }
-          var dbIdrec:Int32 {
+          public var dbIdrec:Int32 {
                get {
                     return builderResult.dbIdrec
                }
@@ -3096,21 +3282,21 @@ internal extension Motion {
                    builderResult.dbIdrec = value
                }
           }
-          func setDbIdrec(value:Int32) -> Motion.Message_.MotionCamera.Builder {
+          public func setDbIdrec(_ value:Int32) -> Motion.Message_.MotionCamera.Builder {
             self.dbIdrec = value
             return self
           }
-          internal func clearDbIdrec() -> Motion.Message_.MotionCamera.Builder{
+          public func clearDbIdrec() -> Motion.Message_.MotionCamera.Builder{
                builderResult.hasDbIdrec = false
                builderResult.dbIdrec = Int32(0)
                return self
           }
-          var hasFromdatabase:Bool {
+          public var hasFromdatabase:Bool {
                get {
                     return builderResult.hasFromdatabase
                }
           }
-          var fromdatabase:Bool {
+          public var fromdatabase:Bool {
                get {
                     return builderResult.fromdatabase
                }
@@ -3119,16 +3305,16 @@ internal extension Motion {
                    builderResult.fromdatabase = value
                }
           }
-          func setFromdatabase(value:Bool) -> Motion.Message_.MotionCamera.Builder {
+          public func setFromdatabase(_ value:Bool) -> Motion.Message_.MotionCamera.Builder {
             self.fromdatabase = value
             return self
           }
-          internal func clearFromdatabase() -> Motion.Message_.MotionCamera.Builder{
+          public func clearFromdatabase() -> Motion.Message_.MotionCamera.Builder{
                builderResult.hasFromdatabase = false
                builderResult.fromdatabase = false
                return self
           }
-          var motiontrack:Array<Motion.Message_.MotionTrack> {
+          public var motiontrack:Array<Motion.Message_.MotionTrack> {
                get {
                    return builderResult.motiontrack
                }
@@ -3136,20 +3322,20 @@ internal extension Motion {
                    builderResult.motiontrack = value
                }
           }
-          func setMotiontrack(value:Array<Motion.Message_.MotionTrack>) -> Motion.Message_.MotionCamera.Builder {
+          public func setMotiontrack(_ value:Array<Motion.Message_.MotionTrack>) -> Motion.Message_.MotionCamera.Builder {
             self.motiontrack = value
             return self
           }
-          internal func clearMotiontrack() -> Motion.Message_.MotionCamera.Builder {
+          public func clearMotiontrack() -> Motion.Message_.MotionCamera.Builder {
             builderResult.motiontrack.removeAll(keepCapacity: false)
             return self
           }
-          var hasActivemat:Bool {
+          public var hasActivemat:Bool {
                get {
                     return builderResult.hasActivemat
                }
           }
-          var activemat:Int32 {
+          public var activemat:Int32 {
                get {
                     return builderResult.activemat
                }
@@ -3158,21 +3344,21 @@ internal extension Motion {
                    builderResult.activemat = value
                }
           }
-          func setActivemat(value:Int32) -> Motion.Message_.MotionCamera.Builder {
+          public func setActivemat(_ value:Int32) -> Motion.Message_.MotionCamera.Builder {
             self.activemat = value
             return self
           }
-          internal func clearActivemat() -> Motion.Message_.MotionCamera.Builder{
+          public func clearActivemat() -> Motion.Message_.MotionCamera.Builder{
                builderResult.hasActivemat = false
                builderResult.activemat = Int32(0)
                return self
           }
-          var hasMatcols:Bool {
+          public var hasMatcols:Bool {
                get {
                     return builderResult.hasMatcols
                }
           }
-          var matcols:Int32 {
+          public var matcols:Int32 {
                get {
                     return builderResult.matcols
                }
@@ -3181,21 +3367,21 @@ internal extension Motion {
                    builderResult.matcols = value
                }
           }
-          func setMatcols(value:Int32) -> Motion.Message_.MotionCamera.Builder {
+          public func setMatcols(_ value:Int32) -> Motion.Message_.MotionCamera.Builder {
             self.matcols = value
             return self
           }
-          internal func clearMatcols() -> Motion.Message_.MotionCamera.Builder{
+          public func clearMatcols() -> Motion.Message_.MotionCamera.Builder{
                builderResult.hasMatcols = false
                builderResult.matcols = Int32(0)
                return self
           }
-          var hasMatrows:Bool {
+          public var hasMatrows:Bool {
                get {
                     return builderResult.hasMatrows
                }
           }
-          var matrows:Int32 {
+          public var matrows:Int32 {
                get {
                     return builderResult.matrows
                }
@@ -3204,21 +3390,21 @@ internal extension Motion {
                    builderResult.matrows = value
                }
           }
-          func setMatrows(value:Int32) -> Motion.Message_.MotionCamera.Builder {
+          public func setMatrows(_ value:Int32) -> Motion.Message_.MotionCamera.Builder {
             self.matrows = value
             return self
           }
-          internal func clearMatrows() -> Motion.Message_.MotionCamera.Builder{
+          public func clearMatrows() -> Motion.Message_.MotionCamera.Builder{
                builderResult.hasMatrows = false
                builderResult.matrows = Int32(0)
                return self
           }
-          var hasMatwidth:Bool {
+          public var hasMatwidth:Bool {
                get {
                     return builderResult.hasMatwidth
                }
           }
-          var matwidth:Int32 {
+          public var matwidth:Int32 {
                get {
                     return builderResult.matwidth
                }
@@ -3227,21 +3413,21 @@ internal extension Motion {
                    builderResult.matwidth = value
                }
           }
-          func setMatwidth(value:Int32) -> Motion.Message_.MotionCamera.Builder {
+          public func setMatwidth(_ value:Int32) -> Motion.Message_.MotionCamera.Builder {
             self.matwidth = value
             return self
           }
-          internal func clearMatwidth() -> Motion.Message_.MotionCamera.Builder{
+          public func clearMatwidth() -> Motion.Message_.MotionCamera.Builder{
                builderResult.hasMatwidth = false
                builderResult.matwidth = Int32(0)
                return self
           }
-          var hasMatheight:Bool {
+          public var hasMatheight:Bool {
                get {
                     return builderResult.hasMatheight
                }
           }
-          var matheight:Int32 {
+          public var matheight:Int32 {
                get {
                     return builderResult.matheight
                }
@@ -3250,21 +3436,21 @@ internal extension Motion {
                    builderResult.matheight = value
                }
           }
-          func setMatheight(value:Int32) -> Motion.Message_.MotionCamera.Builder {
+          public func setMatheight(_ value:Int32) -> Motion.Message_.MotionCamera.Builder {
             self.matheight = value
             return self
           }
-          internal func clearMatheight() -> Motion.Message_.MotionCamera.Builder{
+          public func clearMatheight() -> Motion.Message_.MotionCamera.Builder{
                builderResult.hasMatheight = false
                builderResult.matheight = Int32(0)
                return self
           }
-          var hasDbIdmat:Bool {
+          public var hasDbIdmat:Bool {
                get {
                     return builderResult.hasDbIdmat
                }
           }
-          var dbIdmat:Int32 {
+          public var dbIdmat:Int32 {
                get {
                     return builderResult.dbIdmat
                }
@@ -3273,21 +3459,21 @@ internal extension Motion {
                    builderResult.dbIdmat = value
                }
           }
-          func setDbIdmat(value:Int32) -> Motion.Message_.MotionCamera.Builder {
+          public func setDbIdmat(_ value:Int32) -> Motion.Message_.MotionCamera.Builder {
             self.dbIdmat = value
             return self
           }
-          internal func clearDbIdmat() -> Motion.Message_.MotionCamera.Builder{
+          public func clearDbIdmat() -> Motion.Message_.MotionCamera.Builder{
                builderResult.hasDbIdmat = false
                builderResult.dbIdmat = Int32(0)
                return self
           }
-          var hasTempdata:Bool {
+          public var hasTempdata:Bool {
                get {
                     return builderResult.hasTempdata
                }
           }
-          var tempdata:NSData {
+          public var tempdata:NSData {
                get {
                     return builderResult.tempdata
                }
@@ -3296,21 +3482,21 @@ internal extension Motion {
                    builderResult.tempdata = value
                }
           }
-          func setTempdata(value:NSData) -> Motion.Message_.MotionCamera.Builder {
+          public func setTempdata(_ value:NSData) -> Motion.Message_.MotionCamera.Builder {
             self.tempdata = value
             return self
           }
-          internal func clearTempdata() -> Motion.Message_.MotionCamera.Builder{
+          public func clearTempdata() -> Motion.Message_.MotionCamera.Builder{
                builderResult.hasTempdata = false
                builderResult.tempdata = NSData()
                return self
           }
-          var hasThumbnail:Bool {
+          public var hasThumbnail:Bool {
                get {
                     return builderResult.hasThumbnail
                }
           }
-          var thumbnail:NSData {
+          public var thumbnail:NSData {
                get {
                     return builderResult.thumbnail
                }
@@ -3319,36 +3505,36 @@ internal extension Motion {
                    builderResult.thumbnail = value
                }
           }
-          func setThumbnail(value:NSData) -> Motion.Message_.MotionCamera.Builder {
+          public func setThumbnail(_ value:NSData) -> Motion.Message_.MotionCamera.Builder {
             self.thumbnail = value
             return self
           }
-          internal func clearThumbnail() -> Motion.Message_.MotionCamera.Builder{
+          public func clearThumbnail() -> Motion.Message_.MotionCamera.Builder{
                builderResult.hasThumbnail = false
                builderResult.thumbnail = NSData()
                return self
           }
-          override internal var internalGetResult:GeneratedMessage {
+          override public var internalGetResult:GeneratedMessage {
                get {
                   return builderResult
                }
           }
-          internal override func clear() -> Motion.Message_.MotionCamera.Builder {
+          public override func clear() -> Motion.Message_.MotionCamera.Builder {
             builderResult = Motion.Message_.MotionCamera()
             return self
           }
-          internal override func clone() throws -> Motion.Message_.MotionCamera.Builder {
+          public override func clone() throws -> Motion.Message_.MotionCamera.Builder {
             return try Motion.Message_.MotionCamera.builderWithPrototype(builderResult)
           }
-          internal override func build() throws -> Motion.Message_.MotionCamera {
+          public override func build() throws -> Motion.Message_.MotionCamera {
                try checkInitialized()
                return buildPartial()
           }
-          internal func buildPartial() -> Motion.Message_.MotionCamera {
+          public func buildPartial() -> Motion.Message_.MotionCamera {
             let returnMe:Motion.Message_.MotionCamera = builderResult
             return returnMe
           }
-          internal func mergeFrom(other:Motion.Message_.MotionCamera) throws -> Motion.Message_.MotionCamera.Builder {
+          public func mergeFrom(_ other:Motion.Message_.MotionCamera) throws -> Motion.Message_.MotionCamera.Builder {
             if other == Motion.Message_.MotionCamera() {
              return self
             }
@@ -3415,14 +3601,14 @@ internal extension Motion {
             try mergeUnknownFields(other.unknownFields)
             return self
           }
-          internal override func mergeFromCodedInputStream(input:CodedInputStream) throws -> Motion.Message_.MotionCamera.Builder {
+          public override func mergeFromCodedInputStream(_ input:CodedInputStream) throws -> Motion.Message_.MotionCamera.Builder {
                return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
           }
-          internal override func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionCamera.Builder {
+          public override func mergeFromCodedInputStream(_ input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionCamera.Builder {
             let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
             while (true) {
-              let tag = try input.readTag()
-              switch tag {
+              let protobufTag = try input.readTag()
+              switch protobufTag {
               case 0: 
                 self.unknownFields = try unknownFieldsBuilder.build()
                 return self
@@ -3494,7 +3680,7 @@ internal extension Motion {
                 thumbnail = try input.readData()
 
               default:
-                if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:tag))) {
+                if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                    unknownFields = try unknownFieldsBuilder.build()
                    return self
                 }
@@ -3511,23 +3697,23 @@ internal extension Motion {
 
     //Nested type declaration start
 
-      final internal class MotionTrack : GeneratedMessage, GeneratedMessageProtocol {
-        private(set) var hasDbIdinstance:Bool = false
-        private(set) var dbIdinstance:Int32 = Int32(0)
+      final public class MotionTrack : GeneratedMessage, GeneratedMessageProtocol {
+        public private(set) var dbIdinstance:Int32 = Int32(0)
 
-        required internal init() {
+        public private(set) var hasDbIdinstance:Bool = false
+        required public init() {
              super.init()
         }
-        override internal func isInitialized() -> Bool {
+        override public func isInitialized() -> Bool {
          return true
         }
-        override internal func writeToCodedOutputStream(output:CodedOutputStream) throws {
+        override public func writeToCodedOutputStream(_ output:CodedOutputStream) throws {
           if hasDbIdinstance {
             try output.writeInt32(1, value:dbIdinstance)
           }
           try unknownFields.writeToCodedOutputStream(output)
         }
-        override internal func serializedSize() -> Int32 {
+        override public func serializedSize() -> Int32 {
           var serialize_size:Int32 = memoizedSerializedSize
           if serialize_size != -1 {
            return serialize_size
@@ -3541,59 +3727,61 @@ internal extension Motion {
           memoizedSerializedSize = serialize_size
           return serialize_size
         }
-        internal class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Motion.Message_.MotionTrack> {
+        public class func parseArrayDelimitedFromInputStream(_ input:NSInputStream) throws -> Array<Motion.Message_.MotionTrack> {
           var mergedArray = Array<Motion.Message_.MotionTrack>()
           while let value = try parseFromDelimitedFromInputStream(input) {
             mergedArray += [value]
           }
           return mergedArray
         }
-        internal class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Motion.Message_.MotionTrack? {
+        public class func parseFromDelimitedFromInputStream(_ input:NSInputStream) throws -> Motion.Message_.MotionTrack? {
           return try Motion.Message_.MotionTrack.Builder().mergeDelimitedFromInputStream(input)?.build()
         }
-        internal class func parseFromData(data:NSData) throws -> Motion.Message_.MotionTrack {
+        public class func parseFromData(_ data:NSData) throws -> Motion.Message_.MotionTrack {
           return try Motion.Message_.MotionTrack.Builder().mergeFromData(data, extensionRegistry:Motion.MotionRoot.sharedInstance.extensionRegistry).build()
         }
-        internal class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionTrack {
+        public class func parseFromData(_ data:NSData, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionTrack {
           return try Motion.Message_.MotionTrack.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
         }
-        internal class func parseFromInputStream(input:NSInputStream) throws -> Motion.Message_.MotionTrack {
+        public class func parseFromInputStream(_ input:NSInputStream) throws -> Motion.Message_.MotionTrack {
           return try Motion.Message_.MotionTrack.Builder().mergeFromInputStream(input).build()
         }
-        internal class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionTrack {
+        public class func parseFromInputStream(_ input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionTrack {
           return try Motion.Message_.MotionTrack.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
         }
-        internal class func parseFromCodedInputStream(input:CodedInputStream) throws -> Motion.Message_.MotionTrack {
+        public class func parseFromCodedInputStream(_ input:CodedInputStream) throws -> Motion.Message_.MotionTrack {
           return try Motion.Message_.MotionTrack.Builder().mergeFromCodedInputStream(input).build()
         }
-        internal class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionTrack {
+        public class func parseFromCodedInputStream(_ input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionTrack {
           return try Motion.Message_.MotionTrack.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
         }
-        internal class func getBuilder() -> Motion.Message_.MotionTrack.Builder {
+        public class func getBuilder() -> Motion.Message_.MotionTrack.Builder {
           return Motion.Message_.MotionTrack.classBuilder() as! Motion.Message_.MotionTrack.Builder
         }
-        internal func getBuilder() -> Motion.Message_.MotionTrack.Builder {
+        public func getBuilder() -> Motion.Message_.MotionTrack.Builder {
           return classBuilder() as! Motion.Message_.MotionTrack.Builder
         }
-        internal override class func classBuilder() -> MessageBuilder {
+        public override class func classBuilder() -> MessageBuilder {
           return Motion.Message_.MotionTrack.Builder()
         }
-        internal override func classBuilder() -> MessageBuilder {
+        public override func classBuilder() -> MessageBuilder {
           return Motion.Message_.MotionTrack.Builder()
         }
-        internal func toBuilder() throws -> Motion.Message_.MotionTrack.Builder {
+        public func toBuilder() throws -> Motion.Message_.MotionTrack.Builder {
           return try Motion.Message_.MotionTrack.builderWithPrototype(self)
         }
-        internal class func builderWithPrototype(prototype:Motion.Message_.MotionTrack) throws -> Motion.Message_.MotionTrack.Builder {
+        public class func builderWithPrototype(_ prototype:Motion.Message_.MotionTrack) throws -> Motion.Message_.MotionTrack.Builder {
           return try Motion.Message_.MotionTrack.Builder().mergeFrom(prototype)
         }
-        override internal func writeDescriptionTo(inout output:String, indent:String) throws {
+        override public func getDescription(_ indent:String) throws -> String {
+          var output:String = ""
           if hasDbIdinstance {
             output += "\(indent) dbIdinstance: \(dbIdinstance) \n"
           }
-          unknownFields.writeDescriptionTo(&output, indent:indent)
+          output += unknownFields.getDescription(indent)
+          return output
         }
-        override internal var hashValue:Int {
+        override public var hashValue:Int {
             get {
                 var hashCode:Int = 7
                 if hasDbIdinstance {
@@ -3607,32 +3795,32 @@ internal extension Motion {
 
         //Meta information declaration start
 
-        override internal class func className() -> String {
+        override public class func className() -> String {
             return "Motion.Message_.MotionTrack"
         }
-        override internal func className() -> String {
+        override public func className() -> String {
             return "Motion.Message_.MotionTrack"
         }
-        override internal func classMetaType() -> GeneratedMessage.Type {
+        override public func classMetaType() -> GeneratedMessage.Type {
             return Motion.Message_.MotionTrack.self
         }
         //Meta information declaration end
 
-        final internal class Builder : GeneratedMessageBuilder {
+        final public class Builder : GeneratedMessageBuilder {
           private var builderResult:Motion.Message_.MotionTrack = Motion.Message_.MotionTrack()
-          internal func getMessage() -> Motion.Message_.MotionTrack {
+          public func getMessage() -> Motion.Message_.MotionTrack {
               return builderResult
           }
 
-          required override internal init () {
+          required override public init () {
              super.init()
           }
-          var hasDbIdinstance:Bool {
+          public var hasDbIdinstance:Bool {
                get {
                     return builderResult.hasDbIdinstance
                }
           }
-          var dbIdinstance:Int32 {
+          public var dbIdinstance:Int32 {
                get {
                     return builderResult.dbIdinstance
                }
@@ -3641,36 +3829,36 @@ internal extension Motion {
                    builderResult.dbIdinstance = value
                }
           }
-          func setDbIdinstance(value:Int32) -> Motion.Message_.MotionTrack.Builder {
+          public func setDbIdinstance(_ value:Int32) -> Motion.Message_.MotionTrack.Builder {
             self.dbIdinstance = value
             return self
           }
-          internal func clearDbIdinstance() -> Motion.Message_.MotionTrack.Builder{
+          public func clearDbIdinstance() -> Motion.Message_.MotionTrack.Builder{
                builderResult.hasDbIdinstance = false
                builderResult.dbIdinstance = Int32(0)
                return self
           }
-          override internal var internalGetResult:GeneratedMessage {
+          override public var internalGetResult:GeneratedMessage {
                get {
                   return builderResult
                }
           }
-          internal override func clear() -> Motion.Message_.MotionTrack.Builder {
+          public override func clear() -> Motion.Message_.MotionTrack.Builder {
             builderResult = Motion.Message_.MotionTrack()
             return self
           }
-          internal override func clone() throws -> Motion.Message_.MotionTrack.Builder {
+          public override func clone() throws -> Motion.Message_.MotionTrack.Builder {
             return try Motion.Message_.MotionTrack.builderWithPrototype(builderResult)
           }
-          internal override func build() throws -> Motion.Message_.MotionTrack {
+          public override func build() throws -> Motion.Message_.MotionTrack {
                try checkInitialized()
                return buildPartial()
           }
-          internal func buildPartial() -> Motion.Message_.MotionTrack {
+          public func buildPartial() -> Motion.Message_.MotionTrack {
             let returnMe:Motion.Message_.MotionTrack = builderResult
             return returnMe
           }
-          internal func mergeFrom(other:Motion.Message_.MotionTrack) throws -> Motion.Message_.MotionTrack.Builder {
+          public func mergeFrom(_ other:Motion.Message_.MotionTrack) throws -> Motion.Message_.MotionTrack.Builder {
             if other == Motion.Message_.MotionTrack() {
              return self
             }
@@ -3680,14 +3868,14 @@ internal extension Motion {
             try mergeUnknownFields(other.unknownFields)
             return self
           }
-          internal override func mergeFromCodedInputStream(input:CodedInputStream) throws -> Motion.Message_.MotionTrack.Builder {
+          public override func mergeFromCodedInputStream(_ input:CodedInputStream) throws -> Motion.Message_.MotionTrack.Builder {
                return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
           }
-          internal override func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionTrack.Builder {
+          public override func mergeFromCodedInputStream(_ input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionTrack.Builder {
             let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
             while (true) {
-              let tag = try input.readTag()
-              switch tag {
+              let protobufTag = try input.readTag()
+              switch protobufTag {
               case 0: 
                 self.unknownFields = try unknownFieldsBuilder.build()
                 return self
@@ -3696,7 +3884,7 @@ internal extension Motion {
                 dbIdinstance = try input.readInt32()
 
               default:
-                if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:tag))) {
+                if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                    unknownFields = try unknownFieldsBuilder.build()
                    return self
                 }
@@ -3713,114 +3901,114 @@ internal extension Motion {
 
     //Nested type declaration start
 
-      final internal class MotionRec : GeneratedMessage, GeneratedMessageProtocol {
-        private(set) var hasName:Bool = false
-        private(set) var name:String = ""
+      final public class MotionRec : GeneratedMessage, GeneratedMessageProtocol {
+        public private(set) var name:String = ""
 
-        private(set) var hasDbIdrec:Bool = false
-        private(set) var dbIdrec:Int32 = Int32(0)
+        public private(set) var hasName:Bool = false
+        public private(set) var dbIdrec:Int32 = Int32(0)
 
-        private(set) var hasTimestart:Bool = false
-        private(set) var timestart:String = ""
+        public private(set) var hasDbIdrec:Bool = false
+        public private(set) var timestart:String = ""
 
-        private(set) var hasTimeend:Bool = false
-        private(set) var timeend:String = ""
+        public private(set) var hasTimestart:Bool = false
+        public private(set) var timeend:String = ""
 
-        private(set) var hasRecname:Bool = false
-        private(set) var recname:String = ""
+        public private(set) var hasTimeend:Bool = false
+        public private(set) var recname:String = ""
 
-        private(set) var hasCamerasince:Bool = false
-        private(set) var camerasince:String = ""
+        public private(set) var hasRecname:Bool = false
+        public private(set) var camerasince:String = ""
 
-        private(set) var hasStoreimage:Bool = false
-        private(set) var storeimage:Bool = false
+        public private(set) var hasCamerasince:Bool = false
+        public private(set) var storeimage:Bool = false
 
-        private(set) var hasStorevideo:Bool = false
-        private(set) var storevideo:Bool = false
+        public private(set) var hasStoreimage:Bool = false
+        public private(set) var storevideo:Bool = false
 
-        private(set) var hasCodename:Bool = false
-        private(set) var codename:String = ""
+        public private(set) var hasStorevideo:Bool = false
+        public private(set) var codename:String = ""
 
-        private(set) var hasHasregion:Bool = false
-        private(set) var hasregion:Bool = false
+        public private(set) var hasCodename:Bool = false
+        public private(set) var hasregion:Bool = false
 
-        private(set) var hasCoordinates:Bool = false
-        private(set) var coordinates:String = ""
+        public private(set) var hasHasregion:Bool = false
+        public private(set) var coordinates:String = ""
 
-        private(set) var hasDelay:Bool = false
-        private(set) var delay:Int32 = Int32(0)
+        public private(set) var hasCoordinates:Bool = false
+        public private(set) var delay:Int32 = Int32(0)
 
-        private(set) var hasStartrectime:Bool = false
-        private(set) var startrectime:String = ""
+        public private(set) var hasDelay:Bool = false
+        public private(set) var startrectime:String = ""
 
-        private(set) var hasStoprectime:Bool = false
-        private(set) var stoprectime:String = ""
+        public private(set) var hasStartrectime:Bool = false
+        public private(set) var stoprectime:String = ""
 
-        private(set) var hasRunatstartup:Bool = false
-        private(set) var runatstartup:Bool = false
+        public private(set) var hasStoprectime:Bool = false
+        public private(set) var runatstartup:Bool = false
 
-        private(set) var hasActivemat:Bool = false
-        private(set) var activemat:Int32 = Int32(0)
+        public private(set) var hasRunatstartup:Bool = false
+        public private(set) var activemat:Int32 = Int32(0)
 
-        private(set) var hasDbIdmat:Bool = false
-        private(set) var dbIdmat:Int32 = Int32(0)
+        public private(set) var hasActivemat:Bool = false
+        public private(set) var dbIdmat:Int32 = Int32(0)
 
-        private(set) var hasDbIdcoordinates:Bool = false
-        private(set) var dbIdcoordinates:Int32 = Int32(0)
+        public private(set) var hasDbIdmat:Bool = false
+        public private(set) var dbIdcoordinates:Int32 = Int32(0)
 
-        private(set) var hasDbIntervalid:Bool = false
-        private(set) var dbIntervalid:Int32 = Int32(0)
+        public private(set) var hasDbIdcoordinates:Bool = false
+        public private(set) var dbIntervalid:Int32 = Int32(0)
 
-        private(set) var hasMatcols:Bool = false
-        private(set) var matcols:Int32 = Int32(0)
+        public private(set) var hasDbIntervalid:Bool = false
+        public private(set) var matcols:Int32 = Int32(0)
 
-        private(set) var hasMatrows:Bool = false
-        private(set) var matrows:Int32 = Int32(0)
+        public private(set) var hasMatcols:Bool = false
+        public private(set) var matrows:Int32 = Int32(0)
 
-        private(set) var hasMatwidth:Bool = false
-        private(set) var matwidth:Int32 = Int32(0)
+        public private(set) var hasMatrows:Bool = false
+        public private(set) var matwidth:Int32 = Int32(0)
 
-        private(set) var hasMatheight:Bool = false
-        private(set) var matheight:Int32 = Int32(0)
+        public private(set) var hasMatwidth:Bool = false
+        public private(set) var matheight:Int32 = Int32(0)
 
-        private(set) var hasLastinstance:Bool = false
-        private(set) var lastinstance:String = ""
+        public private(set) var hasMatheight:Bool = false
+        public private(set) var lastinstance:String = ""
 
-        private(set) var hasDbIdmonth:Bool = false
-        private(set) var dbIdmonth:Int32 = Int32(0)
+        public private(set) var hasLastinstance:Bool = false
+        public private(set) var dbIdmonth:Int32 = Int32(0)
 
-        private(set) var hasDbIdday:Bool = false
-        private(set) var dbIdday:Int32 = Int32(0)
+        public private(set) var hasDbIdmonth:Bool = false
+        public private(set) var dbIdday:Int32 = Int32(0)
 
-        private(set) var hasXmlfilepath:Bool = false
-        private(set) var xmlfilepath:String = ""
+        public private(set) var hasDbIdday:Bool = false
+        public private(set) var xmlfilepath:String = ""
 
-        private(set) var hasDbRecognitionsetupid:Bool = false
-        private(set) var dbRecognitionsetupid:Int32 = Int32(0)
+        public private(set) var hasXmlfilepath:Bool = false
+        public private(set) var dbRecognitionsetupid:Int32 = Int32(0)
 
-        private(set) var hasHascron:Bool = false
-        private(set) var hascron:Bool = false
+        public private(set) var hasDbRecognitionsetupid:Bool = false
+        public private(set) var hascron:Bool = false
 
-        private(set) var motioncron:Array<Motion.Message_.MotionCron>  = Array<Motion.Message_.MotionCron>()
-        private(set) var hasSpeed:Bool = false
-        private(set) var speed:Int32 = Int32(0)
+        public private(set) var hasHascron:Bool = false
+        public private(set) var motioncron:Array<Motion.Message_.MotionCron>  = Array<Motion.Message_.MotionCron>()
+        public private(set) var speed:Int32 = Int32(0)
 
-        private(set) var hasActiverec:Bool = false
-        private(set) var activerec:Int32 = Int32(0)
+        public private(set) var hasSpeed:Bool = false
+        public private(set) var activerec:Int32 = Int32(0)
 
-        private(set) var hasMatbasefile:Bool = false
-        private(set) var matbasefile:String = ""
+        public private(set) var hasActiverec:Bool = false
+        public private(set) var matbasefile:String = ""
 
-        private(set) var hasCreated:Bool = false
-        private(set) var created:String = ""
+        public private(set) var hasMatbasefile:Bool = false
+        public private(set) var created:String = ""
 
-        required internal init() {
+        public private(set) var hasCreated:Bool = false
+        required public init() {
              super.init()
         }
-        override internal func isInitialized() -> Bool {
+        override public func isInitialized() -> Bool {
          return true
         }
-        override internal func writeToCodedOutputStream(output:CodedOutputStream) throws {
+        override public func writeToCodedOutputStream(_ output:CodedOutputStream) throws {
           if hasName {
             try output.writeString(1, value:name)
           }
@@ -3925,7 +4113,7 @@ internal extension Motion {
           }
           try unknownFields.writeToCodedOutputStream(output)
         }
-        override internal func serializedSize() -> Int32 {
+        override public func serializedSize() -> Int32 {
           var serialize_size:Int32 = memoizedSerializedSize
           if serialize_size != -1 {
            return serialize_size
@@ -4038,53 +4226,54 @@ internal extension Motion {
           memoizedSerializedSize = serialize_size
           return serialize_size
         }
-        internal class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Motion.Message_.MotionRec> {
+        public class func parseArrayDelimitedFromInputStream(_ input:NSInputStream) throws -> Array<Motion.Message_.MotionRec> {
           var mergedArray = Array<Motion.Message_.MotionRec>()
           while let value = try parseFromDelimitedFromInputStream(input) {
             mergedArray += [value]
           }
           return mergedArray
         }
-        internal class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Motion.Message_.MotionRec? {
+        public class func parseFromDelimitedFromInputStream(_ input:NSInputStream) throws -> Motion.Message_.MotionRec? {
           return try Motion.Message_.MotionRec.Builder().mergeDelimitedFromInputStream(input)?.build()
         }
-        internal class func parseFromData(data:NSData) throws -> Motion.Message_.MotionRec {
+        public class func parseFromData(_ data:NSData) throws -> Motion.Message_.MotionRec {
           return try Motion.Message_.MotionRec.Builder().mergeFromData(data, extensionRegistry:Motion.MotionRoot.sharedInstance.extensionRegistry).build()
         }
-        internal class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionRec {
+        public class func parseFromData(_ data:NSData, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionRec {
           return try Motion.Message_.MotionRec.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
         }
-        internal class func parseFromInputStream(input:NSInputStream) throws -> Motion.Message_.MotionRec {
+        public class func parseFromInputStream(_ input:NSInputStream) throws -> Motion.Message_.MotionRec {
           return try Motion.Message_.MotionRec.Builder().mergeFromInputStream(input).build()
         }
-        internal class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionRec {
+        public class func parseFromInputStream(_ input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionRec {
           return try Motion.Message_.MotionRec.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
         }
-        internal class func parseFromCodedInputStream(input:CodedInputStream) throws -> Motion.Message_.MotionRec {
+        public class func parseFromCodedInputStream(_ input:CodedInputStream) throws -> Motion.Message_.MotionRec {
           return try Motion.Message_.MotionRec.Builder().mergeFromCodedInputStream(input).build()
         }
-        internal class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionRec {
+        public class func parseFromCodedInputStream(_ input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionRec {
           return try Motion.Message_.MotionRec.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
         }
-        internal class func getBuilder() -> Motion.Message_.MotionRec.Builder {
+        public class func getBuilder() -> Motion.Message_.MotionRec.Builder {
           return Motion.Message_.MotionRec.classBuilder() as! Motion.Message_.MotionRec.Builder
         }
-        internal func getBuilder() -> Motion.Message_.MotionRec.Builder {
+        public func getBuilder() -> Motion.Message_.MotionRec.Builder {
           return classBuilder() as! Motion.Message_.MotionRec.Builder
         }
-        internal override class func classBuilder() -> MessageBuilder {
+        public override class func classBuilder() -> MessageBuilder {
           return Motion.Message_.MotionRec.Builder()
         }
-        internal override func classBuilder() -> MessageBuilder {
+        public override func classBuilder() -> MessageBuilder {
           return Motion.Message_.MotionRec.Builder()
         }
-        internal func toBuilder() throws -> Motion.Message_.MotionRec.Builder {
+        public func toBuilder() throws -> Motion.Message_.MotionRec.Builder {
           return try Motion.Message_.MotionRec.builderWithPrototype(self)
         }
-        internal class func builderWithPrototype(prototype:Motion.Message_.MotionRec) throws -> Motion.Message_.MotionRec.Builder {
+        public class func builderWithPrototype(_ prototype:Motion.Message_.MotionRec) throws -> Motion.Message_.MotionRec.Builder {
           return try Motion.Message_.MotionRec.Builder().mergeFrom(prototype)
         }
-        override internal func writeDescriptionTo(inout output:String, indent:String) throws {
+        override public func getDescription(_ indent:String) throws -> String {
+          var output:String = ""
           if hasName {
             output += "\(indent) name: \(name) \n"
           }
@@ -4175,9 +4364,9 @@ internal extension Motion {
           var motioncronElementIndex:Int = 0
           for oneElementmotioncron in motioncron {
               output += "\(indent) motioncron[\(motioncronElementIndex)] {\n"
-              try oneElementmotioncron.writeDescriptionTo(&output, indent:"\(indent)  ")
+              output += try oneElementmotioncron.getDescription("\(indent)  ")
               output += "\(indent)}\n"
-              motioncronElementIndex++
+              motioncronElementIndex += 1
           }
           if hasSpeed {
             output += "\(indent) speed: \(speed) \n"
@@ -4191,9 +4380,10 @@ internal extension Motion {
           if hasCreated {
             output += "\(indent) created: \(created) \n"
           }
-          unknownFields.writeDescriptionTo(&output, indent:indent)
+          output += unknownFields.getDescription(indent)
+          return output
         }
-        override internal var hashValue:Int {
+        override public var hashValue:Int {
             get {
                 var hashCode:Int = 7
                 if hasName {
@@ -4306,32 +4496,32 @@ internal extension Motion {
 
         //Meta information declaration start
 
-        override internal class func className() -> String {
+        override public class func className() -> String {
             return "Motion.Message_.MotionRec"
         }
-        override internal func className() -> String {
+        override public func className() -> String {
             return "Motion.Message_.MotionRec"
         }
-        override internal func classMetaType() -> GeneratedMessage.Type {
+        override public func classMetaType() -> GeneratedMessage.Type {
             return Motion.Message_.MotionRec.self
         }
         //Meta information declaration end
 
-        final internal class Builder : GeneratedMessageBuilder {
+        final public class Builder : GeneratedMessageBuilder {
           private var builderResult:Motion.Message_.MotionRec = Motion.Message_.MotionRec()
-          internal func getMessage() -> Motion.Message_.MotionRec {
+          public func getMessage() -> Motion.Message_.MotionRec {
               return builderResult
           }
 
-          required override internal init () {
+          required override public init () {
              super.init()
           }
-          var hasName:Bool {
+          public var hasName:Bool {
                get {
                     return builderResult.hasName
                }
           }
-          var name:String {
+          public var name:String {
                get {
                     return builderResult.name
                }
@@ -4340,21 +4530,21 @@ internal extension Motion {
                    builderResult.name = value
                }
           }
-          func setName(value:String) -> Motion.Message_.MotionRec.Builder {
+          public func setName(_ value:String) -> Motion.Message_.MotionRec.Builder {
             self.name = value
             return self
           }
-          internal func clearName() -> Motion.Message_.MotionRec.Builder{
+          public func clearName() -> Motion.Message_.MotionRec.Builder{
                builderResult.hasName = false
                builderResult.name = ""
                return self
           }
-          var hasDbIdrec:Bool {
+          public var hasDbIdrec:Bool {
                get {
                     return builderResult.hasDbIdrec
                }
           }
-          var dbIdrec:Int32 {
+          public var dbIdrec:Int32 {
                get {
                     return builderResult.dbIdrec
                }
@@ -4363,21 +4553,21 @@ internal extension Motion {
                    builderResult.dbIdrec = value
                }
           }
-          func setDbIdrec(value:Int32) -> Motion.Message_.MotionRec.Builder {
+          public func setDbIdrec(_ value:Int32) -> Motion.Message_.MotionRec.Builder {
             self.dbIdrec = value
             return self
           }
-          internal func clearDbIdrec() -> Motion.Message_.MotionRec.Builder{
+          public func clearDbIdrec() -> Motion.Message_.MotionRec.Builder{
                builderResult.hasDbIdrec = false
                builderResult.dbIdrec = Int32(0)
                return self
           }
-          var hasTimestart:Bool {
+          public var hasTimestart:Bool {
                get {
                     return builderResult.hasTimestart
                }
           }
-          var timestart:String {
+          public var timestart:String {
                get {
                     return builderResult.timestart
                }
@@ -4386,21 +4576,21 @@ internal extension Motion {
                    builderResult.timestart = value
                }
           }
-          func setTimestart(value:String) -> Motion.Message_.MotionRec.Builder {
+          public func setTimestart(_ value:String) -> Motion.Message_.MotionRec.Builder {
             self.timestart = value
             return self
           }
-          internal func clearTimestart() -> Motion.Message_.MotionRec.Builder{
+          public func clearTimestart() -> Motion.Message_.MotionRec.Builder{
                builderResult.hasTimestart = false
                builderResult.timestart = ""
                return self
           }
-          var hasTimeend:Bool {
+          public var hasTimeend:Bool {
                get {
                     return builderResult.hasTimeend
                }
           }
-          var timeend:String {
+          public var timeend:String {
                get {
                     return builderResult.timeend
                }
@@ -4409,21 +4599,21 @@ internal extension Motion {
                    builderResult.timeend = value
                }
           }
-          func setTimeend(value:String) -> Motion.Message_.MotionRec.Builder {
+          public func setTimeend(_ value:String) -> Motion.Message_.MotionRec.Builder {
             self.timeend = value
             return self
           }
-          internal func clearTimeend() -> Motion.Message_.MotionRec.Builder{
+          public func clearTimeend() -> Motion.Message_.MotionRec.Builder{
                builderResult.hasTimeend = false
                builderResult.timeend = ""
                return self
           }
-          var hasRecname:Bool {
+          public var hasRecname:Bool {
                get {
                     return builderResult.hasRecname
                }
           }
-          var recname:String {
+          public var recname:String {
                get {
                     return builderResult.recname
                }
@@ -4432,21 +4622,21 @@ internal extension Motion {
                    builderResult.recname = value
                }
           }
-          func setRecname(value:String) -> Motion.Message_.MotionRec.Builder {
+          public func setRecname(_ value:String) -> Motion.Message_.MotionRec.Builder {
             self.recname = value
             return self
           }
-          internal func clearRecname() -> Motion.Message_.MotionRec.Builder{
+          public func clearRecname() -> Motion.Message_.MotionRec.Builder{
                builderResult.hasRecname = false
                builderResult.recname = ""
                return self
           }
-          var hasCamerasince:Bool {
+          public var hasCamerasince:Bool {
                get {
                     return builderResult.hasCamerasince
                }
           }
-          var camerasince:String {
+          public var camerasince:String {
                get {
                     return builderResult.camerasince
                }
@@ -4455,21 +4645,21 @@ internal extension Motion {
                    builderResult.camerasince = value
                }
           }
-          func setCamerasince(value:String) -> Motion.Message_.MotionRec.Builder {
+          public func setCamerasince(_ value:String) -> Motion.Message_.MotionRec.Builder {
             self.camerasince = value
             return self
           }
-          internal func clearCamerasince() -> Motion.Message_.MotionRec.Builder{
+          public func clearCamerasince() -> Motion.Message_.MotionRec.Builder{
                builderResult.hasCamerasince = false
                builderResult.camerasince = ""
                return self
           }
-          var hasStoreimage:Bool {
+          public var hasStoreimage:Bool {
                get {
                     return builderResult.hasStoreimage
                }
           }
-          var storeimage:Bool {
+          public var storeimage:Bool {
                get {
                     return builderResult.storeimage
                }
@@ -4478,21 +4668,21 @@ internal extension Motion {
                    builderResult.storeimage = value
                }
           }
-          func setStoreimage(value:Bool) -> Motion.Message_.MotionRec.Builder {
+          public func setStoreimage(_ value:Bool) -> Motion.Message_.MotionRec.Builder {
             self.storeimage = value
             return self
           }
-          internal func clearStoreimage() -> Motion.Message_.MotionRec.Builder{
+          public func clearStoreimage() -> Motion.Message_.MotionRec.Builder{
                builderResult.hasStoreimage = false
                builderResult.storeimage = false
                return self
           }
-          var hasStorevideo:Bool {
+          public var hasStorevideo:Bool {
                get {
                     return builderResult.hasStorevideo
                }
           }
-          var storevideo:Bool {
+          public var storevideo:Bool {
                get {
                     return builderResult.storevideo
                }
@@ -4501,21 +4691,21 @@ internal extension Motion {
                    builderResult.storevideo = value
                }
           }
-          func setStorevideo(value:Bool) -> Motion.Message_.MotionRec.Builder {
+          public func setStorevideo(_ value:Bool) -> Motion.Message_.MotionRec.Builder {
             self.storevideo = value
             return self
           }
-          internal func clearStorevideo() -> Motion.Message_.MotionRec.Builder{
+          public func clearStorevideo() -> Motion.Message_.MotionRec.Builder{
                builderResult.hasStorevideo = false
                builderResult.storevideo = false
                return self
           }
-          var hasCodename:Bool {
+          public var hasCodename:Bool {
                get {
                     return builderResult.hasCodename
                }
           }
-          var codename:String {
+          public var codename:String {
                get {
                     return builderResult.codename
                }
@@ -4524,21 +4714,21 @@ internal extension Motion {
                    builderResult.codename = value
                }
           }
-          func setCodename(value:String) -> Motion.Message_.MotionRec.Builder {
+          public func setCodename(_ value:String) -> Motion.Message_.MotionRec.Builder {
             self.codename = value
             return self
           }
-          internal func clearCodename() -> Motion.Message_.MotionRec.Builder{
+          public func clearCodename() -> Motion.Message_.MotionRec.Builder{
                builderResult.hasCodename = false
                builderResult.codename = ""
                return self
           }
-          var hasHasregion:Bool {
+          public var hasHasregion:Bool {
                get {
                     return builderResult.hasHasregion
                }
           }
-          var hasregion:Bool {
+          public var hasregion:Bool {
                get {
                     return builderResult.hasregion
                }
@@ -4547,21 +4737,21 @@ internal extension Motion {
                    builderResult.hasregion = value
                }
           }
-          func setHasregion(value:Bool) -> Motion.Message_.MotionRec.Builder {
+          public func setHasregion(_ value:Bool) -> Motion.Message_.MotionRec.Builder {
             self.hasregion = value
             return self
           }
-          internal func clearHasregion() -> Motion.Message_.MotionRec.Builder{
+          public func clearHasregion() -> Motion.Message_.MotionRec.Builder{
                builderResult.hasHasregion = false
                builderResult.hasregion = false
                return self
           }
-          var hasCoordinates:Bool {
+          public var hasCoordinates:Bool {
                get {
                     return builderResult.hasCoordinates
                }
           }
-          var coordinates:String {
+          public var coordinates:String {
                get {
                     return builderResult.coordinates
                }
@@ -4570,21 +4760,21 @@ internal extension Motion {
                    builderResult.coordinates = value
                }
           }
-          func setCoordinates(value:String) -> Motion.Message_.MotionRec.Builder {
+          public func setCoordinates(_ value:String) -> Motion.Message_.MotionRec.Builder {
             self.coordinates = value
             return self
           }
-          internal func clearCoordinates() -> Motion.Message_.MotionRec.Builder{
+          public func clearCoordinates() -> Motion.Message_.MotionRec.Builder{
                builderResult.hasCoordinates = false
                builderResult.coordinates = ""
                return self
           }
-          var hasDelay:Bool {
+          public var hasDelay:Bool {
                get {
                     return builderResult.hasDelay
                }
           }
-          var delay:Int32 {
+          public var delay:Int32 {
                get {
                     return builderResult.delay
                }
@@ -4593,21 +4783,21 @@ internal extension Motion {
                    builderResult.delay = value
                }
           }
-          func setDelay(value:Int32) -> Motion.Message_.MotionRec.Builder {
+          public func setDelay(_ value:Int32) -> Motion.Message_.MotionRec.Builder {
             self.delay = value
             return self
           }
-          internal func clearDelay() -> Motion.Message_.MotionRec.Builder{
+          public func clearDelay() -> Motion.Message_.MotionRec.Builder{
                builderResult.hasDelay = false
                builderResult.delay = Int32(0)
                return self
           }
-          var hasStartrectime:Bool {
+          public var hasStartrectime:Bool {
                get {
                     return builderResult.hasStartrectime
                }
           }
-          var startrectime:String {
+          public var startrectime:String {
                get {
                     return builderResult.startrectime
                }
@@ -4616,21 +4806,21 @@ internal extension Motion {
                    builderResult.startrectime = value
                }
           }
-          func setStartrectime(value:String) -> Motion.Message_.MotionRec.Builder {
+          public func setStartrectime(_ value:String) -> Motion.Message_.MotionRec.Builder {
             self.startrectime = value
             return self
           }
-          internal func clearStartrectime() -> Motion.Message_.MotionRec.Builder{
+          public func clearStartrectime() -> Motion.Message_.MotionRec.Builder{
                builderResult.hasStartrectime = false
                builderResult.startrectime = ""
                return self
           }
-          var hasStoprectime:Bool {
+          public var hasStoprectime:Bool {
                get {
                     return builderResult.hasStoprectime
                }
           }
-          var stoprectime:String {
+          public var stoprectime:String {
                get {
                     return builderResult.stoprectime
                }
@@ -4639,21 +4829,21 @@ internal extension Motion {
                    builderResult.stoprectime = value
                }
           }
-          func setStoprectime(value:String) -> Motion.Message_.MotionRec.Builder {
+          public func setStoprectime(_ value:String) -> Motion.Message_.MotionRec.Builder {
             self.stoprectime = value
             return self
           }
-          internal func clearStoprectime() -> Motion.Message_.MotionRec.Builder{
+          public func clearStoprectime() -> Motion.Message_.MotionRec.Builder{
                builderResult.hasStoprectime = false
                builderResult.stoprectime = ""
                return self
           }
-          var hasRunatstartup:Bool {
+          public var hasRunatstartup:Bool {
                get {
                     return builderResult.hasRunatstartup
                }
           }
-          var runatstartup:Bool {
+          public var runatstartup:Bool {
                get {
                     return builderResult.runatstartup
                }
@@ -4662,21 +4852,21 @@ internal extension Motion {
                    builderResult.runatstartup = value
                }
           }
-          func setRunatstartup(value:Bool) -> Motion.Message_.MotionRec.Builder {
+          public func setRunatstartup(_ value:Bool) -> Motion.Message_.MotionRec.Builder {
             self.runatstartup = value
             return self
           }
-          internal func clearRunatstartup() -> Motion.Message_.MotionRec.Builder{
+          public func clearRunatstartup() -> Motion.Message_.MotionRec.Builder{
                builderResult.hasRunatstartup = false
                builderResult.runatstartup = false
                return self
           }
-          var hasActivemat:Bool {
+          public var hasActivemat:Bool {
                get {
                     return builderResult.hasActivemat
                }
           }
-          var activemat:Int32 {
+          public var activemat:Int32 {
                get {
                     return builderResult.activemat
                }
@@ -4685,21 +4875,21 @@ internal extension Motion {
                    builderResult.activemat = value
                }
           }
-          func setActivemat(value:Int32) -> Motion.Message_.MotionRec.Builder {
+          public func setActivemat(_ value:Int32) -> Motion.Message_.MotionRec.Builder {
             self.activemat = value
             return self
           }
-          internal func clearActivemat() -> Motion.Message_.MotionRec.Builder{
+          public func clearActivemat() -> Motion.Message_.MotionRec.Builder{
                builderResult.hasActivemat = false
                builderResult.activemat = Int32(0)
                return self
           }
-          var hasDbIdmat:Bool {
+          public var hasDbIdmat:Bool {
                get {
                     return builderResult.hasDbIdmat
                }
           }
-          var dbIdmat:Int32 {
+          public var dbIdmat:Int32 {
                get {
                     return builderResult.dbIdmat
                }
@@ -4708,21 +4898,21 @@ internal extension Motion {
                    builderResult.dbIdmat = value
                }
           }
-          func setDbIdmat(value:Int32) -> Motion.Message_.MotionRec.Builder {
+          public func setDbIdmat(_ value:Int32) -> Motion.Message_.MotionRec.Builder {
             self.dbIdmat = value
             return self
           }
-          internal func clearDbIdmat() -> Motion.Message_.MotionRec.Builder{
+          public func clearDbIdmat() -> Motion.Message_.MotionRec.Builder{
                builderResult.hasDbIdmat = false
                builderResult.dbIdmat = Int32(0)
                return self
           }
-          var hasDbIdcoordinates:Bool {
+          public var hasDbIdcoordinates:Bool {
                get {
                     return builderResult.hasDbIdcoordinates
                }
           }
-          var dbIdcoordinates:Int32 {
+          public var dbIdcoordinates:Int32 {
                get {
                     return builderResult.dbIdcoordinates
                }
@@ -4731,21 +4921,21 @@ internal extension Motion {
                    builderResult.dbIdcoordinates = value
                }
           }
-          func setDbIdcoordinates(value:Int32) -> Motion.Message_.MotionRec.Builder {
+          public func setDbIdcoordinates(_ value:Int32) -> Motion.Message_.MotionRec.Builder {
             self.dbIdcoordinates = value
             return self
           }
-          internal func clearDbIdcoordinates() -> Motion.Message_.MotionRec.Builder{
+          public func clearDbIdcoordinates() -> Motion.Message_.MotionRec.Builder{
                builderResult.hasDbIdcoordinates = false
                builderResult.dbIdcoordinates = Int32(0)
                return self
           }
-          var hasDbIntervalid:Bool {
+          public var hasDbIntervalid:Bool {
                get {
                     return builderResult.hasDbIntervalid
                }
           }
-          var dbIntervalid:Int32 {
+          public var dbIntervalid:Int32 {
                get {
                     return builderResult.dbIntervalid
                }
@@ -4754,21 +4944,21 @@ internal extension Motion {
                    builderResult.dbIntervalid = value
                }
           }
-          func setDbIntervalid(value:Int32) -> Motion.Message_.MotionRec.Builder {
+          public func setDbIntervalid(_ value:Int32) -> Motion.Message_.MotionRec.Builder {
             self.dbIntervalid = value
             return self
           }
-          internal func clearDbIntervalid() -> Motion.Message_.MotionRec.Builder{
+          public func clearDbIntervalid() -> Motion.Message_.MotionRec.Builder{
                builderResult.hasDbIntervalid = false
                builderResult.dbIntervalid = Int32(0)
                return self
           }
-          var hasMatcols:Bool {
+          public var hasMatcols:Bool {
                get {
                     return builderResult.hasMatcols
                }
           }
-          var matcols:Int32 {
+          public var matcols:Int32 {
                get {
                     return builderResult.matcols
                }
@@ -4777,21 +4967,21 @@ internal extension Motion {
                    builderResult.matcols = value
                }
           }
-          func setMatcols(value:Int32) -> Motion.Message_.MotionRec.Builder {
+          public func setMatcols(_ value:Int32) -> Motion.Message_.MotionRec.Builder {
             self.matcols = value
             return self
           }
-          internal func clearMatcols() -> Motion.Message_.MotionRec.Builder{
+          public func clearMatcols() -> Motion.Message_.MotionRec.Builder{
                builderResult.hasMatcols = false
                builderResult.matcols = Int32(0)
                return self
           }
-          var hasMatrows:Bool {
+          public var hasMatrows:Bool {
                get {
                     return builderResult.hasMatrows
                }
           }
-          var matrows:Int32 {
+          public var matrows:Int32 {
                get {
                     return builderResult.matrows
                }
@@ -4800,21 +4990,21 @@ internal extension Motion {
                    builderResult.matrows = value
                }
           }
-          func setMatrows(value:Int32) -> Motion.Message_.MotionRec.Builder {
+          public func setMatrows(_ value:Int32) -> Motion.Message_.MotionRec.Builder {
             self.matrows = value
             return self
           }
-          internal func clearMatrows() -> Motion.Message_.MotionRec.Builder{
+          public func clearMatrows() -> Motion.Message_.MotionRec.Builder{
                builderResult.hasMatrows = false
                builderResult.matrows = Int32(0)
                return self
           }
-          var hasMatwidth:Bool {
+          public var hasMatwidth:Bool {
                get {
                     return builderResult.hasMatwidth
                }
           }
-          var matwidth:Int32 {
+          public var matwidth:Int32 {
                get {
                     return builderResult.matwidth
                }
@@ -4823,21 +5013,21 @@ internal extension Motion {
                    builderResult.matwidth = value
                }
           }
-          func setMatwidth(value:Int32) -> Motion.Message_.MotionRec.Builder {
+          public func setMatwidth(_ value:Int32) -> Motion.Message_.MotionRec.Builder {
             self.matwidth = value
             return self
           }
-          internal func clearMatwidth() -> Motion.Message_.MotionRec.Builder{
+          public func clearMatwidth() -> Motion.Message_.MotionRec.Builder{
                builderResult.hasMatwidth = false
                builderResult.matwidth = Int32(0)
                return self
           }
-          var hasMatheight:Bool {
+          public var hasMatheight:Bool {
                get {
                     return builderResult.hasMatheight
                }
           }
-          var matheight:Int32 {
+          public var matheight:Int32 {
                get {
                     return builderResult.matheight
                }
@@ -4846,21 +5036,21 @@ internal extension Motion {
                    builderResult.matheight = value
                }
           }
-          func setMatheight(value:Int32) -> Motion.Message_.MotionRec.Builder {
+          public func setMatheight(_ value:Int32) -> Motion.Message_.MotionRec.Builder {
             self.matheight = value
             return self
           }
-          internal func clearMatheight() -> Motion.Message_.MotionRec.Builder{
+          public func clearMatheight() -> Motion.Message_.MotionRec.Builder{
                builderResult.hasMatheight = false
                builderResult.matheight = Int32(0)
                return self
           }
-          var hasLastinstance:Bool {
+          public var hasLastinstance:Bool {
                get {
                     return builderResult.hasLastinstance
                }
           }
-          var lastinstance:String {
+          public var lastinstance:String {
                get {
                     return builderResult.lastinstance
                }
@@ -4869,21 +5059,21 @@ internal extension Motion {
                    builderResult.lastinstance = value
                }
           }
-          func setLastinstance(value:String) -> Motion.Message_.MotionRec.Builder {
+          public func setLastinstance(_ value:String) -> Motion.Message_.MotionRec.Builder {
             self.lastinstance = value
             return self
           }
-          internal func clearLastinstance() -> Motion.Message_.MotionRec.Builder{
+          public func clearLastinstance() -> Motion.Message_.MotionRec.Builder{
                builderResult.hasLastinstance = false
                builderResult.lastinstance = ""
                return self
           }
-          var hasDbIdmonth:Bool {
+          public var hasDbIdmonth:Bool {
                get {
                     return builderResult.hasDbIdmonth
                }
           }
-          var dbIdmonth:Int32 {
+          public var dbIdmonth:Int32 {
                get {
                     return builderResult.dbIdmonth
                }
@@ -4892,21 +5082,21 @@ internal extension Motion {
                    builderResult.dbIdmonth = value
                }
           }
-          func setDbIdmonth(value:Int32) -> Motion.Message_.MotionRec.Builder {
+          public func setDbIdmonth(_ value:Int32) -> Motion.Message_.MotionRec.Builder {
             self.dbIdmonth = value
             return self
           }
-          internal func clearDbIdmonth() -> Motion.Message_.MotionRec.Builder{
+          public func clearDbIdmonth() -> Motion.Message_.MotionRec.Builder{
                builderResult.hasDbIdmonth = false
                builderResult.dbIdmonth = Int32(0)
                return self
           }
-          var hasDbIdday:Bool {
+          public var hasDbIdday:Bool {
                get {
                     return builderResult.hasDbIdday
                }
           }
-          var dbIdday:Int32 {
+          public var dbIdday:Int32 {
                get {
                     return builderResult.dbIdday
                }
@@ -4915,21 +5105,21 @@ internal extension Motion {
                    builderResult.dbIdday = value
                }
           }
-          func setDbIdday(value:Int32) -> Motion.Message_.MotionRec.Builder {
+          public func setDbIdday(_ value:Int32) -> Motion.Message_.MotionRec.Builder {
             self.dbIdday = value
             return self
           }
-          internal func clearDbIdday() -> Motion.Message_.MotionRec.Builder{
+          public func clearDbIdday() -> Motion.Message_.MotionRec.Builder{
                builderResult.hasDbIdday = false
                builderResult.dbIdday = Int32(0)
                return self
           }
-          var hasXmlfilepath:Bool {
+          public var hasXmlfilepath:Bool {
                get {
                     return builderResult.hasXmlfilepath
                }
           }
-          var xmlfilepath:String {
+          public var xmlfilepath:String {
                get {
                     return builderResult.xmlfilepath
                }
@@ -4938,21 +5128,21 @@ internal extension Motion {
                    builderResult.xmlfilepath = value
                }
           }
-          func setXmlfilepath(value:String) -> Motion.Message_.MotionRec.Builder {
+          public func setXmlfilepath(_ value:String) -> Motion.Message_.MotionRec.Builder {
             self.xmlfilepath = value
             return self
           }
-          internal func clearXmlfilepath() -> Motion.Message_.MotionRec.Builder{
+          public func clearXmlfilepath() -> Motion.Message_.MotionRec.Builder{
                builderResult.hasXmlfilepath = false
                builderResult.xmlfilepath = ""
                return self
           }
-          var hasDbRecognitionsetupid:Bool {
+          public var hasDbRecognitionsetupid:Bool {
                get {
                     return builderResult.hasDbRecognitionsetupid
                }
           }
-          var dbRecognitionsetupid:Int32 {
+          public var dbRecognitionsetupid:Int32 {
                get {
                     return builderResult.dbRecognitionsetupid
                }
@@ -4961,21 +5151,21 @@ internal extension Motion {
                    builderResult.dbRecognitionsetupid = value
                }
           }
-          func setDbRecognitionsetupid(value:Int32) -> Motion.Message_.MotionRec.Builder {
+          public func setDbRecognitionsetupid(_ value:Int32) -> Motion.Message_.MotionRec.Builder {
             self.dbRecognitionsetupid = value
             return self
           }
-          internal func clearDbRecognitionsetupid() -> Motion.Message_.MotionRec.Builder{
+          public func clearDbRecognitionsetupid() -> Motion.Message_.MotionRec.Builder{
                builderResult.hasDbRecognitionsetupid = false
                builderResult.dbRecognitionsetupid = Int32(0)
                return self
           }
-          var hasHascron:Bool {
+          public var hasHascron:Bool {
                get {
                     return builderResult.hasHascron
                }
           }
-          var hascron:Bool {
+          public var hascron:Bool {
                get {
                     return builderResult.hascron
                }
@@ -4984,16 +5174,16 @@ internal extension Motion {
                    builderResult.hascron = value
                }
           }
-          func setHascron(value:Bool) -> Motion.Message_.MotionRec.Builder {
+          public func setHascron(_ value:Bool) -> Motion.Message_.MotionRec.Builder {
             self.hascron = value
             return self
           }
-          internal func clearHascron() -> Motion.Message_.MotionRec.Builder{
+          public func clearHascron() -> Motion.Message_.MotionRec.Builder{
                builderResult.hasHascron = false
                builderResult.hascron = false
                return self
           }
-          var motioncron:Array<Motion.Message_.MotionCron> {
+          public var motioncron:Array<Motion.Message_.MotionCron> {
                get {
                    return builderResult.motioncron
                }
@@ -5001,20 +5191,20 @@ internal extension Motion {
                    builderResult.motioncron = value
                }
           }
-          func setMotioncron(value:Array<Motion.Message_.MotionCron>) -> Motion.Message_.MotionRec.Builder {
+          public func setMotioncron(_ value:Array<Motion.Message_.MotionCron>) -> Motion.Message_.MotionRec.Builder {
             self.motioncron = value
             return self
           }
-          internal func clearMotioncron() -> Motion.Message_.MotionRec.Builder {
+          public func clearMotioncron() -> Motion.Message_.MotionRec.Builder {
             builderResult.motioncron.removeAll(keepCapacity: false)
             return self
           }
-          var hasSpeed:Bool {
+          public var hasSpeed:Bool {
                get {
                     return builderResult.hasSpeed
                }
           }
-          var speed:Int32 {
+          public var speed:Int32 {
                get {
                     return builderResult.speed
                }
@@ -5023,21 +5213,21 @@ internal extension Motion {
                    builderResult.speed = value
                }
           }
-          func setSpeed(value:Int32) -> Motion.Message_.MotionRec.Builder {
+          public func setSpeed(_ value:Int32) -> Motion.Message_.MotionRec.Builder {
             self.speed = value
             return self
           }
-          internal func clearSpeed() -> Motion.Message_.MotionRec.Builder{
+          public func clearSpeed() -> Motion.Message_.MotionRec.Builder{
                builderResult.hasSpeed = false
                builderResult.speed = Int32(0)
                return self
           }
-          var hasActiverec:Bool {
+          public var hasActiverec:Bool {
                get {
                     return builderResult.hasActiverec
                }
           }
-          var activerec:Int32 {
+          public var activerec:Int32 {
                get {
                     return builderResult.activerec
                }
@@ -5046,21 +5236,21 @@ internal extension Motion {
                    builderResult.activerec = value
                }
           }
-          func setActiverec(value:Int32) -> Motion.Message_.MotionRec.Builder {
+          public func setActiverec(_ value:Int32) -> Motion.Message_.MotionRec.Builder {
             self.activerec = value
             return self
           }
-          internal func clearActiverec() -> Motion.Message_.MotionRec.Builder{
+          public func clearActiverec() -> Motion.Message_.MotionRec.Builder{
                builderResult.hasActiverec = false
                builderResult.activerec = Int32(0)
                return self
           }
-          var hasMatbasefile:Bool {
+          public var hasMatbasefile:Bool {
                get {
                     return builderResult.hasMatbasefile
                }
           }
-          var matbasefile:String {
+          public var matbasefile:String {
                get {
                     return builderResult.matbasefile
                }
@@ -5069,21 +5259,21 @@ internal extension Motion {
                    builderResult.matbasefile = value
                }
           }
-          func setMatbasefile(value:String) -> Motion.Message_.MotionRec.Builder {
+          public func setMatbasefile(_ value:String) -> Motion.Message_.MotionRec.Builder {
             self.matbasefile = value
             return self
           }
-          internal func clearMatbasefile() -> Motion.Message_.MotionRec.Builder{
+          public func clearMatbasefile() -> Motion.Message_.MotionRec.Builder{
                builderResult.hasMatbasefile = false
                builderResult.matbasefile = ""
                return self
           }
-          var hasCreated:Bool {
+          public var hasCreated:Bool {
                get {
                     return builderResult.hasCreated
                }
           }
-          var created:String {
+          public var created:String {
                get {
                     return builderResult.created
                }
@@ -5092,36 +5282,36 @@ internal extension Motion {
                    builderResult.created = value
                }
           }
-          func setCreated(value:String) -> Motion.Message_.MotionRec.Builder {
+          public func setCreated(_ value:String) -> Motion.Message_.MotionRec.Builder {
             self.created = value
             return self
           }
-          internal func clearCreated() -> Motion.Message_.MotionRec.Builder{
+          public func clearCreated() -> Motion.Message_.MotionRec.Builder{
                builderResult.hasCreated = false
                builderResult.created = ""
                return self
           }
-          override internal var internalGetResult:GeneratedMessage {
+          override public var internalGetResult:GeneratedMessage {
                get {
                   return builderResult
                }
           }
-          internal override func clear() -> Motion.Message_.MotionRec.Builder {
+          public override func clear() -> Motion.Message_.MotionRec.Builder {
             builderResult = Motion.Message_.MotionRec()
             return self
           }
-          internal override func clone() throws -> Motion.Message_.MotionRec.Builder {
+          public override func clone() throws -> Motion.Message_.MotionRec.Builder {
             return try Motion.Message_.MotionRec.builderWithPrototype(builderResult)
           }
-          internal override func build() throws -> Motion.Message_.MotionRec {
+          public override func build() throws -> Motion.Message_.MotionRec {
                try checkInitialized()
                return buildPartial()
           }
-          internal func buildPartial() -> Motion.Message_.MotionRec {
+          public func buildPartial() -> Motion.Message_.MotionRec {
             let returnMe:Motion.Message_.MotionRec = builderResult
             return returnMe
           }
-          internal func mergeFrom(other:Motion.Message_.MotionRec) throws -> Motion.Message_.MotionRec.Builder {
+          public func mergeFrom(_ other:Motion.Message_.MotionRec) throws -> Motion.Message_.MotionRec.Builder {
             if other == Motion.Message_.MotionRec() {
              return self
             }
@@ -5230,14 +5420,14 @@ internal extension Motion {
             try mergeUnknownFields(other.unknownFields)
             return self
           }
-          internal override func mergeFromCodedInputStream(input:CodedInputStream) throws -> Motion.Message_.MotionRec.Builder {
+          public override func mergeFromCodedInputStream(_ input:CodedInputStream) throws -> Motion.Message_.MotionRec.Builder {
                return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
           }
-          internal override func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionRec.Builder {
+          public override func mergeFromCodedInputStream(_ input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionRec.Builder {
             let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
             while (true) {
-              let tag = try input.readTag()
-              switch tag {
+              let protobufTag = try input.readTag()
+              switch protobufTag {
               case 0: 
                 self.unknownFields = try unknownFieldsBuilder.build()
                 return self
@@ -5347,7 +5537,7 @@ internal extension Motion {
                 created = try input.readString()
 
               default:
-                if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:tag))) {
+                if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                    unknownFields = try unknownFieldsBuilder.build()
                    return self
                 }
@@ -5364,20 +5554,20 @@ internal extension Motion {
 
     //Nested type declaration start
 
-      final internal class MotionCron : GeneratedMessage, GeneratedMessageProtocol {
-        private(set) var hasCommand:Bool = false
-        private(set) var command:String = ""
+      final public class MotionCron : GeneratedMessage, GeneratedMessageProtocol {
+        public private(set) var command:String = ""
 
-        private(set) var hasProgram:Bool = false
-        private(set) var program:String = ""
+        public private(set) var hasCommand:Bool = false
+        public private(set) var program:String = ""
 
-        required internal init() {
+        public private(set) var hasProgram:Bool = false
+        required public init() {
              super.init()
         }
-        override internal func isInitialized() -> Bool {
+        override public func isInitialized() -> Bool {
          return true
         }
-        override internal func writeToCodedOutputStream(output:CodedOutputStream) throws {
+        override public func writeToCodedOutputStream(_ output:CodedOutputStream) throws {
           if hasCommand {
             try output.writeString(1, value:command)
           }
@@ -5386,7 +5576,7 @@ internal extension Motion {
           }
           try unknownFields.writeToCodedOutputStream(output)
         }
-        override internal func serializedSize() -> Int32 {
+        override public func serializedSize() -> Int32 {
           var serialize_size:Int32 = memoizedSerializedSize
           if serialize_size != -1 {
            return serialize_size
@@ -5403,62 +5593,64 @@ internal extension Motion {
           memoizedSerializedSize = serialize_size
           return serialize_size
         }
-        internal class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Motion.Message_.MotionCron> {
+        public class func parseArrayDelimitedFromInputStream(_ input:NSInputStream) throws -> Array<Motion.Message_.MotionCron> {
           var mergedArray = Array<Motion.Message_.MotionCron>()
           while let value = try parseFromDelimitedFromInputStream(input) {
             mergedArray += [value]
           }
           return mergedArray
         }
-        internal class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Motion.Message_.MotionCron? {
+        public class func parseFromDelimitedFromInputStream(_ input:NSInputStream) throws -> Motion.Message_.MotionCron? {
           return try Motion.Message_.MotionCron.Builder().mergeDelimitedFromInputStream(input)?.build()
         }
-        internal class func parseFromData(data:NSData) throws -> Motion.Message_.MotionCron {
+        public class func parseFromData(_ data:NSData) throws -> Motion.Message_.MotionCron {
           return try Motion.Message_.MotionCron.Builder().mergeFromData(data, extensionRegistry:Motion.MotionRoot.sharedInstance.extensionRegistry).build()
         }
-        internal class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionCron {
+        public class func parseFromData(_ data:NSData, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionCron {
           return try Motion.Message_.MotionCron.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
         }
-        internal class func parseFromInputStream(input:NSInputStream) throws -> Motion.Message_.MotionCron {
+        public class func parseFromInputStream(_ input:NSInputStream) throws -> Motion.Message_.MotionCron {
           return try Motion.Message_.MotionCron.Builder().mergeFromInputStream(input).build()
         }
-        internal class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionCron {
+        public class func parseFromInputStream(_ input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionCron {
           return try Motion.Message_.MotionCron.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
         }
-        internal class func parseFromCodedInputStream(input:CodedInputStream) throws -> Motion.Message_.MotionCron {
+        public class func parseFromCodedInputStream(_ input:CodedInputStream) throws -> Motion.Message_.MotionCron {
           return try Motion.Message_.MotionCron.Builder().mergeFromCodedInputStream(input).build()
         }
-        internal class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionCron {
+        public class func parseFromCodedInputStream(_ input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionCron {
           return try Motion.Message_.MotionCron.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
         }
-        internal class func getBuilder() -> Motion.Message_.MotionCron.Builder {
+        public class func getBuilder() -> Motion.Message_.MotionCron.Builder {
           return Motion.Message_.MotionCron.classBuilder() as! Motion.Message_.MotionCron.Builder
         }
-        internal func getBuilder() -> Motion.Message_.MotionCron.Builder {
+        public func getBuilder() -> Motion.Message_.MotionCron.Builder {
           return classBuilder() as! Motion.Message_.MotionCron.Builder
         }
-        internal override class func classBuilder() -> MessageBuilder {
+        public override class func classBuilder() -> MessageBuilder {
           return Motion.Message_.MotionCron.Builder()
         }
-        internal override func classBuilder() -> MessageBuilder {
+        public override func classBuilder() -> MessageBuilder {
           return Motion.Message_.MotionCron.Builder()
         }
-        internal func toBuilder() throws -> Motion.Message_.MotionCron.Builder {
+        public func toBuilder() throws -> Motion.Message_.MotionCron.Builder {
           return try Motion.Message_.MotionCron.builderWithPrototype(self)
         }
-        internal class func builderWithPrototype(prototype:Motion.Message_.MotionCron) throws -> Motion.Message_.MotionCron.Builder {
+        public class func builderWithPrototype(_ prototype:Motion.Message_.MotionCron) throws -> Motion.Message_.MotionCron.Builder {
           return try Motion.Message_.MotionCron.Builder().mergeFrom(prototype)
         }
-        override internal func writeDescriptionTo(inout output:String, indent:String) throws {
+        override public func getDescription(_ indent:String) throws -> String {
+          var output:String = ""
           if hasCommand {
             output += "\(indent) command: \(command) \n"
           }
           if hasProgram {
             output += "\(indent) program: \(program) \n"
           }
-          unknownFields.writeDescriptionTo(&output, indent:indent)
+          output += unknownFields.getDescription(indent)
+          return output
         }
-        override internal var hashValue:Int {
+        override public var hashValue:Int {
             get {
                 var hashCode:Int = 7
                 if hasCommand {
@@ -5475,32 +5667,32 @@ internal extension Motion {
 
         //Meta information declaration start
 
-        override internal class func className() -> String {
+        override public class func className() -> String {
             return "Motion.Message_.MotionCron"
         }
-        override internal func className() -> String {
+        override public func className() -> String {
             return "Motion.Message_.MotionCron"
         }
-        override internal func classMetaType() -> GeneratedMessage.Type {
+        override public func classMetaType() -> GeneratedMessage.Type {
             return Motion.Message_.MotionCron.self
         }
         //Meta information declaration end
 
-        final internal class Builder : GeneratedMessageBuilder {
+        final public class Builder : GeneratedMessageBuilder {
           private var builderResult:Motion.Message_.MotionCron = Motion.Message_.MotionCron()
-          internal func getMessage() -> Motion.Message_.MotionCron {
+          public func getMessage() -> Motion.Message_.MotionCron {
               return builderResult
           }
 
-          required override internal init () {
+          required override public init () {
              super.init()
           }
-          var hasCommand:Bool {
+          public var hasCommand:Bool {
                get {
                     return builderResult.hasCommand
                }
           }
-          var command:String {
+          public var command:String {
                get {
                     return builderResult.command
                }
@@ -5509,21 +5701,21 @@ internal extension Motion {
                    builderResult.command = value
                }
           }
-          func setCommand(value:String) -> Motion.Message_.MotionCron.Builder {
+          public func setCommand(_ value:String) -> Motion.Message_.MotionCron.Builder {
             self.command = value
             return self
           }
-          internal func clearCommand() -> Motion.Message_.MotionCron.Builder{
+          public func clearCommand() -> Motion.Message_.MotionCron.Builder{
                builderResult.hasCommand = false
                builderResult.command = ""
                return self
           }
-          var hasProgram:Bool {
+          public var hasProgram:Bool {
                get {
                     return builderResult.hasProgram
                }
           }
-          var program:String {
+          public var program:String {
                get {
                     return builderResult.program
                }
@@ -5532,36 +5724,36 @@ internal extension Motion {
                    builderResult.program = value
                }
           }
-          func setProgram(value:String) -> Motion.Message_.MotionCron.Builder {
+          public func setProgram(_ value:String) -> Motion.Message_.MotionCron.Builder {
             self.program = value
             return self
           }
-          internal func clearProgram() -> Motion.Message_.MotionCron.Builder{
+          public func clearProgram() -> Motion.Message_.MotionCron.Builder{
                builderResult.hasProgram = false
                builderResult.program = ""
                return self
           }
-          override internal var internalGetResult:GeneratedMessage {
+          override public var internalGetResult:GeneratedMessage {
                get {
                   return builderResult
                }
           }
-          internal override func clear() -> Motion.Message_.MotionCron.Builder {
+          public override func clear() -> Motion.Message_.MotionCron.Builder {
             builderResult = Motion.Message_.MotionCron()
             return self
           }
-          internal override func clone() throws -> Motion.Message_.MotionCron.Builder {
+          public override func clone() throws -> Motion.Message_.MotionCron.Builder {
             return try Motion.Message_.MotionCron.builderWithPrototype(builderResult)
           }
-          internal override func build() throws -> Motion.Message_.MotionCron {
+          public override func build() throws -> Motion.Message_.MotionCron {
                try checkInitialized()
                return buildPartial()
           }
-          internal func buildPartial() -> Motion.Message_.MotionCron {
+          public func buildPartial() -> Motion.Message_.MotionCron {
             let returnMe:Motion.Message_.MotionCron = builderResult
             return returnMe
           }
-          internal func mergeFrom(other:Motion.Message_.MotionCron) throws -> Motion.Message_.MotionCron.Builder {
+          public func mergeFrom(_ other:Motion.Message_.MotionCron) throws -> Motion.Message_.MotionCron.Builder {
             if other == Motion.Message_.MotionCron() {
              return self
             }
@@ -5574,14 +5766,14 @@ internal extension Motion {
             try mergeUnknownFields(other.unknownFields)
             return self
           }
-          internal override func mergeFromCodedInputStream(input:CodedInputStream) throws -> Motion.Message_.MotionCron.Builder {
+          public override func mergeFromCodedInputStream(_ input:CodedInputStream) throws -> Motion.Message_.MotionCron.Builder {
                return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
           }
-          internal override func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionCron.Builder {
+          public override func mergeFromCodedInputStream(_ input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionCron.Builder {
             let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
             while (true) {
-              let tag = try input.readTag()
-              switch tag {
+              let protobufTag = try input.readTag()
+              switch protobufTag {
               case 0: 
                 self.unknownFields = try unknownFieldsBuilder.build()
                 return self
@@ -5593,7 +5785,7 @@ internal extension Motion {
                 program = try input.readString()
 
               default:
-                if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:tag))) {
+                if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                    unknownFields = try unknownFieldsBuilder.build()
                    return self
                 }
@@ -5610,18 +5802,18 @@ internal extension Motion {
 
     //Nested type declaration start
 
-      final internal class MotionMonth : GeneratedMessage, GeneratedMessageProtocol {
-        private(set) var motionday:Array<Motion.Message_.MotionDay>  = Array<Motion.Message_.MotionDay>()
-        private(set) var hasMonthlabel:Bool = false
-        private(set) var monthlabel:String = ""
+      final public class MotionMonth : GeneratedMessage, GeneratedMessageProtocol {
+        public private(set) var motionday:Array<Motion.Message_.MotionDay>  = Array<Motion.Message_.MotionDay>()
+        public private(set) var monthlabel:String = ""
 
-        private(set) var hasDbMonthid:Bool = false
-        private(set) var dbMonthid:Int32 = Int32(0)
+        public private(set) var hasMonthlabel:Bool = false
+        public private(set) var dbMonthid:Int32 = Int32(0)
 
-        required internal init() {
+        public private(set) var hasDbMonthid:Bool = false
+        required public init() {
              super.init()
         }
-        override internal func isInitialized() -> Bool {
+        override public func isInitialized() -> Bool {
           var isInitmotionday:Bool = true
           for oneElementmotionday in motionday {
               if (!oneElementmotionday.isInitialized()) {
@@ -5634,7 +5826,7 @@ internal extension Motion {
            }
          return true
         }
-        override internal func writeToCodedOutputStream(output:CodedOutputStream) throws {
+        override public func writeToCodedOutputStream(_ output:CodedOutputStream) throws {
           for oneElementmotionday in motionday {
               try output.writeMessage(1, value:oneElementmotionday)
           }
@@ -5646,7 +5838,7 @@ internal extension Motion {
           }
           try unknownFields.writeToCodedOutputStream(output)
         }
-        override internal func serializedSize() -> Int32 {
+        override public func serializedSize() -> Int32 {
           var serialize_size:Int32 = memoizedSerializedSize
           if serialize_size != -1 {
            return serialize_size
@@ -5666,59 +5858,60 @@ internal extension Motion {
           memoizedSerializedSize = serialize_size
           return serialize_size
         }
-        internal class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Motion.Message_.MotionMonth> {
+        public class func parseArrayDelimitedFromInputStream(_ input:NSInputStream) throws -> Array<Motion.Message_.MotionMonth> {
           var mergedArray = Array<Motion.Message_.MotionMonth>()
           while let value = try parseFromDelimitedFromInputStream(input) {
             mergedArray += [value]
           }
           return mergedArray
         }
-        internal class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Motion.Message_.MotionMonth? {
+        public class func parseFromDelimitedFromInputStream(_ input:NSInputStream) throws -> Motion.Message_.MotionMonth? {
           return try Motion.Message_.MotionMonth.Builder().mergeDelimitedFromInputStream(input)?.build()
         }
-        internal class func parseFromData(data:NSData) throws -> Motion.Message_.MotionMonth {
+        public class func parseFromData(_ data:NSData) throws -> Motion.Message_.MotionMonth {
           return try Motion.Message_.MotionMonth.Builder().mergeFromData(data, extensionRegistry:Motion.MotionRoot.sharedInstance.extensionRegistry).build()
         }
-        internal class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionMonth {
+        public class func parseFromData(_ data:NSData, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionMonth {
           return try Motion.Message_.MotionMonth.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
         }
-        internal class func parseFromInputStream(input:NSInputStream) throws -> Motion.Message_.MotionMonth {
+        public class func parseFromInputStream(_ input:NSInputStream) throws -> Motion.Message_.MotionMonth {
           return try Motion.Message_.MotionMonth.Builder().mergeFromInputStream(input).build()
         }
-        internal class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionMonth {
+        public class func parseFromInputStream(_ input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionMonth {
           return try Motion.Message_.MotionMonth.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
         }
-        internal class func parseFromCodedInputStream(input:CodedInputStream) throws -> Motion.Message_.MotionMonth {
+        public class func parseFromCodedInputStream(_ input:CodedInputStream) throws -> Motion.Message_.MotionMonth {
           return try Motion.Message_.MotionMonth.Builder().mergeFromCodedInputStream(input).build()
         }
-        internal class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionMonth {
+        public class func parseFromCodedInputStream(_ input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionMonth {
           return try Motion.Message_.MotionMonth.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
         }
-        internal class func getBuilder() -> Motion.Message_.MotionMonth.Builder {
+        public class func getBuilder() -> Motion.Message_.MotionMonth.Builder {
           return Motion.Message_.MotionMonth.classBuilder() as! Motion.Message_.MotionMonth.Builder
         }
-        internal func getBuilder() -> Motion.Message_.MotionMonth.Builder {
+        public func getBuilder() -> Motion.Message_.MotionMonth.Builder {
           return classBuilder() as! Motion.Message_.MotionMonth.Builder
         }
-        internal override class func classBuilder() -> MessageBuilder {
+        public override class func classBuilder() -> MessageBuilder {
           return Motion.Message_.MotionMonth.Builder()
         }
-        internal override func classBuilder() -> MessageBuilder {
+        public override func classBuilder() -> MessageBuilder {
           return Motion.Message_.MotionMonth.Builder()
         }
-        internal func toBuilder() throws -> Motion.Message_.MotionMonth.Builder {
+        public func toBuilder() throws -> Motion.Message_.MotionMonth.Builder {
           return try Motion.Message_.MotionMonth.builderWithPrototype(self)
         }
-        internal class func builderWithPrototype(prototype:Motion.Message_.MotionMonth) throws -> Motion.Message_.MotionMonth.Builder {
+        public class func builderWithPrototype(_ prototype:Motion.Message_.MotionMonth) throws -> Motion.Message_.MotionMonth.Builder {
           return try Motion.Message_.MotionMonth.Builder().mergeFrom(prototype)
         }
-        override internal func writeDescriptionTo(inout output:String, indent:String) throws {
+        override public func getDescription(_ indent:String) throws -> String {
+          var output:String = ""
           var motiondayElementIndex:Int = 0
           for oneElementmotionday in motionday {
               output += "\(indent) motionday[\(motiondayElementIndex)] {\n"
-              try oneElementmotionday.writeDescriptionTo(&output, indent:"\(indent)  ")
+              output += try oneElementmotionday.getDescription("\(indent)  ")
               output += "\(indent)}\n"
-              motiondayElementIndex++
+              motiondayElementIndex += 1
           }
           if hasMonthlabel {
             output += "\(indent) monthlabel: \(monthlabel) \n"
@@ -5726,9 +5919,10 @@ internal extension Motion {
           if hasDbMonthid {
             output += "\(indent) dbMonthid: \(dbMonthid) \n"
           }
-          unknownFields.writeDescriptionTo(&output, indent:indent)
+          output += unknownFields.getDescription(indent)
+          return output
         }
-        override internal var hashValue:Int {
+        override public var hashValue:Int {
             get {
                 var hashCode:Int = 7
                 for oneElementmotionday in motionday {
@@ -5748,27 +5942,27 @@ internal extension Motion {
 
         //Meta information declaration start
 
-        override internal class func className() -> String {
+        override public class func className() -> String {
             return "Motion.Message_.MotionMonth"
         }
-        override internal func className() -> String {
+        override public func className() -> String {
             return "Motion.Message_.MotionMonth"
         }
-        override internal func classMetaType() -> GeneratedMessage.Type {
+        override public func classMetaType() -> GeneratedMessage.Type {
             return Motion.Message_.MotionMonth.self
         }
         //Meta information declaration end
 
-        final internal class Builder : GeneratedMessageBuilder {
+        final public class Builder : GeneratedMessageBuilder {
           private var builderResult:Motion.Message_.MotionMonth = Motion.Message_.MotionMonth()
-          internal func getMessage() -> Motion.Message_.MotionMonth {
+          public func getMessage() -> Motion.Message_.MotionMonth {
               return builderResult
           }
 
-          required override internal init () {
+          required override public init () {
              super.init()
           }
-          var motionday:Array<Motion.Message_.MotionDay> {
+          public var motionday:Array<Motion.Message_.MotionDay> {
                get {
                    return builderResult.motionday
                }
@@ -5776,20 +5970,20 @@ internal extension Motion {
                    builderResult.motionday = value
                }
           }
-          func setMotionday(value:Array<Motion.Message_.MotionDay>) -> Motion.Message_.MotionMonth.Builder {
+          public func setMotionday(_ value:Array<Motion.Message_.MotionDay>) -> Motion.Message_.MotionMonth.Builder {
             self.motionday = value
             return self
           }
-          internal func clearMotionday() -> Motion.Message_.MotionMonth.Builder {
+          public func clearMotionday() -> Motion.Message_.MotionMonth.Builder {
             builderResult.motionday.removeAll(keepCapacity: false)
             return self
           }
-          var hasMonthlabel:Bool {
+          public var hasMonthlabel:Bool {
                get {
                     return builderResult.hasMonthlabel
                }
           }
-          var monthlabel:String {
+          public var monthlabel:String {
                get {
                     return builderResult.monthlabel
                }
@@ -5798,21 +5992,21 @@ internal extension Motion {
                    builderResult.monthlabel = value
                }
           }
-          func setMonthlabel(value:String) -> Motion.Message_.MotionMonth.Builder {
+          public func setMonthlabel(_ value:String) -> Motion.Message_.MotionMonth.Builder {
             self.monthlabel = value
             return self
           }
-          internal func clearMonthlabel() -> Motion.Message_.MotionMonth.Builder{
+          public func clearMonthlabel() -> Motion.Message_.MotionMonth.Builder{
                builderResult.hasMonthlabel = false
                builderResult.monthlabel = ""
                return self
           }
-          var hasDbMonthid:Bool {
+          public var hasDbMonthid:Bool {
                get {
                     return builderResult.hasDbMonthid
                }
           }
-          var dbMonthid:Int32 {
+          public var dbMonthid:Int32 {
                get {
                     return builderResult.dbMonthid
                }
@@ -5821,36 +6015,36 @@ internal extension Motion {
                    builderResult.dbMonthid = value
                }
           }
-          func setDbMonthid(value:Int32) -> Motion.Message_.MotionMonth.Builder {
+          public func setDbMonthid(_ value:Int32) -> Motion.Message_.MotionMonth.Builder {
             self.dbMonthid = value
             return self
           }
-          internal func clearDbMonthid() -> Motion.Message_.MotionMonth.Builder{
+          public func clearDbMonthid() -> Motion.Message_.MotionMonth.Builder{
                builderResult.hasDbMonthid = false
                builderResult.dbMonthid = Int32(0)
                return self
           }
-          override internal var internalGetResult:GeneratedMessage {
+          override public var internalGetResult:GeneratedMessage {
                get {
                   return builderResult
                }
           }
-          internal override func clear() -> Motion.Message_.MotionMonth.Builder {
+          public override func clear() -> Motion.Message_.MotionMonth.Builder {
             builderResult = Motion.Message_.MotionMonth()
             return self
           }
-          internal override func clone() throws -> Motion.Message_.MotionMonth.Builder {
+          public override func clone() throws -> Motion.Message_.MotionMonth.Builder {
             return try Motion.Message_.MotionMonth.builderWithPrototype(builderResult)
           }
-          internal override func build() throws -> Motion.Message_.MotionMonth {
+          public override func build() throws -> Motion.Message_.MotionMonth {
                try checkInitialized()
                return buildPartial()
           }
-          internal func buildPartial() -> Motion.Message_.MotionMonth {
+          public func buildPartial() -> Motion.Message_.MotionMonth {
             let returnMe:Motion.Message_.MotionMonth = builderResult
             return returnMe
           }
-          internal func mergeFrom(other:Motion.Message_.MotionMonth) throws -> Motion.Message_.MotionMonth.Builder {
+          public func mergeFrom(_ other:Motion.Message_.MotionMonth) throws -> Motion.Message_.MotionMonth.Builder {
             if other == Motion.Message_.MotionMonth() {
              return self
             }
@@ -5866,14 +6060,14 @@ internal extension Motion {
             try mergeUnknownFields(other.unknownFields)
             return self
           }
-          internal override func mergeFromCodedInputStream(input:CodedInputStream) throws -> Motion.Message_.MotionMonth.Builder {
+          public override func mergeFromCodedInputStream(_ input:CodedInputStream) throws -> Motion.Message_.MotionMonth.Builder {
                return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
           }
-          internal override func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionMonth.Builder {
+          public override func mergeFromCodedInputStream(_ input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionMonth.Builder {
             let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
             while (true) {
-              let tag = try input.readTag()
-              switch tag {
+              let protobufTag = try input.readTag()
+              switch protobufTag {
               case 0: 
                 self.unknownFields = try unknownFieldsBuilder.build()
                 return self
@@ -5890,7 +6084,7 @@ internal extension Motion {
                 dbMonthid = try input.readInt32()
 
               default:
-                if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:tag))) {
+                if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                    unknownFields = try unknownFieldsBuilder.build()
                    return self
                 }
@@ -5907,24 +6101,24 @@ internal extension Motion {
 
     //Nested type declaration start
 
-      final internal class MotionDay : GeneratedMessage, GeneratedMessageProtocol {
-        private(set) var instance:Array<Motion.Message_.Instance>  = Array<Motion.Message_.Instance>()
-        private(set) var hasDaylabel:Bool = false
-        private(set) var daylabel:String = ""
+      final public class MotionDay : GeneratedMessage, GeneratedMessageProtocol {
+        public private(set) var instance:Array<Motion.Message_.Instance>  = Array<Motion.Message_.Instance>()
+        public private(set) var daylabel:String = ""
 
-        private(set) var hasDbDayid:Bool = false
-        private(set) var dbDayid:Int32 = Int32(0)
+        public private(set) var hasDaylabel:Bool = false
+        public private(set) var dbDayid:Int32 = Int32(0)
 
-        private(set) var hasXmlfilepath:Bool = false
-        private(set) var xmlfilepath:String = ""
+        public private(set) var hasDbDayid:Bool = false
+        public private(set) var xmlfilepath:String = ""
 
-        private(set) var hasTitle:Bool = false
-        private(set) var title:String = ""
+        public private(set) var hasXmlfilepath:Bool = false
+        public private(set) var title:String = ""
 
-        required internal init() {
+        public private(set) var hasTitle:Bool = false
+        required public init() {
              super.init()
         }
-        override internal func isInitialized() -> Bool {
+        override public func isInitialized() -> Bool {
           var isInitinstance:Bool = true
           for oneElementinstance in instance {
               if (!oneElementinstance.isInitialized()) {
@@ -5937,7 +6131,7 @@ internal extension Motion {
            }
          return true
         }
-        override internal func writeToCodedOutputStream(output:CodedOutputStream) throws {
+        override public func writeToCodedOutputStream(_ output:CodedOutputStream) throws {
           for oneElementinstance in instance {
               try output.writeMessage(1, value:oneElementinstance)
           }
@@ -5955,7 +6149,7 @@ internal extension Motion {
           }
           try unknownFields.writeToCodedOutputStream(output)
         }
-        override internal func serializedSize() -> Int32 {
+        override public func serializedSize() -> Int32 {
           var serialize_size:Int32 = memoizedSerializedSize
           if serialize_size != -1 {
            return serialize_size
@@ -5981,59 +6175,60 @@ internal extension Motion {
           memoizedSerializedSize = serialize_size
           return serialize_size
         }
-        internal class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Motion.Message_.MotionDay> {
+        public class func parseArrayDelimitedFromInputStream(_ input:NSInputStream) throws -> Array<Motion.Message_.MotionDay> {
           var mergedArray = Array<Motion.Message_.MotionDay>()
           while let value = try parseFromDelimitedFromInputStream(input) {
             mergedArray += [value]
           }
           return mergedArray
         }
-        internal class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Motion.Message_.MotionDay? {
+        public class func parseFromDelimitedFromInputStream(_ input:NSInputStream) throws -> Motion.Message_.MotionDay? {
           return try Motion.Message_.MotionDay.Builder().mergeDelimitedFromInputStream(input)?.build()
         }
-        internal class func parseFromData(data:NSData) throws -> Motion.Message_.MotionDay {
+        public class func parseFromData(_ data:NSData) throws -> Motion.Message_.MotionDay {
           return try Motion.Message_.MotionDay.Builder().mergeFromData(data, extensionRegistry:Motion.MotionRoot.sharedInstance.extensionRegistry).build()
         }
-        internal class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionDay {
+        public class func parseFromData(_ data:NSData, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionDay {
           return try Motion.Message_.MotionDay.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
         }
-        internal class func parseFromInputStream(input:NSInputStream) throws -> Motion.Message_.MotionDay {
+        public class func parseFromInputStream(_ input:NSInputStream) throws -> Motion.Message_.MotionDay {
           return try Motion.Message_.MotionDay.Builder().mergeFromInputStream(input).build()
         }
-        internal class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionDay {
+        public class func parseFromInputStream(_ input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionDay {
           return try Motion.Message_.MotionDay.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
         }
-        internal class func parseFromCodedInputStream(input:CodedInputStream) throws -> Motion.Message_.MotionDay {
+        public class func parseFromCodedInputStream(_ input:CodedInputStream) throws -> Motion.Message_.MotionDay {
           return try Motion.Message_.MotionDay.Builder().mergeFromCodedInputStream(input).build()
         }
-        internal class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionDay {
+        public class func parseFromCodedInputStream(_ input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionDay {
           return try Motion.Message_.MotionDay.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
         }
-        internal class func getBuilder() -> Motion.Message_.MotionDay.Builder {
+        public class func getBuilder() -> Motion.Message_.MotionDay.Builder {
           return Motion.Message_.MotionDay.classBuilder() as! Motion.Message_.MotionDay.Builder
         }
-        internal func getBuilder() -> Motion.Message_.MotionDay.Builder {
+        public func getBuilder() -> Motion.Message_.MotionDay.Builder {
           return classBuilder() as! Motion.Message_.MotionDay.Builder
         }
-        internal override class func classBuilder() -> MessageBuilder {
+        public override class func classBuilder() -> MessageBuilder {
           return Motion.Message_.MotionDay.Builder()
         }
-        internal override func classBuilder() -> MessageBuilder {
+        public override func classBuilder() -> MessageBuilder {
           return Motion.Message_.MotionDay.Builder()
         }
-        internal func toBuilder() throws -> Motion.Message_.MotionDay.Builder {
+        public func toBuilder() throws -> Motion.Message_.MotionDay.Builder {
           return try Motion.Message_.MotionDay.builderWithPrototype(self)
         }
-        internal class func builderWithPrototype(prototype:Motion.Message_.MotionDay) throws -> Motion.Message_.MotionDay.Builder {
+        public class func builderWithPrototype(_ prototype:Motion.Message_.MotionDay) throws -> Motion.Message_.MotionDay.Builder {
           return try Motion.Message_.MotionDay.Builder().mergeFrom(prototype)
         }
-        override internal func writeDescriptionTo(inout output:String, indent:String) throws {
+        override public func getDescription(_ indent:String) throws -> String {
+          var output:String = ""
           var instanceElementIndex:Int = 0
           for oneElementinstance in instance {
               output += "\(indent) instance[\(instanceElementIndex)] {\n"
-              try oneElementinstance.writeDescriptionTo(&output, indent:"\(indent)  ")
+              output += try oneElementinstance.getDescription("\(indent)  ")
               output += "\(indent)}\n"
-              instanceElementIndex++
+              instanceElementIndex += 1
           }
           if hasDaylabel {
             output += "\(indent) daylabel: \(daylabel) \n"
@@ -6047,9 +6242,10 @@ internal extension Motion {
           if hasTitle {
             output += "\(indent) title: \(title) \n"
           }
-          unknownFields.writeDescriptionTo(&output, indent:indent)
+          output += unknownFields.getDescription(indent)
+          return output
         }
-        override internal var hashValue:Int {
+        override public var hashValue:Int {
             get {
                 var hashCode:Int = 7
                 for oneElementinstance in instance {
@@ -6075,27 +6271,27 @@ internal extension Motion {
 
         //Meta information declaration start
 
-        override internal class func className() -> String {
+        override public class func className() -> String {
             return "Motion.Message_.MotionDay"
         }
-        override internal func className() -> String {
+        override public func className() -> String {
             return "Motion.Message_.MotionDay"
         }
-        override internal func classMetaType() -> GeneratedMessage.Type {
+        override public func classMetaType() -> GeneratedMessage.Type {
             return Motion.Message_.MotionDay.self
         }
         //Meta information declaration end
 
-        final internal class Builder : GeneratedMessageBuilder {
+        final public class Builder : GeneratedMessageBuilder {
           private var builderResult:Motion.Message_.MotionDay = Motion.Message_.MotionDay()
-          internal func getMessage() -> Motion.Message_.MotionDay {
+          public func getMessage() -> Motion.Message_.MotionDay {
               return builderResult
           }
 
-          required override internal init () {
+          required override public init () {
              super.init()
           }
-          var instance:Array<Motion.Message_.Instance> {
+          public var instance:Array<Motion.Message_.Instance> {
                get {
                    return builderResult.instance
                }
@@ -6103,20 +6299,20 @@ internal extension Motion {
                    builderResult.instance = value
                }
           }
-          func setInstance(value:Array<Motion.Message_.Instance>) -> Motion.Message_.MotionDay.Builder {
+          public func setInstance(_ value:Array<Motion.Message_.Instance>) -> Motion.Message_.MotionDay.Builder {
             self.instance = value
             return self
           }
-          internal func clearInstance() -> Motion.Message_.MotionDay.Builder {
+          public func clearInstance() -> Motion.Message_.MotionDay.Builder {
             builderResult.instance.removeAll(keepCapacity: false)
             return self
           }
-          var hasDaylabel:Bool {
+          public var hasDaylabel:Bool {
                get {
                     return builderResult.hasDaylabel
                }
           }
-          var daylabel:String {
+          public var daylabel:String {
                get {
                     return builderResult.daylabel
                }
@@ -6125,21 +6321,21 @@ internal extension Motion {
                    builderResult.daylabel = value
                }
           }
-          func setDaylabel(value:String) -> Motion.Message_.MotionDay.Builder {
+          public func setDaylabel(_ value:String) -> Motion.Message_.MotionDay.Builder {
             self.daylabel = value
             return self
           }
-          internal func clearDaylabel() -> Motion.Message_.MotionDay.Builder{
+          public func clearDaylabel() -> Motion.Message_.MotionDay.Builder{
                builderResult.hasDaylabel = false
                builderResult.daylabel = ""
                return self
           }
-          var hasDbDayid:Bool {
+          public var hasDbDayid:Bool {
                get {
                     return builderResult.hasDbDayid
                }
           }
-          var dbDayid:Int32 {
+          public var dbDayid:Int32 {
                get {
                     return builderResult.dbDayid
                }
@@ -6148,21 +6344,21 @@ internal extension Motion {
                    builderResult.dbDayid = value
                }
           }
-          func setDbDayid(value:Int32) -> Motion.Message_.MotionDay.Builder {
+          public func setDbDayid(_ value:Int32) -> Motion.Message_.MotionDay.Builder {
             self.dbDayid = value
             return self
           }
-          internal func clearDbDayid() -> Motion.Message_.MotionDay.Builder{
+          public func clearDbDayid() -> Motion.Message_.MotionDay.Builder{
                builderResult.hasDbDayid = false
                builderResult.dbDayid = Int32(0)
                return self
           }
-          var hasXmlfilepath:Bool {
+          public var hasXmlfilepath:Bool {
                get {
                     return builderResult.hasXmlfilepath
                }
           }
-          var xmlfilepath:String {
+          public var xmlfilepath:String {
                get {
                     return builderResult.xmlfilepath
                }
@@ -6171,21 +6367,21 @@ internal extension Motion {
                    builderResult.xmlfilepath = value
                }
           }
-          func setXmlfilepath(value:String) -> Motion.Message_.MotionDay.Builder {
+          public func setXmlfilepath(_ value:String) -> Motion.Message_.MotionDay.Builder {
             self.xmlfilepath = value
             return self
           }
-          internal func clearXmlfilepath() -> Motion.Message_.MotionDay.Builder{
+          public func clearXmlfilepath() -> Motion.Message_.MotionDay.Builder{
                builderResult.hasXmlfilepath = false
                builderResult.xmlfilepath = ""
                return self
           }
-          var hasTitle:Bool {
+          public var hasTitle:Bool {
                get {
                     return builderResult.hasTitle
                }
           }
-          var title:String {
+          public var title:String {
                get {
                     return builderResult.title
                }
@@ -6194,36 +6390,36 @@ internal extension Motion {
                    builderResult.title = value
                }
           }
-          func setTitle(value:String) -> Motion.Message_.MotionDay.Builder {
+          public func setTitle(_ value:String) -> Motion.Message_.MotionDay.Builder {
             self.title = value
             return self
           }
-          internal func clearTitle() -> Motion.Message_.MotionDay.Builder{
+          public func clearTitle() -> Motion.Message_.MotionDay.Builder{
                builderResult.hasTitle = false
                builderResult.title = ""
                return self
           }
-          override internal var internalGetResult:GeneratedMessage {
+          override public var internalGetResult:GeneratedMessage {
                get {
                   return builderResult
                }
           }
-          internal override func clear() -> Motion.Message_.MotionDay.Builder {
+          public override func clear() -> Motion.Message_.MotionDay.Builder {
             builderResult = Motion.Message_.MotionDay()
             return self
           }
-          internal override func clone() throws -> Motion.Message_.MotionDay.Builder {
+          public override func clone() throws -> Motion.Message_.MotionDay.Builder {
             return try Motion.Message_.MotionDay.builderWithPrototype(builderResult)
           }
-          internal override func build() throws -> Motion.Message_.MotionDay {
+          public override func build() throws -> Motion.Message_.MotionDay {
                try checkInitialized()
                return buildPartial()
           }
-          internal func buildPartial() -> Motion.Message_.MotionDay {
+          public func buildPartial() -> Motion.Message_.MotionDay {
             let returnMe:Motion.Message_.MotionDay = builderResult
             return returnMe
           }
-          internal func mergeFrom(other:Motion.Message_.MotionDay) throws -> Motion.Message_.MotionDay.Builder {
+          public func mergeFrom(_ other:Motion.Message_.MotionDay) throws -> Motion.Message_.MotionDay.Builder {
             if other == Motion.Message_.MotionDay() {
              return self
             }
@@ -6245,14 +6441,14 @@ internal extension Motion {
             try mergeUnknownFields(other.unknownFields)
             return self
           }
-          internal override func mergeFromCodedInputStream(input:CodedInputStream) throws -> Motion.Message_.MotionDay.Builder {
+          public override func mergeFromCodedInputStream(_ input:CodedInputStream) throws -> Motion.Message_.MotionDay.Builder {
                return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
           }
-          internal override func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionDay.Builder {
+          public override func mergeFromCodedInputStream(_ input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.MotionDay.Builder {
             let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
             while (true) {
-              let tag = try input.readTag()
-              switch tag {
+              let protobufTag = try input.readTag()
+              switch protobufTag {
               case 0: 
                 self.unknownFields = try unknownFieldsBuilder.build()
                 return self
@@ -6275,7 +6471,7 @@ internal extension Motion {
                 title = try input.readString()
 
               default:
-                if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:tag))) {
+                if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                    unknownFields = try unknownFieldsBuilder.build()
                    return self
                 }
@@ -6292,81 +6488,81 @@ internal extension Motion {
 
     //Nested type declaration start
 
-      final internal class Instance : GeneratedMessage, GeneratedMessageProtocol {
-        private(set) var hasIdinstance:Bool = false
-        private(set) var idinstance:Int32 = Int32(0)
+      final public class Instance : GeneratedMessage, GeneratedMessageProtocol {
+        public private(set) var idinstance:Int32 = Int32(0)
 
-        private(set) var hasNumber:Bool = false
-        private(set) var number:Int32 = Int32(0)
+        public private(set) var hasIdinstance:Bool = false
+        public private(set) var number:Int32 = Int32(0)
 
-        private(set) var hasInstancestart:Bool = false
-        private(set) var instancestart:String = ""
+        public private(set) var hasNumber:Bool = false
+        public private(set) var instancestart:String = ""
 
-        private(set) var hasInstanceend:Bool = false
-        private(set) var instanceend:String = ""
+        public private(set) var hasInstancestart:Bool = false
+        public private(set) var instanceend:String = ""
 
-        private(set) var hasFileformat:Bool = false
-        private(set) var fileformat:String = ""
+        public private(set) var hasInstanceend:Bool = false
+        public private(set) var fileformat:String = ""
 
-        private(set) var image:Array<Motion.Message_.Image>  = Array<Motion.Message_.Image>()
-        private(set) var crop:Array<Motion.Message_.Crop>  = Array<Motion.Message_.Crop>()
-        private(set) var hasVideo:Bool = false
-        private(set) var video:Motion.Message_.Video!
-        private(set) var hasDir:Bool = false
-        private(set) var dir:String = ""
+        public private(set) var hasFileformat:Bool = false
+        public private(set) var image:Array<Motion.Message_.Image>  = Array<Motion.Message_.Image>()
+        public private(set) var crop:Array<Motion.Message_.Crop>  = Array<Motion.Message_.Crop>()
+        public private(set) var video:Motion.Message_.Video!
+        public private(set) var hasVideo:Bool = false
+        public private(set) var dir:String = ""
 
-        private(set) var hasXmlfile:Bool = false
-        private(set) var xmlfile:String = ""
+        public private(set) var hasDir:Bool = false
+        public private(set) var xmlfile:String = ""
 
-        private(set) var hasExtdata:Bool = false
-        private(set) var extdata:String = ""
+        public private(set) var hasXmlfile:Bool = false
+        public private(set) var extdata:String = ""
 
-        private(set) var hasEnd:Bool = false
-        private(set) var end:String = ""
+        public private(set) var hasExtdata:Bool = false
+        public private(set) var end:String = ""
 
-        private(set) var hasBegintime:Bool = false
-        private(set) var begintime:Int32 = Int32(0)
+        public private(set) var hasEnd:Bool = false
+        public private(set) var begintime:Int32 = Int32(0)
 
-        private(set) var hasEndtime:Bool = false
-        private(set) var endtime:Int32 = Int32(0)
+        public private(set) var hasBegintime:Bool = false
+        public private(set) var endtime:Int32 = Int32(0)
 
-        private(set) var hasInittime:Bool = false
-        private(set) var inittime:Int32 = Int32(0)
+        public private(set) var hasEndtime:Bool = false
+        public private(set) var inittime:Int32 = Int32(0)
 
-        private(set) var hasInstance:Bool = false
-        private(set) var instance:String = ""
+        public private(set) var hasInittime:Bool = false
+        public private(set) var instance:String = ""
 
-        private(set) var hasInstancecode:Bool = false
-        private(set) var instancecode:String = ""
+        public private(set) var hasInstance:Bool = false
+        public private(set) var instancecode:String = ""
 
-        private(set) var hasTimeinfo:Bool = false
-        private(set) var timeinfo:String = ""
+        public private(set) var hasInstancecode:Bool = false
+        public private(set) var timeinfo:String = ""
 
-        private(set) var hasDbDayid:Bool = false
-        private(set) var dbDayid:Int32 = Int32(0)
+        public private(set) var hasTimeinfo:Bool = false
+        public private(set) var dbDayid:Int32 = Int32(0)
 
-        private(set) var hasDbRecognitionSetupId:Bool = false
-        private(set) var dbRecognitionSetupId:Int32 = Int32(0)
+        public private(set) var hasDbDayid:Bool = false
+        public private(set) var dbRecognitionSetupId:Int32 = Int32(0)
 
-        private(set) var hasRecname:Bool = false
-        private(set) var recname:String = ""
+        public private(set) var hasDbRecognitionSetupId:Bool = false
+        public private(set) var recname:String = ""
 
-        private(set) var hasCamera:Bool = false
-        private(set) var camera:String = ""
+        public private(set) var hasRecname:Bool = false
+        public private(set) var camera:String = ""
 
-        private(set) var hasCameranumber:Bool = false
-        private(set) var cameranumber:Int32 = Int32(0)
+        public private(set) var hasCamera:Bool = false
+        public private(set) var cameranumber:Int32 = Int32(0)
 
-        required internal init() {
+        public private(set) var hasCameranumber:Bool = false
+        required public init() {
              super.init()
         }
-        override internal func isInitialized() -> Bool {
+        override public func isInitialized() -> Bool {
           if !hasIdinstance {
             return false
           }
          return true
         }
-        override internal func writeToCodedOutputStream(output:CodedOutputStream) throws {
+        override public func writeToCodedOutputStream(_ output:CodedOutputStream) throws {
           if hasIdinstance {
             try output.writeInt32(1, value:idinstance)
           }
@@ -6438,7 +6634,7 @@ internal extension Motion {
           }
           try unknownFields.writeToCodedOutputStream(output)
         }
-        override internal func serializedSize() -> Int32 {
+        override public func serializedSize() -> Int32 {
           var serialize_size:Int32 = memoizedSerializedSize
           if serialize_size != -1 {
            return serialize_size
@@ -6520,53 +6716,54 @@ internal extension Motion {
           memoizedSerializedSize = serialize_size
           return serialize_size
         }
-        internal class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Motion.Message_.Instance> {
+        public class func parseArrayDelimitedFromInputStream(_ input:NSInputStream) throws -> Array<Motion.Message_.Instance> {
           var mergedArray = Array<Motion.Message_.Instance>()
           while let value = try parseFromDelimitedFromInputStream(input) {
             mergedArray += [value]
           }
           return mergedArray
         }
-        internal class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Motion.Message_.Instance? {
+        public class func parseFromDelimitedFromInputStream(_ input:NSInputStream) throws -> Motion.Message_.Instance? {
           return try Motion.Message_.Instance.Builder().mergeDelimitedFromInputStream(input)?.build()
         }
-        internal class func parseFromData(data:NSData) throws -> Motion.Message_.Instance {
+        public class func parseFromData(_ data:NSData) throws -> Motion.Message_.Instance {
           return try Motion.Message_.Instance.Builder().mergeFromData(data, extensionRegistry:Motion.MotionRoot.sharedInstance.extensionRegistry).build()
         }
-        internal class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.Instance {
+        public class func parseFromData(_ data:NSData, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.Instance {
           return try Motion.Message_.Instance.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
         }
-        internal class func parseFromInputStream(input:NSInputStream) throws -> Motion.Message_.Instance {
+        public class func parseFromInputStream(_ input:NSInputStream) throws -> Motion.Message_.Instance {
           return try Motion.Message_.Instance.Builder().mergeFromInputStream(input).build()
         }
-        internal class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.Instance {
+        public class func parseFromInputStream(_ input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.Instance {
           return try Motion.Message_.Instance.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
         }
-        internal class func parseFromCodedInputStream(input:CodedInputStream) throws -> Motion.Message_.Instance {
+        public class func parseFromCodedInputStream(_ input:CodedInputStream) throws -> Motion.Message_.Instance {
           return try Motion.Message_.Instance.Builder().mergeFromCodedInputStream(input).build()
         }
-        internal class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.Instance {
+        public class func parseFromCodedInputStream(_ input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.Instance {
           return try Motion.Message_.Instance.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
         }
-        internal class func getBuilder() -> Motion.Message_.Instance.Builder {
+        public class func getBuilder() -> Motion.Message_.Instance.Builder {
           return Motion.Message_.Instance.classBuilder() as! Motion.Message_.Instance.Builder
         }
-        internal func getBuilder() -> Motion.Message_.Instance.Builder {
+        public func getBuilder() -> Motion.Message_.Instance.Builder {
           return classBuilder() as! Motion.Message_.Instance.Builder
         }
-        internal override class func classBuilder() -> MessageBuilder {
+        public override class func classBuilder() -> MessageBuilder {
           return Motion.Message_.Instance.Builder()
         }
-        internal override func classBuilder() -> MessageBuilder {
+        public override func classBuilder() -> MessageBuilder {
           return Motion.Message_.Instance.Builder()
         }
-        internal func toBuilder() throws -> Motion.Message_.Instance.Builder {
+        public func toBuilder() throws -> Motion.Message_.Instance.Builder {
           return try Motion.Message_.Instance.builderWithPrototype(self)
         }
-        internal class func builderWithPrototype(prototype:Motion.Message_.Instance) throws -> Motion.Message_.Instance.Builder {
+        public class func builderWithPrototype(_ prototype:Motion.Message_.Instance) throws -> Motion.Message_.Instance.Builder {
           return try Motion.Message_.Instance.Builder().mergeFrom(prototype)
         }
-        override internal func writeDescriptionTo(inout output:String, indent:String) throws {
+        override public func getDescription(_ indent:String) throws -> String {
+          var output:String = ""
           if hasIdinstance {
             output += "\(indent) idinstance: \(idinstance) \n"
           }
@@ -6585,20 +6782,22 @@ internal extension Motion {
           var imageElementIndex:Int = 0
           for oneElementimage in image {
               output += "\(indent) image[\(imageElementIndex)] {\n"
-              try oneElementimage.writeDescriptionTo(&output, indent:"\(indent)  ")
+              output += try oneElementimage.getDescription("\(indent)  ")
               output += "\(indent)}\n"
-              imageElementIndex++
+              imageElementIndex += 1
           }
           var cropElementIndex:Int = 0
           for oneElementcrop in crop {
               output += "\(indent) crop[\(cropElementIndex)] {\n"
-              try oneElementcrop.writeDescriptionTo(&output, indent:"\(indent)  ")
+              output += try oneElementcrop.getDescription("\(indent)  ")
               output += "\(indent)}\n"
-              cropElementIndex++
+              cropElementIndex += 1
           }
           if hasVideo {
             output += "\(indent) video {\n"
-            try video?.writeDescriptionTo(&output, indent:"\(indent)  ")
+            if let outDescVideo = video {
+              output += try outDescVideo.getDescription("\(indent)  ")
+            }
             output += "\(indent) }\n"
           }
           if hasDir {
@@ -6646,9 +6845,10 @@ internal extension Motion {
           if hasCameranumber {
             output += "\(indent) cameranumber: \(cameranumber) \n"
           }
-          unknownFields.writeDescriptionTo(&output, indent:indent)
+          output += unknownFields.getDescription(indent)
+          return output
         }
-        override internal var hashValue:Int {
+        override public var hashValue:Int {
             get {
                 var hashCode:Int = 7
                 if hasIdinstance {
@@ -6730,32 +6930,32 @@ internal extension Motion {
 
         //Meta information declaration start
 
-        override internal class func className() -> String {
+        override public class func className() -> String {
             return "Motion.Message_.Instance"
         }
-        override internal func className() -> String {
+        override public func className() -> String {
             return "Motion.Message_.Instance"
         }
-        override internal func classMetaType() -> GeneratedMessage.Type {
+        override public func classMetaType() -> GeneratedMessage.Type {
             return Motion.Message_.Instance.self
         }
         //Meta information declaration end
 
-        final internal class Builder : GeneratedMessageBuilder {
+        final public class Builder : GeneratedMessageBuilder {
           private var builderResult:Motion.Message_.Instance = Motion.Message_.Instance()
-          internal func getMessage() -> Motion.Message_.Instance {
+          public func getMessage() -> Motion.Message_.Instance {
               return builderResult
           }
 
-          required override internal init () {
+          required override public init () {
              super.init()
           }
-          var hasIdinstance:Bool {
+          public var hasIdinstance:Bool {
                get {
                     return builderResult.hasIdinstance
                }
           }
-          var idinstance:Int32 {
+          public var idinstance:Int32 {
                get {
                     return builderResult.idinstance
                }
@@ -6764,21 +6964,21 @@ internal extension Motion {
                    builderResult.idinstance = value
                }
           }
-          func setIdinstance(value:Int32) -> Motion.Message_.Instance.Builder {
+          public func setIdinstance(_ value:Int32) -> Motion.Message_.Instance.Builder {
             self.idinstance = value
             return self
           }
-          internal func clearIdinstance() -> Motion.Message_.Instance.Builder{
+          public func clearIdinstance() -> Motion.Message_.Instance.Builder{
                builderResult.hasIdinstance = false
                builderResult.idinstance = Int32(0)
                return self
           }
-          var hasNumber:Bool {
+          public var hasNumber:Bool {
                get {
                     return builderResult.hasNumber
                }
           }
-          var number:Int32 {
+          public var number:Int32 {
                get {
                     return builderResult.number
                }
@@ -6787,21 +6987,21 @@ internal extension Motion {
                    builderResult.number = value
                }
           }
-          func setNumber(value:Int32) -> Motion.Message_.Instance.Builder {
+          public func setNumber(_ value:Int32) -> Motion.Message_.Instance.Builder {
             self.number = value
             return self
           }
-          internal func clearNumber() -> Motion.Message_.Instance.Builder{
+          public func clearNumber() -> Motion.Message_.Instance.Builder{
                builderResult.hasNumber = false
                builderResult.number = Int32(0)
                return self
           }
-          var hasInstancestart:Bool {
+          public var hasInstancestart:Bool {
                get {
                     return builderResult.hasInstancestart
                }
           }
-          var instancestart:String {
+          public var instancestart:String {
                get {
                     return builderResult.instancestart
                }
@@ -6810,21 +7010,21 @@ internal extension Motion {
                    builderResult.instancestart = value
                }
           }
-          func setInstancestart(value:String) -> Motion.Message_.Instance.Builder {
+          public func setInstancestart(_ value:String) -> Motion.Message_.Instance.Builder {
             self.instancestart = value
             return self
           }
-          internal func clearInstancestart() -> Motion.Message_.Instance.Builder{
+          public func clearInstancestart() -> Motion.Message_.Instance.Builder{
                builderResult.hasInstancestart = false
                builderResult.instancestart = ""
                return self
           }
-          var hasInstanceend:Bool {
+          public var hasInstanceend:Bool {
                get {
                     return builderResult.hasInstanceend
                }
           }
-          var instanceend:String {
+          public var instanceend:String {
                get {
                     return builderResult.instanceend
                }
@@ -6833,21 +7033,21 @@ internal extension Motion {
                    builderResult.instanceend = value
                }
           }
-          func setInstanceend(value:String) -> Motion.Message_.Instance.Builder {
+          public func setInstanceend(_ value:String) -> Motion.Message_.Instance.Builder {
             self.instanceend = value
             return self
           }
-          internal func clearInstanceend() -> Motion.Message_.Instance.Builder{
+          public func clearInstanceend() -> Motion.Message_.Instance.Builder{
                builderResult.hasInstanceend = false
                builderResult.instanceend = ""
                return self
           }
-          var hasFileformat:Bool {
+          public var hasFileformat:Bool {
                get {
                     return builderResult.hasFileformat
                }
           }
-          var fileformat:String {
+          public var fileformat:String {
                get {
                     return builderResult.fileformat
                }
@@ -6856,16 +7056,16 @@ internal extension Motion {
                    builderResult.fileformat = value
                }
           }
-          func setFileformat(value:String) -> Motion.Message_.Instance.Builder {
+          public func setFileformat(_ value:String) -> Motion.Message_.Instance.Builder {
             self.fileformat = value
             return self
           }
-          internal func clearFileformat() -> Motion.Message_.Instance.Builder{
+          public func clearFileformat() -> Motion.Message_.Instance.Builder{
                builderResult.hasFileformat = false
                builderResult.fileformat = ""
                return self
           }
-          var image:Array<Motion.Message_.Image> {
+          public var image:Array<Motion.Message_.Image> {
                get {
                    return builderResult.image
                }
@@ -6873,15 +7073,15 @@ internal extension Motion {
                    builderResult.image = value
                }
           }
-          func setImage(value:Array<Motion.Message_.Image>) -> Motion.Message_.Instance.Builder {
+          public func setImage(_ value:Array<Motion.Message_.Image>) -> Motion.Message_.Instance.Builder {
             self.image = value
             return self
           }
-          internal func clearImage() -> Motion.Message_.Instance.Builder {
+          public func clearImage() -> Motion.Message_.Instance.Builder {
             builderResult.image.removeAll(keepCapacity: false)
             return self
           }
-          var crop:Array<Motion.Message_.Crop> {
+          public var crop:Array<Motion.Message_.Crop> {
                get {
                    return builderResult.crop
                }
@@ -6889,20 +7089,20 @@ internal extension Motion {
                    builderResult.crop = value
                }
           }
-          func setCrop(value:Array<Motion.Message_.Crop>) -> Motion.Message_.Instance.Builder {
+          public func setCrop(_ value:Array<Motion.Message_.Crop>) -> Motion.Message_.Instance.Builder {
             self.crop = value
             return self
           }
-          internal func clearCrop() -> Motion.Message_.Instance.Builder {
+          public func clearCrop() -> Motion.Message_.Instance.Builder {
             builderResult.crop.removeAll(keepCapacity: false)
             return self
           }
-          var hasVideo:Bool {
+          public var hasVideo:Bool {
                get {
                    return builderResult.hasVideo
                }
           }
-          var video:Motion.Message_.Video! {
+          public var video:Motion.Message_.Video! {
                get {
                    if videoBuilder_ != nil {
                       builderResult.video = videoBuilder_.getMessage()
@@ -6919,7 +7119,7 @@ internal extension Motion {
                   builderResult.hasVideo = true
                }
           }
-          internal func getVideoBuilder() -> Motion.Message_.Video.Builder {
+          public func getVideoBuilder() -> Motion.Message_.Video.Builder {
             if videoBuilder_ == nil {
                videoBuilder_ = Motion.Message_.Video.Builder()
                builderResult.video = videoBuilder_.getMessage()
@@ -6929,11 +7129,11 @@ internal extension Motion {
             }
             return videoBuilder_
           }
-          func setVideo(value:Motion.Message_.Video!) -> Motion.Message_.Instance.Builder {
+          public func setVideo(_ value:Motion.Message_.Video!) -> Motion.Message_.Instance.Builder {
             self.video = value
             return self
           }
-          internal func mergeVideo(value:Motion.Message_.Video) throws -> Motion.Message_.Instance.Builder {
+          public func mergeVideo(_ value:Motion.Message_.Video) throws -> Motion.Message_.Instance.Builder {
             if builderResult.hasVideo {
               builderResult.video = try Motion.Message_.Video.builderWithPrototype(builderResult.video).mergeFrom(value).buildPartial()
             } else {
@@ -6942,18 +7142,18 @@ internal extension Motion {
             builderResult.hasVideo = true
             return self
           }
-          internal func clearVideo() -> Motion.Message_.Instance.Builder {
+          public func clearVideo() -> Motion.Message_.Instance.Builder {
             videoBuilder_ = nil
             builderResult.hasVideo = false
             builderResult.video = nil
             return self
           }
-          var hasDir:Bool {
+          public var hasDir:Bool {
                get {
                     return builderResult.hasDir
                }
           }
-          var dir:String {
+          public var dir:String {
                get {
                     return builderResult.dir
                }
@@ -6962,21 +7162,21 @@ internal extension Motion {
                    builderResult.dir = value
                }
           }
-          func setDir(value:String) -> Motion.Message_.Instance.Builder {
+          public func setDir(_ value:String) -> Motion.Message_.Instance.Builder {
             self.dir = value
             return self
           }
-          internal func clearDir() -> Motion.Message_.Instance.Builder{
+          public func clearDir() -> Motion.Message_.Instance.Builder{
                builderResult.hasDir = false
                builderResult.dir = ""
                return self
           }
-          var hasXmlfile:Bool {
+          public var hasXmlfile:Bool {
                get {
                     return builderResult.hasXmlfile
                }
           }
-          var xmlfile:String {
+          public var xmlfile:String {
                get {
                     return builderResult.xmlfile
                }
@@ -6985,21 +7185,21 @@ internal extension Motion {
                    builderResult.xmlfile = value
                }
           }
-          func setXmlfile(value:String) -> Motion.Message_.Instance.Builder {
+          public func setXmlfile(_ value:String) -> Motion.Message_.Instance.Builder {
             self.xmlfile = value
             return self
           }
-          internal func clearXmlfile() -> Motion.Message_.Instance.Builder{
+          public func clearXmlfile() -> Motion.Message_.Instance.Builder{
                builderResult.hasXmlfile = false
                builderResult.xmlfile = ""
                return self
           }
-          var hasExtdata:Bool {
+          public var hasExtdata:Bool {
                get {
                     return builderResult.hasExtdata
                }
           }
-          var extdata:String {
+          public var extdata:String {
                get {
                     return builderResult.extdata
                }
@@ -7008,21 +7208,21 @@ internal extension Motion {
                    builderResult.extdata = value
                }
           }
-          func setExtdata(value:String) -> Motion.Message_.Instance.Builder {
+          public func setExtdata(_ value:String) -> Motion.Message_.Instance.Builder {
             self.extdata = value
             return self
           }
-          internal func clearExtdata() -> Motion.Message_.Instance.Builder{
+          public func clearExtdata() -> Motion.Message_.Instance.Builder{
                builderResult.hasExtdata = false
                builderResult.extdata = ""
                return self
           }
-          var hasEnd:Bool {
+          public var hasEnd:Bool {
                get {
                     return builderResult.hasEnd
                }
           }
-          var end:String {
+          public var end:String {
                get {
                     return builderResult.end
                }
@@ -7031,21 +7231,21 @@ internal extension Motion {
                    builderResult.end = value
                }
           }
-          func setEnd(value:String) -> Motion.Message_.Instance.Builder {
+          public func setEnd(_ value:String) -> Motion.Message_.Instance.Builder {
             self.end = value
             return self
           }
-          internal func clearEnd() -> Motion.Message_.Instance.Builder{
+          public func clearEnd() -> Motion.Message_.Instance.Builder{
                builderResult.hasEnd = false
                builderResult.end = ""
                return self
           }
-          var hasBegintime:Bool {
+          public var hasBegintime:Bool {
                get {
                     return builderResult.hasBegintime
                }
           }
-          var begintime:Int32 {
+          public var begintime:Int32 {
                get {
                     return builderResult.begintime
                }
@@ -7054,21 +7254,21 @@ internal extension Motion {
                    builderResult.begintime = value
                }
           }
-          func setBegintime(value:Int32) -> Motion.Message_.Instance.Builder {
+          public func setBegintime(_ value:Int32) -> Motion.Message_.Instance.Builder {
             self.begintime = value
             return self
           }
-          internal func clearBegintime() -> Motion.Message_.Instance.Builder{
+          public func clearBegintime() -> Motion.Message_.Instance.Builder{
                builderResult.hasBegintime = false
                builderResult.begintime = Int32(0)
                return self
           }
-          var hasEndtime:Bool {
+          public var hasEndtime:Bool {
                get {
                     return builderResult.hasEndtime
                }
           }
-          var endtime:Int32 {
+          public var endtime:Int32 {
                get {
                     return builderResult.endtime
                }
@@ -7077,21 +7277,21 @@ internal extension Motion {
                    builderResult.endtime = value
                }
           }
-          func setEndtime(value:Int32) -> Motion.Message_.Instance.Builder {
+          public func setEndtime(_ value:Int32) -> Motion.Message_.Instance.Builder {
             self.endtime = value
             return self
           }
-          internal func clearEndtime() -> Motion.Message_.Instance.Builder{
+          public func clearEndtime() -> Motion.Message_.Instance.Builder{
                builderResult.hasEndtime = false
                builderResult.endtime = Int32(0)
                return self
           }
-          var hasInittime:Bool {
+          public var hasInittime:Bool {
                get {
                     return builderResult.hasInittime
                }
           }
-          var inittime:Int32 {
+          public var inittime:Int32 {
                get {
                     return builderResult.inittime
                }
@@ -7100,21 +7300,21 @@ internal extension Motion {
                    builderResult.inittime = value
                }
           }
-          func setInittime(value:Int32) -> Motion.Message_.Instance.Builder {
+          public func setInittime(_ value:Int32) -> Motion.Message_.Instance.Builder {
             self.inittime = value
             return self
           }
-          internal func clearInittime() -> Motion.Message_.Instance.Builder{
+          public func clearInittime() -> Motion.Message_.Instance.Builder{
                builderResult.hasInittime = false
                builderResult.inittime = Int32(0)
                return self
           }
-          var hasInstance:Bool {
+          public var hasInstance:Bool {
                get {
                     return builderResult.hasInstance
                }
           }
-          var instance:String {
+          public var instance:String {
                get {
                     return builderResult.instance
                }
@@ -7123,21 +7323,21 @@ internal extension Motion {
                    builderResult.instance = value
                }
           }
-          func setInstance(value:String) -> Motion.Message_.Instance.Builder {
+          public func setInstance(_ value:String) -> Motion.Message_.Instance.Builder {
             self.instance = value
             return self
           }
-          internal func clearInstance() -> Motion.Message_.Instance.Builder{
+          public func clearInstance() -> Motion.Message_.Instance.Builder{
                builderResult.hasInstance = false
                builderResult.instance = ""
                return self
           }
-          var hasInstancecode:Bool {
+          public var hasInstancecode:Bool {
                get {
                     return builderResult.hasInstancecode
                }
           }
-          var instancecode:String {
+          public var instancecode:String {
                get {
                     return builderResult.instancecode
                }
@@ -7146,21 +7346,21 @@ internal extension Motion {
                    builderResult.instancecode = value
                }
           }
-          func setInstancecode(value:String) -> Motion.Message_.Instance.Builder {
+          public func setInstancecode(_ value:String) -> Motion.Message_.Instance.Builder {
             self.instancecode = value
             return self
           }
-          internal func clearInstancecode() -> Motion.Message_.Instance.Builder{
+          public func clearInstancecode() -> Motion.Message_.Instance.Builder{
                builderResult.hasInstancecode = false
                builderResult.instancecode = ""
                return self
           }
-          var hasTimeinfo:Bool {
+          public var hasTimeinfo:Bool {
                get {
                     return builderResult.hasTimeinfo
                }
           }
-          var timeinfo:String {
+          public var timeinfo:String {
                get {
                     return builderResult.timeinfo
                }
@@ -7169,21 +7369,21 @@ internal extension Motion {
                    builderResult.timeinfo = value
                }
           }
-          func setTimeinfo(value:String) -> Motion.Message_.Instance.Builder {
+          public func setTimeinfo(_ value:String) -> Motion.Message_.Instance.Builder {
             self.timeinfo = value
             return self
           }
-          internal func clearTimeinfo() -> Motion.Message_.Instance.Builder{
+          public func clearTimeinfo() -> Motion.Message_.Instance.Builder{
                builderResult.hasTimeinfo = false
                builderResult.timeinfo = ""
                return self
           }
-          var hasDbDayid:Bool {
+          public var hasDbDayid:Bool {
                get {
                     return builderResult.hasDbDayid
                }
           }
-          var dbDayid:Int32 {
+          public var dbDayid:Int32 {
                get {
                     return builderResult.dbDayid
                }
@@ -7192,21 +7392,21 @@ internal extension Motion {
                    builderResult.dbDayid = value
                }
           }
-          func setDbDayid(value:Int32) -> Motion.Message_.Instance.Builder {
+          public func setDbDayid(_ value:Int32) -> Motion.Message_.Instance.Builder {
             self.dbDayid = value
             return self
           }
-          internal func clearDbDayid() -> Motion.Message_.Instance.Builder{
+          public func clearDbDayid() -> Motion.Message_.Instance.Builder{
                builderResult.hasDbDayid = false
                builderResult.dbDayid = Int32(0)
                return self
           }
-          var hasDbRecognitionSetupId:Bool {
+          public var hasDbRecognitionSetupId:Bool {
                get {
                     return builderResult.hasDbRecognitionSetupId
                }
           }
-          var dbRecognitionSetupId:Int32 {
+          public var dbRecognitionSetupId:Int32 {
                get {
                     return builderResult.dbRecognitionSetupId
                }
@@ -7215,21 +7415,21 @@ internal extension Motion {
                    builderResult.dbRecognitionSetupId = value
                }
           }
-          func setDbRecognitionSetupId(value:Int32) -> Motion.Message_.Instance.Builder {
+          public func setDbRecognitionSetupId(_ value:Int32) -> Motion.Message_.Instance.Builder {
             self.dbRecognitionSetupId = value
             return self
           }
-          internal func clearDbRecognitionSetupId() -> Motion.Message_.Instance.Builder{
+          public func clearDbRecognitionSetupId() -> Motion.Message_.Instance.Builder{
                builderResult.hasDbRecognitionSetupId = false
                builderResult.dbRecognitionSetupId = Int32(0)
                return self
           }
-          var hasRecname:Bool {
+          public var hasRecname:Bool {
                get {
                     return builderResult.hasRecname
                }
           }
-          var recname:String {
+          public var recname:String {
                get {
                     return builderResult.recname
                }
@@ -7238,21 +7438,21 @@ internal extension Motion {
                    builderResult.recname = value
                }
           }
-          func setRecname(value:String) -> Motion.Message_.Instance.Builder {
+          public func setRecname(_ value:String) -> Motion.Message_.Instance.Builder {
             self.recname = value
             return self
           }
-          internal func clearRecname() -> Motion.Message_.Instance.Builder{
+          public func clearRecname() -> Motion.Message_.Instance.Builder{
                builderResult.hasRecname = false
                builderResult.recname = ""
                return self
           }
-          var hasCamera:Bool {
+          public var hasCamera:Bool {
                get {
                     return builderResult.hasCamera
                }
           }
-          var camera:String {
+          public var camera:String {
                get {
                     return builderResult.camera
                }
@@ -7261,21 +7461,21 @@ internal extension Motion {
                    builderResult.camera = value
                }
           }
-          func setCamera(value:String) -> Motion.Message_.Instance.Builder {
+          public func setCamera(_ value:String) -> Motion.Message_.Instance.Builder {
             self.camera = value
             return self
           }
-          internal func clearCamera() -> Motion.Message_.Instance.Builder{
+          public func clearCamera() -> Motion.Message_.Instance.Builder{
                builderResult.hasCamera = false
                builderResult.camera = ""
                return self
           }
-          var hasCameranumber:Bool {
+          public var hasCameranumber:Bool {
                get {
                     return builderResult.hasCameranumber
                }
           }
-          var cameranumber:Int32 {
+          public var cameranumber:Int32 {
                get {
                     return builderResult.cameranumber
                }
@@ -7284,36 +7484,36 @@ internal extension Motion {
                    builderResult.cameranumber = value
                }
           }
-          func setCameranumber(value:Int32) -> Motion.Message_.Instance.Builder {
+          public func setCameranumber(_ value:Int32) -> Motion.Message_.Instance.Builder {
             self.cameranumber = value
             return self
           }
-          internal func clearCameranumber() -> Motion.Message_.Instance.Builder{
+          public func clearCameranumber() -> Motion.Message_.Instance.Builder{
                builderResult.hasCameranumber = false
                builderResult.cameranumber = Int32(0)
                return self
           }
-          override internal var internalGetResult:GeneratedMessage {
+          override public var internalGetResult:GeneratedMessage {
                get {
                   return builderResult
                }
           }
-          internal override func clear() -> Motion.Message_.Instance.Builder {
+          public override func clear() -> Motion.Message_.Instance.Builder {
             builderResult = Motion.Message_.Instance()
             return self
           }
-          internal override func clone() throws -> Motion.Message_.Instance.Builder {
+          public override func clone() throws -> Motion.Message_.Instance.Builder {
             return try Motion.Message_.Instance.builderWithPrototype(builderResult)
           }
-          internal override func build() throws -> Motion.Message_.Instance {
+          public override func build() throws -> Motion.Message_.Instance {
                try checkInitialized()
                return buildPartial()
           }
-          internal func buildPartial() -> Motion.Message_.Instance {
+          public func buildPartial() -> Motion.Message_.Instance {
             let returnMe:Motion.Message_.Instance = builderResult
             return returnMe
           }
-          internal func mergeFrom(other:Motion.Message_.Instance) throws -> Motion.Message_.Instance.Builder {
+          public func mergeFrom(_ other:Motion.Message_.Instance) throws -> Motion.Message_.Instance.Builder {
             if other == Motion.Message_.Instance() {
              return self
             }
@@ -7389,14 +7589,14 @@ internal extension Motion {
             try mergeUnknownFields(other.unknownFields)
             return self
           }
-          internal override func mergeFromCodedInputStream(input:CodedInputStream) throws -> Motion.Message_.Instance.Builder {
+          public override func mergeFromCodedInputStream(_ input:CodedInputStream) throws -> Motion.Message_.Instance.Builder {
                return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
           }
-          internal override func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.Instance.Builder {
+          public override func mergeFromCodedInputStream(_ input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.Instance.Builder {
             let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
             while (true) {
-              let tag = try input.readTag()
-              switch tag {
+              let protobufTag = try input.readTag()
+              switch protobufTag {
               case 0: 
                 self.unknownFields = try unknownFieldsBuilder.build()
                 return self
@@ -7480,7 +7680,7 @@ internal extension Motion {
                 cameranumber = try input.readInt32()
 
               default:
-                if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:tag))) {
+                if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                    unknownFields = try unknownFieldsBuilder.build()
                    return self
                 }
@@ -7497,26 +7697,26 @@ internal extension Motion {
 
     //Nested type declaration start
 
-      final internal class Image : GeneratedMessage, GeneratedMessageProtocol {
-        private(set) var hasPath:Bool = false
-        private(set) var path:String = ""
+      final public class Image : GeneratedMessage, GeneratedMessageProtocol {
+        public private(set) var path:String = ""
 
-        private(set) var hasName:Bool = false
-        private(set) var name:String = ""
+        public private(set) var hasPath:Bool = false
+        public private(set) var name:String = ""
 
-        private(set) var hasImagechanges:Bool = false
-        private(set) var imagechanges:Int32 = Int32(0)
+        public private(set) var hasName:Bool = false
+        public private(set) var imagechanges:Int32 = Int32(0)
 
-        private(set) var hasTime:Bool = false
-        private(set) var time:String = ""
+        public private(set) var hasImagechanges:Bool = false
+        public private(set) var time:String = ""
 
-        required internal init() {
+        public private(set) var hasTime:Bool = false
+        required public init() {
              super.init()
         }
-        override internal func isInitialized() -> Bool {
+        override public func isInitialized() -> Bool {
          return true
         }
-        override internal func writeToCodedOutputStream(output:CodedOutputStream) throws {
+        override public func writeToCodedOutputStream(_ output:CodedOutputStream) throws {
           if hasPath {
             try output.writeString(1, value:path)
           }
@@ -7531,7 +7731,7 @@ internal extension Motion {
           }
           try unknownFields.writeToCodedOutputStream(output)
         }
-        override internal func serializedSize() -> Int32 {
+        override public func serializedSize() -> Int32 {
           var serialize_size:Int32 = memoizedSerializedSize
           if serialize_size != -1 {
            return serialize_size
@@ -7554,53 +7754,54 @@ internal extension Motion {
           memoizedSerializedSize = serialize_size
           return serialize_size
         }
-        internal class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Motion.Message_.Image> {
+        public class func parseArrayDelimitedFromInputStream(_ input:NSInputStream) throws -> Array<Motion.Message_.Image> {
           var mergedArray = Array<Motion.Message_.Image>()
           while let value = try parseFromDelimitedFromInputStream(input) {
             mergedArray += [value]
           }
           return mergedArray
         }
-        internal class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Motion.Message_.Image? {
+        public class func parseFromDelimitedFromInputStream(_ input:NSInputStream) throws -> Motion.Message_.Image? {
           return try Motion.Message_.Image.Builder().mergeDelimitedFromInputStream(input)?.build()
         }
-        internal class func parseFromData(data:NSData) throws -> Motion.Message_.Image {
+        public class func parseFromData(_ data:NSData) throws -> Motion.Message_.Image {
           return try Motion.Message_.Image.Builder().mergeFromData(data, extensionRegistry:Motion.MotionRoot.sharedInstance.extensionRegistry).build()
         }
-        internal class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.Image {
+        public class func parseFromData(_ data:NSData, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.Image {
           return try Motion.Message_.Image.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
         }
-        internal class func parseFromInputStream(input:NSInputStream) throws -> Motion.Message_.Image {
+        public class func parseFromInputStream(_ input:NSInputStream) throws -> Motion.Message_.Image {
           return try Motion.Message_.Image.Builder().mergeFromInputStream(input).build()
         }
-        internal class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.Image {
+        public class func parseFromInputStream(_ input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.Image {
           return try Motion.Message_.Image.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
         }
-        internal class func parseFromCodedInputStream(input:CodedInputStream) throws -> Motion.Message_.Image {
+        public class func parseFromCodedInputStream(_ input:CodedInputStream) throws -> Motion.Message_.Image {
           return try Motion.Message_.Image.Builder().mergeFromCodedInputStream(input).build()
         }
-        internal class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.Image {
+        public class func parseFromCodedInputStream(_ input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.Image {
           return try Motion.Message_.Image.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
         }
-        internal class func getBuilder() -> Motion.Message_.Image.Builder {
+        public class func getBuilder() -> Motion.Message_.Image.Builder {
           return Motion.Message_.Image.classBuilder() as! Motion.Message_.Image.Builder
         }
-        internal func getBuilder() -> Motion.Message_.Image.Builder {
+        public func getBuilder() -> Motion.Message_.Image.Builder {
           return classBuilder() as! Motion.Message_.Image.Builder
         }
-        internal override class func classBuilder() -> MessageBuilder {
+        public override class func classBuilder() -> MessageBuilder {
           return Motion.Message_.Image.Builder()
         }
-        internal override func classBuilder() -> MessageBuilder {
+        public override func classBuilder() -> MessageBuilder {
           return Motion.Message_.Image.Builder()
         }
-        internal func toBuilder() throws -> Motion.Message_.Image.Builder {
+        public func toBuilder() throws -> Motion.Message_.Image.Builder {
           return try Motion.Message_.Image.builderWithPrototype(self)
         }
-        internal class func builderWithPrototype(prototype:Motion.Message_.Image) throws -> Motion.Message_.Image.Builder {
+        public class func builderWithPrototype(_ prototype:Motion.Message_.Image) throws -> Motion.Message_.Image.Builder {
           return try Motion.Message_.Image.Builder().mergeFrom(prototype)
         }
-        override internal func writeDescriptionTo(inout output:String, indent:String) throws {
+        override public func getDescription(_ indent:String) throws -> String {
+          var output:String = ""
           if hasPath {
             output += "\(indent) path: \(path) \n"
           }
@@ -7613,9 +7814,10 @@ internal extension Motion {
           if hasTime {
             output += "\(indent) time: \(time) \n"
           }
-          unknownFields.writeDescriptionTo(&output, indent:indent)
+          output += unknownFields.getDescription(indent)
+          return output
         }
-        override internal var hashValue:Int {
+        override public var hashValue:Int {
             get {
                 var hashCode:Int = 7
                 if hasPath {
@@ -7638,32 +7840,32 @@ internal extension Motion {
 
         //Meta information declaration start
 
-        override internal class func className() -> String {
+        override public class func className() -> String {
             return "Motion.Message_.Image"
         }
-        override internal func className() -> String {
+        override public func className() -> String {
             return "Motion.Message_.Image"
         }
-        override internal func classMetaType() -> GeneratedMessage.Type {
+        override public func classMetaType() -> GeneratedMessage.Type {
             return Motion.Message_.Image.self
         }
         //Meta information declaration end
 
-        final internal class Builder : GeneratedMessageBuilder {
+        final public class Builder : GeneratedMessageBuilder {
           private var builderResult:Motion.Message_.Image = Motion.Message_.Image()
-          internal func getMessage() -> Motion.Message_.Image {
+          public func getMessage() -> Motion.Message_.Image {
               return builderResult
           }
 
-          required override internal init () {
+          required override public init () {
              super.init()
           }
-          var hasPath:Bool {
+          public var hasPath:Bool {
                get {
                     return builderResult.hasPath
                }
           }
-          var path:String {
+          public var path:String {
                get {
                     return builderResult.path
                }
@@ -7672,21 +7874,21 @@ internal extension Motion {
                    builderResult.path = value
                }
           }
-          func setPath(value:String) -> Motion.Message_.Image.Builder {
+          public func setPath(_ value:String) -> Motion.Message_.Image.Builder {
             self.path = value
             return self
           }
-          internal func clearPath() -> Motion.Message_.Image.Builder{
+          public func clearPath() -> Motion.Message_.Image.Builder{
                builderResult.hasPath = false
                builderResult.path = ""
                return self
           }
-          var hasName:Bool {
+          public var hasName:Bool {
                get {
                     return builderResult.hasName
                }
           }
-          var name:String {
+          public var name:String {
                get {
                     return builderResult.name
                }
@@ -7695,21 +7897,21 @@ internal extension Motion {
                    builderResult.name = value
                }
           }
-          func setName(value:String) -> Motion.Message_.Image.Builder {
+          public func setName(_ value:String) -> Motion.Message_.Image.Builder {
             self.name = value
             return self
           }
-          internal func clearName() -> Motion.Message_.Image.Builder{
+          public func clearName() -> Motion.Message_.Image.Builder{
                builderResult.hasName = false
                builderResult.name = ""
                return self
           }
-          var hasImagechanges:Bool {
+          public var hasImagechanges:Bool {
                get {
                     return builderResult.hasImagechanges
                }
           }
-          var imagechanges:Int32 {
+          public var imagechanges:Int32 {
                get {
                     return builderResult.imagechanges
                }
@@ -7718,21 +7920,21 @@ internal extension Motion {
                    builderResult.imagechanges = value
                }
           }
-          func setImagechanges(value:Int32) -> Motion.Message_.Image.Builder {
+          public func setImagechanges(_ value:Int32) -> Motion.Message_.Image.Builder {
             self.imagechanges = value
             return self
           }
-          internal func clearImagechanges() -> Motion.Message_.Image.Builder{
+          public func clearImagechanges() -> Motion.Message_.Image.Builder{
                builderResult.hasImagechanges = false
                builderResult.imagechanges = Int32(0)
                return self
           }
-          var hasTime:Bool {
+          public var hasTime:Bool {
                get {
                     return builderResult.hasTime
                }
           }
-          var time:String {
+          public var time:String {
                get {
                     return builderResult.time
                }
@@ -7741,36 +7943,36 @@ internal extension Motion {
                    builderResult.time = value
                }
           }
-          func setTime(value:String) -> Motion.Message_.Image.Builder {
+          public func setTime(_ value:String) -> Motion.Message_.Image.Builder {
             self.time = value
             return self
           }
-          internal func clearTime() -> Motion.Message_.Image.Builder{
+          public func clearTime() -> Motion.Message_.Image.Builder{
                builderResult.hasTime = false
                builderResult.time = ""
                return self
           }
-          override internal var internalGetResult:GeneratedMessage {
+          override public var internalGetResult:GeneratedMessage {
                get {
                   return builderResult
                }
           }
-          internal override func clear() -> Motion.Message_.Image.Builder {
+          public override func clear() -> Motion.Message_.Image.Builder {
             builderResult = Motion.Message_.Image()
             return self
           }
-          internal override func clone() throws -> Motion.Message_.Image.Builder {
+          public override func clone() throws -> Motion.Message_.Image.Builder {
             return try Motion.Message_.Image.builderWithPrototype(builderResult)
           }
-          internal override func build() throws -> Motion.Message_.Image {
+          public override func build() throws -> Motion.Message_.Image {
                try checkInitialized()
                return buildPartial()
           }
-          internal func buildPartial() -> Motion.Message_.Image {
+          public func buildPartial() -> Motion.Message_.Image {
             let returnMe:Motion.Message_.Image = builderResult
             return returnMe
           }
-          internal func mergeFrom(other:Motion.Message_.Image) throws -> Motion.Message_.Image.Builder {
+          public func mergeFrom(_ other:Motion.Message_.Image) throws -> Motion.Message_.Image.Builder {
             if other == Motion.Message_.Image() {
              return self
             }
@@ -7789,14 +7991,14 @@ internal extension Motion {
             try mergeUnknownFields(other.unknownFields)
             return self
           }
-          internal override func mergeFromCodedInputStream(input:CodedInputStream) throws -> Motion.Message_.Image.Builder {
+          public override func mergeFromCodedInputStream(_ input:CodedInputStream) throws -> Motion.Message_.Image.Builder {
                return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
           }
-          internal override func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.Image.Builder {
+          public override func mergeFromCodedInputStream(_ input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.Image.Builder {
             let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
             while (true) {
-              let tag = try input.readTag()
-              switch tag {
+              let protobufTag = try input.readTag()
+              switch protobufTag {
               case 0: 
                 self.unknownFields = try unknownFieldsBuilder.build()
                 return self
@@ -7814,7 +8016,7 @@ internal extension Motion {
                 time = try input.readString()
 
               default:
-                if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:tag))) {
+                if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                    unknownFields = try unknownFieldsBuilder.build()
                    return self
                 }
@@ -7831,20 +8033,20 @@ internal extension Motion {
 
     //Nested type declaration start
 
-      final internal class Crop : GeneratedMessage, GeneratedMessageProtocol {
-        private(set) var hasRect:Bool = false
-        private(set) var rect:String = ""
+      final public class Crop : GeneratedMessage, GeneratedMessageProtocol {
+        public private(set) var rect:String = ""
 
-        private(set) var hasDbImagefatherid:Bool = false
-        private(set) var dbImagefatherid:Int32 = Int32(0)
+        public private(set) var hasRect:Bool = false
+        public private(set) var dbImagefatherid:Int32 = Int32(0)
 
-        required internal init() {
+        public private(set) var hasDbImagefatherid:Bool = false
+        required public init() {
              super.init()
         }
-        override internal func isInitialized() -> Bool {
+        override public func isInitialized() -> Bool {
          return true
         }
-        override internal func writeToCodedOutputStream(output:CodedOutputStream) throws {
+        override public func writeToCodedOutputStream(_ output:CodedOutputStream) throws {
           if hasRect {
             try output.writeString(1, value:rect)
           }
@@ -7853,7 +8055,7 @@ internal extension Motion {
           }
           try unknownFields.writeToCodedOutputStream(output)
         }
-        override internal func serializedSize() -> Int32 {
+        override public func serializedSize() -> Int32 {
           var serialize_size:Int32 = memoizedSerializedSize
           if serialize_size != -1 {
            return serialize_size
@@ -7870,62 +8072,64 @@ internal extension Motion {
           memoizedSerializedSize = serialize_size
           return serialize_size
         }
-        internal class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Motion.Message_.Crop> {
+        public class func parseArrayDelimitedFromInputStream(_ input:NSInputStream) throws -> Array<Motion.Message_.Crop> {
           var mergedArray = Array<Motion.Message_.Crop>()
           while let value = try parseFromDelimitedFromInputStream(input) {
             mergedArray += [value]
           }
           return mergedArray
         }
-        internal class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Motion.Message_.Crop? {
+        public class func parseFromDelimitedFromInputStream(_ input:NSInputStream) throws -> Motion.Message_.Crop? {
           return try Motion.Message_.Crop.Builder().mergeDelimitedFromInputStream(input)?.build()
         }
-        internal class func parseFromData(data:NSData) throws -> Motion.Message_.Crop {
+        public class func parseFromData(_ data:NSData) throws -> Motion.Message_.Crop {
           return try Motion.Message_.Crop.Builder().mergeFromData(data, extensionRegistry:Motion.MotionRoot.sharedInstance.extensionRegistry).build()
         }
-        internal class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.Crop {
+        public class func parseFromData(_ data:NSData, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.Crop {
           return try Motion.Message_.Crop.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
         }
-        internal class func parseFromInputStream(input:NSInputStream) throws -> Motion.Message_.Crop {
+        public class func parseFromInputStream(_ input:NSInputStream) throws -> Motion.Message_.Crop {
           return try Motion.Message_.Crop.Builder().mergeFromInputStream(input).build()
         }
-        internal class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.Crop {
+        public class func parseFromInputStream(_ input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.Crop {
           return try Motion.Message_.Crop.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
         }
-        internal class func parseFromCodedInputStream(input:CodedInputStream) throws -> Motion.Message_.Crop {
+        public class func parseFromCodedInputStream(_ input:CodedInputStream) throws -> Motion.Message_.Crop {
           return try Motion.Message_.Crop.Builder().mergeFromCodedInputStream(input).build()
         }
-        internal class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.Crop {
+        public class func parseFromCodedInputStream(_ input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.Crop {
           return try Motion.Message_.Crop.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
         }
-        internal class func getBuilder() -> Motion.Message_.Crop.Builder {
+        public class func getBuilder() -> Motion.Message_.Crop.Builder {
           return Motion.Message_.Crop.classBuilder() as! Motion.Message_.Crop.Builder
         }
-        internal func getBuilder() -> Motion.Message_.Crop.Builder {
+        public func getBuilder() -> Motion.Message_.Crop.Builder {
           return classBuilder() as! Motion.Message_.Crop.Builder
         }
-        internal override class func classBuilder() -> MessageBuilder {
+        public override class func classBuilder() -> MessageBuilder {
           return Motion.Message_.Crop.Builder()
         }
-        internal override func classBuilder() -> MessageBuilder {
+        public override func classBuilder() -> MessageBuilder {
           return Motion.Message_.Crop.Builder()
         }
-        internal func toBuilder() throws -> Motion.Message_.Crop.Builder {
+        public func toBuilder() throws -> Motion.Message_.Crop.Builder {
           return try Motion.Message_.Crop.builderWithPrototype(self)
         }
-        internal class func builderWithPrototype(prototype:Motion.Message_.Crop) throws -> Motion.Message_.Crop.Builder {
+        public class func builderWithPrototype(_ prototype:Motion.Message_.Crop) throws -> Motion.Message_.Crop.Builder {
           return try Motion.Message_.Crop.Builder().mergeFrom(prototype)
         }
-        override internal func writeDescriptionTo(inout output:String, indent:String) throws {
+        override public func getDescription(_ indent:String) throws -> String {
+          var output:String = ""
           if hasRect {
             output += "\(indent) rect: \(rect) \n"
           }
           if hasDbImagefatherid {
             output += "\(indent) dbImagefatherid: \(dbImagefatherid) \n"
           }
-          unknownFields.writeDescriptionTo(&output, indent:indent)
+          output += unknownFields.getDescription(indent)
+          return output
         }
-        override internal var hashValue:Int {
+        override public var hashValue:Int {
             get {
                 var hashCode:Int = 7
                 if hasRect {
@@ -7942,32 +8146,32 @@ internal extension Motion {
 
         //Meta information declaration start
 
-        override internal class func className() -> String {
+        override public class func className() -> String {
             return "Motion.Message_.Crop"
         }
-        override internal func className() -> String {
+        override public func className() -> String {
             return "Motion.Message_.Crop"
         }
-        override internal func classMetaType() -> GeneratedMessage.Type {
+        override public func classMetaType() -> GeneratedMessage.Type {
             return Motion.Message_.Crop.self
         }
         //Meta information declaration end
 
-        final internal class Builder : GeneratedMessageBuilder {
+        final public class Builder : GeneratedMessageBuilder {
           private var builderResult:Motion.Message_.Crop = Motion.Message_.Crop()
-          internal func getMessage() -> Motion.Message_.Crop {
+          public func getMessage() -> Motion.Message_.Crop {
               return builderResult
           }
 
-          required override internal init () {
+          required override public init () {
              super.init()
           }
-          var hasRect:Bool {
+          public var hasRect:Bool {
                get {
                     return builderResult.hasRect
                }
           }
-          var rect:String {
+          public var rect:String {
                get {
                     return builderResult.rect
                }
@@ -7976,21 +8180,21 @@ internal extension Motion {
                    builderResult.rect = value
                }
           }
-          func setRect(value:String) -> Motion.Message_.Crop.Builder {
+          public func setRect(_ value:String) -> Motion.Message_.Crop.Builder {
             self.rect = value
             return self
           }
-          internal func clearRect() -> Motion.Message_.Crop.Builder{
+          public func clearRect() -> Motion.Message_.Crop.Builder{
                builderResult.hasRect = false
                builderResult.rect = ""
                return self
           }
-          var hasDbImagefatherid:Bool {
+          public var hasDbImagefatherid:Bool {
                get {
                     return builderResult.hasDbImagefatherid
                }
           }
-          var dbImagefatherid:Int32 {
+          public var dbImagefatherid:Int32 {
                get {
                     return builderResult.dbImagefatherid
                }
@@ -7999,36 +8203,36 @@ internal extension Motion {
                    builderResult.dbImagefatherid = value
                }
           }
-          func setDbImagefatherid(value:Int32) -> Motion.Message_.Crop.Builder {
+          public func setDbImagefatherid(_ value:Int32) -> Motion.Message_.Crop.Builder {
             self.dbImagefatherid = value
             return self
           }
-          internal func clearDbImagefatherid() -> Motion.Message_.Crop.Builder{
+          public func clearDbImagefatherid() -> Motion.Message_.Crop.Builder{
                builderResult.hasDbImagefatherid = false
                builderResult.dbImagefatherid = Int32(0)
                return self
           }
-          override internal var internalGetResult:GeneratedMessage {
+          override public var internalGetResult:GeneratedMessage {
                get {
                   return builderResult
                }
           }
-          internal override func clear() -> Motion.Message_.Crop.Builder {
+          public override func clear() -> Motion.Message_.Crop.Builder {
             builderResult = Motion.Message_.Crop()
             return self
           }
-          internal override func clone() throws -> Motion.Message_.Crop.Builder {
+          public override func clone() throws -> Motion.Message_.Crop.Builder {
             return try Motion.Message_.Crop.builderWithPrototype(builderResult)
           }
-          internal override func build() throws -> Motion.Message_.Crop {
+          public override func build() throws -> Motion.Message_.Crop {
                try checkInitialized()
                return buildPartial()
           }
-          internal func buildPartial() -> Motion.Message_.Crop {
+          public func buildPartial() -> Motion.Message_.Crop {
             let returnMe:Motion.Message_.Crop = builderResult
             return returnMe
           }
-          internal func mergeFrom(other:Motion.Message_.Crop) throws -> Motion.Message_.Crop.Builder {
+          public func mergeFrom(_ other:Motion.Message_.Crop) throws -> Motion.Message_.Crop.Builder {
             if other == Motion.Message_.Crop() {
              return self
             }
@@ -8041,14 +8245,14 @@ internal extension Motion {
             try mergeUnknownFields(other.unknownFields)
             return self
           }
-          internal override func mergeFromCodedInputStream(input:CodedInputStream) throws -> Motion.Message_.Crop.Builder {
+          public override func mergeFromCodedInputStream(_ input:CodedInputStream) throws -> Motion.Message_.Crop.Builder {
                return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
           }
-          internal override func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.Crop.Builder {
+          public override func mergeFromCodedInputStream(_ input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.Crop.Builder {
             let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
             while (true) {
-              let tag = try input.readTag()
-              switch tag {
+              let protobufTag = try input.readTag()
+              switch protobufTag {
               case 0: 
                 self.unknownFields = try unknownFieldsBuilder.build()
                 return self
@@ -8060,7 +8264,7 @@ internal extension Motion {
                 dbImagefatherid = try input.readInt32()
 
               default:
-                if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:tag))) {
+                if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                    unknownFields = try unknownFieldsBuilder.build()
                    return self
                 }
@@ -8077,23 +8281,23 @@ internal extension Motion {
 
     //Nested type declaration start
 
-      final internal class Video : GeneratedMessage, GeneratedMessageProtocol {
-        private(set) var hasPath:Bool = false
-        private(set) var path:String = ""
+      final public class Video : GeneratedMessage, GeneratedMessageProtocol {
+        public private(set) var path:String = ""
 
-        private(set) var hasName:Bool = false
-        private(set) var name:String = ""
+        public private(set) var hasPath:Bool = false
+        public private(set) var name:String = ""
 
-        private(set) var hasInstancefolder:Bool = false
-        private(set) var instancefolder:String = ""
+        public private(set) var hasName:Bool = false
+        public private(set) var instancefolder:String = ""
 
-        required internal init() {
+        public private(set) var hasInstancefolder:Bool = false
+        required public init() {
              super.init()
         }
-        override internal func isInitialized() -> Bool {
+        override public func isInitialized() -> Bool {
          return true
         }
-        override internal func writeToCodedOutputStream(output:CodedOutputStream) throws {
+        override public func writeToCodedOutputStream(_ output:CodedOutputStream) throws {
           if hasPath {
             try output.writeString(1, value:path)
           }
@@ -8105,7 +8309,7 @@ internal extension Motion {
           }
           try unknownFields.writeToCodedOutputStream(output)
         }
-        override internal func serializedSize() -> Int32 {
+        override public func serializedSize() -> Int32 {
           var serialize_size:Int32 = memoizedSerializedSize
           if serialize_size != -1 {
            return serialize_size
@@ -8125,53 +8329,54 @@ internal extension Motion {
           memoizedSerializedSize = serialize_size
           return serialize_size
         }
-        internal class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Motion.Message_.Video> {
+        public class func parseArrayDelimitedFromInputStream(_ input:NSInputStream) throws -> Array<Motion.Message_.Video> {
           var mergedArray = Array<Motion.Message_.Video>()
           while let value = try parseFromDelimitedFromInputStream(input) {
             mergedArray += [value]
           }
           return mergedArray
         }
-        internal class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Motion.Message_.Video? {
+        public class func parseFromDelimitedFromInputStream(_ input:NSInputStream) throws -> Motion.Message_.Video? {
           return try Motion.Message_.Video.Builder().mergeDelimitedFromInputStream(input)?.build()
         }
-        internal class func parseFromData(data:NSData) throws -> Motion.Message_.Video {
+        public class func parseFromData(_ data:NSData) throws -> Motion.Message_.Video {
           return try Motion.Message_.Video.Builder().mergeFromData(data, extensionRegistry:Motion.MotionRoot.sharedInstance.extensionRegistry).build()
         }
-        internal class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.Video {
+        public class func parseFromData(_ data:NSData, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.Video {
           return try Motion.Message_.Video.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
         }
-        internal class func parseFromInputStream(input:NSInputStream) throws -> Motion.Message_.Video {
+        public class func parseFromInputStream(_ input:NSInputStream) throws -> Motion.Message_.Video {
           return try Motion.Message_.Video.Builder().mergeFromInputStream(input).build()
         }
-        internal class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.Video {
+        public class func parseFromInputStream(_ input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.Video {
           return try Motion.Message_.Video.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
         }
-        internal class func parseFromCodedInputStream(input:CodedInputStream) throws -> Motion.Message_.Video {
+        public class func parseFromCodedInputStream(_ input:CodedInputStream) throws -> Motion.Message_.Video {
           return try Motion.Message_.Video.Builder().mergeFromCodedInputStream(input).build()
         }
-        internal class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.Video {
+        public class func parseFromCodedInputStream(_ input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.Video {
           return try Motion.Message_.Video.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
         }
-        internal class func getBuilder() -> Motion.Message_.Video.Builder {
+        public class func getBuilder() -> Motion.Message_.Video.Builder {
           return Motion.Message_.Video.classBuilder() as! Motion.Message_.Video.Builder
         }
-        internal func getBuilder() -> Motion.Message_.Video.Builder {
+        public func getBuilder() -> Motion.Message_.Video.Builder {
           return classBuilder() as! Motion.Message_.Video.Builder
         }
-        internal override class func classBuilder() -> MessageBuilder {
+        public override class func classBuilder() -> MessageBuilder {
           return Motion.Message_.Video.Builder()
         }
-        internal override func classBuilder() -> MessageBuilder {
+        public override func classBuilder() -> MessageBuilder {
           return Motion.Message_.Video.Builder()
         }
-        internal func toBuilder() throws -> Motion.Message_.Video.Builder {
+        public func toBuilder() throws -> Motion.Message_.Video.Builder {
           return try Motion.Message_.Video.builderWithPrototype(self)
         }
-        internal class func builderWithPrototype(prototype:Motion.Message_.Video) throws -> Motion.Message_.Video.Builder {
+        public class func builderWithPrototype(_ prototype:Motion.Message_.Video) throws -> Motion.Message_.Video.Builder {
           return try Motion.Message_.Video.Builder().mergeFrom(prototype)
         }
-        override internal func writeDescriptionTo(inout output:String, indent:String) throws {
+        override public func getDescription(_ indent:String) throws -> String {
+          var output:String = ""
           if hasPath {
             output += "\(indent) path: \(path) \n"
           }
@@ -8181,9 +8386,10 @@ internal extension Motion {
           if hasInstancefolder {
             output += "\(indent) instancefolder: \(instancefolder) \n"
           }
-          unknownFields.writeDescriptionTo(&output, indent:indent)
+          output += unknownFields.getDescription(indent)
+          return output
         }
-        override internal var hashValue:Int {
+        override public var hashValue:Int {
             get {
                 var hashCode:Int = 7
                 if hasPath {
@@ -8203,32 +8409,32 @@ internal extension Motion {
 
         //Meta information declaration start
 
-        override internal class func className() -> String {
+        override public class func className() -> String {
             return "Motion.Message_.Video"
         }
-        override internal func className() -> String {
+        override public func className() -> String {
             return "Motion.Message_.Video"
         }
-        override internal func classMetaType() -> GeneratedMessage.Type {
+        override public func classMetaType() -> GeneratedMessage.Type {
             return Motion.Message_.Video.self
         }
         //Meta information declaration end
 
-        final internal class Builder : GeneratedMessageBuilder {
+        final public class Builder : GeneratedMessageBuilder {
           private var builderResult:Motion.Message_.Video = Motion.Message_.Video()
-          internal func getMessage() -> Motion.Message_.Video {
+          public func getMessage() -> Motion.Message_.Video {
               return builderResult
           }
 
-          required override internal init () {
+          required override public init () {
              super.init()
           }
-          var hasPath:Bool {
+          public var hasPath:Bool {
                get {
                     return builderResult.hasPath
                }
           }
-          var path:String {
+          public var path:String {
                get {
                     return builderResult.path
                }
@@ -8237,21 +8443,21 @@ internal extension Motion {
                    builderResult.path = value
                }
           }
-          func setPath(value:String) -> Motion.Message_.Video.Builder {
+          public func setPath(_ value:String) -> Motion.Message_.Video.Builder {
             self.path = value
             return self
           }
-          internal func clearPath() -> Motion.Message_.Video.Builder{
+          public func clearPath() -> Motion.Message_.Video.Builder{
                builderResult.hasPath = false
                builderResult.path = ""
                return self
           }
-          var hasName:Bool {
+          public var hasName:Bool {
                get {
                     return builderResult.hasName
                }
           }
-          var name:String {
+          public var name:String {
                get {
                     return builderResult.name
                }
@@ -8260,21 +8466,21 @@ internal extension Motion {
                    builderResult.name = value
                }
           }
-          func setName(value:String) -> Motion.Message_.Video.Builder {
+          public func setName(_ value:String) -> Motion.Message_.Video.Builder {
             self.name = value
             return self
           }
-          internal func clearName() -> Motion.Message_.Video.Builder{
+          public func clearName() -> Motion.Message_.Video.Builder{
                builderResult.hasName = false
                builderResult.name = ""
                return self
           }
-          var hasInstancefolder:Bool {
+          public var hasInstancefolder:Bool {
                get {
                     return builderResult.hasInstancefolder
                }
           }
-          var instancefolder:String {
+          public var instancefolder:String {
                get {
                     return builderResult.instancefolder
                }
@@ -8283,36 +8489,36 @@ internal extension Motion {
                    builderResult.instancefolder = value
                }
           }
-          func setInstancefolder(value:String) -> Motion.Message_.Video.Builder {
+          public func setInstancefolder(_ value:String) -> Motion.Message_.Video.Builder {
             self.instancefolder = value
             return self
           }
-          internal func clearInstancefolder() -> Motion.Message_.Video.Builder{
+          public func clearInstancefolder() -> Motion.Message_.Video.Builder{
                builderResult.hasInstancefolder = false
                builderResult.instancefolder = ""
                return self
           }
-          override internal var internalGetResult:GeneratedMessage {
+          override public var internalGetResult:GeneratedMessage {
                get {
                   return builderResult
                }
           }
-          internal override func clear() -> Motion.Message_.Video.Builder {
+          public override func clear() -> Motion.Message_.Video.Builder {
             builderResult = Motion.Message_.Video()
             return self
           }
-          internal override func clone() throws -> Motion.Message_.Video.Builder {
+          public override func clone() throws -> Motion.Message_.Video.Builder {
             return try Motion.Message_.Video.builderWithPrototype(builderResult)
           }
-          internal override func build() throws -> Motion.Message_.Video {
+          public override func build() throws -> Motion.Message_.Video {
                try checkInitialized()
                return buildPartial()
           }
-          internal func buildPartial() -> Motion.Message_.Video {
+          public func buildPartial() -> Motion.Message_.Video {
             let returnMe:Motion.Message_.Video = builderResult
             return returnMe
           }
-          internal func mergeFrom(other:Motion.Message_.Video) throws -> Motion.Message_.Video.Builder {
+          public func mergeFrom(_ other:Motion.Message_.Video) throws -> Motion.Message_.Video.Builder {
             if other == Motion.Message_.Video() {
              return self
             }
@@ -8328,14 +8534,14 @@ internal extension Motion {
             try mergeUnknownFields(other.unknownFields)
             return self
           }
-          internal override func mergeFromCodedInputStream(input:CodedInputStream) throws -> Motion.Message_.Video.Builder {
+          public override func mergeFromCodedInputStream(_ input:CodedInputStream) throws -> Motion.Message_.Video.Builder {
                return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
           }
-          internal override func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.Video.Builder {
+          public override func mergeFromCodedInputStream(_ input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.Video.Builder {
             let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
             while (true) {
-              let tag = try input.readTag()
-              switch tag {
+              let protobufTag = try input.readTag()
+              switch protobufTag {
               case 0: 
                 self.unknownFields = try unknownFieldsBuilder.build()
                 return self
@@ -8350,7 +8556,7 @@ internal extension Motion {
                 instancefolder = try input.readString()
 
               default:
-                if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:tag))) {
+                if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                    unknownFields = try unknownFieldsBuilder.build()
                    return self
                 }
@@ -8367,7 +8573,7 @@ internal extension Motion {
 
       //Enum type declaration start 
 
-      internal enum ResponseType:Int32 {
+      public enum ResponseType:Int32, CustomDebugStringConvertible, CustomStringConvertible {
         case LoginSuccessful = 100
         case LoginFailed = 101
         case ErrorInvalidUsername = 102
@@ -8375,6 +8581,18 @@ internal extension Motion {
         case ErrorLoginFailiure = 104
         case ErrorTimeout = 105
 
+        public var debugDescription:String { return getDescription() }
+        public var description:String { return getDescription() }
+        private func getDescription() -> String { 
+            switch self {
+                case .LoginSuccessful: return ".LoginSuccessful"
+                case .LoginFailed: return ".LoginFailed"
+                case .ErrorInvalidUsername: return ".ErrorInvalidUsername"
+                case .ErrorInvalidPassword: return ".ErrorInvalidPassword"
+                case .ErrorLoginFailiure: return ".ErrorLoginFailiure"
+                case .ErrorTimeout: return ".ErrorTimeout"
+            }
+        }
       }
 
       //Enum type declaration end 
@@ -8383,7 +8601,7 @@ internal extension Motion {
 
       //Enum type declaration start 
 
-      internal enum ActionType:Int32 {
+      public enum ActionType:Int32, CustomDebugStringConvertible, CustomStringConvertible {
         case Engage = 1000
         case RecStart = 1002
         case RecRunning = 1003
@@ -8417,6 +8635,44 @@ internal extension Motion {
         case ServerInfo = 3032
         case ServerInfoOk = 3033
 
+        public var debugDescription:String { return getDescription() }
+        public var description:String { return getDescription() }
+        private func getDescription() -> String { 
+            switch self {
+                case .Engage: return ".Engage"
+                case .RecStart: return ".RecStart"
+                case .RecRunning: return ".RecRunning"
+                case .RecStop: return ".RecStop"
+                case .Unengage: return ".Unengage"
+                case .GetTime: return ".GetTime"
+                case .SetTime: return ".SetTime"
+                case .TimeSet: return ".TimeSet"
+                case .StrmStart: return ".StrmStart"
+                case .StrmStop: return ".StrmStop"
+                case .TakePicture: return ".TakePicture"
+                case .Dissconnect: return ".Dissconnect"
+                case .Refresh: return ".Refresh"
+                case .GetXml: return ".GetXml"
+                case .GetImage: return ".GetImage"
+                case .GetVideo: return ".GetVideo"
+                case .Save: return ".Save"
+                case .Open: return ".Open"
+                case .Update: return ".Update"
+                case .SaveOk: return ".SaveOk"
+                case .UpdateOk: return ".UpdateOk"
+                case .GetMat: return ".GetMat"
+                case .ResponseOk: return ".ResponseOk"
+                case .ResponseNext: return ".ResponseNext"
+                case .ResponseEnd: return ".ResponseEnd"
+                case .ResponseFinish: return ".ResponseFinish"
+                case .RecHasChanges: return ".RecHasChanges"
+                case .RecHasInstance: return ".RecHasInstance"
+                case .ProtoHasFile: return ".ProtoHasFile"
+                case .ProtoNoFile: return ".ProtoNoFile"
+                case .ServerInfo: return ".ServerInfo"
+                case .ServerInfoOk: return ".ServerInfoOk"
+            }
+        }
       }
 
       //Enum type declaration end 
@@ -8425,7 +8681,7 @@ internal extension Motion {
 
       //Enum type declaration start 
 
-      internal enum SocketType:Int32 {
+      public enum SocketType:Int32, CustomDebugStringConvertible, CustomStringConvertible {
         case SocketProtoTostring = 10
         case SocketProtoToarray = 11
         case SocketPlainText = 12
@@ -8443,6 +8699,28 @@ internal extension Motion {
         case UdpPort = 5030
         case TcpMsgPort = 5040
 
+        public var debugDescription:String { return getDescription() }
+        public var description:String { return getDescription() }
+        private func getDescription() -> String { 
+            switch self {
+                case .SocketProtoTostring: return ".SocketProtoTostring"
+                case .SocketProtoToarray: return ".SocketProtoToarray"
+                case .SocketPlainText: return ".SocketPlainText"
+                case .SplittedMessage: return ".SplittedMessage"
+                case .SingleMessage: return ".SingleMessage"
+                case .SocketBufferNanoSize: return ".SocketBufferNanoSize"
+                case .SocketBufferMiniSize: return ".SocketBufferMiniSize"
+                case .SocketBufferMicroSize: return ".SocketBufferMicroSize"
+                case .SocketBufferSmallSize: return ".SocketBufferSmallSize"
+                case .SocketBufferRegularSize: return ".SocketBufferRegularSize"
+                case .SocketBufferMediumSize: return ".SocketBufferMediumSize"
+                case .SocketBufferBigSize: return ".SocketBufferBigSize"
+                case .TcpEchoPort: return ".TcpEchoPort"
+                case .TcpStreamingPort: return ".TcpStreamingPort"
+                case .UdpPort: return ".UdpPort"
+                case .TcpMsgPort: return ".TcpMsgPort"
+            }
+        }
       }
 
       //Enum type declaration end 
@@ -8451,11 +8729,20 @@ internal extension Motion {
 
       //Enum type declaration start 
 
-      internal enum ProcessType:Int32 {
+      public enum ProcessType:Int32, CustomDebugStringConvertible, CustomStringConvertible {
         case ProcessPeopleCount = 4001
         case ProcessFaceDetect = 4002
         case ProcessWalkDirection = 4003
 
+        public var debugDescription:String { return getDescription() }
+        public var description:String { return getDescription() }
+        private func getDescription() -> String { 
+            switch self {
+                case .ProcessPeopleCount: return ".ProcessPeopleCount"
+                case .ProcessFaceDetect: return ".ProcessFaceDetect"
+                case .ProcessWalkDirection: return ".ProcessWalkDirection"
+            }
+        }
       }
 
       //Enum type declaration end 
@@ -8464,77 +8751,85 @@ internal extension Motion {
 
       //Enum type declaration start 
 
-      internal enum ServiceType:Int32 {
+      public enum ServiceType:Int32, CustomDebugStringConvertible, CustomStringConvertible {
         case ServiceFreeAccount = 5001
         case ServicePaidAccount = 5002
 
+        public var debugDescription:String { return getDescription() }
+        public var description:String { return getDescription() }
+        private func getDescription() -> String { 
+            switch self {
+                case .ServiceFreeAccount: return ".ServiceFreeAccount"
+                case .ServicePaidAccount: return ".ServicePaidAccount"
+            }
+        }
       }
 
       //Enum type declaration end 
 
-    private(set) var hasActivecam:Bool = false
-    private(set) var activecam:Int32 = Int32(0)
+    public private(set) var activecam:Int32 = Int32(0)
 
-    private(set) var types:Motion.Message_.ActionType = Motion.Message_.ActionType.Engage
-    private(set) var hasTypes:Bool = false
-    private(set) var motionuser:Array<Motion.Message_.MotionUser>  = Array<Motion.Message_.MotionUser>()
-    private(set) var motioncamera:Array<Motion.Message_.MotionCamera>  = Array<Motion.Message_.MotionCamera>()
-    private(set) var motiondevice:Array<Motion.Message_.MotionDevice>  = Array<Motion.Message_.MotionDevice>()
-    private(set) var hasTime:Bool = false
-    private(set) var time:String = ""
+    public private(set) var hasActivecam:Bool = false
+    public private(set) var types:Motion.Message_.ActionType = Motion.Message_.ActionType.Engage
+    public private(set) var hasTypes:Bool = false
+    public private(set) var motionuser:Array<Motion.Message_.MotionUser>  = Array<Motion.Message_.MotionUser>()
+    public private(set) var motioncamera:Array<Motion.Message_.MotionCamera>  = Array<Motion.Message_.MotionCamera>()
+    public private(set) var motiondevice:Array<Motion.Message_.MotionDevice>  = Array<Motion.Message_.MotionDevice>()
+    public private(set) var time:String = ""
 
-    private(set) var hasDatafile:Bool = false
-    private(set) var datafile:NSData = NSData()
+    public private(set) var hasTime:Bool = false
+    public private(set) var datafile:NSData = NSData()
 
-    private(set) var hasDataamount:Bool = false
-    private(set) var dataamount:Int32 = Int32(0)
+    public private(set) var hasDatafile:Bool = false
+    public private(set) var dataamount:Int32 = Int32(0)
 
-    private(set) var hasDatatotal:Bool = false
-    private(set) var datatotal:Int32 = Int32(0)
+    public private(set) var hasDataamount:Bool = false
+    public private(set) var datatotal:Int32 = Int32(0)
 
-    private(set) var hasServerip:Bool = false
-    private(set) var serverip:String = ""
+    public private(set) var hasDatatotal:Bool = false
+    public private(set) var serverip:String = ""
 
-    private(set) var hasClientip:Bool = false
-    private(set) var clientip:String = ""
+    public private(set) var hasServerip:Bool = false
+    public private(set) var clientip:String = ""
 
-    private(set) var hasDevicestarttime:Bool = false
-    private(set) var devicestarttime:String = ""
+    public private(set) var hasClientip:Bool = false
+    public private(set) var devicestarttime:String = ""
 
-    private(set) var hasCurrmonth:Bool = false
-    private(set) var currmonth:String = ""
+    public private(set) var hasDevicestarttime:Bool = false
+    public private(set) var currmonth:String = ""
 
-    private(set) var hasCurrday:Bool = false
-    private(set) var currday:String = ""
+    public private(set) var hasCurrmonth:Bool = false
+    public private(set) var currday:String = ""
 
-    private(set) var hasCurrdaytitle:Bool = false
-    private(set) var currdaytitle:String = ""
+    public private(set) var hasCurrday:Bool = false
+    public private(set) var currdaytitle:String = ""
 
-    private(set) var hasCurrcam:Bool = false
-    private(set) var currcam:Int32 = Int32(0)
+    public private(set) var hasCurrdaytitle:Bool = false
+    public private(set) var currcam:Int32 = Int32(0)
 
-    private(set) var hasPackagesize:Bool = false
-    private(set) var packagesize:Int32 = Int32(0)
+    public private(set) var hasCurrcam:Bool = false
+    public private(set) var packagesize:Int32 = Int32(0)
 
-    private(set) var hasImagefilepath:Bool = false
-    private(set) var imagefilepath:String = ""
+    public private(set) var hasPackagesize:Bool = false
+    public private(set) var imagefilepath:String = ""
 
-    private(set) var hasVideofilepath:Bool = false
-    private(set) var videofilepath:String = ""
+    public private(set) var hasImagefilepath:Bool = false
+    public private(set) var videofilepath:String = ""
 
-    private(set) var hasRecname:Bool = false
-    private(set) var recname:String = ""
+    public private(set) var hasVideofilepath:Bool = false
+    public private(set) var recname:String = ""
 
-    private(set) var hasActivecamnum:Bool = false
-    private(set) var activecamnum:Int32 = Int32(0)
+    public private(set) var hasRecname:Bool = false
+    public private(set) var activecamnum:Int32 = Int32(0)
 
-    private(set) var hasIncludethubmnails:Bool = false
-    private(set) var includethubmnails:Bool = false
+    public private(set) var hasActivecamnum:Bool = false
+    public private(set) var includethubmnails:Bool = false
 
-    required internal init() {
+    public private(set) var hasIncludethubmnails:Bool = false
+    required public init() {
          super.init()
     }
-    override internal func isInitialized() -> Bool {
+    override public func isInitialized() -> Bool {
       if !hasTypes {
         return false
       }
@@ -8550,7 +8845,7 @@ internal extension Motion {
        }
      return true
     }
-    override internal func writeToCodedOutputStream(output:CodedOutputStream) throws {
+    override public func writeToCodedOutputStream(_ output:CodedOutputStream) throws {
       if hasActivecam {
         try output.writeInt32(1, value:activecam)
       }
@@ -8619,7 +8914,7 @@ internal extension Motion {
       }
       try unknownFields.writeToCodedOutputStream(output)
     }
-    override internal func serializedSize() -> Int32 {
+    override public func serializedSize() -> Int32 {
       var serialize_size:Int32 = memoizedSerializedSize
       if serialize_size != -1 {
        return serialize_size
@@ -8696,79 +8991,80 @@ internal extension Motion {
       memoizedSerializedSize = serialize_size
       return serialize_size
     }
-    internal class func parseArrayDelimitedFromInputStream(input:NSInputStream) throws -> Array<Motion.Message_> {
+    public class func parseArrayDelimitedFromInputStream(_ input:NSInputStream) throws -> Array<Motion.Message_> {
       var mergedArray = Array<Motion.Message_>()
       while let value = try parseFromDelimitedFromInputStream(input) {
         mergedArray += [value]
       }
       return mergedArray
     }
-    internal class func parseFromDelimitedFromInputStream(input:NSInputStream) throws -> Motion.Message_? {
+    public class func parseFromDelimitedFromInputStream(_ input:NSInputStream) throws -> Motion.Message_? {
       return try Motion.Message_.Builder().mergeDelimitedFromInputStream(input)?.build()
     }
-    internal class func parseFromData(data:NSData) throws -> Motion.Message_ {
+    public class func parseFromData(_ data:NSData) throws -> Motion.Message_ {
       return try Motion.Message_.Builder().mergeFromData(data, extensionRegistry:Motion.MotionRoot.sharedInstance.extensionRegistry).build()
     }
-    internal class func parseFromData(data:NSData, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_ {
+    public class func parseFromData(_ data:NSData, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_ {
       return try Motion.Message_.Builder().mergeFromData(data, extensionRegistry:extensionRegistry).build()
     }
-    internal class func parseFromInputStream(input:NSInputStream) throws -> Motion.Message_ {
+    public class func parseFromInputStream(_ input:NSInputStream) throws -> Motion.Message_ {
       return try Motion.Message_.Builder().mergeFromInputStream(input).build()
     }
-    internal class func parseFromInputStream(input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_ {
+    public class func parseFromInputStream(_ input:NSInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_ {
       return try Motion.Message_.Builder().mergeFromInputStream(input, extensionRegistry:extensionRegistry).build()
     }
-    internal class func parseFromCodedInputStream(input:CodedInputStream) throws -> Motion.Message_ {
+    public class func parseFromCodedInputStream(_ input:CodedInputStream) throws -> Motion.Message_ {
       return try Motion.Message_.Builder().mergeFromCodedInputStream(input).build()
     }
-    internal class func parseFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_ {
+    public class func parseFromCodedInputStream(_ input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_ {
       return try Motion.Message_.Builder().mergeFromCodedInputStream(input, extensionRegistry:extensionRegistry).build()
     }
-    internal class func getBuilder() -> Motion.Message_.Builder {
+    public class func getBuilder() -> Motion.Message_.Builder {
       return Motion.Message_.classBuilder() as! Motion.Message_.Builder
     }
-    internal func getBuilder() -> Motion.Message_.Builder {
+    public func getBuilder() -> Motion.Message_.Builder {
       return classBuilder() as! Motion.Message_.Builder
     }
-    internal override class func classBuilder() -> MessageBuilder {
+    public override class func classBuilder() -> MessageBuilder {
       return Motion.Message_.Builder()
     }
-    internal override func classBuilder() -> MessageBuilder {
+    public override func classBuilder() -> MessageBuilder {
       return Motion.Message_.Builder()
     }
-    internal func toBuilder() throws -> Motion.Message_.Builder {
+    public func toBuilder() throws -> Motion.Message_.Builder {
       return try Motion.Message_.builderWithPrototype(self)
     }
-    internal class func builderWithPrototype(prototype:Motion.Message_) throws -> Motion.Message_.Builder {
+    public class func builderWithPrototype(_ prototype:Motion.Message_) throws -> Motion.Message_.Builder {
       return try Motion.Message_.Builder().mergeFrom(prototype)
     }
-    override internal func writeDescriptionTo(inout output:String, indent:String) throws {
+    override public func getDescription(_ indent:String) throws -> String {
+      var output:String = ""
       if hasActivecam {
         output += "\(indent) activecam: \(activecam) \n"
       }
       if (hasTypes) {
-        output += "\(indent) types: \(types.rawValue)\n"
+        output += "\(indent) types: \(types.description)\n"
       }
       var motionuserElementIndex:Int = 0
       for oneElementmotionuser in motionuser {
           output += "\(indent) motionuser[\(motionuserElementIndex)] {\n"
-          try oneElementmotionuser.writeDescriptionTo(&output, indent:"\(indent)  ")
+          output += try oneElementmotionuser.getDescription("\(indent)  ")
           output += "\(indent)}\n"
-          motionuserElementIndex++
+          motionuserElementIndex += 1
       }
       var motioncameraElementIndex:Int = 0
       for oneElementmotioncamera in motioncamera {
           output += "\(indent) motioncamera[\(motioncameraElementIndex)] {\n"
-          try oneElementmotioncamera.writeDescriptionTo(&output, indent:"\(indent)  ")
+          output += try oneElementmotioncamera.getDescription("\(indent)  ")
           output += "\(indent)}\n"
-          motioncameraElementIndex++
+          motioncameraElementIndex += 1
       }
       var motiondeviceElementIndex:Int = 0
       for oneElementmotiondevice in motiondevice {
           output += "\(indent) motiondevice[\(motiondeviceElementIndex)] {\n"
-          try oneElementmotiondevice.writeDescriptionTo(&output, indent:"\(indent)  ")
+          output += try oneElementmotiondevice.getDescription("\(indent)  ")
           output += "\(indent)}\n"
-          motiondeviceElementIndex++
+          motiondeviceElementIndex += 1
       }
       if hasTime {
         output += "\(indent) time: \(time) \n"
@@ -8821,9 +9117,10 @@ internal extension Motion {
       if hasIncludethubmnails {
         output += "\(indent) includethubmnails: \(includethubmnails) \n"
       }
-      unknownFields.writeDescriptionTo(&output, indent:indent)
+      output += unknownFields.getDescription(indent)
+      return output
     }
-    override internal var hashValue:Int {
+    override public var hashValue:Int {
         get {
             var hashCode:Int = 7
             if hasActivecam {
@@ -8900,32 +9197,32 @@ internal extension Motion {
 
     //Meta information declaration start
 
-    override internal class func className() -> String {
+    override public class func className() -> String {
         return "Motion.Message_"
     }
-    override internal func className() -> String {
+    override public func className() -> String {
         return "Motion.Message_"
     }
-    override internal func classMetaType() -> GeneratedMessage.Type {
+    override public func classMetaType() -> GeneratedMessage.Type {
         return Motion.Message_.self
     }
     //Meta information declaration end
 
-    final internal class Builder : GeneratedMessageBuilder {
+    final public class Builder : GeneratedMessageBuilder {
       private var builderResult:Motion.Message_ = Motion.Message_()
-      internal func getMessage() -> Motion.Message_ {
+      public func getMessage() -> Motion.Message_ {
           return builderResult
       }
 
-      required override internal init () {
+      required override public init () {
          super.init()
       }
-      var hasActivecam:Bool {
+      public var hasActivecam:Bool {
            get {
                 return builderResult.hasActivecam
            }
       }
-      var activecam:Int32 {
+      public var activecam:Int32 {
            get {
                 return builderResult.activecam
            }
@@ -8934,21 +9231,21 @@ internal extension Motion {
                builderResult.activecam = value
            }
       }
-      func setActivecam(value:Int32) -> Motion.Message_.Builder {
+      public func setActivecam(_ value:Int32) -> Motion.Message_.Builder {
         self.activecam = value
         return self
       }
-      internal func clearActivecam() -> Motion.Message_.Builder{
+      public func clearActivecam() -> Motion.Message_.Builder{
            builderResult.hasActivecam = false
            builderResult.activecam = Int32(0)
            return self
       }
-        var hasTypes:Bool{
+        public var hasTypes:Bool{
             get {
                 return builderResult.hasTypes
             }
         }
-        var types:Motion.Message_.ActionType {
+        public var types:Motion.Message_.ActionType {
             get {
                 return builderResult.types
             }
@@ -8957,16 +9254,16 @@ internal extension Motion {
                 builderResult.types = value
             }
         }
-        internal func setTypes(value:Motion.Message_.ActionType) -> Motion.Message_.Builder {
+        public func setTypes(_ value:Motion.Message_.ActionType) -> Motion.Message_.Builder {
           self.types = value
           return self
         }
-        internal func clearTypes() -> Motion.Message_.Builder {
+        public func clearTypes() -> Motion.Message_.Builder {
            builderResult.hasTypes = false
            builderResult.types = .Engage
            return self
         }
-      var motionuser:Array<Motion.Message_.MotionUser> {
+      public var motionuser:Array<Motion.Message_.MotionUser> {
            get {
                return builderResult.motionuser
            }
@@ -8974,15 +9271,15 @@ internal extension Motion {
                builderResult.motionuser = value
            }
       }
-      func setMotionuser(value:Array<Motion.Message_.MotionUser>) -> Motion.Message_.Builder {
+      public func setMotionuser(_ value:Array<Motion.Message_.MotionUser>) -> Motion.Message_.Builder {
         self.motionuser = value
         return self
       }
-      internal func clearMotionuser() -> Motion.Message_.Builder {
+      public func clearMotionuser() -> Motion.Message_.Builder {
         builderResult.motionuser.removeAll(keepCapacity: false)
         return self
       }
-      var motioncamera:Array<Motion.Message_.MotionCamera> {
+      public var motioncamera:Array<Motion.Message_.MotionCamera> {
            get {
                return builderResult.motioncamera
            }
@@ -8990,15 +9287,15 @@ internal extension Motion {
                builderResult.motioncamera = value
            }
       }
-      func setMotioncamera(value:Array<Motion.Message_.MotionCamera>) -> Motion.Message_.Builder {
+      public func setMotioncamera(_ value:Array<Motion.Message_.MotionCamera>) -> Motion.Message_.Builder {
         self.motioncamera = value
         return self
       }
-      internal func clearMotioncamera() -> Motion.Message_.Builder {
+      public func clearMotioncamera() -> Motion.Message_.Builder {
         builderResult.motioncamera.removeAll(keepCapacity: false)
         return self
       }
-      var motiondevice:Array<Motion.Message_.MotionDevice> {
+      public var motiondevice:Array<Motion.Message_.MotionDevice> {
            get {
                return builderResult.motiondevice
            }
@@ -9006,20 +9303,20 @@ internal extension Motion {
                builderResult.motiondevice = value
            }
       }
-      func setMotiondevice(value:Array<Motion.Message_.MotionDevice>) -> Motion.Message_.Builder {
+      public func setMotiondevice(_ value:Array<Motion.Message_.MotionDevice>) -> Motion.Message_.Builder {
         self.motiondevice = value
         return self
       }
-      internal func clearMotiondevice() -> Motion.Message_.Builder {
+      public func clearMotiondevice() -> Motion.Message_.Builder {
         builderResult.motiondevice.removeAll(keepCapacity: false)
         return self
       }
-      var hasTime:Bool {
+      public var hasTime:Bool {
            get {
                 return builderResult.hasTime
            }
       }
-      var time:String {
+      public var time:String {
            get {
                 return builderResult.time
            }
@@ -9028,21 +9325,21 @@ internal extension Motion {
                builderResult.time = value
            }
       }
-      func setTime(value:String) -> Motion.Message_.Builder {
+      public func setTime(_ value:String) -> Motion.Message_.Builder {
         self.time = value
         return self
       }
-      internal func clearTime() -> Motion.Message_.Builder{
+      public func clearTime() -> Motion.Message_.Builder{
            builderResult.hasTime = false
            builderResult.time = ""
            return self
       }
-      var hasDatafile:Bool {
+      public var hasDatafile:Bool {
            get {
                 return builderResult.hasDatafile
            }
       }
-      var datafile:NSData {
+      public var datafile:NSData {
            get {
                 return builderResult.datafile
            }
@@ -9051,21 +9348,21 @@ internal extension Motion {
                builderResult.datafile = value
            }
       }
-      func setDatafile(value:NSData) -> Motion.Message_.Builder {
+      public func setDatafile(_ value:NSData) -> Motion.Message_.Builder {
         self.datafile = value
         return self
       }
-      internal func clearDatafile() -> Motion.Message_.Builder{
+      public func clearDatafile() -> Motion.Message_.Builder{
            builderResult.hasDatafile = false
            builderResult.datafile = NSData()
            return self
       }
-      var hasDataamount:Bool {
+      public var hasDataamount:Bool {
            get {
                 return builderResult.hasDataamount
            }
       }
-      var dataamount:Int32 {
+      public var dataamount:Int32 {
            get {
                 return builderResult.dataamount
            }
@@ -9074,21 +9371,21 @@ internal extension Motion {
                builderResult.dataamount = value
            }
       }
-      func setDataamount(value:Int32) -> Motion.Message_.Builder {
+      public func setDataamount(_ value:Int32) -> Motion.Message_.Builder {
         self.dataamount = value
         return self
       }
-      internal func clearDataamount() -> Motion.Message_.Builder{
+      public func clearDataamount() -> Motion.Message_.Builder{
            builderResult.hasDataamount = false
            builderResult.dataamount = Int32(0)
            return self
       }
-      var hasDatatotal:Bool {
+      public var hasDatatotal:Bool {
            get {
                 return builderResult.hasDatatotal
            }
       }
-      var datatotal:Int32 {
+      public var datatotal:Int32 {
            get {
                 return builderResult.datatotal
            }
@@ -9097,21 +9394,21 @@ internal extension Motion {
                builderResult.datatotal = value
            }
       }
-      func setDatatotal(value:Int32) -> Motion.Message_.Builder {
+      public func setDatatotal(_ value:Int32) -> Motion.Message_.Builder {
         self.datatotal = value
         return self
       }
-      internal func clearDatatotal() -> Motion.Message_.Builder{
+      public func clearDatatotal() -> Motion.Message_.Builder{
            builderResult.hasDatatotal = false
            builderResult.datatotal = Int32(0)
            return self
       }
-      var hasServerip:Bool {
+      public var hasServerip:Bool {
            get {
                 return builderResult.hasServerip
            }
       }
-      var serverip:String {
+      public var serverip:String {
            get {
                 return builderResult.serverip
            }
@@ -9120,21 +9417,21 @@ internal extension Motion {
                builderResult.serverip = value
            }
       }
-      func setServerip(value:String) -> Motion.Message_.Builder {
+      public func setServerip(_ value:String) -> Motion.Message_.Builder {
         self.serverip = value
         return self
       }
-      internal func clearServerip() -> Motion.Message_.Builder{
+      public func clearServerip() -> Motion.Message_.Builder{
            builderResult.hasServerip = false
            builderResult.serverip = ""
            return self
       }
-      var hasClientip:Bool {
+      public var hasClientip:Bool {
            get {
                 return builderResult.hasClientip
            }
       }
-      var clientip:String {
+      public var clientip:String {
            get {
                 return builderResult.clientip
            }
@@ -9143,21 +9440,21 @@ internal extension Motion {
                builderResult.clientip = value
            }
       }
-      func setClientip(value:String) -> Motion.Message_.Builder {
+      public func setClientip(_ value:String) -> Motion.Message_.Builder {
         self.clientip = value
         return self
       }
-      internal func clearClientip() -> Motion.Message_.Builder{
+      public func clearClientip() -> Motion.Message_.Builder{
            builderResult.hasClientip = false
            builderResult.clientip = ""
            return self
       }
-      var hasDevicestarttime:Bool {
+      public var hasDevicestarttime:Bool {
            get {
                 return builderResult.hasDevicestarttime
            }
       }
-      var devicestarttime:String {
+      public var devicestarttime:String {
            get {
                 return builderResult.devicestarttime
            }
@@ -9166,21 +9463,21 @@ internal extension Motion {
                builderResult.devicestarttime = value
            }
       }
-      func setDevicestarttime(value:String) -> Motion.Message_.Builder {
+      public func setDevicestarttime(_ value:String) -> Motion.Message_.Builder {
         self.devicestarttime = value
         return self
       }
-      internal func clearDevicestarttime() -> Motion.Message_.Builder{
+      public func clearDevicestarttime() -> Motion.Message_.Builder{
            builderResult.hasDevicestarttime = false
            builderResult.devicestarttime = ""
            return self
       }
-      var hasCurrmonth:Bool {
+      public var hasCurrmonth:Bool {
            get {
                 return builderResult.hasCurrmonth
            }
       }
-      var currmonth:String {
+      public var currmonth:String {
            get {
                 return builderResult.currmonth
            }
@@ -9189,21 +9486,21 @@ internal extension Motion {
                builderResult.currmonth = value
            }
       }
-      func setCurrmonth(value:String) -> Motion.Message_.Builder {
+      public func setCurrmonth(_ value:String) -> Motion.Message_.Builder {
         self.currmonth = value
         return self
       }
-      internal func clearCurrmonth() -> Motion.Message_.Builder{
+      public func clearCurrmonth() -> Motion.Message_.Builder{
            builderResult.hasCurrmonth = false
            builderResult.currmonth = ""
            return self
       }
-      var hasCurrday:Bool {
+      public var hasCurrday:Bool {
            get {
                 return builderResult.hasCurrday
            }
       }
-      var currday:String {
+      public var currday:String {
            get {
                 return builderResult.currday
            }
@@ -9212,21 +9509,21 @@ internal extension Motion {
                builderResult.currday = value
            }
       }
-      func setCurrday(value:String) -> Motion.Message_.Builder {
+      public func setCurrday(_ value:String) -> Motion.Message_.Builder {
         self.currday = value
         return self
       }
-      internal func clearCurrday() -> Motion.Message_.Builder{
+      public func clearCurrday() -> Motion.Message_.Builder{
            builderResult.hasCurrday = false
            builderResult.currday = ""
            return self
       }
-      var hasCurrdaytitle:Bool {
+      public var hasCurrdaytitle:Bool {
            get {
                 return builderResult.hasCurrdaytitle
            }
       }
-      var currdaytitle:String {
+      public var currdaytitle:String {
            get {
                 return builderResult.currdaytitle
            }
@@ -9235,21 +9532,21 @@ internal extension Motion {
                builderResult.currdaytitle = value
            }
       }
-      func setCurrdaytitle(value:String) -> Motion.Message_.Builder {
+      public func setCurrdaytitle(_ value:String) -> Motion.Message_.Builder {
         self.currdaytitle = value
         return self
       }
-      internal func clearCurrdaytitle() -> Motion.Message_.Builder{
+      public func clearCurrdaytitle() -> Motion.Message_.Builder{
            builderResult.hasCurrdaytitle = false
            builderResult.currdaytitle = ""
            return self
       }
-      var hasCurrcam:Bool {
+      public var hasCurrcam:Bool {
            get {
                 return builderResult.hasCurrcam
            }
       }
-      var currcam:Int32 {
+      public var currcam:Int32 {
            get {
                 return builderResult.currcam
            }
@@ -9258,21 +9555,21 @@ internal extension Motion {
                builderResult.currcam = value
            }
       }
-      func setCurrcam(value:Int32) -> Motion.Message_.Builder {
+      public func setCurrcam(_ value:Int32) -> Motion.Message_.Builder {
         self.currcam = value
         return self
       }
-      internal func clearCurrcam() -> Motion.Message_.Builder{
+      public func clearCurrcam() -> Motion.Message_.Builder{
            builderResult.hasCurrcam = false
            builderResult.currcam = Int32(0)
            return self
       }
-      var hasPackagesize:Bool {
+      public var hasPackagesize:Bool {
            get {
                 return builderResult.hasPackagesize
            }
       }
-      var packagesize:Int32 {
+      public var packagesize:Int32 {
            get {
                 return builderResult.packagesize
            }
@@ -9281,21 +9578,21 @@ internal extension Motion {
                builderResult.packagesize = value
            }
       }
-      func setPackagesize(value:Int32) -> Motion.Message_.Builder {
+      public func setPackagesize(_ value:Int32) -> Motion.Message_.Builder {
         self.packagesize = value
         return self
       }
-      internal func clearPackagesize() -> Motion.Message_.Builder{
+      public func clearPackagesize() -> Motion.Message_.Builder{
            builderResult.hasPackagesize = false
            builderResult.packagesize = Int32(0)
            return self
       }
-      var hasImagefilepath:Bool {
+      public var hasImagefilepath:Bool {
            get {
                 return builderResult.hasImagefilepath
            }
       }
-      var imagefilepath:String {
+      public var imagefilepath:String {
            get {
                 return builderResult.imagefilepath
            }
@@ -9304,21 +9601,21 @@ internal extension Motion {
                builderResult.imagefilepath = value
            }
       }
-      func setImagefilepath(value:String) -> Motion.Message_.Builder {
+      public func setImagefilepath(_ value:String) -> Motion.Message_.Builder {
         self.imagefilepath = value
         return self
       }
-      internal func clearImagefilepath() -> Motion.Message_.Builder{
+      public func clearImagefilepath() -> Motion.Message_.Builder{
            builderResult.hasImagefilepath = false
            builderResult.imagefilepath = ""
            return self
       }
-      var hasVideofilepath:Bool {
+      public var hasVideofilepath:Bool {
            get {
                 return builderResult.hasVideofilepath
            }
       }
-      var videofilepath:String {
+      public var videofilepath:String {
            get {
                 return builderResult.videofilepath
            }
@@ -9327,21 +9624,21 @@ internal extension Motion {
                builderResult.videofilepath = value
            }
       }
-      func setVideofilepath(value:String) -> Motion.Message_.Builder {
+      public func setVideofilepath(_ value:String) -> Motion.Message_.Builder {
         self.videofilepath = value
         return self
       }
-      internal func clearVideofilepath() -> Motion.Message_.Builder{
+      public func clearVideofilepath() -> Motion.Message_.Builder{
            builderResult.hasVideofilepath = false
            builderResult.videofilepath = ""
            return self
       }
-      var hasRecname:Bool {
+      public var hasRecname:Bool {
            get {
                 return builderResult.hasRecname
            }
       }
-      var recname:String {
+      public var recname:String {
            get {
                 return builderResult.recname
            }
@@ -9350,21 +9647,21 @@ internal extension Motion {
                builderResult.recname = value
            }
       }
-      func setRecname(value:String) -> Motion.Message_.Builder {
+      public func setRecname(_ value:String) -> Motion.Message_.Builder {
         self.recname = value
         return self
       }
-      internal func clearRecname() -> Motion.Message_.Builder{
+      public func clearRecname() -> Motion.Message_.Builder{
            builderResult.hasRecname = false
            builderResult.recname = ""
            return self
       }
-      var hasActivecamnum:Bool {
+      public var hasActivecamnum:Bool {
            get {
                 return builderResult.hasActivecamnum
            }
       }
-      var activecamnum:Int32 {
+      public var activecamnum:Int32 {
            get {
                 return builderResult.activecamnum
            }
@@ -9373,21 +9670,21 @@ internal extension Motion {
                builderResult.activecamnum = value
            }
       }
-      func setActivecamnum(value:Int32) -> Motion.Message_.Builder {
+      public func setActivecamnum(_ value:Int32) -> Motion.Message_.Builder {
         self.activecamnum = value
         return self
       }
-      internal func clearActivecamnum() -> Motion.Message_.Builder{
+      public func clearActivecamnum() -> Motion.Message_.Builder{
            builderResult.hasActivecamnum = false
            builderResult.activecamnum = Int32(0)
            return self
       }
-      var hasIncludethubmnails:Bool {
+      public var hasIncludethubmnails:Bool {
            get {
                 return builderResult.hasIncludethubmnails
            }
       }
-      var includethubmnails:Bool {
+      public var includethubmnails:Bool {
            get {
                 return builderResult.includethubmnails
            }
@@ -9396,36 +9693,36 @@ internal extension Motion {
                builderResult.includethubmnails = value
            }
       }
-      func setIncludethubmnails(value:Bool) -> Motion.Message_.Builder {
+      public func setIncludethubmnails(_ value:Bool) -> Motion.Message_.Builder {
         self.includethubmnails = value
         return self
       }
-      internal func clearIncludethubmnails() -> Motion.Message_.Builder{
+      public func clearIncludethubmnails() -> Motion.Message_.Builder{
            builderResult.hasIncludethubmnails = false
            builderResult.includethubmnails = false
            return self
       }
-      override internal var internalGetResult:GeneratedMessage {
+      override public var internalGetResult:GeneratedMessage {
            get {
               return builderResult
            }
       }
-      internal override func clear() -> Motion.Message_.Builder {
+      public override func clear() -> Motion.Message_.Builder {
         builderResult = Motion.Message_()
         return self
       }
-      internal override func clone() throws -> Motion.Message_.Builder {
+      public override func clone() throws -> Motion.Message_.Builder {
         return try Motion.Message_.builderWithPrototype(builderResult)
       }
-      internal override func build() throws -> Motion.Message_ {
+      public override func build() throws -> Motion.Message_ {
            try checkInitialized()
            return buildPartial()
       }
-      internal func buildPartial() -> Motion.Message_ {
+      public func buildPartial() -> Motion.Message_ {
         let returnMe:Motion.Message_ = builderResult
         return returnMe
       }
-      internal func mergeFrom(other:Motion.Message_) throws -> Motion.Message_.Builder {
+      public func mergeFrom(_ other:Motion.Message_) throws -> Motion.Message_.Builder {
         if other == Motion.Message_() {
          return self
         }
@@ -9498,14 +9795,14 @@ internal extension Motion {
         try mergeUnknownFields(other.unknownFields)
         return self
       }
-      internal override func mergeFromCodedInputStream(input:CodedInputStream) throws -> Motion.Message_.Builder {
+      public override func mergeFromCodedInputStream(_ input:CodedInputStream) throws -> Motion.Message_.Builder {
            return try mergeFromCodedInputStream(input, extensionRegistry:ExtensionRegistry())
       }
-      internal override func mergeFromCodedInputStream(input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.Builder {
+      public override func mergeFromCodedInputStream(_ input:CodedInputStream, extensionRegistry:ExtensionRegistry) throws -> Motion.Message_.Builder {
         let unknownFieldsBuilder:UnknownFieldSet.Builder = try UnknownFieldSet.builderWithUnknownFields(self.unknownFields)
         while (true) {
-          let tag = try input.readTag()
-          switch tag {
+          let protobufTag = try input.readTag()
+          switch protobufTag {
           case 0: 
             self.unknownFields = try unknownFieldsBuilder.build()
             return self
@@ -9588,7 +9885,7 @@ internal extension Motion {
             includethubmnails = try input.readBool()
 
           default:
-            if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:tag))) {
+            if (!(try parseUnknownField(input,unknownFields:unknownFieldsBuilder, extensionRegistry:extensionRegistry, tag:protobufTag))) {
                unknownFields = try unknownFieldsBuilder.build()
                return self
             }

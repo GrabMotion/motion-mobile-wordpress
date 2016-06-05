@@ -9,10 +9,12 @@
 import UIKit
 import Parse
 
-class Device
+
+class Device 
 {
     var user = User()
     var cameras = [Camera]()
+    var activecam = Int()
    
     var joined = Bool()
     var running = Bool()
@@ -47,11 +49,17 @@ class Device
 
 class Camera
 {
-    var cameranumber = Int()
-    var cameraname = String()
-    var recognizing = Bool()
-    var thumbnail = UIImage()
+    var cameranumber      = Int()
+    var cameraname        = String()
+    var recognizing       = Bool()
+    var idmat             = Int()
+    var thumbnail         = UIImage()
 
+    var matrows           = Int()
+    var matcols           = Int()
+    var matheight         = Int()
+    var matwidth          = Int()
+    
     init(){}
 }
 
@@ -88,7 +96,7 @@ SocketProtocolDelegate
 
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
-    let defaults = NSUserDefaults.standardUserDefaults()
+    var defaults = NSUserDefaults.standardUserDefaults()
 
     var delegate:RemoteIpDelegate? = nil
     
@@ -121,6 +129,65 @@ SocketProtocolDelegate
         
         self.delegate = self
         self.socket.delegate = self
+
+        if let data64 = defaults.objectForKey("message") as? String
+        {
+    
+            let decodedData = NSData(base64EncodedString: data64, options: NSDataBase64DecodingOptions(rawValue: 0))
+             
+            do
+            {
+                let message = try Motion.Message_.parseFromData(decodedData!)       
+
+                let rdevices:[Motion.Message_.MotionDevice] = message.motiondevice
+
+                 print(rdevices[0].ipnumber)            
+           
+                self.engage(message, stored: true)
+
+            } catch
+            {
+                print(error)
+            }          
+
+           
+
+        } else {
+
+            self.device = Device()
+        }
+
+        let installation = PFInstallation.currentInstallation()
+                                      
+        let device = Device()
+        
+        installation.setObject("\(device)", forKey: "device")
+
+        installation.setObject(PFUser.currentUser()!, forKey: "user")
+
+        var objectID = String()
+        
+        if let user = PFUser.currentUser() {
+           objectID  = user.objectId!
+        }
+
+        let usr_channel = "user_\(objectID)"
+
+        installation.addUniqueObject(usr_channel, forKey: "channels")
+
+        installation.saveInBackgroundWithBlock
+        {
+            (success: Bool , error: NSError?) -> Void in
+            
+            if success
+            {
+                
+                print("saved")
+            } else 
+            {
+                print("error: \(error)")
+            }
+        }   
     }
 
     func getWiFiAddress() -> String? 
@@ -189,7 +256,9 @@ SocketProtocolDelegate
         print ("llega: " + info)
         
         self.appDelegate.localaddrip = localaddrip
-              
+        
+        self.device.ipnumber = info           
+        
         socket.deviceIp = info
         socket.setLocaladdrip(localaddrip)
         
@@ -197,8 +266,15 @@ SocketProtocolDelegate
         message.types = Motion.Message_.ActionType.Engage
         message.serverip = info
 
+        
+        //var includethumbs = false
+        //if self.devices.count == 0
+        //{
+        //    includethumbs = true
+        //}
+
         message.packagesize = socket.packagesize
-        message.includethubmnails = true
+        message.includethubmnails = false //includethumbs
         
         let error:NSError!
 
@@ -229,7 +305,7 @@ SocketProtocolDelegate
         {
             case Motion.Message_.ActionType.Engage.hashValue: 
                 SwiftSpinner.hide()
-                self.engage(message)
+                self.engage(message, stored: false)
 
                 self.setup.text = "Join Terminals"
                 self.setup.text = "Step 2"
@@ -254,6 +330,16 @@ SocketProtocolDelegate
                 break
         }  
     }
+    
+    func imageDownloaded(file : [String])
+    {
+        
+    }
+
+    func imageProgress(progress : Int,  total : Int)
+    {
+
+    }
 
     func serviceInfoOk(message: Motion.Message_)
     {
@@ -265,20 +351,22 @@ SocketProtocolDelegate
             print("device joined")
         } 
 
-        self.engage(message)
+        self.engage(message, stored: false)
 
     }
     
-    func engage(message: Motion.Message_)
+    func engage(message: Motion.Message_, stored : Bool)
     {
-
-        self.device = Device()
 
         let rdevices:[Motion.Message_.MotionDevice] = message.motiondevice
 
         for rdevice:Motion.Message_.MotionDevice in rdevices
         {
                               
+               if stored 
+               {
+                    device.ipnumber        = rdevice.ipnumber
+               }              
                device.ippublic             = rdevice.ippublic  
                print(device.ippublic)              
                device.macaddress           = rdevice.macaddress              
@@ -320,16 +408,22 @@ SocketProtocolDelegate
             {
 
                 let camera = Camera()
+                camera.idmat        = Int(rcamera.dbIdmat)
                 camera.cameranumber = Int(rcamera.cameranumber)
                 camera.cameraname   = rcamera.cameraname
                 camera.recognizing  = rcamera.recognizing
+
+                camera.matrows           = Int(rcamera.matrows)
+                camera.matcols           = Int(rcamera.matcols)
+                camera.matheight         = Int(rcamera.matheight)
+                camera.matwidth          = Int(rcamera.matwidth)
 
                 if camera.recognizing
                 {
                     device.running = true
                 }
 
-                if message.includethubmnails
+                if message.includethubmnails && !stored
                 {
 
                     let thubmnailstr:String = self.socket.files[count]
@@ -340,7 +434,7 @@ SocketProtocolDelegate
                         let stitchedImage:UIImage = CVWrapper.processImageWithStrToCVMat(thubmnailstr)
                         
                         camera.thumbnail = stitchedImage
-                    
+            
                     }
 
                 }
@@ -358,9 +452,30 @@ SocketProtocolDelegate
         self.appDelegate.deviceIp = self.remoteServerIp
 
         self.setupTableView.reload()
+        
+        if !stored
+        {
+            let error:NSError!
 
-        
-        
+            var data:NSData!
+            do
+            {                
+                data = message.data()
+
+            } catch
+            {
+                print(error)
+            }
+
+            var base64String = String()
+            
+            base64String = data.base64EncodedStringWithOptions(NSDataBase64EncodingOptions(rawValue: 0))
+                        
+            self.defaults.setObject(base64String, forKey: "message")
+            self.defaults.synchronize()
+        }
+
+
     }
 
     func convertBase64ToImage(base64String: String) -> UIImage {
@@ -377,7 +492,7 @@ SocketProtocolDelegate
     {
 
         let decodedData     = NSData(base64EncodedString: str, options:NSDataBase64DecodingOptions(rawValue: 0))
-            let decodedString   = String(data: decodedData!, encoding: NSUTF8StringEncoding)
+        let decodedString   = String(data: decodedData!, encoding: NSUTF8StringEncoding)
         return decodedString!
     }
     
