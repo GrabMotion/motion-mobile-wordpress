@@ -1,0 +1,646 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		744F383DE2EF817C07F632E3 /* Pods_grabmo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B2CF5400C3AD9772C74AD08 /* Pods_grabmo.framework */; };
+		8219FB3C1D01B48000BC2535 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8219FB3B1D01B48000BC2535 /* AppDelegate.swift */; };
+		8219FB411D01B48000BC2535 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8219FB3F1D01B48000BC2535 /* Main.storyboard */; };
+		8219FB431D01B48000BC2535 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8219FB421D01B48000BC2535 /* Assets.xcassets */; };
+		8219FB461D01B48000BC2535 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8219FB441D01B48000BC2535 /* LaunchScreen.storyboard */; };
+		8219FB511D01B48000BC2535 /* grabmoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8219FB501D01B48000BC2535 /* grabmoTests.swift */; };
+		8219FB5C1D01B48000BC2535 /* grabmoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8219FB5B1D01B48000BC2535 /* grabmoUITests.swift */; };
+		8270A6CA1D046CB000E24FAC /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8270A6C91D046CB000E24FAC /* NotificationViewController.swift */; };
+		8270A6CC1D046D6900E24FAC /* PushNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8270A6CB1D046D6900E24FAC /* PushNotificationViewController.swift */; };
+		8270A6D01D05AFCB00E24FAC /* grabmo.png in Resources */ = {isa = PBXBuildFile; fileRef = 8270A6CF1D05AFCB00E24FAC /* grabmo.png */; };
+		8270A6D31D05C0D500E24FAC /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8270A6D21D05C0D500E24FAC /* RegisterViewController.swift */; };
+		8270A6D51D05C0E700E24FAC /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8270A6D41D05C0E700E24FAC /* LoginViewController.swift */; };
+		8270A6D71D05C85E00E24FAC /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8270A6D61D05C85E00E24FAC /* MainViewController.swift */; };
+		8270A6D91D05CA1C00E24FAC /* SetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8270A6D81D05CA1C00E24FAC /* SetupViewController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8219FB4D1D01B48000BC2535 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8219FB301D01B48000BC2535 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8219FB371D01B48000BC2535;
+			remoteInfo = grabmo;
+		};
+		8219FB581D01B48000BC2535 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8219FB301D01B48000BC2535 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8219FB371D01B48000BC2535;
+			remoteInfo = grabmo;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		5A09ED2785CDF0FCF9BBE07F /* Pods-grabmo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-grabmo.release.xcconfig"; path = "Pods/Target Support Files/Pods-grabmo/Pods-grabmo.release.xcconfig"; sourceTree = "<group>"; };
+		7B2CF5400C3AD9772C74AD08 /* Pods_grabmo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_grabmo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8219FB381D01B48000BC2535 /* grabmo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = grabmo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8219FB3B1D01B48000BC2535 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		8219FB401D01B48000BC2535 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		8219FB421D01B48000BC2535 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		8219FB451D01B48000BC2535 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8219FB471D01B48000BC2535 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8219FB4C1D01B48000BC2535 /* grabmoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = grabmoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8219FB501D01B48000BC2535 /* grabmoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = grabmoTests.swift; sourceTree = "<group>"; };
+		8219FB521D01B48000BC2535 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8219FB571D01B48000BC2535 /* grabmoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = grabmoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8219FB5B1D01B48000BC2535 /* grabmoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = grabmoUITests.swift; sourceTree = "<group>"; };
+		8219FB5D1D01B48000BC2535 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8270A6C91D046CB000E24FAC /* NotificationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
+		8270A6CB1D046D6900E24FAC /* PushNotificationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationViewController.swift; sourceTree = "<group>"; };
+		8270A6CF1D05AFCB00E24FAC /* grabmo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grabmo.png; sourceTree = "<group>"; };
+		8270A6D21D05C0D500E24FAC /* RegisterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		8270A6D41D05C0E700E24FAC /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		8270A6D61D05C85E00E24FAC /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		8270A6D81D05CA1C00E24FAC /* SetupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetupViewController.swift; sourceTree = "<group>"; };
+		BD62CA7AB4F6E74E9DD9031F /* Pods-grabmo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-grabmo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-grabmo/Pods-grabmo.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8219FB351D01B48000BC2535 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				744F383DE2EF817C07F632E3 /* Pods_grabmo.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8219FB491D01B48000BC2535 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8219FB541D01B48000BC2535 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8219FB2F1D01B48000BC2535 = {
+			isa = PBXGroup;
+			children = (
+				8219FB3A1D01B48000BC2535 /* grabmo */,
+				8219FB4F1D01B48000BC2535 /* grabmoTests */,
+				8219FB5A1D01B48000BC2535 /* grabmoUITests */,
+				8219FB391D01B48000BC2535 /* Products */,
+				889A3EEFA13E1BA02CBA53C6 /* Pods */,
+				F297E987D5DBCE6EE2A3139F /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		8219FB391D01B48000BC2535 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8219FB381D01B48000BC2535 /* grabmo.app */,
+				8219FB4C1D01B48000BC2535 /* grabmoTests.xctest */,
+				8219FB571D01B48000BC2535 /* grabmoUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8219FB3A1D01B48000BC2535 /* grabmo */ = {
+			isa = PBXGroup;
+			children = (
+				8270A6D81D05CA1C00E24FAC /* SetupViewController.swift */,
+				8270A6D61D05C85E00E24FAC /* MainViewController.swift */,
+				8270A6D11D05C0BD00E24FAC /* Login_Register */,
+				8270A6CD1D05A84C00E24FAC /* assets */,
+				8270A6C81D046BE500E24FAC /* Notifications */,
+				8219FB3B1D01B48000BC2535 /* AppDelegate.swift */,
+				8219FB3F1D01B48000BC2535 /* Main.storyboard */,
+				8219FB421D01B48000BC2535 /* Assets.xcassets */,
+				8219FB441D01B48000BC2535 /* LaunchScreen.storyboard */,
+				8219FB471D01B48000BC2535 /* Info.plist */,
+			);
+			path = grabmo;
+			sourceTree = "<group>";
+		};
+		8219FB4F1D01B48000BC2535 /* grabmoTests */ = {
+			isa = PBXGroup;
+			children = (
+				8219FB501D01B48000BC2535 /* grabmoTests.swift */,
+				8219FB521D01B48000BC2535 /* Info.plist */,
+			);
+			path = grabmoTests;
+			sourceTree = "<group>";
+		};
+		8219FB5A1D01B48000BC2535 /* grabmoUITests */ = {
+			isa = PBXGroup;
+			children = (
+				8219FB5B1D01B48000BC2535 /* grabmoUITests.swift */,
+				8219FB5D1D01B48000BC2535 /* Info.plist */,
+			);
+			path = grabmoUITests;
+			sourceTree = "<group>";
+		};
+		8270A6C81D046BE500E24FAC /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				8270A6CB1D046D6900E24FAC /* PushNotificationViewController.swift */,
+				8270A6C91D046CB000E24FAC /* NotificationViewController.swift */,
+			);
+			name = Notifications;
+			sourceTree = "<group>";
+		};
+		8270A6CD1D05A84C00E24FAC /* assets */ = {
+			isa = PBXGroup;
+			children = (
+				8270A6CE1D05A85600E24FAC /* images */,
+			);
+			name = assets;
+			sourceTree = "<group>";
+		};
+		8270A6CE1D05A85600E24FAC /* images */ = {
+			isa = PBXGroup;
+			children = (
+				8270A6CF1D05AFCB00E24FAC /* grabmo.png */,
+			);
+			name = images;
+			sourceTree = "<group>";
+		};
+		8270A6D11D05C0BD00E24FAC /* Login_Register */ = {
+			isa = PBXGroup;
+			children = (
+				8270A6D41D05C0E700E24FAC /* LoginViewController.swift */,
+				8270A6D21D05C0D500E24FAC /* RegisterViewController.swift */,
+			);
+			name = Login_Register;
+			sourceTree = "<group>";
+		};
+		889A3EEFA13E1BA02CBA53C6 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BD62CA7AB4F6E74E9DD9031F /* Pods-grabmo.debug.xcconfig */,
+				5A09ED2785CDF0FCF9BBE07F /* Pods-grabmo.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		F297E987D5DBCE6EE2A3139F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				7B2CF5400C3AD9772C74AD08 /* Pods_grabmo.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8219FB371D01B48000BC2535 /* grabmo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8219FB601D01B48000BC2535 /* Build configuration list for PBXNativeTarget "grabmo" */;
+			buildPhases = (
+				A8E982540CE54A1E06B19778 /* Check Pods Manifest.lock */,
+				8219FB341D01B48000BC2535 /* Sources */,
+				8219FB351D01B48000BC2535 /* Frameworks */,
+				8219FB361D01B48000BC2535 /* Resources */,
+				698B3255CAB45A81020CAD1C /* Embed Pods Frameworks */,
+				5834EE56EE04622F9BF67ABF /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = grabmo;
+			productName = grabmo;
+			productReference = 8219FB381D01B48000BC2535 /* grabmo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8219FB4B1D01B48000BC2535 /* grabmoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8219FB631D01B48000BC2535 /* Build configuration list for PBXNativeTarget "grabmoTests" */;
+			buildPhases = (
+				8219FB481D01B48000BC2535 /* Sources */,
+				8219FB491D01B48000BC2535 /* Frameworks */,
+				8219FB4A1D01B48000BC2535 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8219FB4E1D01B48000BC2535 /* PBXTargetDependency */,
+			);
+			name = grabmoTests;
+			productName = grabmoTests;
+			productReference = 8219FB4C1D01B48000BC2535 /* grabmoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		8219FB561D01B48000BC2535 /* grabmoUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8219FB661D01B48000BC2535 /* Build configuration list for PBXNativeTarget "grabmoUITests" */;
+			buildPhases = (
+				8219FB531D01B48000BC2535 /* Sources */,
+				8219FB541D01B48000BC2535 /* Frameworks */,
+				8219FB551D01B48000BC2535 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8219FB591D01B48000BC2535 /* PBXTargetDependency */,
+			);
+			name = grabmoUITests;
+			productName = grabmoUITests;
+			productReference = 8219FB571D01B48000BC2535 /* grabmoUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8219FB301D01B48000BC2535 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = GrabMotion;
+				TargetAttributes = {
+					8219FB371D01B48000BC2535 = {
+						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = YDE3D3X5DH;
+					};
+					8219FB4B1D01B48000BC2535 = {
+						CreatedOnToolsVersion = 7.3.1;
+						TestTargetID = 8219FB371D01B48000BC2535;
+					};
+					8219FB561D01B48000BC2535 = {
+						CreatedOnToolsVersion = 7.3.1;
+						TestTargetID = 8219FB371D01B48000BC2535;
+					};
+				};
+			};
+			buildConfigurationList = 8219FB331D01B48000BC2535 /* Build configuration list for PBXProject "grabmo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 8219FB2F1D01B48000BC2535;
+			productRefGroup = 8219FB391D01B48000BC2535 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8219FB371D01B48000BC2535 /* grabmo */,
+				8219FB4B1D01B48000BC2535 /* grabmoTests */,
+				8219FB561D01B48000BC2535 /* grabmoUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8219FB361D01B48000BC2535 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8219FB461D01B48000BC2535 /* LaunchScreen.storyboard in Resources */,
+				8270A6D01D05AFCB00E24FAC /* grabmo.png in Resources */,
+				8219FB431D01B48000BC2535 /* Assets.xcassets in Resources */,
+				8219FB411D01B48000BC2535 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8219FB4A1D01B48000BC2535 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8219FB551D01B48000BC2535 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5834EE56EE04622F9BF67ABF /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-grabmo/Pods-grabmo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		698B3255CAB45A81020CAD1C /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-grabmo/Pods-grabmo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A8E982540CE54A1E06B19778 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8219FB341D01B48000BC2535 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8270A6CC1D046D6900E24FAC /* PushNotificationViewController.swift in Sources */,
+				8219FB3C1D01B48000BC2535 /* AppDelegate.swift in Sources */,
+				8270A6CA1D046CB000E24FAC /* NotificationViewController.swift in Sources */,
+				8270A6D71D05C85E00E24FAC /* MainViewController.swift in Sources */,
+				8270A6D51D05C0E700E24FAC /* LoginViewController.swift in Sources */,
+				8270A6D31D05C0D500E24FAC /* RegisterViewController.swift in Sources */,
+				8270A6D91D05CA1C00E24FAC /* SetupViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8219FB481D01B48000BC2535 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8219FB511D01B48000BC2535 /* grabmoTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8219FB531D01B48000BC2535 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8219FB5C1D01B48000BC2535 /* grabmoUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8219FB4E1D01B48000BC2535 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8219FB371D01B48000BC2535 /* grabmo */;
+			targetProxy = 8219FB4D1D01B48000BC2535 /* PBXContainerItemProxy */;
+		};
+		8219FB591D01B48000BC2535 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8219FB371D01B48000BC2535 /* grabmo */;
+			targetProxy = 8219FB581D01B48000BC2535 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		8219FB3F1D01B48000BC2535 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8219FB401D01B48000BC2535 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		8219FB441D01B48000BC2535 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8219FB451D01B48000BC2535 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		8219FB5E1D01B48000BC2535 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8219FB5F1D01B48000BC2535 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8219FB611D01B48000BC2535 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BD62CA7AB4F6E74E9DD9031F /* Pods-grabmo.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = grabmo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.grabmotion.grabmo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		8219FB621D01B48000BC2535 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5A09ED2785CDF0FCF9BBE07F /* Pods-grabmo.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_FILE = grabmo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.grabmotion.grabmo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		8219FB641D01B48000BC2535 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = grabmoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.grabmotion.grabmoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/grabmo.app/grabmo";
+			};
+			name = Debug;
+		};
+		8219FB651D01B48000BC2535 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = grabmoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.grabmotion.grabmoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/grabmo.app/grabmo";
+			};
+			name = Release;
+		};
+		8219FB671D01B48000BC2535 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = grabmoUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.grabmotion.grabmoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = grabmo;
+			};
+			name = Debug;
+		};
+		8219FB681D01B48000BC2535 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = grabmoUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.grabmotion.grabmoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = grabmo;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8219FB331D01B48000BC2535 /* Build configuration list for PBXProject "grabmo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8219FB5E1D01B48000BC2535 /* Debug */,
+				8219FB5F1D01B48000BC2535 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8219FB601D01B48000BC2535 /* Build configuration list for PBXNativeTarget "grabmo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8219FB611D01B48000BC2535 /* Debug */,
+				8219FB621D01B48000BC2535 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8219FB631D01B48000BC2535 /* Build configuration list for PBXNativeTarget "grabmoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8219FB641D01B48000BC2535 /* Debug */,
+				8219FB651D01B48000BC2535 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8219FB661D01B48000BC2535 /* Build configuration list for PBXNativeTarget "grabmoUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8219FB671D01B48000BC2535 /* Debug */,
+				8219FB681D01B48000BC2535 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8219FB301D01B48000BC2535 /* Project object */;
+}

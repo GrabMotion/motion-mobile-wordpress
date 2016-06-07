@@ -1,0 +1,84 @@
+PODS:
+  - Alamofire (3.4.0)
+  - AlamofireOauth2 (1.2.0):
+    - Alamofire
+    - KeychainAccess
+  - Bolts (1.7.0):
+    - Bolts/AppLinks (= 1.7.0)
+    - Bolts/Tasks (= 1.7.0)
+  - Bolts/AppLinks (1.7.0):
+    - Bolts/Tasks
+  - Bolts/Tasks (1.7.0)
+  - FBSDKCoreKit (4.12.0):
+    - Bolts (~> 1.7)
+  - FBSDKLoginKit (4.12.0):
+    - FBSDKCoreKit
+  - FBSDKShareKit (4.12.0):
+    - FBSDKCoreKit
+  - KeychainAccess (2.3.5)
+  - KYCircularProgress (0.5.1)
+  - OpenCV (2.4.9)
+  - Parse (1.13.0):
+    - Bolts/Tasks (~> 1.6)
+  - ParseFacebookUtilsV4 (1.11.1):
+    - Bolts/Tasks (>= 1.6)
+    - FBSDKCoreKit (~> 4.10)
+    - FBSDKLoginKit (~> 4.10)
+    - FBSDKTVOSKit (~> 4.10)
+    - Parse (~> 1.12)
+  - ParseTwitterUtils (1.10.0):
+    - Bolts/Tasks (~> 1.5)
+    - Parse (~> 1.9)
+  - ProtocolBuffers-Swift (3.0.0)
+  - SVProgressHUD (2.0.3)
+  - SwiftyJSON (2.3.2)
+
+DEPENDENCIES:
+  - Alamofire (~> 3.0)
+  - AlamofireOauth2 (~> 1.0)
+  - FBSDKCoreKit
+  - FBSDKLoginKit
+  - FBSDKShareKit
+  - KYCircularProgress
+  - OpenCV (= 2.4.9)
+  - Parse
+  - ParseFacebookUtilsV4
+  - ParseTwitterUtils
+  - ProtocolBuffers-Swift (from `https://github.com/alexeyxo/protobuf-swift.git`,
+    branch `ProtoBuf3.0-Swift2.0`)
+  - SVProgressHUD
+  - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
+
+EXTERNAL SOURCES:
+  ProtocolBuffers-Swift:
+    :branch: ProtoBuf3.0-Swift2.0
+    :git: https://github.com/alexeyxo/protobuf-swift.git
+  SwiftyJSON:
+    :git: https://github.com/SwiftyJSON/SwiftyJSON.git
+
+CHECKOUT OPTIONS:
+  ProtocolBuffers-Swift:
+    :commit: 05464b3291cd6307a4e805dadea0efced551b812
+    :git: https://github.com/alexeyxo/protobuf-swift.git
+  SwiftyJSON:
+    :commit: 2a5b70f06001316d4fb54501edc70b4084705da0
+    :git: https://github.com/SwiftyJSON/SwiftyJSON.git
+
+SPEC CHECKSUMS:
+  Alamofire: c19a627cefd6a95f840401c49ab1f124e07f54ee
+  AlamofireOauth2: 6009079faaef85d6016db08ac0db311539905c83
+  Bolts: a0058fa3b331c5a1e4402d534f2dae36dbff31e4
+  FBSDKCoreKit: 6e56d5a2a64a755ad4efb5dbeee8f82fb1b99775
+  FBSDKLoginKit: 03f68a8d48c2c8bb81d7eb8097973d483543e1f6
+  FBSDKShareKit: df1491f064cffc8ebcc3fc8b71be94cc190c728e
+  KeychainAccess: e283c1981a6c5655e1984cd411c6faf16fa165ae
+  KYCircularProgress: 69a6d6852d96ca2be2830cc659b85aab3bb1cee6
+  OpenCV: bb17904e55fc19b1f0f6c3e29bc04a7dd31eddb9
+  Parse: f51c24d2feb412e4b2d6cc73d37cb24e8d0089bc
+  ParseFacebookUtilsV4: 2f30c2b7021c8005d3042781da7ef87d06589421
+  ParseTwitterUtils: 8856ac80da50bbb0f0bcf251def20b62e1ae6bc4
+  ProtocolBuffers-Swift: 948824656ef9f507348481655d409628b0219be0
+  SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4
+  SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
+
+COCOAPODS: 0.39.0
