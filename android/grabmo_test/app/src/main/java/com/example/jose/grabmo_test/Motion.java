@@ -38,7 +38,7 @@ public final class Motion {
     /**
      * <code>repeated .Message.MotionUser motionuser = 3;</code>
      */
-   Motion.Message.MotionUser getMotionuser(int index);
+    Motion.Message.MotionUser getMotionuser(int index);
     /**
      * <code>repeated .Message.MotionUser motionuser = 3;</code>
      */
@@ -237,11 +237,11 @@ public final class Motion {
     int getCurrcam();
 
     /**
-     * <code>optional int32 packagesize = 17;</code>
+     * <code>required int32 packagesize = 17;</code>
      */
     boolean hasPackagesize();
     /**
-     * <code>optional int32 packagesize = 17;</code>
+     * <code>required int32 packagesize = 17;</code>
      */
     int getPackagesize();
 
@@ -569,6 +569,10 @@ public final class Motion {
        * <code>ERROR_TIMEOUT = 105;</code>
        */
       ERROR_TIMEOUT(5, 105),
+      /**
+       * <code>ERROR_NO_PACKAGE_SIZE = 106;</code>
+       */
+      ERROR_NO_PACKAGE_SIZE(6, 106),
       ;
 
       /**
@@ -595,6 +599,10 @@ public final class Motion {
        * <code>ERROR_TIMEOUT = 105;</code>
        */
       public static final int ERROR_TIMEOUT_VALUE = 105;
+      /**
+       * <code>ERROR_NO_PACKAGE_SIZE = 106;</code>
+       */
+      public static final int ERROR_NO_PACKAGE_SIZE_VALUE = 106;
 
 
       public final int getNumber() { return value; }
@@ -607,6 +615,7 @@ public final class Motion {
           case 103: return ERROR_INVALID_PASSWORD;
           case 104: return ERROR_LOGIN_FAILIURE;
           case 105: return ERROR_TIMEOUT;
+          case 106: return ERROR_NO_PACKAGE_SIZE;
           default: return null;
         }
       }
@@ -791,6 +800,10 @@ public final class Motion {
        * <code>SERVER_INFO_OK = 3033;</code>
        */
       SERVER_INFO_OK(31, 3033),
+      /**
+       * <code>RESPONSE_NO_PACKAGE_SIZE = 3034;</code>
+       */
+      RESPONSE_NO_PACKAGE_SIZE(32, 3034),
       ;
 
       /**
@@ -921,6 +934,10 @@ public final class Motion {
        * <code>SERVER_INFO_OK = 3033;</code>
        */
       public static final int SERVER_INFO_OK_VALUE = 3033;
+      /**
+       * <code>RESPONSE_NO_PACKAGE_SIZE = 3034;</code>
+       */
+      public static final int RESPONSE_NO_PACKAGE_SIZE_VALUE = 3034;
 
 
       public final int getNumber() { return value; }
@@ -959,6 +976,7 @@ public final class Motion {
           case 3031: return PROTO_NO_FILE;
           case 3032: return SERVER_INFO;
           case 3033: return SERVER_INFO_OK;
+          case 3034: return RESPONSE_NO_PACKAGE_SIZE;
           default: return null;
         }
       }
@@ -24977,13 +24995,13 @@ public final class Motion {
     public static final int PACKAGESIZE_FIELD_NUMBER = 17;
     private int packagesize_;
     /**
-     * <code>optional int32 packagesize = 17;</code>
+     * <code>required int32 packagesize = 17;</code>
      */
     public boolean hasPackagesize() {
       return ((bitField0_ & 0x00002000) == 0x00002000);
     }
     /**
-     * <code>optional int32 packagesize = 17;</code>
+     * <code>required int32 packagesize = 17;</code>
      */
     public int getPackagesize() {
       return packagesize_;
@@ -25176,6 +25194,10 @@ public final class Motion {
       if (isInitialized == 0) return false;
 
       if (!hasType()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasPackagesize()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -25839,6 +25861,10 @@ public final class Motion {
 
       public final boolean isInitialized() {
         if (!hasType()) {
+          
+          return false;
+        }
+        if (!hasPackagesize()) {
           
           return false;
         }
@@ -27322,19 +27348,19 @@ public final class Motion {
 
       private int packagesize_ ;
       /**
-       * <code>optional int32 packagesize = 17;</code>
+       * <code>required int32 packagesize = 17;</code>
        */
       public boolean hasPackagesize() {
         return ((bitField0_ & 0x00010000) == 0x00010000);
       }
       /**
-       * <code>optional int32 packagesize = 17;</code>
+       * <code>required int32 packagesize = 17;</code>
        */
       public int getPackagesize() {
         return packagesize_;
       }
       /**
-       * <code>optional int32 packagesize = 17;</code>
+       * <code>required int32 packagesize = 17;</code>
        */
       public Builder setPackagesize(int value) {
         bitField0_ |= 0x00010000;
@@ -27343,7 +27369,7 @@ public final class Motion {
         return this;
       }
       /**
-       * <code>optional int32 packagesize = 17;</code>
+       * <code>required int32 packagesize = 17;</code>
        */
       public Builder clearPackagesize() {
         bitField0_ = (bitField0_ & ~0x00010000);
@@ -27729,7 +27755,7 @@ public final class Motion {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\014proto\022\006motion\"\200\'\n\007Message\022\021\n\tac" +
+      "\n\014proto\022\006motion\"\272\'\n\007Message\022\021\n\tac" +
       "tivecam\030\001 \001(\005\0220\n\004type\030\002 \002(\0162\032.Mes" +
       "sage.ActionType:\006ENGAGE\022.\n\nmotionuser\030\003 " +
       "\003(\0132\032.Message.MotionUser\0222\n\014motio" +
@@ -27741,7 +27767,7 @@ public final class Motion {
       "(\t\022\027\n\017devicestarttime\030\014 \001(\t\022\021\n\tcurrmonth",
       "\030\r \001(\t\022\017\n\007currday\030\016 \001(\t\022\024\n\014currdaytitle\030" +
       "\017 \001(\t\022\017\n\007currcam\030\020 \001(\005\022\023\n\013packagesize\030\021 " +
-      "\001(\005\022\025\n\rimagefilepath\030\022 \001(\t\022\025\n\rvideofilep" +
+      "\002(\005\022\025\n\rimagefilepath\030\022 \001(\t\022\025\n\rvideofilep" +
       "ath\030\023 \001(\t\022\017\n\007recname\030\024 \001(\t\022\024\n\014activecamn" +
       "um\030\025 \001(\005\022\031\n\021includethubmnails\030\026 \001(\010\032\212\003\n\014" +
       "MotionDevice\022\020\n\010ipnumber\030\001 \001(\t\022\020\n\010ippubl" +
@@ -27821,40 +27847,41 @@ public final class Motion {
       "e\030\002 \001(\t\022\024\n\014imagechanges\030\003 \001(\005\022\014\n\004time\030\004 ",
       "\001(\t\032.\n\004Crop\022\014\n\004rect\030\001 \001(\t\022\030\n\020db_imagefat" +
       "herid\030\002 \001(\005\032;\n\005Video\022\014\n\004path\030\001 \001(\t\022\014\n\004na" +
-      "me\030\002 \001(\t\022\026\n\016instancefolder\030\003 \001(\t\"\233\001\n\014Res" +
+      "me\030\002 \001(\t\022\026\n\016instancefolder\030\003 \001(\t\"\266\001\n\014Res" +
       "ponseType\022\024\n\020LOGIN_SUCCESSFUL\020d\022\020\n\014LOGIN" +
       "_FAILED\020e\022\032\n\026ERROR_INVALID_USERNAME\020f\022\032\n" +
       "\026ERROR_INVALID_PASSWORD\020g\022\030\n\024ERROR_LOGIN" +
-      "_FAILIURE\020h\022\021\n\rERROR_TIMEOUT\020i\"\243\004\n\nActio" +
-      "nType\022\013\n\006ENGAGE\020\350\007\022\016\n\tREC_START\020\352\007\022\020\n\013RE" +
-      "C_RUNNING\020\353\007\022\r\n\010REC_STOP\020\354\007\022\r\n\010UNENGAGE\020" +
-      "\355\007\022\r\n\010GET_TIME\020\356\007\022\r\n\010SET_TIME\020\357\007\022\r\n\010TIME",
-      "_SET\020\360\007\022\017\n\nSTRM_START\020\361\007\022\016\n\tSTRM_STOP\020\362\007" +
-      "\022\021\n\014TAKE_PICTURE\020\363\007\022\020\n\013DISSCONNECT\020\364\007\022\014\n" +
-      "\007REFRESH\020\365\007\022\014\n\007GET_XML\020\366\007\022\016\n\tGET_IMAGE\020\367" +
-      "\007\022\016\n\tGET_VIDEO\020\370\007\022\t\n\004SAVE\020\371\007\022\t\n\004OPEN\020\372\007\022" +
-      "\013\n\006UPDATE\020\373\007\022\014\n\007SAVE_OK\020\374\007\022\016\n\tUPDATE_OK\020" +
-      "\375\007\022\014\n\007GET_MAT\020\376\007\022\020\n\013RESPONSE_OK\020\320\017\022\022\n\rRE" +
-      "SPONSE_NEXT\020\332\017\022\021\n\014RESPONSE_END\020\344\017\022\024\n\017RES" +
-      "PONSE_FINISH\020\356\017\022\024\n\017REC_HAS_CHANGES\020\370\017\022\025\n" +
-      "\020REC_HAS_INSTANCE\020\202\020\022\023\n\016PROTO_HAS_FILE\020\326" +
-      "\027\022\022\n\rPROTO_NO_FILE\020\327\027\022\020\n\013SERVER_INFO\020\330\027\022",
-      "\023\n\016SERVER_INFO_OK\020\331\027\"\254\003\n\nSocketType\022\031\n\025S" +
-      "OCKET_PROTO_TOSTRING\020\n\022\030\n\024SOCKET_PROTO_T" +
-      "OARRAY\020\013\022\025\n\021SOCKET_PLAIN_TEXT\020\014\022\024\n\020SPLIT" +
-      "TED_MESSAGE\020\r\022\022\n\016SINGLE_MESSAGE\020\016\022\034\n\027SOC" +
-      "KET_BUFFER_NANO_SIZE\020\200\010\022\034\n\027SOCKET_BUFFER" +
-      "_MINI_SIZE\020\200\020\022\035\n\030SOCKET_BUFFER_MICRO_SIZ" +
-      "E\020\200 \022\035\n\030SOCKET_BUFFER_SMALL_SIZE\020\204@\022 \n\032S" +
-      "OCKET_BUFFER_REGULAR_SIZE\020\210\200\001\022\037\n\031SOCKET_" +
-      "BUFFER_MEDIUM_SIZE\020\220\200\002\022\034\n\026SOCKET_BUFFER_" +
-      "BIG_SIZE\020\240\200\004\022\022\n\rTCP_ECHO_PORT\020\222\'\022\027\n\022TCP_",
-      "STREAMING_PORT\020\234\'\022\r\n\010UDP_PORT\020\246\'\022\021\n\014TCP_" +
-      "MSG_PORT\020\260\'\"_\n\013ProcessType\022\031\n\024PROCESS_PE" +
-      "OPLE_COUNT\020\241\037\022\030\n\023PROCESS_FACE_DETECT\020\242\037\022" +
-      "\033\n\026PROCESS_WALK_DIRECTION\020\243\037\"C\n\013ServiceT" +
-      "ype\022\031\n\024SERVICE_FREE_ACCOUNT\020\211\'\022\031\n\024SERVIC" +
-      "E_PAID_ACCOUNT\020\212\'"
+      "_FAILIURE\020h\022\021\n\rERROR_TIMEOUT\020i\022\031\n\025ERROR_" +
+      "NO_PACKAGE_SIZE\020j\"\302\004\n\nActionType\022\013\n\006ENGA" +
+      "GE\020\350\007\022\016\n\tREC_START\020\352\007\022\020\n\013REC_RUNNING\020\353\007\022" +
+      "\r\n\010REC_STOP\020\354\007\022\r\n\010UNENGAGE\020\355\007\022\r\n\010GET_TIM",
+      "E\020\356\007\022\r\n\010SET_TIME\020\357\007\022\r\n\010TIME_SET\020\360\007\022\017\n\nST" +
+      "RM_START\020\361\007\022\016\n\tSTRM_STOP\020\362\007\022\021\n\014TAKE_PICT" +
+      "URE\020\363\007\022\020\n\013DISSCONNECT\020\364\007\022\014\n\007REFRESH\020\365\007\022\014" +
+      "\n\007GET_XML\020\366\007\022\016\n\tGET_IMAGE\020\367\007\022\016\n\tGET_VIDE" +
+      "O\020\370\007\022\t\n\004SAVE\020\371\007\022\t\n\004OPEN\020\372\007\022\013\n\006UPDATE\020\373\007\022" +
+      "\014\n\007SAVE_OK\020\374\007\022\016\n\tUPDATE_OK\020\375\007\022\014\n\007GET_MAT" +
+      "\020\376\007\022\020\n\013RESPONSE_OK\020\320\017\022\022\n\rRESPONSE_NEXT\020\332" +
+      "\017\022\021\n\014RESPONSE_END\020\344\017\022\024\n\017RESPONSE_FINISH\020" +
+      "\356\017\022\024\n\017REC_HAS_CHANGES\020\370\017\022\025\n\020REC_HAS_INST" +
+      "ANCE\020\202\020\022\023\n\016PROTO_HAS_FILE\020\326\027\022\022\n\rPROTO_NO",
+      "_FILE\020\327\027\022\020\n\013SERVER_INFO\020\330\027\022\023\n\016SERVER_INF" +
+      "O_OK\020\331\027\022\035\n\030RESPONSE_NO_PACKAGE_SIZE\020\332\027\"\254" +
+      "\003\n\nSocketType\022\031\n\025SOCKET_PROTO_TOSTRING\020\n" +
+      "\022\030\n\024SOCKET_PROTO_TOARRAY\020\013\022\025\n\021SOCKET_PLA" +
+      "IN_TEXT\020\014\022\024\n\020SPLITTED_MESSAGE\020\r\022\022\n\016SINGL" +
+      "E_MESSAGE\020\016\022\034\n\027SOCKET_BUFFER_NANO_SIZE\020\200" +
+      "\010\022\034\n\027SOCKET_BUFFER_MINI_SIZE\020\200\020\022\035\n\030SOCKE" +
+      "T_BUFFER_MICRO_SIZE\020\200 \022\035\n\030SOCKET_BUFFER_" +
+      "SMALL_SIZE\020\204@\022 \n\032SOCKET_BUFFER_REGULAR_S" +
+      "IZE\020\210\200\001\022\037\n\031SOCKET_BUFFER_MEDIUM_SIZE\020\220\200\002",
+      "\022\034\n\026SOCKET_BUFFER_BIG_SIZE\020\240\200\004\022\022\n\rTCP_EC" +
+      "HO_PORT\020\222\'\022\027\n\022TCP_STREAMING_PORT\020\234\'\022\r\n\010U" +
+      "DP_PORT\020\246\'\022\021\n\014TCP_MSG_PORT\020\260\'\"_\n\013Process" +
+      "Type\022\031\n\024PROCESS_PEOPLE_COUNT\020\241\037\022\030\n\023PROCE" +
+      "SS_FACE_DETECT\020\242\037\022\033\n\026PROCESS_WALK_DIRECT" +
+      "ION\020\243\037\"C\n\013ServiceType\022\031\n\024SERVICE_FREE_AC" +
+      "COUNT\020\211\'\022\031\n\024SERVICE_PAID_ACCOUNT\020\212\'"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

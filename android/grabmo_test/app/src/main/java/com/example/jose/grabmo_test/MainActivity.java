@@ -1,5 +1,7 @@
 package com.example.jose.grabmo_test;
 
+import com.example.jose.grabmo_test.Motion.Message;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -30,8 +32,13 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.ByteArrayInputStream;
+import java.io.DataOutputStream;
+import java.util.Calendar;
 import java.util.List;
 import java.util.ArrayList;
+
+import com.google.common.io.BaseEncoding;
+import java.net.UnknownHostException;
 
 import android.widget.ImageView;
 
@@ -76,13 +83,20 @@ public class MainActivity extends AppCompatActivity {
             {
                 System.out.println("Server msg :" + msg);
 
-                Motion.Message motion = Motion.Message.newBuilder()
+                //Motion.Message m = new Motion.MessageOrBuilder();
+
+                Calendar c = Calendar.getInstance();
+
+
+                Message message = Message.newBuilder()
                         .setType(Motion.Message.ActionType.ENGAGE)
+                        .setPackagesize(Message.SocketType.SOCKET_BUFFER_MINI_SIZE_VALUE)
                         .setServerip(url)
+                        .setTime(c.getTime().toString())
                         .build();
 
 
-                sendProto(motion, url);
+                sendProto(message, url);
 
             }
 
@@ -91,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
         new OnSocketReceived()
         {
             @Override
-            public void OnSocketReceived(Motion.Message motion)
+            public void OnSocketReceived(Message motion)
             {
 
                 switch(motion.getType())
@@ -175,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public Device getEngage(Motion.Message motion)
+    public Device getEngage(Message motion)
     {
         Motion.Message.MotionDevice pdevice = motion.getMotiondevice(0);
 
@@ -344,11 +358,11 @@ public class MainActivity extends AppCompatActivity {
 
     public interface OnSocketReceived
     {
-        void OnSocketReceived(Motion.Message motion);
+        void OnSocketReceived(Message motion);
     }
 
 
-    public void sendProto(Motion.Message motion, String url)
+    public void sendProto(Message motion, String url)
     {
         //set up socket
         SocketChannel serverSocket = null;
@@ -381,7 +395,13 @@ public class MainActivity extends AppCompatActivity {
 
 
         //copy the message to a bytebuffer
-        ByteBuffer socketBuffer = ByteBuffer.wrap(baos.toByteArray());
+        //ByteBuffer socketBuffer = ByteBuffer.wrap(baos.toByteArray());
+
+        String baseProto = BaseEncoding.base64().encode(motion.toByteArray());
+
+        ByteBuffer socketBuffer = ByteBuffer.wrap(baseProto.getBytes());
+
+        //BaseEncoding.base64().encode(motion.toByteArray())
 
         //keep sending until the buffer is empty
         while(socketBuffer.hasRemaining())
@@ -432,6 +452,39 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+    /*public void sendProto(Motion.Message motion, String url)
+    {
+
+        Socket aSocket;
+        try
+        {
+
+            aSocket = new Socket(url, tcp_port);
+
+            DataOutputStream outputStream = new DataOutputStream(aSocket.getOutputStream());
+
+            byte size = (byte)motion.getSerializedSize();
+
+            //outputStream.writeByte(size);
+            //outputStream.write(motion.toByteArray());
+
+            outputStream.writeBytes(BaseEncoding.base64().encode(motion.toByteArray()));
+
+            outputStream.flush();
+
+            System.out.println("Client Data Written");
+
+            outputStream.close();
+
+        } catch (UnknownHostException e)
+        {
+            e.printStackTrace();
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }*/
 
 
     public class Device
