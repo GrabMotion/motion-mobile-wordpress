@@ -3976,6 +3976,278 @@ Text Domain: grabmotion-computer-vision
           }
      }
 
+
+     ///////////////////////
+     ///  USER ENDPOINT  ///
+     ///////////////////////
+
+    add_action('rest_api_init', 'gm_register_user_api_endpoints');
+
+    function gm_register_user_api_endpoints() 
+    {
+
+        register_rest_route( 'gm/v1', 'users', array('methods' => 'POST', 'callback' => 'create_grabmo_user'));
+    }   
+
+    public function create_grabmo_user($request)
+    {          
+
+        $body = $request->get_body();
+        
+        if ( ! empty( $body ) ) 
+        {
+            $body = json_decode( $body, true );                               
+
+            $response = array();
+
+            if ( !empty($body['admin_user']) && !empty($body['admin_password']) )
+            {
+                 
+                $userdata = array();  
+
+                $userdata['user_login'] = $body['admin_user'];
+                $userdata['user_password'] = $body['admin_password'];
+                             
+                //wp_signon sanitizes login input
+                $admin_user = wp_signon( $userdata, false );
+                
+                if ( is_wp_error($admin_user) )
+                {
+                    
+                    $message = Array();
+
+                    //Return error messages
+                    $code = 0;
+                    if(isset($user->errors['invalid_username']))
+                    {
+                        $code=401;
+                        $message['error'] = "Invalid Admin Username";
+
+                    } elseif(isset($user->errors['incorrect_password']))
+                    {
+                        $code=401;
+                        $message['error'] = "Incorrect Admin Password";
+                    }
+                    
+                    $response_error = new WP_REST_Response( $message );           
+                    $response_error->set_status( $code ); 
+                    return $response_error;
+                          
+                } else 
+                {
+                    
+                    if ( !isset( $body['new_username'] ) || empty($body['new_username']) )   
+                        response_no_parameter_given('new_username');
+                    
+                    if ( !isset( $body['new_password'] ) || empty($body['new_password']) )
+                        response_no_parameter_given('new_password');
+
+                    if ( !isset( $body['new_email'] ) || empty($body['new_email']) )
+                        response_no_parameter_given('new_email');
+
+                    $new_user_name = $body['new_username'];
+                    $new_password  = $body['new_password'];
+                    $new_email     = $body['new_email'];
+
+                    if ( !isset( $body['new_first_name'] ) || empty($body['new_first_name']) )   
+                        response_no_parameter_given('new_first_name');
+                    
+                    if ( !isset( $body['new_last_name'] ) || empty($body['new_last_name']) )
+                        response_no_parameter_given('new_last_name');
+
+                    if ( !isset( $body['role'] ) || empty($body['role']) )
+                        response_no_parameter_given('new_role');
+
+                    $new_first_name     = $body['new_first_name'];
+                    $new_last_name      = $body['new_last_name'];
+                    $new_role           = $body['role'];
+
+                    $user_id = username_exists( $userdata['new_username'] );
+
+                    if ( !$user_id and email_exists($new_email) == false ) 
+                    {
+                      
+                        $userdata = array (
+                          'user_login'  =>  $new_user_name,
+                          'user_pass'   =>  $new_password,
+                          'user_email'  =>  $new_email,
+                          'first_name'  =>  $new_first_name,
+                          'last_name'   =>  $new_last_name,
+                          'display_name'=>  $new_first_name." ".$new_last_name,
+                          'role'        =>  $new_role
+                        );                     
+                        
+                        $wp_new_user_id = wp_insert_user( $userdata );
+
+                        $response['wp_userid'] = $wp_new_user_id;                   
+
+                        //On success
+                        if ( ! is_wp_error( $wp_new_user_id ) ) 
+                        {                          
+
+                            write_log('user_id_encoded: '.json_encode($wp_new_user_id));                           
+
+                            if ( !isset( $body['image'] ) || empty($body['image']) )
+                              response_no_parameter_given('image');
+
+                            $wp_userid  = $wp_new_user_id; //$body['wp_userid'];
+                            $image      = $body['image'];
+                            $author     = $wp_new_user_id; //$body['post_author'];
+
+                            $directory = "/".date('Y')."/".date('m')."/";
+                            $wp_upload_dir = wp_upload_dir();
+                            $data = base64_decode($image);
+                            $filename = "IMG_".time().".png";
+
+                            $fildirectory = "wp-content/uploads".$directory;
+
+                            if (!file_exists($fildirectory)) 
+                            {
+                              mkdir($fildirectory, 0777, true);
+                            }
+
+                            $fileurl = $fildirectory.$filename;
+
+                            //$myfile = fopen($fildirectory."/newfile.txt", "w") or die("Unable to open file!");
+                            //fwrite($myfile, $fileurl);
+                            //fclose($myfile);
+                          
+                            $filetype = wp_check_filetype( basename( $fileurl), null );
+
+                            file_put_contents($fileurl, $data);
+
+                            $attachment = array (
+                                'guid' => $wp_upload_dir['url'] . '/' . basename( $fileurl ),
+                                'post_mime_type' => $filetype['type'],
+                                'post_title' => preg_replace('/\.[^.]+$/', '', basename($fileurl)),
+                                'post_content' => '',
+                                'post_author' => $wp_userid, //$author,
+                                'post_status' => 'inherit'
+                            );
+                            
+                            
+                            $attach_id = wp_insert_attachment( $attachment, $fileurl ,$wp_userid);
+                            require_once('wp-admin/includes/image.php' );
+                            
+                            $attach_data = wp_generate_attachment_metadata( $attach_id, $fileurl );
+                            wp_update_attachment_metadata( $attach_id, $attach_data );
+
+                            $attachment_post_id = set_post_thumbnail( $wp_userid, $attach_id );
+
+                             update_post_meta($wp_userid, "client_thumbnail_id", $attach_id);
+
+                             $feat_image_url = wp_get_attachment_url( $attach_id );
+
+                             update_post_meta($postId, "client_thumbnail_url", $feat_image_url);
+
+                             $response['wp_client_media_id'] = $attach_id;
+
+                            if ( ! is_wp_error( $attachment_post_id ) ) 
+                            {
+
+                                $attach_id_post = get_post( $attach_id );
+
+                                $post_author        = $wp_userid; 
+
+                                $client_first_name  = $new_first_name; //$clientdata['client_first_name'];
+                                $client_last_name   = $new_last_name; //$clientdata['client_last_name'];
+                                $client_user_name   = $new_user_name; //$clientdata['client_user_name'];
+                                $client_email       = $new_email; //$clientdata['client_email'];
+                                $client_location    = $body['client_location']; //$clientdata['client_location'];
+                                $client_parent      = $clientdata['client_post_parent'];  
+
+                                $client_post = array(
+                                      'post_title' => $client_first_name." ".$client_last_name,
+                                      'post_status' => 'publish',
+                                      'post_type' => 'client',
+                                      'post_author' => $post_author
+                                );
+                                $client_post_id = wp_insert_post( $client_post );
+
+                                if ( ! is_wp_error( $client_post_id ) ) 
+                                {
+
+                                    $response['wp_client_id'] = $client_post_id;
+                                    $response['wp_server_url'] = get_bloginfo('url')."/wp-json/wp/v2/";
+                                    $response['wp_type'] = "client";
+
+                                    add_post_meta($client_post_id, "client_first_name", $client_first_name);
+                                    
+                                    add_post_meta( $client_post_id, 'client_last_name', $client_last_name );
+
+                                    add_post_meta( $client_post_id, 'client_user_name', $client_user_name );
+
+                                    add_post_meta( $client_post_id, 'client_email', $client_email );
+
+                                    add_post_meta( $client_post_id, 'client_location', $client_location );
+
+                                    add_post_meta( $client_post_id, 'post_parent', $client_parent );                          
+
+                                    $client_created = get_post( $client_post_id );
+                                    
+                                    $response['wp_slug'] = $client_created->post_name;
+
+                                    $response['wp_link'] = get_permalink($client_post_id);
+
+                                    $response['wp_api_link'] = $response['wp_server_url'].'/'.$response['wp_type'].'/'.$client_post_id;
+
+                                    $response_created = new WP_REST_Response( $response ); 
+                                    $response_created->set_status( 201 ); 
+                                    return $response_created;
+
+                                    wp_logout();
+                                      
+                                } else 
+                                {                                
+                                    $error = 'Cannot insert Client.';         
+                                    $message['error'] = $error;
+                                    $response_client = new WP_REST_Response( $message ); 
+                                    $response_client->set_status( 401 ); 
+                                    return $response_client;               
+                                    exit(); 
+                                }                            
+
+                            } else 
+                            {
+                                $error = 'Error uploading media.';         
+                                $message['error'] = $error;
+                                $response_user = new WP_REST_Response( $message );
+                                $response_user->set_status( 401 ); 
+                                return $response_user;               
+                                exit(); 
+                            } 
+                    
+                        } else 
+                        {
+                          $error = 'Error creating WP User.';         
+                          $message['error'] = $error;
+                          $response_client = new WP_REST_Response( $message ); 
+                          $response_client->set_status( 401 ); 
+                          return $response_client;               
+                          exit();                      
+                        }
+
+                        wp_logout();
+
+                        exit(); 
+
+                    } else 
+                    {                     
+
+                        $error = 'User already exists. Password inherited.';
+                        $message['error'] = $error;
+                        $response_client = new WP_REST_Response( $message ); 
+                        $response_client->set_status( 401 ); 
+                        return $response_client;               
+                        exit();                        
+                       
+                    }
+                } 
+            }  
+        }   
+      }
+  }
+
        
        
 ?>
