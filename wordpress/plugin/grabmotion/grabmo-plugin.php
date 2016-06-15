@@ -1,14 +1,14 @@
 <?php
 /**
- * @package GrabMotion_Computer_Vision
+ * @package grabmo_computer_vision
  * @version 1.0
  */
     
 /*
-Plugin Name: GrabMotion Computer Vision
+Plugin Name: grabmo computer vision
 Author: Jose Vigil
-Version: 1.1
-Text Domain: grabmotion-computer-vision
+Version: 1.2
+Text Domain: grabmo-computer-vision
 */
     
     register_activation_hook( __FILE__, 'flush_rewrite' );	
@@ -2297,6 +2297,18 @@ Text Domain: grabmotion-computer-vision
         global $firephp;
         $firephp->log( $var, $title );
     }
+
+    ///////////////////
+    ///// ERROR   /////
+    ///////////////////
+
+    function response_no_parameter_given($param)
+    {
+      $message['error'] = "No parameter given: ".$param;
+      $response = new WP_REST_Response( $message );            
+      $response->set_status( 400 ); 
+      return $response;
+    }
     
     ///////////////////////////////////
     //  LOGIN - CREATE USER - CLIENT //
@@ -2695,7 +2707,7 @@ Text Domain: grabmotion-computer-vision
         }
     }
      
-    add_action('after_setup_theme', array($ios_login = new iOSWPLogin,'check_ios_login'));
+    //add_action('after_setup_theme', array($ios_login = new iOSWPLogin,'check_ios_login'));
 
     ///////////////////////////
     // BASIC AUTHENTICATION  //
@@ -3547,8 +3559,7 @@ Text Domain: grabmotion-computer-vision
                   $terminal_disk_available  = get_post_meta($terminalid,'terminal_disk_available',true);
                   $terminal_keepalive_time  = get_post_meta($terminalid,'terminal_keepalive_time',true); 
                   $terminal_permalink       = get_post_permalink($terminalid);   
-                  $terminal_href            = get_bloginfo('url').'/wp-json/wp/v2/terminal/'.$terminalid;   
-
+                  $terminal_href            = get_bloginfo('url').'/wp-json/wp/v2/terminal/'.$terminalid;  
 
                   $array_terminal   = Array ( 
                       'locaton_id'                  =>  $post->ID,
@@ -3563,7 +3574,7 @@ Text Domain: grabmotion-computer-vision
                       'locaton_region_time_zone'    =>  $locaton_region_time_zone,
                       'location_permalink'          =>  $location_permalink,
                       'location_href'               =>  $location_href,
-                      ////////////////////////////////////////////////////////////                    
+                      ////////////////////////////////////////////////////////////       
                       'terminal_id'                 =>  $terminalid,
                       'terminal_hardare'            =>  $terminal_hardware,
                       'terminal_serial'             =>  $terminal_serial,
@@ -3576,7 +3587,7 @@ Text Domain: grabmotion-computer-vision
                       'terminal_disk_available'     =>  $terminal_disk_available,
                       'terminal_keep_alive'         =>  $terminal_keepalive_time,
                       'terminal_permalink'          =>  $terminal_permalink,
-                      'terminal_href'               =>  $terminal_href,                      
+                      'terminal_href'               =>  $terminal_href,                 
                   );
 
                   $array_cameras = Array();
@@ -3916,7 +3927,7 @@ Text Domain: grabmotion-computer-vision
         $client_thumbnail_url   = get_post_meta($post->ID, "client_thumbnail_url", true);
         $client_thumbnail_id    = get_post_meta($post->ID, "client_thumbnail_id", true);
         $client_location    = get_post_meta($post->ID, "client_location", true); 
-        $client_href        = get_bloginfo('url').'/wp-json/wp/v2/client/'.$post->ID;       
+        $client_href        = get_bloginfo('url').'/wp-json/wp/v2/client/'.$post->ID;      
 
         $array_client  = Array (
               'id'              =>  $post->ID,     
@@ -3987,32 +3998,60 @@ Text Domain: grabmotion-computer-vision
     {
 
         register_rest_route( 'gm/v1', 'users', array('methods' => 'POST', 'callback' => 'create_grabmo_user'));
+
+        register_rest_route( 'gm/v1', 'users', array('methods' => 'GET', 'callback' => 'get_grabmo_user'));
+
+        register_rest_route( 'gm/v1', 'users/(?P<userid>[0-9]+)', array('methods' => 'GET', 'callback' => 'get_grabmo_user_by_id'));
+
     }   
 
-    public function create_grabmo_user($request)
+    function create_grabmo_user( $request )
     {          
 
-        $body = $request->get_body();
-        
-        if ( ! empty( $body ) ) 
+        write_log_file("llega");
+
+        $bodyparams = $request->get_body();
+
+        $body = Array();
+
+        if (is_object(json_decode($bodyparams))) 
+        { 
+           $body = $bodyparams;
+           $body = json_decode( $body, true );
+        } else 
         {
-            $body = json_decode( $body, true );                               
+          parse_str($bodyparams, $body);  
+        }       
 
-            $response = array();
+        //echo print_r($request);
+        //echo print_r($body);
+        
+        if ( ! empty ( $body ) ) 
+        {                                 
 
-            if ( !empty($body['admin_user']) && !empty($body['admin_password']) )
-            {
-                 
+            $response_array = array();                     
+
+            write_log_file("entra: ".$body['admin_user']." ".$body['admin_password']);
+
+            if ( !empty( $body['admin_user'] ) && !empty( $body['admin_password'] ) )
+            {       
+
+                write_log_file("entra: ".$body['admin_user']." ".$body['admin_password']);
+
                 $userdata = array();  
 
                 $userdata['user_login'] = $body['admin_user'];
                 $userdata['user_password'] = $body['admin_password'];
                              
+                write_log_file(json_encode($userdata)); 
+
                 //wp_signon sanitizes login input
                 $admin_user = wp_signon( $userdata, false );
                 
                 if ( is_wp_error($admin_user) )
                 {
+
+                    write_log_file('error loging'); 
                     
                     $message = Array();
 
@@ -4035,6 +4074,8 @@ Text Domain: grabmotion-computer-vision
                           
                 } else 
                 {
+
+                    write_log_file('logged');
                     
                     if ( !isset( $body['new_username'] ) || empty($body['new_username']) )   
                         response_no_parameter_given('new_username');
@@ -4064,9 +4105,13 @@ Text Domain: grabmotion-computer-vision
 
                     $user_id = username_exists( $userdata['new_username'] );
 
+                    write_log_file('user_id_exist: '.$user_id); 
+
                     if ( !$user_id and email_exists($new_email) == false ) 
                     {
                       
+                        write_log_file('entra: '.$user_id); 
+
                         $userdata = array (
                           'user_login'  =>  $new_user_name,
                           'user_pass'   =>  $new_password,
@@ -4076,146 +4121,91 @@ Text Domain: grabmotion-computer-vision
                           'display_name'=>  $new_first_name." ".$new_last_name,
                           'role'        =>  $new_role
                         );                     
+
+                        write_log_file(json_encode($userdata)); 
                         
                         $wp_new_user_id = wp_insert_user( $userdata );
 
-                        $response['wp_userid'] = $wp_new_user_id;                   
+                        write_log_file($wp_new_user_id); 
+
+                        $response_array['wp_userid'] = $wp_new_user_id;                   
 
                         //On success
                         if ( ! is_wp_error( $wp_new_user_id ) ) 
-                        {                          
+                        {                   
 
-                            write_log('user_id_encoded: '.json_encode($wp_new_user_id));                           
+                            $post_author        = $wp_userid; 
 
-                            if ( !isset( $body['image'] ) || empty($body['image']) )
-                              response_no_parameter_given('image');
+                            $client_first_name  = $new_first_name; //$clientdata['client_first_name'];
+                            $client_last_name   = $new_last_name; //$clientdata['client_last_name'];
+                            $client_user_name   = $new_user_name; //$clientdata['client_user_name'];
+                            $client_email       = $new_email; //$clientdata['client_email'];
+                            //$client_location    = $body['client_location']; //$clientdata['client_location'];
+                            $client_parent      = $clientdata['client_post_parent'];  
 
-                            $wp_userid  = $wp_new_user_id; //$body['wp_userid'];
-                            $image      = $body['image'];
-                            $author     = $wp_new_user_id; //$body['post_author'];
-
-                            $directory = "/".date('Y')."/".date('m')."/";
-                            $wp_upload_dir = wp_upload_dir();
-                            $data = base64_decode($image);
-                            $filename = "IMG_".time().".png";
-
-                            $fildirectory = "wp-content/uploads".$directory;
-
-                            if (!file_exists($fildirectory)) 
-                            {
-                              mkdir($fildirectory, 0777, true);
-                            }
-
-                            $fileurl = $fildirectory.$filename;
-
-                            //$myfile = fopen($fildirectory."/newfile.txt", "w") or die("Unable to open file!");
-                            //fwrite($myfile, $fileurl);
-                            //fclose($myfile);
-                          
-                            $filetype = wp_check_filetype( basename( $fileurl), null );
-
-                            file_put_contents($fileurl, $data);
-
-                            $attachment = array (
-                                'guid' => $wp_upload_dir['url'] . '/' . basename( $fileurl ),
-                                'post_mime_type' => $filetype['type'],
-                                'post_title' => preg_replace('/\.[^.]+$/', '', basename($fileurl)),
-                                'post_content' => '',
-                                'post_author' => $wp_userid, //$author,
-                                'post_status' => 'inherit'
+                            $client_post = array(
+                                  'post_title' => $client_first_name." ".$client_last_name,
+                                  'post_status' => 'publish',
+                                  'post_type' => 'client',
+                                  'post_author' => $post_author
                             );
-                            
-                            
-                            $attach_id = wp_insert_attachment( $attachment, $fileurl ,$wp_userid);
-                            require_once('wp-admin/includes/image.php' );
-                            
-                            $attach_data = wp_generate_attachment_metadata( $attach_id, $fileurl );
-                            wp_update_attachment_metadata( $attach_id, $attach_data );
+                            $client_post_id = wp_insert_post( $client_post );
 
-                            $attachment_post_id = set_post_thumbnail( $wp_userid, $attach_id );
-
-                             update_post_meta($wp_userid, "client_thumbnail_id", $attach_id);
-
-                             $feat_image_url = wp_get_attachment_url( $attach_id );
-
-                             update_post_meta($postId, "client_thumbnail_url", $feat_image_url);
-
-                             $response['wp_client_media_id'] = $attach_id;
-
-                            if ( ! is_wp_error( $attachment_post_id ) ) 
+                            if ( ! is_wp_error( $client_post_id ) ) 
                             {
 
-                                $attach_id_post = get_post( $attach_id );
+                                $response_array['wp_client_id'] = $client_post_id;
+                                $response_array['wp_server_url'] = get_bloginfo('url')."/wp-json/wp/v2/";
+                                $response_array['wp_type'] = "client";
 
-                                $post_author        = $wp_userid; 
+                                add_post_meta($client_post_id, "client_first_name", $client_first_name);
+                                
+                                add_post_meta( $client_post_id, 'client_last_name', $client_last_name );
 
-                                $client_first_name  = $new_first_name; //$clientdata['client_first_name'];
-                                $client_last_name   = $new_last_name; //$clientdata['client_last_name'];
-                                $client_user_name   = $new_user_name; //$clientdata['client_user_name'];
-                                $client_email       = $new_email; //$clientdata['client_email'];
-                                $client_location    = $body['client_location']; //$clientdata['client_location'];
-                                $client_parent      = $clientdata['client_post_parent'];  
+                                add_post_meta( $client_post_id, 'client_user_name', $client_user_name );
 
-                                $client_post = array(
-                                      'post_title' => $client_first_name." ".$client_last_name,
-                                      'post_status' => 'publish',
-                                      'post_type' => 'client',
-                                      'post_author' => $post_author
+                                add_post_meta( $client_post_id, 'client_email', $client_email );
+
+                                //add_post_meta( $client_post_id, 'client_location', $client_location );
+
+                                add_post_meta( $client_post_id, 'post_parent', $client_parent );                     
+
+                                $client_created = get_post( $client_post_id );
+                                
+                                $response_array['wp_slug'] = $client_created->post_name;
+
+                                $response_array['wp_link'] = get_permalink($client_post_id);
+
+                                $response_array['wp_api_link'] = $response_array['wp_server_url'].$response_array['wp_type'].'/'.$client_post_id;
+
+                                $status = array (
+                                  'wp_userid'          => $response_array['wp_userid'],
+                                  'wp_client_id'       => $response_array['wp_client_id'],
+                                  'wp_server_url'      => $response_array['wp_server_url'],
+                                  'wp_type'            => $response_array['wp_type'],
+                                  'wp_slug'            => $response_array['wp_slug'],
+                                  'wp_link'            => $response_array['wp_link'],
+                                  'wp_api_link'        => $response_array['wp_api_link'],                                  
                                 );
-                                $client_post_id = wp_insert_post( $client_post );
 
-                                if ( ! is_wp_error( $client_post_id ) ) 
-                                {
+                                header('Content-type: application/json');
+                                echo json_encode($status);
+                                
+                                wp_logout();
 
-                                    $response['wp_client_id'] = $client_post_id;
-                                    $response['wp_server_url'] = get_bloginfo('url')."/wp-json/wp/v2/";
-                                    $response['wp_type'] = "client";
-
-                                    add_post_meta($client_post_id, "client_first_name", $client_first_name);
-                                    
-                                    add_post_meta( $client_post_id, 'client_last_name', $client_last_name );
-
-                                    add_post_meta( $client_post_id, 'client_user_name', $client_user_name );
-
-                                    add_post_meta( $client_post_id, 'client_email', $client_email );
-
-                                    add_post_meta( $client_post_id, 'client_location', $client_location );
-
-                                    add_post_meta( $client_post_id, 'post_parent', $client_parent );                          
-
-                                    $client_created = get_post( $client_post_id );
-                                    
-                                    $response['wp_slug'] = $client_created->post_name;
-
-                                    $response['wp_link'] = get_permalink($client_post_id);
-
-                                    $response['wp_api_link'] = $response['wp_server_url'].'/'.$response['wp_type'].'/'.$client_post_id;
-
-                                    $response_created = new WP_REST_Response( $response ); 
-                                    $response_created->set_status( 201 ); 
-                                    return $response_created;
-
-                                    wp_logout();
-                                      
-                                } else 
-                                {                                
-                                    $error = 'Cannot insert Client.';         
-                                    $message['error'] = $error;
-                                    $response_client = new WP_REST_Response( $message ); 
-                                    $response_client->set_status( 401 ); 
-                                    return $response_client;               
-                                    exit(); 
-                                }                            
-
+                                exit ();
+                                  
                             } else 
-                            {
-                                $error = 'Error uploading media.';         
+                            {                                
+                                $error = 'Cannot insert Client.';         
                                 $message['error'] = $error;
-                                $response_user = new WP_REST_Response( $message );
-                                $response_user->set_status( 401 ); 
-                                return $response_user;               
+                                $response_client = new WP_REST_Response( $message ); 
+                                $response_client->set_status( 401 ); 
+                                return $response_client;               
                                 exit(); 
-                            } 
+                            }                            
+
+                           
                     
                         } else 
                         {
@@ -4232,31 +4222,64 @@ Text Domain: grabmotion-computer-vision
                         exit(); 
 
                     } else 
-                    {                     
+                    {         
 
                         $error = 'User already exists. Password inherited.';
                         $message['error'] = $error;
                         $response_client = new WP_REST_Response( $message ); 
                         $response_client->set_status( 401 ); 
                         return $response_client;               
-                        exit();                        
+                        exit();             
                        
                     }
                 } 
-            }  
-        }   
-      }
-  }
+            } 
+            else 
+            {                     
 
-       
+                $error = 'Empty parameters.';
+                $message['error'] = $error;
+                $response_client = new WP_REST_Response( $message ); 
+                $response_client->set_status( 401 ); 
+                return $response_client;               
+                exit();                        
+               
+            }
+        }   
+    }
+
+    function get_grabmo_user_by_id( WP_REST_Response $request)
+    {
+        $parameters = $request->get_params();     
+
+        if ( !isset( $parameters['userid'] ) || empty($parameters['userid']) )
+          return array( 'error' => 'no_parameter_given' );
+      
+        $useridstr    = $parameters['userid'];           
+        $userid       = floatval($useridstr);
+
+        $response_created = new WP_REST_Response( get_post($userid) ); 
+        $response_created->set_status( 200 ); 
+        return $response_created;
+
+
+    }
+
+    function get_grabmo_user( WP_REST_Response $request)
+    {
+        $parameters = $request->get_params();     
+
+        if ( !isset( $parameters['userid'] ) || empty($parameters['userid']) )
+          return array( 'error' => 'no_parameter_given' );
+      
+        $useridstr    = $parameters['userid'];           
+        $userid       = floatval($useridstr);
+
+        $response_created = new WP_REST_Response( get_post($userid) ); 
+        $response_created->set_status( 200 ); 
+        return $response_created;
+
+
+    }
        
 ?>
-
-
-    
-   
-    
-
-
-
-
