@@ -3432,7 +3432,7 @@ Text Domain: grabmo-computer-vision
 
       register_rest_route('gm/v1', 'client/', array('methods' => 'GET', 'callback' => 'wpc_get_grabmoclients_callback'));
 
-      register_rest_route('gm/v1', 'client/me', array('methods' => 'GET', 'callback' => 'wpc_get_grabmoclient_me_callback'));
+      register_rest_route('gm/v1', 'client/me/(?P<user>[a-z\0-9\_]+)/(?P<password>[a-z\0-9\_\-]+)', array('methods' => 'GET', 'callback' => 'wpc_get_grabmoclient_me_callback'));
 
     }     
 
@@ -3860,47 +3860,117 @@ Text Domain: grabmo-computer-vision
 
       //// CLIENT ////
 
-      function wpc_get_grabmoclient_me_callback()
+      function wpc_get_grabmoclient_me_callback( $request_data )
       {        
 
-          $user_id = apply_filters( 'determine_current_user', false );
-          wp_set_current_user( $user_id );
+          $parameters = $request_data->get_params();     
 
-          $current_user_id = floatval(get_current_user_id());                     
+          if ( !isset( $parameters['user'] ) || empty($parameters['user']) )
+            return array( 'error' => 'no_parameter_given' );
 
-          $args = array(
-              'author' => $current_user_id,
-              'post_type' => 'client',
-          );       
+          if ( !isset( $parameters['password'] ) || empty($parameters['password']) )
+            return array( 'error' => 'no_parameter_given' );     
 
-          write_log_file("current_user_id: ".$current_user_id);
+          if ( !empty( $parameters['user'] ) && !empty( $parameters['password'] ) )
+          {       
 
-          $query = new WP_Query( $args );
+              write_log_file("entra: ".$parameters['user']." ".$parameters['password']);
 
-          if ($query->have_posts())
-          {
+              $userdata = array();  
+
+              $userdata['user_login'] = $parameters['user'];
+              $userdata['user_password'] = $parameters['password'];
+
+              //echo json_encode($userdata);
+                           
+              //write_log_file(json_encode($userdata)); 
+
+              //wp_signon sanitizes login input
+              $user = wp_signon( $userdata, false );
               
-              while ($query->have_posts())
-              {               
+              if ( is_wp_error($user) )
+              {
 
-                  $query->the_post();
+                  write_log_file('error loging'); 
+                  
+                  $message = Array();
 
-                  global $post;
+                  //Return error messages
+                  $code = 0;
+                  if(isset($user->errors['invalid_username']))
+                  {
+                      $code=401;
+                      $message['error'] = "Invalid Username";
 
-                  $client_array = get_client_info($post);
+                  } elseif(isset($user->errors['incorrect_password']))
+                  {
+                      $code=401;
+                      $message['error'] = "Incorrect Password";
+                  }
+                  
+                  $response_error = new WP_REST_Response( $message );           
+                  $response_error->set_status( $code ); 
+                  return $response_error;
+                        
+              } else 
+              {
 
-                  $response = new WP_REST_Response( $client_array );       
-                  $response->set_status( 200 ); 
-                  return $response;
+                  //$user_id = apply_filters( 'determine_current_user', false );
 
-              }
+                  //echo json_encode($user);
 
-          } else 
-          {          
-            $response = new WP_REST_Response( "error, not found" );                 
-            $response->set_status( 410 ); 
-            return $response;
-          }
+                  wp_set_current_user( $user );
+
+                  $current_user_id = floatval(get_current_user_id());                   
+
+                  $args = array(
+                      'author' => $current_user_id,
+                      'post_type' => 'client',
+                  );       
+
+                  write_log_file("current_user_id: ".$current_user_id);
+
+                  $query = new WP_Query( $args );
+
+                  if ($query->have_posts())
+                  {
+                      
+                      while ($query->have_posts())
+                      {               
+
+                          $query->the_post();
+
+                          global $post;
+
+                          $client_array = get_client_info($post);
+
+                          $response = new WP_REST_Response( $client_array );       
+                          $response->set_status( 200 ); 
+                          return $response;
+
+                      }
+
+                  } else 
+                  {       
+                    $args = array(                          
+                        'error' => 'client not found'
+                    );     
+                    $response = new WP_REST_Response( $args );                
+                    $response->set_status( 410 ); 
+                    return $response;
+                  }
+                }
+
+            } 
+            else 
+            {        
+              $args = array(                  
+                'error' => 'no params given'                
+              );     
+              $response = new WP_REST_Response( $args );                              
+              $response->set_status( 410 ); 
+              return $response;
+           }         
      }
 
      function get_client_info($post)
@@ -4024,6 +4094,7 @@ Text Domain: grabmo-computer-vision
         }       
 
         //echo print_r($request);
+        //echo print_r("-----------------------");
         //echo print_r($body);
         
         if ( ! empty ( $body ) ) 
@@ -4031,7 +4102,7 @@ Text Domain: grabmo-computer-vision
 
             $response_array = array();                     
 
-            write_log_file("entra: ".$body['admin_user']." ".$body['admin_password']);
+            //echo 'admin_user: '.$body['admin_user']." admin_password:".$body['admin_password'];
 
             if ( !empty( $body['admin_user'] ) && !empty( $body['admin_password'] ) )
             {       
@@ -4103,6 +4174,15 @@ Text Domain: grabmo-computer-vision
                     $new_last_name      = $body['new_last_name'];
                     $new_role           = $body['role'];
 
+
+                    $new_userdata = array (
+                      'new_first_name'  =>  $new_first_name,
+                      'new_last_name'   =>  $new_last_name,
+                      'new_role'  =>  $new_role
+                    ); 
+
+                    //echo json_encode($new_userdata);
+
                     $user_id = username_exists( $userdata['new_username'] );
 
                     write_log_file('user_id_exist: '.$user_id); 
@@ -4134,7 +4214,7 @@ Text Domain: grabmo-computer-vision
                         if ( ! is_wp_error( $wp_new_user_id ) ) 
                         {                   
 
-                            $post_author        = $wp_userid; 
+                            $post_author        = $wp_new_user_id; 
 
                             $client_first_name  = $new_first_name; //$clientdata['client_first_name'];
                             $client_last_name   = $new_last_name; //$clientdata['client_last_name'];
@@ -4143,12 +4223,15 @@ Text Domain: grabmo-computer-vision
                             //$client_location    = $body['client_location']; //$clientdata['client_location'];
                             $client_parent      = $clientdata['client_post_parent'];  
 
-                            $client_post = array(
+                            $client_post = array (
                                   'post_title' => $client_first_name." ".$client_last_name,
                                   'post_status' => 'publish',
                                   'post_type' => 'client',
                                   'post_author' => $post_author
                             );
+
+                            //echo json_encode($client_post);
+
                             $client_post_id = wp_insert_post( $client_post );
 
                             if ( ! is_wp_error( $client_post_id ) ) 
