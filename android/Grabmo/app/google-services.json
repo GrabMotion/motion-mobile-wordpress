@@ -1,0 +1,35 @@
+{
+  "project_info": {
+    "project_number": "126612533280",
+    "project_id": "grabmo-1329"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:126612533280:android:d2f5cbed6a95d141",
+        "android_client_info": {
+          "package_name": "com.grabmo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHiF0VSF48brF-5HCbEBUSFNNiMvHrYE4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

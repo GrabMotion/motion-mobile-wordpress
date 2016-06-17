@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.mikhaellopez.circularimageview.CircularImageView
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/slider_image"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:layout_width="110dp"
+        android:layout_height="20dp"
+        android:id="@+id/slider_text"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/slider_image"
+        android:gravity="center" />
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:id="@+id/slider_info"
+        android:src="@drawable/information"
+        android:layout_toRightOf="@+id/slider_image"
+        android:alpha="0.6"
+        android:layout_marginLeft="-5dp" />
+
+</RelativeLayout>
