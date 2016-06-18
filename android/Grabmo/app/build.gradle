@@ -33,6 +33,10 @@ dependencies {
     compile 'com.mikhaellopez:circularimageview:3.0.2'
     compile 'com.parse:parse-android:1.13.0'
     compile 'com.parse.bolts:bolts-android:1.4.0'
+    compile files('libs/guava-19.0.jar')
+    compile files('libs/protobuf-java-2.6.1.jar')
+    compile 'com.google.android.gms:play-services-appindexing:9.0.2'
+    //compile 'com.google.protobuf:protobuf-java:2.6.1'
 }
 
 apply plugin: 'com.google.gms.google-services'
