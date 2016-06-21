@@ -4,18 +4,17 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.grabmo.SyncActivity;
-import com.grabmo.SyncActivity.Device;
 
 import com.grabmo.R;
+import com.grabmo.model.Device;
 
 import java.util.List;
+
 
 public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.MyViewHolder> {
 
@@ -25,13 +24,11 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.MyViewHo
 
     private Context context;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener 
-    {
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView ipnumber, hostname, serial;
 
-        public MyViewHolder(View view)
-        {
+        public MyViewHolder(View view) {
             super(view);
             ipnumber = (TextView) view.findViewById(R.id.ipnumber);
             hostname = (TextView) view.findViewById(R.id.hostname);
@@ -46,11 +43,10 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.MyViewHo
         }
     }
 
-    public DevicesAdapter(SyncActivity context, List<Device> deviceList)
-    {
+    public DevicesAdapter(SyncActivity context, List<Device> deviceList) {
         this.context = context;
         this.deviceList = deviceList;
-    }    
+    }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -62,27 +58,21 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-       // Device device = deviceList.get(position);
         holder.ipnumber.setText(deviceList.get(position).getIpnumber());
         holder.hostname.setText(deviceList.get(position).getHostname());
         holder.serial.setText(deviceList.get(position).getSerial());
     }
 
     @Override
-    public int getItemCount()
-    {
+    public int getItemCount() {
         return deviceList.size();
     }
 
-    public interface OnItemClickListener
-    {
+    public interface OnItemClickListener {
         void onItemClick(View view, int position);
     }
 
-    public void setOnItemClickListener(final OnItemClickListener mItemClickListener)
-    {
+    public void setOnItemClickListener(final OnItemClickListener mItemClickListener) {
         this.mItemClickListener = mItemClickListener;
     }
-
-    
 }
