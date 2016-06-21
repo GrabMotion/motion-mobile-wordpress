@@ -2,6 +2,7 @@ package com.grabmo;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.location.Criteria;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -23,6 +24,20 @@ import org.json.JSONObject;
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.auth.AuthScope;
 
+import java.util.UUID;
+
+import com.parse.LocationCallback;
+import com.parse.Parse;
+import com.parse.ParseGeoPoint;
+import com.parse.ParseInstallation;
+import com.parse.ParsePush;
+import com.parse.ParseUser;
+import com.parse.ParseException;
+import com.parse.SignUpCallback;
+import com.parse.ParseObject;
+import com.parse.ParseRelation;
+
+
 /**
  * Created by mariano on 6/1/16.
  **/
@@ -39,10 +54,19 @@ public class LoginActivity extends Activity {
     private TextView toggleLogin;
     private EditText userLogin, passLogin;
 
+    String TAG = "LoginActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        String appId = "fsLv65faQqwqhliCGF7oGqcT8MxPDFjmcxIuonGw";
+        String appKey = "T3PK1u0NQ36eZm91jM0TslCREDj8LBeKzGCsrudE";
+
+        Parse.initialize(this, appId, appKey);
+
+        ParseInstallation.getCurrentInstallation().saveInBackground();
 
         if (KeySaver.isExist(this, "isLogin") || KeySaver.isExist(this, "newUser")) {
             Intent i = new Intent(LoginActivity.this, SyncActivity.class);
@@ -72,6 +96,8 @@ public class LoginActivity extends Activity {
 
         client = new AsyncHttpClient();
         params = new RequestParams();
+
+
     }
 
     View.OnClickListener onToggleListener = new View.OnClickListener() {
@@ -89,9 +115,11 @@ public class LoginActivity extends Activity {
         }
     };
 
-    View.OnClickListener onSignUpListener = new View.OnClickListener() {
+    View.OnClickListener onSignUpListener = new View.OnClickListener()
+    {
         @Override
-        public void onClick(View v) {
+        public void onClick(View v)
+        {
             RequestParams paramsSignUp = new RequestParams();
             paramsSignUp.put("admin_user", "admin");
             paramsSignUp.put("admin_password", "TOZe8xgKtzJc2qLFOM7nUQ");
@@ -105,17 +133,106 @@ public class LoginActivity extends Activity {
             client.addHeader("Content-Type", "application/json");
             client.addHeader("Expect", "");
             client.setBasicAuth("admin", "TOZe8xgKtzJc2qLFOM7nUQ", new AuthScope("grabomotion.co", 80, AuthScope.ANY_REALM));
+
+            final String puser = user.getText().toString();
+            final String ppass = pass.getText().toString();
+            final String pemail = email.getText().toString();
+
             client.post("http://grabmotion.co/wp-json/gm/v1/users", paramsSignUp, new AsyncHttpResponseHandler() {
 
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                     try {
-                        JSONObject newUser = new JSONObject(Utils.decodeUTF8(responseBody));
+                        final JSONObject newUser = new JSONObject(Utils.decodeUTF8(responseBody));
 
-                        if (newUser.has("wp_userid")) {
-                            KeySaver.saveShare(LoginActivity.this, "newUser", true);
-                            startActivity(new Intent(LoginActivity.this, SyncActivity.class));
-                            finish();
+                        if (newUser.has("wp_userid"))
+                        {
+
+                            Thread thread = new Thread()
+                            {
+                                
+                                @Override
+                                public void run() 
+                                {
+                                    //PARSE
+                                    final ParseUser newuser = new ParseUser();
+                                    newuser.setUsername(puser);
+                                    newuser.setPassword(ppass);
+                                    newuser.setEmail(pemail);
+
+                                    newuser.signUpInBackground(new SignUpCallback() {
+
+                                        public void done(ParseException e) {
+
+                                            if (e == null)
+                                            {
+
+                                                if (ParseUser.getCurrentUser()!=null)
+                                                {
+                                                    String cannel = "user_" + ParseUser.getCurrentUser().getObjectId();
+                                                    ParsePush.subscribeInBackground(cannel);
+                                                }
+
+                                                ParseObject client = new ParseObject("Client");
+                                                client.put("wp_type", "client");
+
+                                                String wplink       = null;
+                                                String wpapilink    = null;
+                                                int wpuserid        = 0;
+                                                int wpclientid      = 0;
+                                                String wpslug       = null;
+                                                String wpserverurl  = null;
+                                                String wpmodified   = null;
+
+                                                try {
+                                                    wplink          = newUser.getString("wp_link");
+                                                    wplink          = newUser.getString("wp_link");
+                                                    wpapilink       = newUser.getString("wp_api_link");
+                                                    wpuserid        = newUser.getInt("wp_userid");
+                                                    wpclientid      = newUser.getInt("wp_client_id");
+                                                    wpslug          = newUser.getString("wp_slug");
+                                                    wpserverurl     = newUser.getString("wp_server_url");
+                                                    wpmodified      = newUser.getString("wp_modified");
+                                                } catch (JSONException e1)
+                                                {
+                                                    e1.printStackTrace();
+                                                }
+
+                                                client.put("wp_password", ppass);
+                                                client.put("wp_post_parent", 0);
+                                                client.put("wp_client_media_id", 0);
+                                                client.put("wp_link", wplink);
+                                                client.put("wp_api_link", wpapilink);
+                                                client.put("wp_userid", wpuserid);
+                                                client.put("wp_client_id", wpclientid);
+                                                client.put("wp_slug", wpslug);
+                                                client.put("wp_server_url", wpserverurl);
+                                                client.put("wp_modified", wpmodified);
+                                                client.put("wp_user", puser);
+                                                client.saveInBackground();
+
+                                                //ParseRelation<ParseObject> client_relation = newuser.getRelation("client");
+                                                //client_relation.add(client);
+
+                                                newuser.put("client", client);
+
+                                                newuser.put("first_name", puser);
+
+                                                newuser.saveInBackground();
+
+                                                KeySaver.saveShare(LoginActivity.this, "newUser", true);
+                                                startActivity(new Intent(LoginActivity.this, SyncActivity.class));
+                                                finish();
+
+                                            }
+                                        }
+                                    });
+
+                                }
+
+                            };
+                            thread.start();
+                            
                         }
 
                     } catch (JSONException e) {
