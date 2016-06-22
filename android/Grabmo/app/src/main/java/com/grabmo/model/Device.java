@@ -35,7 +35,10 @@ public class Device {
 
     boolean collapsed;
 
-    public Device(String macaddress, String hostname, String city, String country, String location, String network_provider, String uptime, String starttime, int db_local, String model, String hardware, String serial, String revision, int disktotal, int diskused, int diskavailable, int disk_percentage_used, int temperature, List<Camera> cameras) {
+    public Device(String ipnumber, String ippublic, String macaddress, String hostname, String city, String country, String location, String network_provider, String uptime, String starttime, int db_local, String model, String hardware, String serial, String revision, int disktotal, int diskused, int diskavailable, int disk_percentage_used, int temperature, List<Camera> cameras)
+    {
+        this.ipnumber = ipnumber;
+        this.ippublic = ippublic;
         this.macaddress = macaddress;
         this.hostname = hostname;
         this.city = city;

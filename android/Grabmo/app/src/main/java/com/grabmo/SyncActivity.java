@@ -54,6 +54,7 @@ import com.parse.ParseUser;
 import com.parse.ParseRelation;
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.SaveCallback;
 
 public class SyncActivity extends AppCompatActivity {
 
@@ -86,16 +87,25 @@ public class SyncActivity extends AppCompatActivity {
 
         RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recycle_find_devices);
 
-        url_address = "255.255.255.255";
+        url_address = "181.29.152.118"; //"255.255.255.255";
         udp_port = Message.SocketType.UDP_PORT.getNumber();
         tcp_port = Message.SocketType.TCP_ECHO_PORT.getNumber();
 
         mAdapter = new DevicesAdapter(this, devices);
 
-        mAdapter.setOnItemClickListener(new OnItemClickListener() {
+       /* mAdapter.OnItemClickListener onItemClickListener = new mAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                showPopup();
+               showPopup();
+            }
+        };*/
+
+        mAdapter.setOnItemClickListener(new OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(View view, int position)
+            {
+                showPopup(position);
             }
         });
 
@@ -143,17 +153,18 @@ public class SyncActivity extends AppCompatActivity {
         protoListener = new OnSocketReceived() {
 
             @Override
-            public void socketReceived(Message motion) {
+            public void socketReceived(final Message motion) {
 
                 switch (motion.getType()) {
 
                     case ENGAGE:
-                        getEngage(motion);
+
 
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
 
+                                getEngage(motion);
                                 mAdapter.notifyDataSetChanged();
 
                             }
@@ -241,9 +252,12 @@ public class SyncActivity extends AppCompatActivity {
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
-    private void showPopup() {
+    private void showPopup(int position)
+    {
 
-        try {
+        try
+        {
+
             LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
             getSystemService(LAYOUT_INFLATER_SERVICE);
 
@@ -258,55 +272,120 @@ public class SyncActivity extends AppCompatActivity {
             ptext.setText(msg);
 
             Button accept = (Button) layout.findViewById(R.id.accept);
+            accept.setTag(position);
             accept.setOnClickListener(accept_button);
 
             Button reject = (Button) layout.findViewById(R.id.reject);
+            reject.setTag(position);
             reject.setOnClickListener(reject_button);
 
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
         }
 
     }
 
     public OnClickListener reject_button = new OnClickListener() {
-        public void onClick(View v) {
+
+        public void onClick(View v)
+        {
             pw.dismiss();
         }
     };
 
-    public OnClickListener accept_button = new OnClickListener() {
-        public void onClick(View v) {
-            pairDevice();
+    public OnClickListener accept_button = new OnClickListener()
+    {
+
+        public void onClick(View v)
+        {
+
+            if (ParseUser.getCurrentUser() != null)
+            {
+                int pos = (int) v.getTag();
+
+                final Device cdevice = devices.get(pos);
+
+                //final ParseUser user = ParseUser.getCurrentUser();
+
+                ParseQuery queryuser = ParseUser.getQuery();
+
+                queryuser.findInBackground(new FindCallback<ParseObject>()
+                {
+                    public void done(List<ParseObject> objectsuser, ParseException e)
+                    {
+                        if (e == null)
+                        {
+                            // The query was successful.
+                            if (objectsuser.size() > 0)
+                            {
+
+                                final ParseObject pfuser = objectsuser.get(0);
+
+                                ParseRelation<ParseObject> device_relation = pfuser.getRelation("device");
+                                ParseQuery deviceQuery = device_relation.getQuery();
+
+                                deviceQuery.findInBackground(new FindCallback<ParseObject>() {
+
+                                    public void done(List<ParseObject> objectsdevice, ParseException e)
+                                    {
+
+                                        if (objectsdevice.size() == 0)
+                                        {
+                                            String uiid = UUID.randomUUID().toString();
+
+                                            final ParseObject pdevice = new ParseObject("Device");
+
+                                            pdevice.put("publicipaddress", cdevice.getIppublic());
+                                            pdevice.put("model", cdevice.getModel());
+                                            pdevice.put("ipaddress", cdevice.getIpnumber());
+                                            pdevice.put("hostname", cdevice.getHostname());
+                                            pdevice.put("location", cdevice.getLocation());
+                                            pdevice.put("uuid_installation", uiid);
+
+                                            pdevice.saveInBackground(new SaveCallback()
+                                            {
+                                                @Override
+                                                public void done(ParseException e)
+                                                {
+
+                                                    ParseRelation<ParseObject> device_relation = pfuser.getRelation("device");
+                                                    device_relation.add(pdevice);
+
+                                                    pfuser.saveInBackground(new SaveCallback()
+                                                    {
+                                                        @Override
+                                                        public void done(ParseException e) {
+                                                            pairDevice();
+                                                        }
+                                                    });
+
+                                                }
+                                            });
+
+                                        } else if (objectsdevice.size() > 0)
+                                        {
+                                            pairDevice();
+                                        }
+                                    }
+                                });
+
+                            }
+                        }
+                    }
+                });
+            }
         }
     };
 
     public void storeDeviceToParse(Device device) {
 
-        if (ParseUser.getCurrentUser() != null) {
-            String uiid = UUID.randomUUID().toString();
 
-            ParseUser user = ParseUser.getCurrentUser();
-
-            ParseObject pdevice = new ParseObject("Device");
-            pdevice.put("publicipaddress", device.getIppublic());
-            pdevice.put("model", device.getModel());
-            pdevice.put("ipaddress", device.getIpnumber());
-            pdevice.put("hostname", device.getHostname());
-            pdevice.put("location", device.getLocation());
-            pdevice.put("uuid_installation", uiid);
-            pdevice.saveInBackground();
-
-            ParseRelation<ParseObject> client_relation = user.getRelation("client");
-            client_relation.add(pdevice);
-
-            user.put("first_name", user);
-
-            user.saveInBackground();
-        }
     }
 
-    public void getEngage(Message motion) {
+    public void getEngage(Message motion)
+    {
+
         Message.MotionDevice pdevice = motion.getMotiondevice(0);
         List<Camera> cam = new ArrayList<>();
 
@@ -318,7 +397,7 @@ public class SyncActivity extends AppCompatActivity {
 
         }
 
-        devices.add(setDevices(pdevice.getMacaddress(), pdevice.getHostname(), pdevice.getCity(), pdevice.getCountry()
+        devices.add(setDevices(pdevice.getIpnumber(), pdevice.getIppublic(),pdevice.getMacaddress(), pdevice.getHostname(), pdevice.getCity(), pdevice.getCountry()
                 , pdevice.getLocation(), pdevice.getNetworkProvider(), pdevice.getUptime(), pdevice.getStarttime()
                 , pdevice.getDbLocal(), pdevice.getModel(), pdevice.getHardware(), pdevice.getSerial()
                 , pdevice.getRevision(), pdevice.getDisktotal(), pdevice.getDiskused(), pdevice.getDiskavailable()
@@ -332,12 +411,12 @@ public class SyncActivity extends AppCompatActivity {
         return new Camera(cameranumber, cameraname, recognizing, idmat, matrows, matcols, matheight, matwidth);
     }
 
-    private Device setDevices(String macaddress, String hostname, String city, String country
+    private Device setDevices(String ipnumber, String ippublic, String macaddress, String hostname, String city, String country
             , String location, String network_provider, String uptime, String starttime
             , int db_local, String model, String hardware, String serial, String revision
             , int disktotal, int diskused, int diskavailable, int disk_percentage_used
             , int temperature, List<Camera> cameras) {
-        return new Device(macaddress, hostname, city, country
+        return new Device(ipnumber, ippublic, macaddress, hostname, city, country
                 , location, network_provider, uptime, starttime, db_local, model, hardware, serial
                 , revision, disktotal, diskused, diskavailable, disk_percentage_used, temperature
                 , cameras);
@@ -493,9 +572,14 @@ public class SyncActivity extends AppCompatActivity {
         }
 
         //receive message from the client, where BUFFER_SIZE is large enough to contain your message
-        socketBuffer = ByteBuffer.allocate(Motion.Message.SocketType.SOCKET_BUFFER_BIG_SIZE.getNumber());
+        socketBuffer = ByteBuffer.allocate(Message.SocketType.SOCKET_BUFFER_BIG_SIZE.getNumber());
 
-//            int bytesRead = serverSocket.read(socketBuffer);
+        try
+        {
+            int bytesRead = serverSocket.read(socketBuffer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         //copy message byte array from socket buffer
         socketBuffer.flip();
@@ -505,6 +589,12 @@ public class SyncActivity extends AppCompatActivity {
         String msj = new String(ackBuf);
 
         String promsg = splitMessage(msj);
+
+        if (promsg==null)
+        {
+            System.out.println("Socket empty response");
+            return;
+        }
 
         BaseEncoding encoding = BaseEncoding.base64();
 
@@ -539,7 +629,8 @@ public class SyncActivity extends AppCompatActivity {
 
     }
 
-    public void pairDevice() {
+    public void pairDevice()
+    {
 
         ParseQuery queryuser = ParseUser.getQuery();
 
@@ -550,7 +641,8 @@ public class SyncActivity extends AppCompatActivity {
                 if (e == null) {
 
                     // The query was successful.
-                    if (objectsuser.size() != 0) {
+                    if (objectsuser.size() > 0)
+                    {
 
                         final ParseObject user = objectsuser.get(0);
 
@@ -563,11 +655,13 @@ public class SyncActivity extends AppCompatActivity {
 
                         ParseRelation<ParseObject> client_relation = user.getRelation("client");
                         ParseQuery clientQuery = client_relation.getQuery();
+
                         clientQuery.findInBackground(new FindCallback<ParseObject>() {
 
                             public void done(List<ParseObject> objectsclient, ParseException e) {
 
-                                if (objectsclient.size() != 0) {
+                                if (objectsclient.size() > 0)
+                                {
 
                                     ParseObject client = objectsclient.get(0);
                                     final String wpuser = client.getString("wp_user");
@@ -584,11 +678,13 @@ public class SyncActivity extends AppCompatActivity {
 
                                     ParseRelation<ParseObject> device_relation = user.getRelation("device");
                                     ParseQuery deviceQuery = device_relation.getQuery();
+
                                     deviceQuery.findInBackground(new FindCallback<ParseObject>() {
 
                                         public void done(List<ParseObject> objectsdevice, ParseException e) {
 
-                                            if (objectsdevice.size() != 0) {
+                                            if (objectsdevice.size() != 0)
+                                            {
                                                 ParseObject pdevice = objectsdevice.get(0);
                                                 String uuidinstallation = pdevice.getString("uuid_installation");
                                                 String ipaddress = pdevice.getString("ipaddress");
@@ -600,31 +696,31 @@ public class SyncActivity extends AppCompatActivity {
                                                 String ParseApplicationId = "fsLv65faQqwqhliCGF7oGqcT8MxPDFjmcxIuonGw";
                                                 String RestApiKey = "ZRfqjSe0ju8XejHHmJdsfzsYKYsQYBWsYLU40FDB";
 
-                                                Message.MotionUser user = Message.MotionUser.newBuilder()
-                                                        .setUsername(username)
-                                                        .setWpuser(wpuser)
-                                                        .setWpuserid(wpuserid)
-                                                        .setWppassword(wppassword)
-                                                        .setWpserverurl(wpserverurl)
-                                                        .setWpclientid(wpclientid)
-                                                        .setWpclientmediaid(wpclientmediaid)
-                                                        .setEmail(email)
-                                                        .setFirstname(first_name)
-                                                        .setLastname(last_name)
-                                                        .setLocation(location)
-                                                        .setUiidinstallation(uuidinstallation)
-                                                        .setClientnumber(wpuserid)
-                                                        .setPfobjectid(objectId)
-                                                        .setWpslug(wpslug)
-                                                        .setWplink(wplink)
-                                                        .setWpapilink(wpapilink)
-                                                        .setWpfeaturedimage("")
-                                                        .setWpmodified(wpmodified)
-                                                        .setWpparent(0)
-                                                        .setPfuser(pfuser)
-                                                        .setPfappid(ParseApplicationId)
-                                                        .setPfrestapikey(RestApiKey)
-                                                        .build();
+                                                Message.MotionUser muser = Message.MotionUser.newBuilder()
+                                                .setWpuser(wpuser)
+                                                .setWpuserid(wpuserid)
+                                                .setWppassword(wppassword)
+                                                .setWpserverurl(wpserverurl)
+                                                .setWpclientid(wpclientid)
+                                                .build();
+
+                                                /*.setWpclientmediaid(wpclientmediaid)
+                                                .setEmail(email)
+                                                .setFirstname(first_name)
+                                                .setLastname(last_name)
+                                                .setLocation(location)
+                                                .setUiidinstallation(uuidinstallation)
+                                                .setClientnumber(wpuserid)
+                                                .setPfobjectid(objectId)
+                                                .setWpslug(wpslug)
+                                                .setWplink(wplink)
+                                                .setWpapilink(wpapilink)
+                                                .setWpmodified(wpmodified)
+                                                .setWpparent(0)
+                                                .setPfuser(pfuser)
+                                                .setPfappid(ParseApplicationId)
+                                                .setPfrestapikey(RestApiKey)
+                                                .build();*/
 
                                                 Calendar cal = Calendar.getInstance();
                                                 SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss.SSS");
@@ -633,7 +729,7 @@ public class SyncActivity extends AppCompatActivity {
                                                 Message message = Message.newBuilder()
                                                         .setType(Message.ActionType.SERVER_INFO)
                                                         .setPackagesize(Message.SocketType.SOCKET_BUFFER_MEDIUM_SIZE_VALUE)
-                                                        .setMotionuser(0, user)
+                                                        .setMotionuser(0, muser)
                                                         .setServerip(ipaddress)
                                                         .setTime(time)
                                                         .build();
@@ -659,6 +755,10 @@ public class SyncActivity extends AppCompatActivity {
 
     public String splitMessage(String message) {
 
+        if (message.isEmpty())
+        {
+            return null;
+        }
         String del_1 = "PROSTA";
         String del_2 = "PROSTO";
 

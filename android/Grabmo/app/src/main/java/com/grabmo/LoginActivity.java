@@ -33,6 +33,7 @@ import com.parse.ParseInstallation;
 import com.parse.ParsePush;
 import com.parse.ParseUser;
 import com.parse.ParseException;
+import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
 import com.parse.ParseObject;
 import com.parse.ParseRelation;
@@ -120,6 +121,8 @@ public class LoginActivity extends Activity {
         @Override
         public void onClick(View v)
         {
+
+
             RequestParams paramsSignUp = new RequestParams();
             paramsSignUp.put("admin_user", "admin");
             paramsSignUp.put("admin_password", "TOZe8xgKtzJc2qLFOM7nUQ");
@@ -173,8 +176,8 @@ public class LoginActivity extends Activity {
                                                     ParsePush.subscribeInBackground(cannel);
                                                 }
 
-                                                ParseObject client = new ParseObject("Client");
-                                                client.put("wp_type", "client");
+                                                final ParseObject pclient = new ParseObject("Client");
+                                                pclient.put("wp_type", "client");
 
                                                 String wplink       = null;
                                                 String wpapilink    = null;
@@ -198,31 +201,39 @@ public class LoginActivity extends Activity {
                                                     e1.printStackTrace();
                                                 }
 
-                                                client.put("wp_password", ppass);
-                                                client.put("wp_post_parent", 0);
-                                                client.put("wp_client_media_id", 0);
-                                                client.put("wp_link", wplink);
-                                                client.put("wp_api_link", wpapilink);
-                                                client.put("wp_userid", wpuserid);
-                                                client.put("wp_client_id", wpclientid);
-                                                client.put("wp_slug", wpslug);
-                                                client.put("wp_server_url", wpserverurl);
-                                                client.put("wp_modified", wpmodified);
-                                                client.put("wp_user", puser);
-                                                client.saveInBackground();
+                                                pclient.put("wp_password", ppass);
+                                                pclient.put("wp_post_parent", 0);
+                                                pclient.put("wp_client_media_id", 0);
+                                                pclient.put("wp_link", wplink);
+                                                pclient.put("wp_api_link", wpapilink);
+                                                pclient.put("wp_userid", wpuserid);
+                                                pclient.put("wp_client_id", wpclientid);
+                                                pclient.put("wp_slug", wpslug);
+                                                pclient.put("wp_server_url", wpserverurl);
+                                                pclient.put("wp_modified", wpmodified);
+                                                pclient.put("wp_user", puser);
+                                                pclient.saveInBackground(new SaveCallback()
+                                                {
+                                                    @Override
+                                                    public void done(ParseException e)
+                                                    {
+                                                        ParseRelation<ParseObject> client_relation = newuser.getRelation("client");
+                                                        client_relation.add(pclient);
 
-                                                //ParseRelation<ParseObject> client_relation = newuser.getRelation("client");
-                                                //client_relation.add(client);
+                                                        //newuser.put("client", pclient);
 
-                                                newuser.put("client", client);
+                                                        newuser.put("first_name", puser);
 
-                                                newuser.put("first_name", puser);
+                                                        newuser.saveInBackground();
 
-                                                newuser.saveInBackground();
+                                                        KeySaver.saveShare(LoginActivity.this, "newUser", true);
+                                                        startActivity(new Intent(LoginActivity.this, SyncActivity.class));
+                                                        finish();
 
-                                                KeySaver.saveShare(LoginActivity.this, "newUser", true);
-                                                startActivity(new Intent(LoginActivity.this, SyncActivity.class));
-                                                finish();
+                                                    }
+                                                });
+
+
 
                                             }
                                         }
