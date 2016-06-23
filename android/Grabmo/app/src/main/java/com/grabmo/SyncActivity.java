@@ -1,5 +1,6 @@
 package com.grabmo;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -48,6 +49,7 @@ import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 
 import com.grabmo.adapter.DevicesAdapter.OnItemClickListener;
+import android.support.v7.app.AlertDialog;
 
 import com.parse.ParseQuery;
 import com.parse.ParseObject;
@@ -66,8 +68,7 @@ public class SyncActivity extends AppCompatActivity {
     //public String rasp_url;
 
     private DevicesAdapter mAdapter;
-
-    private PopupWindow pw;
+  
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -94,19 +95,12 @@ public class SyncActivity extends AppCompatActivity {
 
         mAdapter = new DevicesAdapter(this, devices);
 
-       /* mAdapter.OnItemClickListener onItemClickListener = new mAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-               showPopup();
-            }
-        };*/
-
         mAdapter.setOnItemClickListener(new OnItemClickListener()
         {
             @Override
             public void onItemClick(View view, int position)
             {
-                showPopup(position);
+                showPairAuthorizationDialog(position, devices.get(position).getHostname());
             }
         });
 
@@ -128,10 +122,7 @@ public class SyncActivity extends AppCompatActivity {
 
                         System.out.println("Server msg :" + msg);
 
-                        //Motion.Message m = new Motion.MessageOrBuilder();
-
                         Calendar c = Calendar.getInstance();
-
 
                         Message message = Message.newBuilder()
                                 .setType(Message.ActionType.ENGAGE)
@@ -150,32 +141,31 @@ public class SyncActivity extends AppCompatActivity {
         });
 
 
-        protoListener = new OnSocketReceived() {
+        protoListener = new OnSocketReceived() 
+        {
 
             @Override
-            public void socketReceived(final Message motion) {
+            public void socketReceived(final Message motion) 
+            {
 
-                switch (motion.getType()) {
+                switch (motion.getType()) 
+                {
 
                     case ENGAGE:
 
-
-                        runOnUiThread(new Runnable() {
+                        runOnUiThread(new Runnable() 
+                        {
                             @Override
-                            public void run() {
-
+                            public void run() 
+                            {
                                 getEngage(motion);
                                 mAdapter.notifyDataSetChanged();
-
                             }
                         });
                         break;
 
                     case SERVER_INFO_OK:
-                        //TODO: aca vas a tener que ver como pasar la posición del que queres guardar
-                        // lo mejor es consiguiendo la posición desde el item que toques si queres uno
-                        // o si queres todos, ponerlo en un loop.
-
+                        confirmPairing();
                         break;
                 }
             }
@@ -188,134 +178,143 @@ public class SyncActivity extends AppCompatActivity {
                 startActivity(new Intent(SyncActivity.this, MainActivity.class));
             }
         });
+
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
-    private void showPopup(int position)
+    public void confirmPairing()
     {
+        
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
 
-        try
-        {
+        dialogBuilder.setTitle("Pairing succesful");
 
-            LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-            getSystemService(LAYOUT_INFLATER_SERVICE);
+        dialogBuilder.setMessage("Device has been set and cameras are runnning. Enjoy grabmo!");
 
-            View layout = inflater.inflate(R.layout.popup_device, (ViewGroup) findViewById(R.id.popup_device));
+        final AlertDialog b = dialogBuilder.create();
+        b.show();
 
-            pw = new PopupWindow(layout, 300, 370, true);
-            pw.showAtLocation(layout, Gravity.CENTER, 0, 0);
+        dialogBuilder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+            
+            public void onClick(DialogInterface dialog, int whichButton) 
+            {
+                startActivity(new Intent(SyncActivity.this, MainActivity.class));
+                b.dismiss();
+            }
 
-            TextView ptext = (TextView) layout.findViewById(R.id.txtView);
-
-            String msg = "Do you want to pair device?";
-            ptext.setText(msg);
-
-            Button accept = (Button) layout.findViewById(R.id.accept);
-            accept.setTag(position);
-            accept.setOnClickListener(accept_button);
-
-            Button reject = (Button) layout.findViewById(R.id.reject);
-            reject.setTag(position);
-            reject.setOnClickListener(reject_button);
-
-        } catch (Exception e)
-        {
-            e.printStackTrace();
-        }
+        });    
 
     }
 
-    public OnClickListener reject_button = new OnClickListener() {
+    public void showPairAuthorizationDialog(final int position, String device)
+    {
+        
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
 
-        public void onClick(View v)
-        {
-            pw.dismiss();
-        }
-    };
+        dialogBuilder.setTitle("Pair device");
 
-    public OnClickListener accept_button = new OnClickListener()
+        dialogBuilder.setMessage("Do you want to pair device "+device);
+
+        dialogBuilder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+            
+            public void onClick(DialogInterface dialog, int whichButton) 
+            {
+                pairDevice(position);
+            }
+
+        });
+
+        final AlertDialog b = dialogBuilder.create();
+        b.show();
+
+        dialogBuilder.setNegativeButton("No thanks", new DialogInterface.OnClickListener() {
+            
+            public void onClick(DialogInterface dialog, int whichButton) 
+            {
+                b.dismiss();
+            }
+
+        });
+
+    }
+
+
+    public void pairDevice(int pos)
     {
 
-        public void onClick(View v)
+        if (ParseUser.getCurrentUser() != null)
         {
 
-            if (ParseUser.getCurrentUser() != null)
+
+            final Device cdevice = devices.get(pos);          
+
+            ParseQuery queryuser = ParseUser.getQuery();
+
+            queryuser.findInBackground(new FindCallback<ParseObject>()
             {
-                int pos = (int) v.getTag();
-
-                final Device cdevice = devices.get(pos);
-
-                //final ParseUser user = ParseUser.getCurrentUser();
-
-                ParseQuery queryuser = ParseUser.getQuery();
-
-                queryuser.findInBackground(new FindCallback<ParseObject>()
+                public void done(List<ParseObject> objectsuser, ParseException e)
                 {
-                    public void done(List<ParseObject> objectsuser, ParseException e)
-                    {
-                        if (e == null)
+                    if (e == null)
+                    {                        
+                        if (objectsuser.size() > 0)
                         {
-                            // The query was successful.
-                            if (objectsuser.size() > 0)
-                            {
 
-                                final ParseObject pfuser = objectsuser.get(0);
+                            final ParseObject pfuser = objectsuser.get(0);
 
-                                ParseRelation<ParseObject> device_relation = pfuser.getRelation("device");
-                                ParseQuery deviceQuery = device_relation.getQuery();
+                            ParseRelation<ParseObject> device_relation = pfuser.getRelation("device");
+                            ParseQuery deviceQuery = device_relation.getQuery();
 
-                                deviceQuery.findInBackground(new FindCallback<ParseObject>() {
+                            deviceQuery.findInBackground(new FindCallback<ParseObject>() {
 
-                                    public void done(List<ParseObject> objectsdevice, ParseException e)
+                                public void done(List<ParseObject> objectsdevice, ParseException e)
+                                {
+
+                                    if (objectsdevice.size() == 0)
                                     {
+                                        String uiid = UUID.randomUUID().toString();
 
-                                        if (objectsdevice.size() == 0)
+                                        final ParseObject pdevice = new ParseObject("Device");
+
+                                        pdevice.put("publicipaddress", cdevice.getIppublic());
+                                        pdevice.put("model", cdevice.getModel());
+                                        pdevice.put("ipaddress", cdevice.getIpnumber());
+                                        pdevice.put("hostname", cdevice.getHostname());
+                                        pdevice.put("location", cdevice.getLocation());
+                                        pdevice.put("uuid_installation", uiid);
+
+                                        pdevice.saveInBackground(new SaveCallback()
                                         {
-                                            String uiid = UUID.randomUUID().toString();
-
-                                            final ParseObject pdevice = new ParseObject("Device");
-
-                                            pdevice.put("publicipaddress", cdevice.getIppublic());
-                                            pdevice.put("model", cdevice.getModel());
-                                            pdevice.put("ipaddress", cdevice.getIpnumber());
-                                            pdevice.put("hostname", cdevice.getHostname());
-                                            pdevice.put("location", cdevice.getLocation());
-                                            pdevice.put("uuid_installation", uiid);
-
-                                            pdevice.saveInBackground(new SaveCallback()
+                                            @Override
+                                            public void done(ParseException e)
                                             {
-                                                @Override
-                                                public void done(ParseException e)
+
+                                                ParseRelation<ParseObject> device_relation = pfuser.getRelation("device");
+                                                device_relation.add(pdevice);
+
+                                                pfuser.saveInBackground(new SaveCallback()
                                                 {
+                                                    @Override
+                                                    public void done(ParseException e) {
+                                                        pairDevice();
+                                                    }
+                                                });
 
-                                                    ParseRelation<ParseObject> device_relation = pfuser.getRelation("device");
-                                                    device_relation.add(pdevice);
+                                            }
+                                        });
 
-                                                    pfuser.saveInBackground(new SaveCallback()
-                                                    {
-                                                        @Override
-                                                        public void done(ParseException e) {
-                                                            pairDevice();
-                                                        }
-                                                    });
-
-                                                }
-                                            });
-
-                                        } else if (objectsdevice.size() > 0)
-                                        {
-                                            pairDevice();
-                                        }
+                                    } else if (objectsdevice.size() > 0)
+                                    {
+                                        pairDevice();
                                     }
-                                });
+                                }
+                            });
 
-                            }
                         }
                     }
-                });
-            }
+                }
+            });
         }
-    };
+    }
 
 
     public void getEngage(Message motion)
@@ -360,19 +359,12 @@ public class SyncActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
         client.connect();
         Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "Sync Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app URL is correct.
-                Uri.parse("android-app://com.grabmo/http/host/path")
+            Action.TYPE_VIEW, 
+            "Sync Page", 
+            Uri.parse("http://host/path"),                
+            Uri.parse("android-app://com.grabmo/http/host/path")
         );
         AppIndex.AppIndexApi.start(client, viewAction);
     }
@@ -380,17 +372,10 @@ public class SyncActivity extends AppCompatActivity {
     @Override
     public void onStop() {
         super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
         Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, // TODO: choose an action type.
-                "Sync Page", // TODO: Define a title for the content shown.
-                // TODO: If you have web page content that matches this app activity's content,
-                // make sure this auto-generated web page URL is correct.
-                // Otherwise, set the URL to null.
-                Uri.parse("http://host/path"),
-                // TODO: Make sure this auto-generated app URL is correct.
+                Action.TYPE_VIEW, 
+                "Sync Page", 
+                Uri.parse("http://host/path"),                
                 Uri.parse("android-app://com.grabmo/http/host/path")
         );
         AppIndex.AppIndexApi.end(client, viewAction);
@@ -435,14 +420,7 @@ public class SyncActivity extends AppCompatActivity {
                     + dgp.getAddress() + ", port: " + dgp.getPort();
 
             System.out.println(rcvd);
-
-            //BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
-            //String outMessage = null;
-
-            //outMessage = stdin.readLine();
-
-            //buf = ("Server say: " + outMessage).getBytes();
-
+          
             listener.onTaskCompleted(rcvd, dgp.getAddress().toString().replace("/", ""));
 
             return null;
@@ -461,9 +439,11 @@ public class SyncActivity extends AppCompatActivity {
 
     public void sendProto(Message motion, String url)
     {
-        //set up socket
+        
         SocketChannel serverSocket = null;
-        try {
+        
+        try 
+        {
             serverSocket = SocketChannel.open();
 
             serverSocket.socket().setReuseAddress(true);
@@ -474,8 +454,7 @@ public class SyncActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        //create BAOS for protobuf
+        
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
         try {
@@ -486,17 +465,10 @@ public class SyncActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
-        //copy the message to a bytebuffer
-        //ByteBuffer socketBuffer = ByteBuffer.wrap(baos.toByteArray());
-
         String baseProto = BaseEncoding.base64().encode(motion.toByteArray());
 
         ByteBuffer socketBuffer = ByteBuffer.wrap(baseProto.getBytes());
 
-        //BaseEncoding.base64().encode(motion.toByteArray())
-
-        //keep sending until the buffer is empty
         while (socketBuffer.hasRemaining()) {
             try {
                 assert serverSocket != null;
@@ -506,8 +478,7 @@ public class SyncActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-
-        //receive message from the client, where BUFFER_SIZE is large enough to contain your message
+        
         socketBuffer = ByteBuffer.allocate(Message.SocketType.SOCKET_BUFFER_BIG_SIZE.getNumber());
 
         try
@@ -516,8 +487,7 @@ public class SyncActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        //copy message byte array from socket buffer
+        
         socketBuffer.flip();
         byte[] ackBuf = new byte[socketBuffer.remaining()];
         socketBuffer.get(ackBuf);
@@ -543,24 +513,18 @@ public class SyncActivity extends AppCompatActivity {
 
         Motion.Message m = null;
 
-        try {
+        try 
+        {
             m = Motion.Message.parseFrom(codedIn);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-//        String d = m.getCurrday();
-
-//        Motion.Message.MotionCamera mc = m.getMotioncamera();
-
-//        int mc = m.getMotioncameraCount();
-
         if (protoListener != null) {
             protoListener.socketReceived(m);
         }
-
-        //done!
+        
         socketBuffer.clear();
 
     }
@@ -574,9 +538,9 @@ public class SyncActivity extends AppCompatActivity {
 
             public void done(List<ParseObject> objectsuser, ParseException e) {
 
-                if (e == null) {
-
-                    // The query was successful.
+                if (e == null) 
+                {
+                    
                     if (objectsuser.size() > 0)
                     {
 
@@ -685,8 +649,7 @@ public class SyncActivity extends AppCompatActivity {
                         });
                     }
 
-                } else {
-                    // results have all the Posts the current user liked.
+                } else {                    
                     Log.e("else", "true");
                 }
             }
