@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetSocketAddress;
+import java.net.ProtocolException;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 import java.util.ArrayList;
@@ -139,8 +140,7 @@ public class SyncActivity extends AppCompatActivity {
                                 .setTime(c.getTime().toString())
                                 .build();
 
-
-                        sendProto(message, url);
+                        new SendProto().execute(message);
 
                     }
 
@@ -169,74 +169,13 @@ public class SyncActivity extends AppCompatActivity {
 
                             }
                         });
-
                         break;
 
-                    case REC_START:
-                        break;
-                    case REC_RUNNING:
-                        break;
-                    case REC_STOP:
-                        break;
-                    case UNENGAGE:
-                        break;
-                    case GET_TIME:
-                        break;
-                    case SET_TIME:
-                        break;
-                    case TIME_SET:
-                        break;
-                    case STRM_START:
-                        break;
-                    case STRM_STOP:
-                        break;
-                    case TAKE_PICTURE:
-                        break;
-                    case DISSCONNECT:
-                        break;
-                    case REFRESH:
-                        break;
-                    case GET_XML:
-                        break;
-                    case GET_IMAGE:
-                        break;
-                    case GET_VIDEO:
-                        break;
-                    case SAVE:
-                        break;
-                    case OPEN:
-                        break;
-                    case UPDATE:
-                        break;
-                    case SAVE_OK:
-                        break;
-                    case UPDATE_OK:
-                        break;
-                    case GET_MAT:
-                        break;
-                    case RESPONSE_OK:
-                        break;
-                    case RESPONSE_NEXT:
-                        break;
-                    case RESPONSE_END:
-                        break;
-                    case RESPONSE_FINISH:
-                        break;
-                    case REC_HAS_CHANGES:
-                        break;
-                    case REC_HAS_INSTANCE:
-                        break;
-                    case PROTO_HAS_FILE:
-                        break;
-                    case PROTO_NO_FILE:
-                        break;
-                    case SERVER_INFO:
-                        break;
                     case SERVER_INFO_OK:
                         //TODO: aca vas a tener que ver como pasar la posición del que queres guardar
                         // lo mejor es consiguiendo la posición desde el item que toques si queres uno
                         // o si queres todos, ponerlo en un loop.
-                        storeDeviceToParse(devices.get(0));
+
                         break;
                 }
             }
@@ -378,10 +317,6 @@ public class SyncActivity extends AppCompatActivity {
         }
     };
 
-    public void storeDeviceToParse(Device device) {
-
-
-    }
 
     public void getEngage(Message motion)
     {
@@ -524,7 +459,8 @@ public class SyncActivity extends AppCompatActivity {
         void socketReceived(Message motion);
     }
 
-    public void sendProto(Message motion, String url) {
+    public void sendProto(Message motion, String url)
+    {
         //set up socket
         SocketChannel serverSocket = null;
         try {
@@ -696,46 +632,50 @@ public class SyncActivity extends AppCompatActivity {
                                                 String ParseApplicationId = "fsLv65faQqwqhliCGF7oGqcT8MxPDFjmcxIuonGw";
                                                 String RestApiKey = "ZRfqjSe0ju8XejHHmJdsfzsYKYsQYBWsYLU40FDB";
 
-                                                Message.MotionUser muser = Message.MotionUser.newBuilder()
-                                                .setWpuser(wpuser)
-                                                .setWpuserid(wpuserid)
-                                                .setWppassword(wppassword)
-                                                .setWpserverurl(wpserverurl)
-                                                .setWpclientid(wpclientid)
-                                                .build();
-
-                                                /*.setWpclientmediaid(wpclientmediaid)
-                                                .setEmail(email)
-                                                .setFirstname(first_name)
-                                                .setLastname(last_name)
-                                                .setLocation(location)
-                                                .setUiidinstallation(uuidinstallation)
-                                                .setClientnumber(wpuserid)
-                                                .setPfobjectid(objectId)
-                                                .setWpslug(wpslug)
-                                                .setWplink(wplink)
-                                                .setWpapilink(wpapilink)
-                                                .setWpmodified(wpmodified)
-                                                .setWpparent(0)
-                                                .setPfuser(pfuser)
-                                                .setPfappid(ParseApplicationId)
-                                                .setPfrestapikey(RestApiKey)
-                                                .build();*/
-
                                                 Calendar cal = Calendar.getInstance();
                                                 SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss.SSS");
                                                 String time = sdf.format(cal.getTime());
 
-                                                Message message = Message.newBuilder()
-                                                        .setType(Message.ActionType.SERVER_INFO)
-                                                        .setPackagesize(Message.SocketType.SOCKET_BUFFER_MEDIUM_SIZE_VALUE)
-                                                        .setMotionuser(0, muser)
-                                                        .setServerip(ipaddress)
-                                                        .setTime(time)
-                                                        .build();
+                                                try {
+
+                                                    Motion.Message message = Motion.Message.newBuilder()
+                                                            .setType(Message.ActionType.SERVER_INFO)
+                                                            .setPackagesize(Message.SocketType.SOCKET_BUFFER_MEDIUM_SIZE_VALUE)
+                                                            .setMotionuser(0,
+                                                                    Motion.Message.MotionUser.newBuilder()
+                                                                            .setWpuser(wpuser)
+                                                                            .setWpuserid(wpuserid)
+                                                                            .setWppassword(wppassword)
+                                                                            .setWpserverurl(wpserverurl)
+                                                                            .setWpclientid(wpclientid)
+                                                                            .setEmail(email)
+                                                                            .setFirstname(first_name)
+                                                                            .setLastname(first_name)
+                                                                            .setLocation(location)
+                                                                            .setUiidinstallation(uuidinstallation)
+                                                                            .setClientnumber(wpclientid)
+                                                                            .setPfobjectid(objectId)
+                                                                            .setWpslug(wpslug)
+                                                                            .setWplink(wplink)
+                                                                            .setWpapilink(wpapilink)
+                                                                            .setWpmodified(wpmodified)
+                                                                            .setWpparent(0)
+                                                                            .setPfuser(pfuser)
+                                                                            .setPfappid(ParseApplicationId)
+                                                                            .setPfrestapikey(RestApiKey))
+                                                            .setServerip(ipaddress)
+                                                            .setTime(time)
+                                                            .build();
 
 
-                                                sendProto(message, ipaddress);
+                                                    new SendProto().execute(message);
+
+
+                                                } catch (Exception pe)
+                                                {
+                                                    System.out.println("Exception: "+pe.toString());
+
+                                                }
                                             }
                                         }
                                     });
@@ -751,6 +691,19 @@ public class SyncActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public class SendProto extends AsyncTask<Message, Void, Void>
+    {
+
+        @Override
+        protected Void doInBackground(Message ... params)
+        {
+            Message message = params[0];
+            String url = message.getServerip();
+            sendProto(message, url);
+            return null;
+        }
     }
 
     public String splitMessage(String message) {

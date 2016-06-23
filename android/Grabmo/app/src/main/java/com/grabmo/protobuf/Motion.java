@@ -26033,7 +26033,8 @@ public final class Motion {
           int index, Motion.Message.MotionUser.Builder builderForValue) {
         if (motionuserBuilder_ == null) {
           ensureMotionuserIsMutable();
-          motionuser_.set(index, builderForValue.build());
+          motionuser_.add(index,builderForValue.build());
+                  //set(index, builderForValue.build());
           onChanged();
         } else {
           motionuserBuilder_.setMessage(index, builderForValue.build());
