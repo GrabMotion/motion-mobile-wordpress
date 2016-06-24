@@ -177,6 +177,9 @@ public class LoginActivity extends Activity {
             final String ppass = pass.getText().toString();
             final String pemail = email.getText().toString();
 
+            final String firstname = first_name.getText().toString();
+            final String lastname = last_name.getText().toString();
+
             client.post("http://grabmotion.co/wp-json/gm/v1/users", paramsSignUp, new AsyncHttpResponseHandler() {
 
                 @Override
@@ -256,9 +259,8 @@ public class LoginActivity extends Activity {
                                                         ParseRelation<ParseObject> client_relation = newuser.getRelation("client");
                                                         client_relation.add(pclient);
 
-                                                        //newuser.put("client", pclient);
-
-                                                        newuser.put("first_name", puser);
+                                                        newuser.put("first_name", firstname);
+                                                        newuser.put("last_name", lastname);
 
                                                         newuser.saveInBackground();
 
