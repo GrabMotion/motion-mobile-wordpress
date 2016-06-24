@@ -51,6 +51,7 @@ import android.view.View.OnClickListener;
 import com.grabmo.adapter.DevicesAdapter.OnItemClickListener;
 import android.support.v7.app.AlertDialog;
 
+import com.grabmo.utils.KeySaver;
 import com.parse.ParseQuery;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
@@ -191,18 +192,19 @@ public class SyncActivity extends AppCompatActivity {
 
         dialogBuilder.setMessage("Device has been set and cameras are runnning. Enjoy grabmo!");
 
-        final AlertDialog b = dialogBuilder.create();
-        b.show();
-
         dialogBuilder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
             
             public void onClick(DialogInterface dialog, int whichButton) 
             {
+                KeySaver.saveShare(SyncActivity.this, "isPaired", true);
                 startActivity(new Intent(SyncActivity.this, MainActivity.class));
-                b.dismiss();
+                //b.dismiss();
             }
 
-        });    
+        });
+
+        final AlertDialog b = dialogBuilder.create();
+        b.show();
 
     }
 
@@ -215,6 +217,8 @@ public class SyncActivity extends AppCompatActivity {
 
         dialogBuilder.setMessage("Do you want to pair device "+device);
 
+
+
         dialogBuilder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
             
             public void onClick(DialogInterface dialog, int whichButton) 
@@ -224,17 +228,17 @@ public class SyncActivity extends AppCompatActivity {
 
         });
 
-        final AlertDialog b = dialogBuilder.create();
-        b.show();
-
         dialogBuilder.setNegativeButton("No thanks", new DialogInterface.OnClickListener() {
-            
+
             public void onClick(DialogInterface dialog, int whichButton) 
             {
-                b.dismiss();
+                //dismiss
             }
 
         });
+
+        final AlertDialog b = dialogBuilder.create();
+        b.show();
 
     }
 
@@ -295,7 +299,7 @@ public class SyncActivity extends AppCompatActivity {
                                                 {
                                                     @Override
                                                     public void done(ParseException e) {
-                                                        pairDevice();
+                                                        sendPairRequest();
                                                     }
                                                 });
 
@@ -304,7 +308,7 @@ public class SyncActivity extends AppCompatActivity {
 
                                     } else if (objectsdevice.size() > 0)
                                     {
-                                        pairDevice();
+                                        sendPairRequest();
                                     }
                                 }
                             });
@@ -529,7 +533,7 @@ public class SyncActivity extends AppCompatActivity {
 
     }
 
-    public void pairDevice()
+    public void sendPairRequest()
     {
 
         ParseQuery queryuser = ParseUser.getQuery();
@@ -567,8 +571,8 @@ public class SyncActivity extends AppCompatActivity {
                                     final String wpuser = client.getString("wp_user");
                                     final int wpuserid = client.getInt("wp_userid");
                                     final String wppassword = client.getString("wp_password");
-                                    final int wppostparent = client.getInt("wp_post_parent");
-                                    final int wpclientmediaid = client.getInt("wp_client_media_id");
+                                    //final int wppostparent = client.getInt("wp_post_parent");
+                                    //final int wpclientmediaid = client.getInt("wp_client_media_id");
                                     final String wplink = client.getString("wp_link");
                                     final String wpapilink = client.getString("wp_api_link");
                                     final int wpclientid = client.getInt("wp_client_id");
@@ -588,9 +592,9 @@ public class SyncActivity extends AppCompatActivity {
                                                 ParseObject pdevice = objectsdevice.get(0);
                                                 String uuidinstallation = pdevice.getString("uuid_installation");
                                                 String ipaddress = pdevice.getString("ipaddress");
-                                                String publicipaddress = pdevice.getString("publicipaddress");
-                                                String hostname = pdevice.getString("hostname");
-                                                String model = pdevice.getString("model");
+                                                //String publicipaddress = pdevice.getString("publicipaddress");
+                                                //String hostname = pdevice.getString("hostname");
+                                                //String model = pdevice.getString("model");
                                                 String location = pdevice.getString("location");
 
                                                 String ParseApplicationId = "fsLv65faQqwqhliCGF7oGqcT8MxPDFjmcxIuonGw";
@@ -603,33 +607,35 @@ public class SyncActivity extends AppCompatActivity {
                                                 try {
 
                                                     Motion.Message message = Motion.Message.newBuilder()
-                                                            .setType(Message.ActionType.SERVER_INFO)
-                                                            .setPackagesize(Message.SocketType.SOCKET_BUFFER_MEDIUM_SIZE_VALUE)
-                                                            .setMotionuser(0,
-                                                                    Motion.Message.MotionUser.newBuilder()
-                                                                            .setWpuser(wpuser)
-                                                                            .setWpuserid(wpuserid)
-                                                                            .setWppassword(wppassword)
-                                                                            .setWpserverurl(wpserverurl)
-                                                                            .setWpclientid(wpclientid)
-                                                                            .setEmail(email)
-                                                                            .setFirstname(first_name)
-                                                                            .setLastname(first_name)
-                                                                            .setLocation(location)
-                                                                            .setUiidinstallation(uuidinstallation)
-                                                                            .setClientnumber(wpclientid)
-                                                                            .setPfobjectid(objectId)
-                                                                            .setWpslug(wpslug)
-                                                                            .setWplink(wplink)
-                                                                            .setWpapilink(wpapilink)
-                                                                            .setWpmodified(wpmodified)
-                                                                            .setWpparent(0)
-                                                                            .setPfuser(pfuser)
-                                                                            .setPfappid(ParseApplicationId)
-                                                                            .setPfrestapikey(RestApiKey))
-                                                            .setServerip(ipaddress)
-                                                            .setTime(time)
-                                                            .build();
+                                                    .setType(Message.ActionType.SERVER_INFO)
+                                                    .setPackagesize(Message.SocketType.SOCKET_BUFFER_MEDIUM_SIZE_VALUE)
+                                                    .setServerip(ipaddress)
+                                                    .setTime(time)
+                                                    .setMotionuser(0, Motion.Message.MotionUser.newBuilder()
+                                                        .setWpuser(wpuser)
+                                                        .setWpuserid(wpuserid)
+                                                        .setWppassword(wppassword)
+                                                        .setWpserverurl(wpserverurl)
+                                                        .setWpclientid(wpclientid)
+                                                        .setEmail(email)
+                                                        .setFirstname(first_name)
+                                                        .setLastname(last_name)
+                                                        .setUsername(username)
+                                                        .setLocation(location)
+                                                        .setUiidinstallation(uuidinstallation)
+                                                        .setClientnumber(wpclientid)
+                                                        .setPfobjectid(objectId)
+                                                        .setWpslug(wpslug)
+                                                        .setWplink(wplink)
+                                                        .setWpapilink(wpapilink)
+                                                        .setWpmodified(wpmodified)
+                                                        .setWpparent(0)
+                                                        .setPfuser(pfuser)
+                                                        .setPfappid(ParseApplicationId)
+                                                        .setPfrestapikey(RestApiKey)
+                                                        .setMotionprocess(0, Motion.Message.MotionProcess.newBuilder()
+                                                                .setName("Face detection")
+                                                                .setType(Message.ProcessType.PROCESS_FACE_DETECT))).build();
 
 
                                                     new SendProto().execute(message);

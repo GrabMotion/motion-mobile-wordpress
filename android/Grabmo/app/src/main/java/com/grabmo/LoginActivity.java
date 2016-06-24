@@ -11,6 +11,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import android.text.Editable;
+import android.text.TextWatcher;
+
 import com.grabmo.utils.KeySaver;
 import com.grabmo.utils.Utils;
 import com.loopj.android.http.AsyncHttpClient;
@@ -46,6 +49,8 @@ public class LoginActivity extends Activity {
 
     private static String LOGIN = "http://grabmotion.co/wp-json/wp/v2/user";
     private AsyncHttpClient client;
+    private EditText first_name;
+    private EditText last_name;
     private EditText user;
     private EditText pass;
     private EditText email;
@@ -69,7 +74,15 @@ public class LoginActivity extends Activity {
 
         ParseInstallation.getCurrentInstallation().saveInBackground();
 
-        if (KeySaver.isExist(this, "isLogin") || KeySaver.isExist(this, "newUser")) {
+        if (KeySaver.isExist(this, "isPaired")) 
+        {
+            Intent m = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(m);
+            finish();
+        }
+
+        if (KeySaver.isExist(this, "isLogin") || KeySaver.isExist(this, "newUser")) 
+        {
             Intent i = new Intent(LoginActivity.this, SyncActivity.class);
             startActivity(i);
             finish();
@@ -78,9 +91,32 @@ public class LoginActivity extends Activity {
         loginInclude = findViewById(R.id.login_include);
         signUpInclude = findViewById(R.id.signup_include);
 
+        first_name = (EditText) signUpInclude.findViewById(R.id.edit_first_name);
+        last_name = (EditText) signUpInclude.findViewById(R.id.edit_last_name);       
+
         user = (EditText) signUpInclude.findViewById(R.id.edit_name);
         pass = (EditText) signUpInclude.findViewById(R.id.edit_pass);
         email = (EditText) signUpInclude.findViewById(R.id.edit_email);
+
+        last_name.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            public void afterTextChanged(Editable s)
+            {
+                String usern = first_name.getText().toString() + last_name.getText().toString();
+                user.setText(usern);
+            }
+          
+       });
 
         userLogin = (EditText) loginInclude.findViewById(R.id.edit_name);
         passLogin = (EditText) loginInclude.findViewById(R.id.edit_pass);
@@ -129,8 +165,8 @@ public class LoginActivity extends Activity {
             paramsSignUp.put("new_username", user.getText().toString());
             paramsSignUp.put("new_password", pass.getText().toString());
             paramsSignUp.put("new_email", email.getText().toString());
-            paramsSignUp.put("new_first_name", user.getText().toString());
-            paramsSignUp.put("new_last_name", user.getText().toString());
+            paramsSignUp.put("new_first_name", first_name.getText().toString());
+            paramsSignUp.put("new_last_name", last_name.getText().toString());
             paramsSignUp.put("role", "editor");
             paramsSignUp.put("client_post_parent", 0);
             client.addHeader("Content-Type", "application/json");
@@ -232,9 +268,6 @@ public class LoginActivity extends Activity {
 
                                                     }
                                                 });
-
-
-
                                             }
                                         }
                                     });
