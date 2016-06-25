@@ -27,8 +27,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.ProtocolException;
+import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 import java.util.ArrayList;
@@ -42,13 +45,8 @@ import java.text.SimpleDateFormat;
 
 import com.google.protobuf.CodedInputStream;
 
-import android.widget.*;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
-import android.view.View.OnClickListener;
-
 import com.grabmo.adapter.DevicesAdapter.OnItemClickListener;
+
 import android.support.v7.app.AlertDialog;
 
 import com.grabmo.utils.KeySaver;
@@ -69,7 +67,7 @@ public class SyncActivity extends AppCompatActivity {
     //public String rasp_url;
 
     private DevicesAdapter mAdapter;
-  
+
 
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
@@ -96,11 +94,9 @@ public class SyncActivity extends AppCompatActivity {
 
         mAdapter = new DevicesAdapter(this, devices);
 
-        mAdapter.setOnItemClickListener(new OnItemClickListener()
-        {
+        mAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
-            public void onItemClick(View view, int position)
-            {
+            public void onItemClick(View view, int position) {
                 showPairAuthorizationDialog(position, devices.get(position).getHostname());
             }
         });
@@ -142,23 +138,18 @@ public class SyncActivity extends AppCompatActivity {
         });
 
 
-        protoListener = new OnSocketReceived() 
-        {
+        protoListener = new OnSocketReceived() {
 
             @Override
-            public void socketReceived(final Message motion) 
-            {
+            public void socketReceived(final Message motion) {
 
-                switch (motion.getType()) 
-                {
+                switch (motion.getType()) {
 
                     case ENGAGE:
 
-                        runOnUiThread(new Runnable() 
-                        {
+                        runOnUiThread(new Runnable() {
                             @Override
-                            public void run() 
-                            {
+                            public void run() {
                                 getEngage(motion);
                                 mAdapter.notifyDataSetChanged();
                             }
@@ -183,9 +174,8 @@ public class SyncActivity extends AppCompatActivity {
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
-    public void confirmPairing()
-    {
-        
+    public void confirmPairing() {
+
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
 
         dialogBuilder.setTitle("Pairing succesful");
@@ -193,9 +183,8 @@ public class SyncActivity extends AppCompatActivity {
         dialogBuilder.setMessage("Device has been set and cameras are runnning. Enjoy grabmo!");
 
         dialogBuilder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
-            
-            public void onClick(DialogInterface dialog, int whichButton) 
-            {
+
+            public void onClick(DialogInterface dialog, int whichButton) {
                 KeySaver.saveShare(SyncActivity.this, "isPaired", true);
                 startActivity(new Intent(SyncActivity.this, MainActivity.class));
                 //b.dismiss();
@@ -208,21 +197,18 @@ public class SyncActivity extends AppCompatActivity {
 
     }
 
-    public void showPairAuthorizationDialog(final int position, String device)
-    {
-        
+    public void showPairAuthorizationDialog(final int position, String device) {
+
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
 
         dialogBuilder.setTitle("Pair device");
 
-        dialogBuilder.setMessage("Do you want to pair device "+device);
-
+        dialogBuilder.setMessage("Do you want to pair device " + device);
 
 
         dialogBuilder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
-            
-            public void onClick(DialogInterface dialog, int whichButton) 
-            {
+
+            public void onClick(DialogInterface dialog, int whichButton) {
                 pairDevice(position);
             }
 
@@ -230,8 +216,7 @@ public class SyncActivity extends AppCompatActivity {
 
         dialogBuilder.setNegativeButton("No thanks", new DialogInterface.OnClickListener() {
 
-            public void onClick(DialogInterface dialog, int whichButton) 
-            {
+            public void onClick(DialogInterface dialog, int whichButton) {
                 //dismiss
             }
 
@@ -243,25 +228,19 @@ public class SyncActivity extends AppCompatActivity {
     }
 
 
-    public void pairDevice(int pos)
-    {
+    public void pairDevice(int pos) {
 
-        if (ParseUser.getCurrentUser() != null)
-        {
+        if (ParseUser.getCurrentUser() != null) {
 
 
-            final Device cdevice = devices.get(pos);          
+            final Device cdevice = devices.get(pos);
 
             ParseQuery queryuser = ParseUser.getQuery();
 
-            queryuser.findInBackground(new FindCallback<ParseObject>()
-            {
-                public void done(List<ParseObject> objectsuser, ParseException e)
-                {
-                    if (e == null)
-                    {                        
-                        if (objectsuser.size() > 0)
-                        {
+            queryuser.findInBackground(new FindCallback<ParseObject>() {
+                public void done(List<ParseObject> objectsuser, ParseException e) {
+                    if (e == null) {
+                        if (objectsuser.size() > 0) {
 
                             final ParseObject pfuser = objectsuser.get(0);
 
@@ -270,11 +249,9 @@ public class SyncActivity extends AppCompatActivity {
 
                             deviceQuery.findInBackground(new FindCallback<ParseObject>() {
 
-                                public void done(List<ParseObject> objectsdevice, ParseException e)
-                                {
+                                public void done(List<ParseObject> objectsdevice, ParseException e) {
 
-                                    if (objectsdevice.size() == 0)
-                                    {
+                                    if (objectsdevice.size() == 0) {
                                         String uiid = UUID.randomUUID().toString();
 
                                         final ParseObject pdevice = new ParseObject("Device");
@@ -286,17 +263,14 @@ public class SyncActivity extends AppCompatActivity {
                                         pdevice.put("location", cdevice.getLocation());
                                         pdevice.put("uuid_installation", uiid);
 
-                                        pdevice.saveInBackground(new SaveCallback()
-                                        {
+                                        pdevice.saveInBackground(new SaveCallback() {
                                             @Override
-                                            public void done(ParseException e)
-                                            {
+                                            public void done(ParseException e) {
 
                                                 ParseRelation<ParseObject> device_relation = pfuser.getRelation("device");
                                                 device_relation.add(pdevice);
 
-                                                pfuser.saveInBackground(new SaveCallback()
-                                                {
+                                                pfuser.saveInBackground(new SaveCallback() {
                                                     @Override
                                                     public void done(ParseException e) {
                                                         sendPairRequest();
@@ -306,8 +280,7 @@ public class SyncActivity extends AppCompatActivity {
                                             }
                                         });
 
-                                    } else if (objectsdevice.size() > 0)
-                                    {
+                                    } else if (objectsdevice.size() > 0) {
                                         sendPairRequest();
                                     }
                                 }
@@ -321,8 +294,7 @@ public class SyncActivity extends AppCompatActivity {
     }
 
 
-    public void getEngage(Message motion)
-    {
+    public void getEngage(Message motion) {
 
         Message.MotionDevice pdevice = motion.getMotiondevice(0);
         List<Camera> cam = new ArrayList<>();
@@ -335,7 +307,7 @@ public class SyncActivity extends AppCompatActivity {
 
         }
 
-        devices.add(setDevices(pdevice.getIpnumber(), pdevice.getIppublic(),pdevice.getMacaddress(), pdevice.getHostname(), pdevice.getCity(), pdevice.getCountry()
+        devices.add(setDevices(pdevice.getIpnumber(), pdevice.getIppublic(), pdevice.getMacaddress(), pdevice.getHostname(), pdevice.getCity(), pdevice.getCountry()
                 , pdevice.getLocation(), pdevice.getNetworkProvider(), pdevice.getUptime(), pdevice.getStarttime()
                 , pdevice.getDbLocal(), pdevice.getModel(), pdevice.getHardware(), pdevice.getSerial()
                 , pdevice.getRevision(), pdevice.getDisktotal(), pdevice.getDiskused(), pdevice.getDiskavailable()
@@ -365,10 +337,10 @@ public class SyncActivity extends AppCompatActivity {
         super.onStart();
         client.connect();
         Action viewAction = Action.newAction(
-            Action.TYPE_VIEW, 
-            "Sync Page", 
-            Uri.parse("http://host/path"),                
-            Uri.parse("android-app://com.grabmo/http/host/path")
+                Action.TYPE_VIEW,
+                "Sync Page",
+                Uri.parse("http://host/path"),
+                Uri.parse("android-app://com.grabmo/http/host/path")
         );
         AppIndex.AppIndexApi.start(client, viewAction);
     }
@@ -377,9 +349,9 @@ public class SyncActivity extends AppCompatActivity {
     public void onStop() {
         super.onStop();
         Action viewAction = Action.newAction(
-                Action.TYPE_VIEW, 
-                "Sync Page", 
-                Uri.parse("http://host/path"),                
+                Action.TYPE_VIEW,
+                "Sync Page",
+                Uri.parse("http://host/path"),
                 Uri.parse("android-app://com.grabmo/http/host/path")
         );
         AppIndex.AppIndexApi.end(client, viewAction);
@@ -397,37 +369,37 @@ public class SyncActivity extends AppCompatActivity {
         @Override
         protected Void doInBackground(Void... params) {
 
-            byte[] buf = new byte[4096];
-            DatagramPacket dgp = new DatagramPacket(buf, buf.length);
-            DatagramSocket sk = null;
+            byte[] send_data = new byte[1024];
+            byte[] receiveData = new byte[1024];
 
+            Log.e("test", "to true");
             try {
+                DatagramSocket client_socket = new DatagramSocket(udp_port);
+                InetAddress IPAddress = InetAddress.getByName(url_address);
 
-                sk = new DatagramSocket(udp_port);
+                //send_data = str.getBytes();
 
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+                DatagramPacket send_packet = new DatagramPacket(send_data, send_data.length, IPAddress, udp_port);
+                client_socket.send(send_packet);
 
-            System.out.println("Server started");
+                DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+                client_socket.receive(receivePacket);
 
-
-            try {
-                assert sk != null;
-                sk.receive(dgp);
-
+                String rcvd = new String(receivePacket.getData(), 0, receivePacket.getLength()) + ", from address: "
+                        + receivePacket.getAddress() + ", port: " + receivePacket.getPort();
+                listener.onTaskCompleted(rcvd, receivePacket.getAddress().toString().replace("/", ""));
+                client_socket.close();
+                
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
-            String rcvd = new String(dgp.getData(), 0, dgp.getLength()) + ", from address: "
-                    + dgp.getAddress() + ", port: " + dgp.getPort();
-
-            System.out.println(rcvd);
-          
-            listener.onTaskCompleted(rcvd, dgp.getAddress().toString().replace("/", ""));
-
             return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
         }
     }
 
@@ -441,13 +413,11 @@ public class SyncActivity extends AppCompatActivity {
         void socketReceived(Message motion);
     }
 
-    public void sendProto(Message motion, String url)
-    {
-        
+    public void sendProto(Message motion, String url) {
+
         SocketChannel serverSocket = null;
-        
-        try 
-        {
+
+        try {
             serverSocket = SocketChannel.open();
 
             serverSocket.socket().setReuseAddress(true);
@@ -458,7 +428,7 @@ public class SyncActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
         try {
@@ -482,16 +452,15 @@ public class SyncActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-        
+
         socketBuffer = ByteBuffer.allocate(Message.SocketType.SOCKET_BUFFER_BIG_SIZE.getNumber());
 
-        try
-        {
+        try {
             int bytesRead = serverSocket.read(socketBuffer);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+
         socketBuffer.flip();
         byte[] ackBuf = new byte[socketBuffer.remaining()];
         socketBuffer.get(ackBuf);
@@ -500,8 +469,7 @@ public class SyncActivity extends AppCompatActivity {
 
         String promsg = splitMessage(msj);
 
-        if (promsg==null)
-        {
+        if (promsg == null) {
             System.out.println("Socket empty response");
             return;
         }
@@ -517,8 +485,7 @@ public class SyncActivity extends AppCompatActivity {
 
         Motion.Message m = null;
 
-        try 
-        {
+        try {
             m = Motion.Message.parseFrom(codedIn);
 
         } catch (IOException e) {
@@ -528,13 +495,12 @@ public class SyncActivity extends AppCompatActivity {
         if (protoListener != null) {
             protoListener.socketReceived(m);
         }
-        
+
         socketBuffer.clear();
 
     }
 
-    public void sendPairRequest()
-    {
+    public void sendPairRequest() {
 
         ParseQuery queryuser = ParseUser.getQuery();
 
@@ -542,11 +508,9 @@ public class SyncActivity extends AppCompatActivity {
 
             public void done(List<ParseObject> objectsuser, ParseException e) {
 
-                if (e == null) 
-                {
-                    
-                    if (objectsuser.size() > 0)
-                    {
+                if (e == null) {
+
+                    if (objectsuser.size() > 0) {
 
                         final ParseObject user = objectsuser.get(0);
 
@@ -564,8 +528,7 @@ public class SyncActivity extends AppCompatActivity {
 
                             public void done(List<ParseObject> objectsclient, ParseException e) {
 
-                                if (objectsclient.size() > 0)
-                                {
+                                if (objectsclient.size() > 0) {
 
                                     ParseObject client = objectsclient.get(0);
                                     final String wpuser = client.getString("wp_user");
@@ -587,8 +550,7 @@ public class SyncActivity extends AppCompatActivity {
 
                                         public void done(List<ParseObject> objectsdevice, ParseException e) {
 
-                                            if (objectsdevice.size() != 0)
-                                            {
+                                            if (objectsdevice.size() != 0) {
                                                 ParseObject pdevice = objectsdevice.get(0);
                                                 String uuidinstallation = pdevice.getString("uuid_installation");
                                                 String ipaddress = pdevice.getString("ipaddress");
@@ -607,43 +569,42 @@ public class SyncActivity extends AppCompatActivity {
                                                 try {
 
                                                     Motion.Message message = Motion.Message.newBuilder()
-                                                    .setType(Message.ActionType.SERVER_INFO)
-                                                    .setPackagesize(Message.SocketType.SOCKET_BUFFER_MEDIUM_SIZE_VALUE)
-                                                    .setServerip(ipaddress)
-                                                    .setTime(time)
-                                                    .setMotionuser(0, Motion.Message.MotionUser.newBuilder()
-                                                        .setWpuser(wpuser)
-                                                        .setWpuserid(wpuserid)
-                                                        .setWppassword(wppassword)
-                                                        .setWpserverurl(wpserverurl)
-                                                        .setWpclientid(wpclientid)
-                                                        .setEmail(email)
-                                                        .setFirstname(first_name)
-                                                        .setLastname(last_name)
-                                                        .setUsername(username)
-                                                        .setLocation(location)
-                                                        .setUiidinstallation(uuidinstallation)
-                                                        .setClientnumber(wpclientid)
-                                                        .setPfobjectid(objectId)
-                                                        .setWpslug(wpslug)
-                                                        .setWplink(wplink)
-                                                        .setWpapilink(wpapilink)
-                                                        .setWpmodified(wpmodified)
-                                                        .setWpparent(0)
-                                                        .setPfuser(pfuser)
-                                                        .setPfappid(ParseApplicationId)
-                                                        .setPfrestapikey(RestApiKey)
-                                                        .setMotionprocess(0, Motion.Message.MotionProcess.newBuilder()
-                                                                .setName("Face detection")
-                                                                .setType(Message.ProcessType.PROCESS_FACE_DETECT))).build();
+                                                            .setType(Message.ActionType.SERVER_INFO)
+                                                            .setPackagesize(Message.SocketType.SOCKET_BUFFER_MEDIUM_SIZE_VALUE)
+                                                            .setServerip(ipaddress)
+                                                            .setTime(time)
+                                                            .setMotionuser(0, Motion.Message.MotionUser.newBuilder()
+                                                                    .setWpuser(wpuser)
+                                                                    .setWpuserid(wpuserid)
+                                                                    .setWppassword(wppassword)
+                                                                    .setWpserverurl(wpserverurl)
+                                                                    .setWpclientid(wpclientid)
+                                                                    .setEmail(email)
+                                                                    .setFirstname(first_name)
+                                                                    .setLastname(last_name)
+                                                                    .setUsername(username)
+                                                                    .setLocation(location)
+                                                                    .setUiidinstallation(uuidinstallation)
+                                                                    .setClientnumber(wpclientid)
+                                                                    .setPfobjectid(objectId)
+                                                                    .setWpslug(wpslug)
+                                                                    .setWplink(wplink)
+                                                                    .setWpapilink(wpapilink)
+                                                                    .setWpmodified(wpmodified)
+                                                                    .setWpparent(0)
+                                                                    .setPfuser(pfuser)
+                                                                    .setPfappid(ParseApplicationId)
+                                                                    .setPfrestapikey(RestApiKey)
+                                                                    .setMotionprocess(0, Motion.Message.MotionProcess.newBuilder()
+                                                                            .setName("Face detection")
+                                                                            .setType(Message.ProcessType.PROCESS_FACE_DETECT))).build();
 
 
                                                     new SendProto().execute(message);
 
 
-                                                } catch (Exception pe)
-                                                {
-                                                    System.out.println("Exception: "+pe.toString());
+                                                } catch (Exception pe) {
+                                                    System.out.println("Exception: " + pe.toString());
 
                                                 }
                                             }
@@ -655,19 +616,17 @@ public class SyncActivity extends AppCompatActivity {
                         });
                     }
 
-                } else {                    
+                } else {
                     Log.e("else", "true");
                 }
             }
         });
     }
 
-    public class SendProto extends AsyncTask<Message, Void, Void>
-    {
+    public class SendProto extends AsyncTask<Message, Void, Void> {
 
         @Override
-        protected Void doInBackground(Message ... params)
-        {
+        protected Void doInBackground(Message... params) {
             Message message = params[0];
             String url = message.getServerip();
             sendProto(message, url);
@@ -677,8 +636,7 @@ public class SyncActivity extends AppCompatActivity {
 
     public String splitMessage(String message) {
 
-        if (message.isEmpty())
-        {
+        if (message.isEmpty()) {
             return null;
         }
         String del_1 = "PROSTA";
