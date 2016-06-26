@@ -6,9 +6,11 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,11 +19,21 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.common.io.BaseEncoding;
+import com.google.protobuf.CodedInputStream;
 import com.grabmo.adapter.DevicesAdapter;
+import com.grabmo.adapter.DevicesAdapter.OnItemClickListener;
 import com.grabmo.model.Camera;
 import com.grabmo.model.Device;
 import com.grabmo.protobuf.Motion;
 import com.grabmo.protobuf.Motion.Message;
+import com.grabmo.utils.KeySaver;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseRelation;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -29,34 +41,13 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
-import java.net.ProtocolException;
-import java.net.SocketException;
-import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.UUID;
-
-import android.support.v7.widget.RecyclerView;
-
-import java.text.SimpleDateFormat;
-
-import com.google.protobuf.CodedInputStream;
-
-import com.grabmo.adapter.DevicesAdapter.OnItemClickListener;
-
-import android.support.v7.app.AlertDialog;
-
-import com.grabmo.utils.KeySaver;
-import com.parse.ParseQuery;
-import com.parse.ParseObject;
-import com.parse.ParseUser;
-import com.parse.ParseRelation;
-import com.parse.FindCallback;
-import com.parse.ParseException;
-import com.parse.SaveCallback;
 
 public class SyncActivity extends AppCompatActivity {
 
@@ -78,9 +69,17 @@ public class SyncActivity extends AppCompatActivity {
     private List<Device> devices = new ArrayList<>();
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sync);
+
+        if (KeySaver.isExist(this, "isPaired"))
+        {
+            Intent i = new Intent(SyncActivity.this, MainActivity.class);
+            startActivity(i);
+            finish();
+        }
 
         View title = findViewById(R.id.titleSync);
 
@@ -157,7 +156,8 @@ public class SyncActivity extends AppCompatActivity {
                         break;
 
                     case SERVER_INFO_OK:
-                        confirmPairing();
+                        KeySaver.saveShare(SyncActivity.this, "isPaired", true);
+                        startActivity(new Intent(SyncActivity.this, MainActivity.class));
                         break;
                 }
             }
@@ -174,28 +174,6 @@ public class SyncActivity extends AppCompatActivity {
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
-    public void confirmPairing() {
-
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-
-        dialogBuilder.setTitle("Pairing succesful");
-
-        dialogBuilder.setMessage("Device has been set and cameras are runnning. Enjoy grabmo!");
-
-        dialogBuilder.setPositiveButton("Okay", new DialogInterface.OnClickListener() {
-
-            public void onClick(DialogInterface dialog, int whichButton) {
-                KeySaver.saveShare(SyncActivity.this, "isPaired", true);
-                startActivity(new Intent(SyncActivity.this, MainActivity.class));
-                //b.dismiss();
-            }
-
-        });
-
-        final AlertDialog b = dialogBuilder.create();
-        b.show();
-
-    }
 
     public void showPairAuthorizationDialog(final int position, String device) {
 

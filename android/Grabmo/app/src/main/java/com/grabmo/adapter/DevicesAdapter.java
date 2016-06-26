@@ -28,16 +28,17 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.MyViewHo
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public TextView ipnumber, hostname, serial;
+        public TextView friendlyname; //ipnumber, hostname, serial;
 
         private RelativeLayout rootdevice;
 
         public MyViewHolder(View view)
         {
             super(view);
-            ipnumber = (TextView) view.findViewById(R.id.ipnumber);
-            hostname = (TextView) view.findViewById(R.id.hostname);
-            serial = (TextView) view.findViewById(R.id.serial);
+            //ipnumber = (TextView) view.findViewById(R.id.ipnumber);
+            //hostname = (TextView) view.findViewById(R.id.hostname);
+            //serial = (TextView) view.findViewById(R.id.serial);
+            friendlyname = (TextView) view.findViewById(R.id.friendlyname);
             rootdevice = (RelativeLayout) view.findViewById(R.id.devicerow);
             rootdevice.setOnClickListener(this);
         }
@@ -66,10 +67,16 @@ public class DevicesAdapter extends RecyclerView.Adapter<DevicesAdapter.MyViewHo
     }
 
     @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
-        holder.ipnumber.setText(deviceList.get(position).getIpnumber());
-        holder.hostname.setText(deviceList.get(position).getHostname());
-        holder.serial.setText(deviceList.get(position).getSerial());
+    public void onBindViewHolder(MyViewHolder holder, int position)
+    {
+        //holder.ipnumber.setText(deviceList.get(position).getIpnumber());
+        //holder.hostname.setText(deviceList.get(position).getHostname());
+        //holder.serial.setText(deviceList.get(position).getSerial());
+
+        String firendly = deviceList.get(position).getSerial();
+        String last = firendly.substring(firendly.length()-4);
+        holder.friendlyname.setText("Communicator "+last);
+
     }
 
     @Override

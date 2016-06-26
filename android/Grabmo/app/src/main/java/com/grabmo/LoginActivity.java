@@ -2,8 +2,9 @@ package com.grabmo;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.location.Criteria;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -11,36 +12,27 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import android.text.Editable;
-import android.text.TextWatcher;
-
 import com.grabmo.utils.KeySaver;
 import com.grabmo.utils.Utils;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.parse.Parse;
+import com.parse.ParseAnalytics;
+import com.parse.ParseException;
+import com.parse.ParseInstallation;
+import com.parse.ParseObject;
+import com.parse.ParsePush;
+import com.parse.ParseRelation;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
+import com.parse.SignUpCallback;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
 import cz.msebera.android.httpclient.auth.AuthScope;
-
-import java.util.UUID;
-
-import com.parse.LocationCallback;
-import com.parse.Parse;
-import com.parse.ParseGeoPoint;
-import com.parse.ParseInstallation;
-import com.parse.ParsePush;
-import com.parse.ParseUser;
-import com.parse.ParseException;
-import com.parse.SaveCallback;
-import com.parse.SignUpCallback;
-import com.parse.ParseObject;
-import com.parse.ParseRelation;
-
 
 /**
  * Created by mariano on 6/1/16.
@@ -72,22 +64,32 @@ public class LoginActivity extends Activity {
 
         Parse.initialize(this, appId, appKey);
 
-        ParseInstallation.getCurrentInstallation().saveInBackground();
+        Parse.setLogLevel(Log.VERBOSE);
 
-        if (KeySaver.isExist(this, "isPaired")) 
-        {
-            Intent m = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(m);
-            finish();
-        }
+        ParseAnalytics.trackAppOpenedInBackground(getIntent());               
 
-        if (KeySaver.isExist(this, "isLogin") || KeySaver.isExist(this, "newUser")) 
+        ParseInstallation.getCurrentInstallation().saveInBackground(new SaveCallback() {
+            
+            @Override
+            public void done(ParseException e) 
+            {
+                
+                if (e == null) 
+                {
+                    String devicetoken = (String) ParseInstallation.getCurrentInstallation().get("deviceToken");                       
+                }
+            }
+
+        });   
+
+
+        if (KeySaver.isExist(this, "isLogin") || KeySaver.isExist(this, "WPnewUser"))
         {
             Intent i = new Intent(LoginActivity.this, SyncActivity.class);
             startActivity(i);
             finish();
         }
-
+        
         loginInclude = findViewById(R.id.login_include);
         signUpInclude = findViewById(R.id.signup_include);
 
@@ -185,9 +187,9 @@ public class LoginActivity extends Activity {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                     try {
-                        final JSONObject newUser = new JSONObject(Utils.decodeUTF8(responseBody));
+                        final JSONObject WPnewUser = new JSONObject(Utils.decodeUTF8(responseBody));
 
-                        if (newUser.has("wp_userid"))
+                        if (WPnewUser.has("wp_userid"))
                         {
 
                             Thread thread = new Thread()
@@ -218,23 +220,37 @@ public class LoginActivity extends Activity {
                                                 final ParseObject pclient = new ParseObject("Client");
                                                 pclient.put("wp_type", "client");
 
-                                                String wplink       = null;
-                                                String wpapilink    = null;
+                                                String wplink       = "";
+                                                String wpapilink    = "";
                                                 int wpuserid        = 0;
                                                 int wpclientid      = 0;
-                                                String wpslug       = null;
-                                                String wpserverurl  = null;
-                                                String wpmodified   = null;
+                                                String wpslug       = "";
+                                                String wpserverurl  = "";
+                                                String wpmodified   = "";
 
-                                                try {
-                                                    wplink          = newUser.getString("wp_link");
-                                                    wplink          = newUser.getString("wp_link");
-                                                    wpapilink       = newUser.getString("wp_api_link");
-                                                    wpuserid        = newUser.getInt("wp_userid");
-                                                    wpclientid      = newUser.getInt("wp_client_id");
-                                                    wpslug          = newUser.getString("wp_slug");
-                                                    wpserverurl     = newUser.getString("wp_server_url");
-                                                    wpmodified      = newUser.getString("wp_modified");
+                                                try 
+                                                {
+                                                    if (WPnewUser.has("wp_link"))
+                                                        wplink          = WPnewUser.getString("wp_link");                                                    
+
+                                                    if (WPnewUser.has("wp_api_link"))
+                                                        wpapilink       = WPnewUser.getString("wp_api_link");
+                                                    
+                                                    if (WPnewUser.has("wp_userid"))
+                                                        wpuserid        = WPnewUser.getInt("wp_userid");
+
+                                                    if (WPnewUser.has("wp_client_id"))
+                                                        wpclientid      = WPnewUser.getInt("wp_client_id");
+                                                    
+                                                    if (WPnewUser.has("wp_slug"))
+                                                        wpslug          = WPnewUser.getString("wp_slug");
+
+                                                    if (WPnewUser.has("wp_server_url"))
+                                                        wpserverurl     = WPnewUser.getString("wp_server_url");
+
+                                                    if (WPnewUser.has("wp_modified"))
+                                                        wpmodified      = WPnewUser.getString("wp_modified");
+
                                                 } catch (JSONException e1)
                                                 {
                                                     e1.printStackTrace();
@@ -251,6 +267,7 @@ public class LoginActivity extends Activity {
                                                 pclient.put("wp_server_url", wpserverurl);
                                                 pclient.put("wp_modified", wpmodified);
                                                 pclient.put("wp_user", puser);
+
                                                 pclient.saveInBackground(new SaveCallback()
                                                 {
                                                     @Override
@@ -264,7 +281,7 @@ public class LoginActivity extends Activity {
 
                                                         newuser.saveInBackground();
 
-                                                        KeySaver.saveShare(LoginActivity.this, "newUser", true);
+                                                        KeySaver.saveShare(LoginActivity.this, "WPnewUser", true);
                                                         startActivity(new Intent(LoginActivity.this, SyncActivity.class));
                                                         finish();
 
@@ -273,9 +290,7 @@ public class LoginActivity extends Activity {
                                             }
                                         }
                                     });
-
                                 }
-
                             };
                             thread.start();
                             
