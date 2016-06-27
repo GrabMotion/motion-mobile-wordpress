@@ -650,6 +650,7 @@ Text Domain: grabmo-computer-vision
     
     //Add Raspberrypi Taxonomy and Terminal Custom Type
     add_action( 'init', 'digimotion_terminal_init' );
+    add_action('rest_api_init', 'terminal_add_name'); 
     add_action('rest_api_init', 'terminal_add_post_children');    
     add_action('rest_api_init', 'terminal_add_post_parent');
     add_action('rest_api_init', 'terminal_add_ipnumber');
@@ -731,6 +732,28 @@ Text Domain: grabmo-computer-vision
         return get_post_meta($object[ 'id' ], $field_name);
     }
     function update_terminal_post_parent( $value, $object, $field_name ) {
+        if ( ! $value || ! is_string( $value ) ) {
+            return;
+        }
+        return update_post_meta( $object->ID, $field_name, strip_tags( $value ) );
+    }
+
+    //Terminal Name
+    function terminal_add_name()
+    {
+        register_rest_field('terminal',
+                            'name',
+                            array(
+                                  'get_callback'    => 'get_terminal_name',
+                                  'update_callback' => 'update_terminal_name',
+                                  'schema'          => null,
+                                  )
+                            );
+    }
+    function get_terminal_name($object, $field_name, $request) {
+        return get_post_meta($object[ 'id' ], $field_name);
+    }
+    function update_terminal_name( $value, $object, $field_name ) {
         if ( ! $value || ! is_string( $value ) ) {
             return;
         }
@@ -3430,6 +3453,8 @@ Text Domain: grabmo-computer-vision
 
       register_rest_route('gm/v1', 'notification/(?P<postid>[0-9]+)', array('methods' => 'GET', 'callback' => 'wpc_get_notification_callback'));
 
+      register_rest_route('gm/v1', 'notifications/(?P<pfuser>[a-z\0-9\_\-]+)', array('methods' => 'GET', 'callback' => 'wpc_get_notifications_by_client_callback'));
+
       register_rest_route('gm/v1', 'client/', array('methods' => 'GET', 'callback' => 'wpc_get_grabmoclients_callback'));
 
       register_rest_route('gm/v1', 'client/me/(?P<user>[a-z\0-9\_]+)/(?P<password>[a-z\0-9\_\-]+)', array('methods' => 'GET', 'callback' => 'wpc_get_grabmoclient_me_callback'));
@@ -3547,7 +3572,7 @@ Text Domain: grabmo-computer-vision
                   write_log_file("terminalid: ".$terminalid);           
 
                   //////// TERMINAL //////
-
+                  $terminal_name        = get_post_meta($terminalid,'terminal_name',true);
                   $terminal_hardware        = get_post_meta($terminalid,'terminal_hardware',true);               
                   $terminal_serial          = get_post_meta($terminalid,'terminal_serial',true);    
                   $terminal_uptime          = get_post_meta($terminalid,'terminal_uptime',true);         
@@ -3576,6 +3601,7 @@ Text Domain: grabmo-computer-vision
                       'location_href'               =>  $location_href,
                       ////////////////////////////////////////////////////////////       
                       'terminal_id'                 =>  $terminalid,
+                      'terminal_name'               =>  $terminal_name,
                       'terminal_hardare'            =>  $terminal_hardware,
                       'terminal_serial'             =>  $terminal_serial,
                       'terminal_uptime'             =>  $terminal_uptime,
@@ -3740,6 +3766,89 @@ Text Domain: grabmo-computer-vision
         }
 
     }
+
+    function wpc_get_notifications_by_client_callback( $request_data ) 
+    {
+          $parameters = $request_data->get_params();     
+
+          if ( !isset( $parameters['pfuser'] ) || empty($parameters['pfuser']) )
+            return array( 'error' => 'no_parameter_given' );
+        
+          $pfuser = $parameters['pfuser'];                      
+
+          $query_push = "SELECT post_id FROM wp_gm_notification WHERE pfuser='".$pfuser."';";
+
+          global $wpdb;
+          $resutls = $wpdb->get_results($query_push);          
+          $count = $wpdb->num_rows;     
+
+          if ($count>0)
+          {                           
+
+              $array_notifications = Array();
+              $ids = Array();
+
+              foreach ( $resutls as $resutl ) 
+              {  
+                  
+                  //NOTIFICATION IDS
+                  $instanceid = intval($resutl->post_id);
+                  $dayid          = get_post_meta($instanceid, "post_parent", true);
+                  $recognitionid  = get_post_meta($dayid, "post_parent", true);
+                  $cameraid       = get_post_meta($recognitionid, "post_parent", true);
+                  $terminalid     = get_post_meta($cameraid, "post_parent", true);
+                  $locationid     = get_post_meta($terminalid, "post_parent", true);                
+                 
+                  $terminal_name        = get_post_meta($terminalid,'terminal_name',true);
+                  $camera_name          = get_post_meta($cameraid,'camera_name',true);
+
+                  $instance_begintime   = get_post_meta($instanceid,'instance_begintime',true);
+                  $instance_endtime     = get_post_meta($instanceid,'instance_endtime',true);  
+
+                  $instance_elapsed     = strval($instance_endtime) - strval($instance_begintime);
+
+                  $instance_media_id    = get_post_meta($instanceid,'instance_media_id',true);
+                  $instance_media       = wp_get_attachment_image_src($instance_media_id)[0];
+
+                  $day_label            = get_post_meta($dayid,'day_label',true);
+
+                  $recognition_name     = get_post_meta($recognitionid,'recognition_name',true);          
+                  $locaton_city         = get_post_meta($locationid, 'locaton_city',true);
+
+                  $array_notification   = Array 
+                  (
+                      'instance_id'                 =>  $instanceid,                
+                      'terminal_name'               =>  $terminal_name,
+                      'camera_name'                 =>  $camera_name,              
+                      'instance_elapsed_time'       =>  $instance_elapsed,
+                      'instance_media_url'          =>  $instance_media,              
+                      'day_label'                   =>  $day_label,              
+                      'recognition_name'            =>  $recognition_name,
+                      'locaton_city'                =>  $locaton_city,            
+                  );
+
+                  $array_notifications['notifications'][] = $array_notification;
+              }
+              
+
+              $response = new WP_REST_Response( $array_notifications );       
+              $response->set_status( 200 ); 
+              return $response; 
+
+          } else
+          {
+
+                $args = array(                          
+                    'error' => 'no notifications found for user '.$pfuser
+                );     
+                $response = new WP_REST_Response( $args );                
+                $response->set_status( 410 ); 
+                return $response;
+
+          }
+
+    }
+
     
     ////////////// NOTIFICATION ENDPOINT //////////////
 
@@ -3757,106 +3866,40 @@ Text Domain: grabmo-computer-vision
           $recognitionid  = get_post_meta($dayid, "post_parent", true);
           $cameraid       = get_post_meta($recognitionid, "post_parent", true);
           $terminalid     = get_post_meta($cameraid, "post_parent", true);
-          $locationid     = get_post_meta($terminalid, "post_parent", true);
+          $locationid     = get_post_meta($terminalid, "post_parent", true);                
          
-          //LOCATION
-          $locaton_city             = get_post_meta($locationid, 'locaton_city',true);
-          $locaton_country          = get_post_meta($locationid, 'locaton_country',true);           
-          $locaton_latitude         = get_post_meta($locationid, 'locaton_latitude',true);
-          $locaton_longitude        = get_post_meta($locationid, 'locaton_longitude',true);
-          $location_permalink       = get_post_permalink($locationid);
-          $location_href            = get_bloginfo('url').'/wp-json/wp/v2/location/'.$locationid;                        
+          $terminal_name        = get_post_meta($terminalid,'terminal_name',true);
+          $camera_name          = get_post_meta($cameraid,'camera_name',true);
 
-          //TERMINAL 
-          $terminal_hardware        = get_post_meta($terminalid,'terminal_hardware',true);                           
-          $terminal_uptime          = get_post_meta($terminalid,'terminal_uptime',true);                     
-          $terminal_hostname        = get_post_meta($terminalid,'terminal_hostname',true);              
-          $terminal_permalink       = get_post_permalink($terminalid);   
-          $terminal_href            = get_bloginfo('url').'/wp-json/wp/v2/terminal/'.$terminalid;   
-
-          //CAMERA
-          $camera_name            = get_post_meta($cameraid,'camera_name',true);
-          $camera_number          = get_post_meta($cameraid,'camera_number',true);
-          $camera_keepalive_time  = get_post_meta($cameraid,'camera_keepalive_time',true);
-          $camera_permalink       = get_post_permalink($cameraid);  
-          $camera_href            = get_bloginfo('url').'/wp-json/wp/v2/camera/'.$cameraid;
-                         
-          //RECOGNITION
-          $recognition_name           = get_post_meta($recognitionid,'recognition_name',true);         
-          $recognition_interval       = get_post_meta($recognitionid,'recognition_interval',true);        
-          $recognition_screen         = get_post_meta($recognitionid,'recognition_screen',true);          
-          $recognition_running        = get_post_meta($recognitionid,'recognition_running',true);  
-          $recognition_media_url      = get_post_meta($recognitionid,'recognition_media_url',true);       
-          $recognition_keepalive_time = get_post_meta($recognitionid,'recognition_keepalive_time',true);
-          $recognition_permalink      = get_post_permalink($recognitionid);  
-          $recognition_href           = get_bloginfo('url').'/wp-json/wp/v2/recognition/'.$recognitionid;           
-
-          //DAY
-          $day_label            = get_post_meta($dayid,'day_label',true);
-          $day_keepalive_time   = get_post_meta($dayid,'day_keepalive_time',true);
-          $day_permalink        = get_post_permalink($dayid);  
-          $day_href             = get_bloginfo('url').'/wp-json/wp/v2/day/'.$dayid;
-
-          $instance_number      = get_post_meta($instanceid,'instance_number',true);
           $instance_begintime   = get_post_meta($instanceid,'instance_begintime',true);
-          $instance_endtime     = get_post_meta($instanceid,'instance_endtime',true);        
-          $instance_media_id    = get_post_meta($instanceid,'instance_media_id',true);
+          $instance_endtime     = get_post_meta($instanceid,'instance_endtime',true);  
+
           $instance_elapsed     = strval($instance_endtime) - strval($instance_begintime);
-          $instance_permalink   = get_post_permalink($instanceid);  
-          $instance_href        = get_bloginfo('url').'/wp-json/wp/v2/instance/'.$instanceid;
-          $instance_media       = wp_get_attachment_image_src($instance_media_id)[0];          
 
-          $array_notification   = Array (
+          $instance_media_id    = get_post_meta($instanceid,'instance_media_id',true);
+          $instance_media       = wp_get_attachment_image_src($instance_media_id)[0];
 
-              'locaton_id'                  =>  $locationid,                  
-              'locaton_city'                =>  $locaton_city,
-              'locaton_country'             =>  $locaton_country,              
-              'locaton_latitude'            =>  $locaton_latitude,
-              'locaton_longitude'           =>  $locaton_longitude,                  
-              'location_permalink'          =>  $location_permalink,
-              'location_href'               =>  $location_href,
-              ////////////////////////////////////////////////////////////                    
-              'terminal_id'                 =>  $terminalid,
-              'terminal_hardare'            =>  $terminal_hardware,
-              'terminal_uptime'             =>  $terminal_uptime,                  
-              'terminal_hostname'           =>  $terminal_hostname,           
-              'terminal_permalink'          =>  $terminal_permalink,
-              'terminal_href'               =>  $terminal_href,                      
-              //////////////////////////////////////////////////////////// 
-              'camera_id'                   =>  $cameraid,                   
-              'camera_name'                 =>  $camera_name,
-              'camera_number'               =>  $camera_number,
-              'camera_keep_alive'           =>  $camera_keepalive_time,
-              'camera_permalink'            =>  $camera_permalink,
-              'camera_href'                 =>  $camera_href,              
-              ////////////////////////////////////////////////////////////   
-              'recognition_id'              =>    $recognitionid,        
-              'recognition_name'            =>    $recognition_name,
-              'recognition_interval'        =>    $recognition_interval,                
-              'recognition_running'         =>    $recognition_running,
-              'recognition_media_url'       =>    $recognition_media_url,
-              'recognition_keep_alive'      =>    $recognition_keepalive_time,
-              'recognition_permalink'       =>    $recognition_permalink,
-              'recognition_href'            =>    $recognition_href, 
-              ////////////////////////////////////////////////////////////   
-              'day_id'                      =>    $recognitionid,  
-              'day_label'                   =>    $day_label,
-              'day_keep_alive'              =>    $day_keepalive_time,
-              'day_permalink'               =>    $day_permalink,
-              'day_href'                    =>    $day_href, 
-              ////////////////////////////////////////////////////////////   
-              'instance_id'                 =>  $instanceid,              
-              'instance_number'             =>  $instance_number,
-              'instance_elapsed_time'       =>  $instance_elapsed,            
-              'instance_media_url'          =>  $instance_media,
-              'instance_instance_permalink' =>  $instance_permalink,
-              'instance_href'               =>  $instance_href,                         
+          $day_label            = get_post_meta($dayid,'day_label',true);
+
+          $recognition_name     = get_post_meta($recognitionid,'recognition_name',true);          
+          $locaton_city         = get_post_meta($locationid, 'locaton_city',true);
+
+          $array_notification   = Array 
+          (
+              'instance_id'                 =>  $instanceid,                
+              'terminal_name'               =>  $terminal_name,
+              'camera_name'                 =>  $camera_name,              
+              'instance_elapsed_time'       =>  $instance_elapsed,
+              'instance_media_url'          =>  $instance_media,              
+              'day_label'                   =>  $day_label,              
+              'recognition_name'            =>  $recognition_name,
+              'locaton_city'                =>  $locaton_city,            
           );
 
           $response = new WP_REST_Response( $array_notification );       
           $response->set_status( 200 ); 
           return $response; 
-      }
+      }     
 
       //// CLIENT ////
 
@@ -4208,7 +4251,7 @@ Text Domain: grabmo-computer-vision
 
                         write_log_file($wp_new_user_id); 
 
-                        $response_array['wp_userid'] = $wp_new_user_id;                   
+                        $response_array['wp_userid'] = $wp_new_user_id;                
 
                         //On success
                         if ( ! is_wp_error( $wp_new_user_id ) ) 
