@@ -2,10 +2,8 @@ package com.grabmo.service;
 
 
 import android.app.Notification;
-import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.NotificationCompat;
 
 import com.parse.ParsePushBroadcastReceiver;
 
@@ -29,23 +27,33 @@ public static final String PARSE_DATA_KEY = "com.parse.Data";
    }  
 
    @Override
-   protected void onPushReceive(Context context, Intent intent) {
+   protected void onPushReceive(Context context, Intent intent) 
+   {
+
+         /*Intent i = new Intent(context, MainActivity.class);
+         i.putExtras(intent.getExtras());
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(i);*/
+
       JSONObject data = getDataFromIntent(intent);
-      // Do something with the data. To create a notification do:
 
-      NotificationManager notificationManager =
-      (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+      int postId;
+      String title;
 
-      NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
-      builder.setContentTitle("Title");
-      builder.setContentText("Text");
-      //builder.setSmallIcon(R.drawable.ic_notification);
-      builder.setAutoCancel(true);
+      try
+      {
 
-      // OPTIONAL create soundUri and set sound:
-      //builder.setSound(soundUri);
+         postId = data.getInt("postId");
+         title = data.getString("title");
 
-      notificationManager.notify("MyTag", 0, builder.build());
+      } catch (JSONException e)
+      {
+         e.printStackTrace();
+      }
+
+      //ACA HANDLING PUSH
+
+      super.onPushReceive(context, intent);
 
    }
 
