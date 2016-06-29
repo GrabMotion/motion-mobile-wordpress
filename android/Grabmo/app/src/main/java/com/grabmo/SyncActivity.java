@@ -69,13 +69,11 @@ public class SyncActivity extends AppCompatActivity {
     private List<Device> devices = new ArrayList<>();
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState)
-    {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sync);
 
-        if (KeySaver.isExist(this, "isPaired"))
-        {
+        if (KeySaver.isExist(this, "isPaired")) {
             Intent i = new Intent(SyncActivity.this, MainActivity.class);
             startActivity(i);
             finish();
@@ -367,7 +365,7 @@ public class SyncActivity extends AppCompatActivity {
                         + receivePacket.getAddress() + ", port: " + receivePacket.getPort();
                 listener.onTaskCompleted(rcvd, receivePacket.getAddress().toString().replace("/", ""));
                 client_socket.close();
-                
+
             } catch (IOException e) {
                 e.printStackTrace();
             }

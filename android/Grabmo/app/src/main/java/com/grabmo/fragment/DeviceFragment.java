@@ -1,17 +1,27 @@
 package com.grabmo.fragment;
 
+import android.animation.ObjectAnimator;
 import android.app.Fragment;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.grabmo.LoginActivity;
 import com.grabmo.R;
 import com.grabmo.SliderAdapter;
 import com.grabmo.adapter.CamerasAdapter;
@@ -43,11 +53,14 @@ public class DeviceFragment extends Fragment {
     private static final String BASE_DEVICE_URL = "http://grabmotion.co/wp-json/gm/v1/devices/";
     private static final String BASE_CLIENT_URL = "http://grabmotion.co/wp-json/gm/v1/client/";
     private CamerasAdapter camerasAdapter;
+    private ProgressDialog progressDialog;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_device, container, false);
+
+        setHasOptionsMenu(true);
 
         viewPager = (ViewPager) view.findViewById(R.id.devices_list);
 
@@ -70,6 +83,25 @@ public class DeviceFragment extends Fragment {
         recyclerCameras.setAdapter(camerasAdapter);
 
         return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.main, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        getActivity().invalidateOptionsMenu();
+        switch (item.getItemId()) {
+            case R.id.refresh:
+                AsyncConnection(BASE_DEVICE_URL + KeySaver.getIntSavedShare(getActivity(), "userId"));
+                break;
+            default:
+                break;
+        }
+        return true;
     }
 
     SliderAdapter.OnItemClickListener onDeviceClickListener = new SliderAdapter.OnItemClickListener() {
@@ -100,10 +132,22 @@ public class DeviceFragment extends Fragment {
             @Override
             public void onStart() {
                 super.onStart();
+                if (devicesLists.size() > 0) {
+                    devicesLists.clear();
+                    camerasLists.clear();
+                }
+
+                progressDialog = new ProgressDialog(getActivity());
+                progressDialog.setMessage("Loading...");
+                progressDialog.setIndeterminate(true);
+                progressDialog.setCancelable(false);
+                progressDialog.show();
+
             }
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                progressDialog.dismiss();
                 Log.e("response", Utils.decodeUTF8(responseBody));
                 try {
                     JSONObject device = new JSONObject(Utils.decodeUTF8(responseBody));

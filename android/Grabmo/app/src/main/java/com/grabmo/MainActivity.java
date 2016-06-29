@@ -2,26 +2,21 @@ package com.grabmo;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.grabmo.fragment.AccountFragment;
 import com.grabmo.fragment.DeviceFragment;
 import com.grabmo.fragment.NotificationFragment;
-import com.parse.ParseInstallation;
-import com.parse.ParsePush;
 import com.parse.ParseUser;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.BottomBarTab;
 import com.roughike.bottombar.OnTabClickListener;
-
-import android.app.Application;
-import com.parse.Parse;
 import com.parse.ParseGeoPoint;
 import com.parse.LocationCallback;
 import com.parse.ParseException;
+
 import android.location.Criteria;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 public class MainActivity extends AppCompatActivity {
@@ -37,22 +32,20 @@ public class MainActivity extends AppCompatActivity {
 
         setAdminLook(savedInstanceState);
 
-        if (ParseUser.getCurrentUser()!=null)
-        {
+        if (ParseUser.getCurrentUser() != null) {
             final ParseUser user = ParseUser.getCurrentUser();
             Criteria criteria = new Criteria();
             criteria.setAccuracy(Criteria.ACCURACY_FINE);
 
-            ParseGeoPoint.getCurrentLocationInBackground(10000, criteria,new LocationCallback() {
+            ParseGeoPoint.getCurrentLocationInBackground(10000, criteria, new LocationCallback() {
 
                 @Override
                 public void done(ParseGeoPoint parseGeoPoint, ParseException e) {
 
-                    if (parseGeoPoint != null)
-                    {
+                    if (parseGeoPoint != null) {
                         Double lat = parseGeoPoint.getLatitude();
                         Double longi = parseGeoPoint.getLongitude();
-                        user.put("location", lat+","+longi);
+                        user.put("location", lat + "," + longi);
                         user.saveInBackground();
 
                     } else {
@@ -65,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-        
 
     private void setAdminLook(Bundle savedInstanceState) {
 
