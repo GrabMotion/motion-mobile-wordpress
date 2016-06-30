@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'F9FC0B325005CA23E417BF34'
+               BlueprintIdentifier = '8DB152FF30743E67490FA45D'
                BlueprintName = 'Pods-grabmo'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'Pods_grabmo.framework'>

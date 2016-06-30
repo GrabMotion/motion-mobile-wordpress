@@ -117,7 +117,7 @@ SocketProtocolDelegate
     
     var mainController:MainViewController?
     
-    var setupTableView : SetupCameraTableViewController!
+    //var setupTableView : SetupCameraTableViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()

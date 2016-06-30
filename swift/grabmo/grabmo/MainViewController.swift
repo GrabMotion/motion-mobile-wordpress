@@ -28,9 +28,9 @@ class MainViewController: UITabBarController
     var PROFILE             = 3
   
     var setupViewController:SetupViewController?
-    var deviceViewController:DeviceViewController?
+    //var deviceViewController:DeviceViewController?
     var pushNotificationViewController:PushNotificationViewController?
-    var proFileViewController:ProFileViewController?
+    //var proFileViewController:ProFileViewController?
   
     override func viewDidLoad() { 
         super.viewDidLoad()
@@ -48,16 +48,15 @@ class MainViewController: UITabBarController
         self.pushNotificationViewController  = self.viewControllers![NOTIFICATIONS] as? PushNotificationViewController
         self.pushNotificationViewController!.mainController = self
         
-        self.proFileViewController = self.viewControllers![PROFILE] as? ProFileViewController
-        self.proFileViewController!.mainController = self
+        //self.proFileViewController = self.viewControllers![PROFILE] as? ProFileViewController
+        //self.proFileViewController!.mainController = self
         
-        self.deviceViewController   = self.viewControllers![DEVICES] as? DeviceViewController
+        //self.deviceViewController   = self.viewControllers![DEVICES] as? DeviceViewController
 
-        if (self.deviceViewController != nil)
-        {        
-                  
-            self.deviceViewController!.mainController = self            
-        }
+        //if (self.deviceViewController != nil)
+        //
+        //    self.deviceViewController!.mainController = self
+        //}
   
         guard defaults.boolForKey("user_setup_saved") else
         {       

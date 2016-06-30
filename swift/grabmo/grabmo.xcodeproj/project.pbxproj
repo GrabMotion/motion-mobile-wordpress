@@ -14,6 +14,18 @@
 		8219FB461D01B48000BC2535 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8219FB441D01B48000BC2535 /* LaunchScreen.storyboard */; };
 		8219FB511D01B48000BC2535 /* grabmoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8219FB501D01B48000BC2535 /* grabmoTests.swift */; };
 		8219FB5C1D01B48000BC2535 /* grabmoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8219FB5B1D01B48000BC2535 /* grabmoUITests.swift */; };
+		825428601D22CF1700316338 /* Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8254285A1D22CF1700316338 /* Socket.swift */; };
+		825428611D22CF1700316338 /* ysocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8254285B1D22CF1700316338 /* ysocket.swift */; };
+		825428621D22CF1700316338 /* ytcpsocket.c in Sources */ = {isa = PBXBuildFile; fileRef = 8254285C1D22CF1700316338 /* ytcpsocket.c */; };
+		825428631D22CF1700316338 /* ytcpsocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8254285D1D22CF1700316338 /* ytcpsocket.swift */; };
+		825428641D22CF1700316338 /* yudpsocket.c in Sources */ = {isa = PBXBuildFile; fileRef = 8254285E1D22CF1700316338 /* yudpsocket.c */; };
+		825428651D22CF1700316338 /* yudpsocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8254285F1D22CF1700316338 /* yudpsocket.swift */; };
+		825428721D22CFA600316338 /* stitching.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 825428691D22CFA600316338 /* stitching.cpp */; };
+		825428731D22CFA600316338 /* SwViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8254286B1D22CFA600316338 /* SwViewController.swift */; };
+		825428741D22CFA600316338 /* UIImage+OpenCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8254286D1D22CFA600316338 /* UIImage+OpenCV.mm */; };
+		825428751D22CFA600316338 /* UIImage+Rotate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8254286F1D22CFA600316338 /* UIImage+Rotate.m */; };
+		825428761D22CFA600316338 /* CVWrapper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 825428711D22CFA600316338 /* CVWrapper.mm */; };
+		8254287A1D22D6E100316338 /* Motion.Motion.proto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 825428791D22D6E100316338 /* Motion.Motion.proto.swift */; };
 		8270A6CA1D046CB000E24FAC /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8270A6C91D046CB000E24FAC /* NotificationViewController.swift */; };
 		8270A6CC1D046D6900E24FAC /* PushNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8270A6CB1D046D6900E24FAC /* PushNotificationViewController.swift */; };
 		8270A6D01D05AFCB00E24FAC /* grabmo.png in Resources */ = {isa = PBXBuildFile; fileRef = 8270A6CF1D05AFCB00E24FAC /* grabmo.png */; };
@@ -55,6 +67,23 @@
 		8219FB571D01B48000BC2535 /* grabmoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = grabmoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8219FB5B1D01B48000BC2535 /* grabmoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = grabmoUITests.swift; sourceTree = "<group>"; };
 		8219FB5D1D01B48000BC2535 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		825428591D22CF0E00316338 /* grabmo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "grabmo-Bridging-Header.h"; sourceTree = "<group>"; };
+		8254285A1D22CF1700316338 /* Socket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Socket.swift; sourceTree = "<group>"; };
+		8254285B1D22CF1700316338 /* ysocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ysocket.swift; sourceTree = "<group>"; };
+		8254285C1D22CF1700316338 /* ytcpsocket.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ytcpsocket.c; sourceTree = "<group>"; };
+		8254285D1D22CF1700316338 /* ytcpsocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ytcpsocket.swift; sourceTree = "<group>"; };
+		8254285E1D22CF1700316338 /* yudpsocket.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = yudpsocket.c; sourceTree = "<group>"; };
+		8254285F1D22CF1700316338 /* yudpsocket.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = yudpsocket.swift; sourceTree = "<group>"; };
+		825428691D22CFA600316338 /* stitching.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = stitching.cpp; sourceTree = "<group>"; };
+		8254286A1D22CFA600316338 /* stitching.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stitching.h; sourceTree = "<group>"; };
+		8254286B1D22CFA600316338 /* SwViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwViewController.swift; sourceTree = "<group>"; };
+		8254286C1D22CFA600316338 /* UIImage+OpenCV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+OpenCV.h"; sourceTree = "<group>"; };
+		8254286D1D22CFA600316338 /* UIImage+OpenCV.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIImage+OpenCV.mm"; sourceTree = "<group>"; };
+		8254286E1D22CFA600316338 /* UIImage+Rotate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Rotate.h"; sourceTree = "<group>"; };
+		8254286F1D22CFA600316338 /* UIImage+Rotate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Rotate.m"; sourceTree = "<group>"; };
+		825428701D22CFA600316338 /* CVWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVWrapper.h; sourceTree = "<group>"; };
+		825428711D22CFA600316338 /* CVWrapper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CVWrapper.mm; sourceTree = "<group>"; };
+		825428791D22D6E100316338 /* Motion.Motion.proto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Motion.Motion.proto.swift; sourceTree = "<group>"; };
 		8270A6C91D046CB000E24FAC /* NotificationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		8270A6CB1D046D6900E24FAC /* PushNotificationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushNotificationViewController.swift; sourceTree = "<group>"; };
 		8270A6CF1D05AFCB00E24FAC /* grabmo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grabmo.png; sourceTree = "<group>"; };
@@ -116,10 +145,14 @@
 		8219FB3A1D01B48000BC2535 /* grabmo */ = {
 			isa = PBXGroup;
 			children = (
+				825428781D22D6C600316338 /* Protobuf */,
+				825428771D22CFC300316338 /* ObjectiveC */,
+				825428681D22CF8400316338 /* Opencv */,
+				825428581D22CEF400316338 /* Socket */,
 				8270A6D81D05CA1C00E24FAC /* SetupViewController.swift */,
 				8270A6D61D05C85E00E24FAC /* MainViewController.swift */,
-				8270A6D11D05C0BD00E24FAC /* Login_Register */,
-				8270A6CD1D05A84C00E24FAC /* assets */,
+				8270A6D11D05C0BD00E24FAC /* Signin */,
+				8270A6CD1D05A84C00E24FAC /* Assets */,
 				8270A6C81D046BE500E24FAC /* Notifications */,
 				8219FB3B1D01B48000BC2535 /* AppDelegate.swift */,
 				8219FB3F1D01B48000BC2535 /* Main.storyboard */,
@@ -148,6 +181,51 @@
 			path = grabmoUITests;
 			sourceTree = "<group>";
 		};
+		825428581D22CEF400316338 /* Socket */ = {
+			isa = PBXGroup;
+			children = (
+				8254285A1D22CF1700316338 /* Socket.swift */,
+				8254285B1D22CF1700316338 /* ysocket.swift */,
+				8254285C1D22CF1700316338 /* ytcpsocket.c */,
+				8254285D1D22CF1700316338 /* ytcpsocket.swift */,
+				8254285E1D22CF1700316338 /* yudpsocket.c */,
+				8254285F1D22CF1700316338 /* yudpsocket.swift */,
+			);
+			name = Socket;
+			sourceTree = "<group>";
+		};
+		825428681D22CF8400316338 /* Opencv */ = {
+			isa = PBXGroup;
+			children = (
+				825428691D22CFA600316338 /* stitching.cpp */,
+				8254286A1D22CFA600316338 /* stitching.h */,
+				8254286B1D22CFA600316338 /* SwViewController.swift */,
+				8254286C1D22CFA600316338 /* UIImage+OpenCV.h */,
+				8254286D1D22CFA600316338 /* UIImage+OpenCV.mm */,
+				8254286E1D22CFA600316338 /* UIImage+Rotate.h */,
+				8254286F1D22CFA600316338 /* UIImage+Rotate.m */,
+				825428701D22CFA600316338 /* CVWrapper.h */,
+				825428711D22CFA600316338 /* CVWrapper.mm */,
+			);
+			name = Opencv;
+			sourceTree = "<group>";
+		};
+		825428771D22CFC300316338 /* ObjectiveC */ = {
+			isa = PBXGroup;
+			children = (
+				825428591D22CF0E00316338 /* grabmo-Bridging-Header.h */,
+			);
+			name = ObjectiveC;
+			sourceTree = "<group>";
+		};
+		825428781D22D6C600316338 /* Protobuf */ = {
+			isa = PBXGroup;
+			children = (
+				825428791D22D6E100316338 /* Motion.Motion.proto.swift */,
+			);
+			name = Protobuf;
+			sourceTree = "<group>";
+		};
 		8270A6C81D046BE500E24FAC /* Notifications */ = {
 			isa = PBXGroup;
 			children = (
@@ -157,12 +235,12 @@
 			name = Notifications;
 			sourceTree = "<group>";
 		};
-		8270A6CD1D05A84C00E24FAC /* assets */ = {
+		8270A6CD1D05A84C00E24FAC /* Assets */ = {
 			isa = PBXGroup;
 			children = (
 				8270A6CE1D05A85600E24FAC /* images */,
 			);
-			name = assets;
+			name = Assets;
 			sourceTree = "<group>";
 		};
 		8270A6CE1D05A85600E24FAC /* images */ = {
@@ -173,13 +251,13 @@
 			name = images;
 			sourceTree = "<group>";
 		};
-		8270A6D11D05C0BD00E24FAC /* Login_Register */ = {
+		8270A6D11D05C0BD00E24FAC /* Signin */ = {
 			isa = PBXGroup;
 			children = (
 				8270A6D41D05C0E700E24FAC /* LoginViewController.swift */,
 				8270A6D21D05C0D500E24FAC /* RegisterViewController.swift */,
 			);
-			name = Login_Register;
+			name = Signin;
 			sourceTree = "<group>";
 		};
 		889A3EEFA13E1BA02CBA53C6 /* Pods */ = {
@@ -383,13 +461,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				825428741D22CFA600316338 /* UIImage+OpenCV.mm in Sources */,
+				825428631D22CF1700316338 /* ytcpsocket.swift in Sources */,
+				825428601D22CF1700316338 /* Socket.swift in Sources */,
+				8254287A1D22D6E100316338 /* Motion.Motion.proto.swift in Sources */,
 				8270A6CC1D046D6900E24FAC /* PushNotificationViewController.swift in Sources */,
+				825428751D22CFA600316338 /* UIImage+Rotate.m in Sources */,
 				8219FB3C1D01B48000BC2535 /* AppDelegate.swift in Sources */,
+				825428611D22CF1700316338 /* ysocket.swift in Sources */,
+				825428621D22CF1700316338 /* ytcpsocket.c in Sources */,
 				8270A6CA1D046CB000E24FAC /* NotificationViewController.swift in Sources */,
 				8270A6D71D05C85E00E24FAC /* MainViewController.swift in Sources */,
+				825428731D22CFA600316338 /* SwViewController.swift in Sources */,
+				825428641D22CF1700316338 /* yudpsocket.c in Sources */,
+				825428761D22CFA600316338 /* CVWrapper.mm in Sources */,
 				8270A6D51D05C0E700E24FAC /* LoginViewController.swift in Sources */,
+				825428651D22CF1700316338 /* yudpsocket.swift in Sources */,
 				8270A6D31D05C0D500E24FAC /* RegisterViewController.swift in Sources */,
 				8270A6D91D05CA1C00E24FAC /* SetupViewController.swift in Sources */,
+				825428721D22CFA600316338 /* stitching.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -534,11 +624,14 @@
 			baseConfigurationReference = BD62CA7AB4F6E74E9DD9031F /* Pods-grabmo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = grabmo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.grabmotion.grabmo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "grabmo/grabmo-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -547,11 +640,13 @@
 			baseConfigurationReference = 5A09ED2785CDF0FCF9BBE07F /* Pods-grabmo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = grabmo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.grabmotion.grabmo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "grabmo/grabmo-Bridging-Header.h";
 			};
 			name = Release;
 		};
