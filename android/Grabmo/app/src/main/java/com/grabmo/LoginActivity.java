@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -18,10 +16,8 @@ import com.grabmo.utils.Utils;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.parse.Parse;
-import com.parse.ParseAnalytics;
+import com.parse.LogInCallback;
 import com.parse.ParseException;
-import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 import com.parse.ParsePush;
 import com.parse.ParseRelation;
@@ -42,28 +38,26 @@ public class LoginActivity extends Activity {
 
     private static String LOGIN = "http://grabmotion.co/wp-json/wp/v2/user";
     private AsyncHttpClient client;
-    private EditText first_name;
-    private EditText last_name;
     private EditText user;
     private EditText pass;
+    private EditText first_name;
+    private EditText last_name;
     private EditText email;
     private RequestParams params;
     private View loginInclude;
     private View signUpInclude;
     private TextView toggleLogin;
     private EditText userLogin, passLogin;
+
     private ProgressDialog progressDialogSignUp;
     private ProgressDialog progressDialogLogin;
-
-    String TAG = "LoginActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-
-        if (KeySaver.isExist(this, "isLogin") || KeySaver.isExist(this, "WPnewUser")) {
+        if (KeySaver.isExist(this, "isLogin") || KeySaver.isExist(this, "newUser")) {
             Intent i = new Intent(LoginActivity.this, SyncActivity.class);
             startActivity(i);
             finish();
@@ -72,36 +66,12 @@ public class LoginActivity extends Activity {
         loginInclude = findViewById(R.id.login_include);
         signUpInclude = findViewById(R.id.signup_include);
 
-        first_name = (EditText) signUpInclude.findViewById(R.id.edit_first_name);
-        last_name = (EditText) signUpInclude.findViewById(R.id.edit_last_name);
-
         user = (EditText) signUpInclude.findViewById(R.id.edit_name);
         pass = (EditText) signUpInclude.findViewById(R.id.edit_pass);
         email = (EditText) signUpInclude.findViewById(R.id.edit_email);
 
-        last_name.addTextChangedListener(new TextWatcher() {
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            public void afterTextChanged(Editable s) {
-                String usern = first_name.getText().toString() + last_name.getText().toString();
-                user.setText(usern);
-            }
-
-        });
-
         userLogin = (EditText) loginInclude.findViewById(R.id.edit_name);
         passLogin = (EditText) loginInclude.findViewById(R.id.edit_pass);
-
-        setEditParams(new EditText[]{first_name, last_name, user, pass, email, userLogin, passLogin});
 
         Button signUp = (Button) signUpInclude.findViewById(R.id.button_signup);
         Button loginBtn = (Button) loginInclude.findViewById(R.id.button_login);
@@ -115,13 +85,6 @@ public class LoginActivity extends Activity {
 
         client = new AsyncHttpClient();
         params = new RequestParams();
-    }
-
-    private void setEditParams(EditText[] edits) {
-        for (EditText edit : edits) {
-            edit.setSingleLine();
-            edit.setMaxLines(1);
-        }
     }
 
     View.OnClickListener onToggleListener = new View.OnClickListener() {
@@ -314,16 +277,34 @@ public class LoginActivity extends Activity {
 
                     KeySaver.saveShare(LoginActivity.this, "isLogin", true);
 
-                    try {
+                    try
+                    {
+
                         JSONObject response = new JSONObject(Utils.decodeUTF8(responseBody));
                         KeySaver.saveShare(LoginActivity.this, "userId", response.getInt("id"));
                         KeySaver.saveShare(LoginActivity.this, "userName", response.getString("first_name"));
                         KeySaver.saveShare(LoginActivity.this, "userEmail", response.getString("email"));
                         KeySaver.saveShare(LoginActivity.this, "userImage", "error");
 
-                        progressDialogLogin.dismiss();
-                        startActivity(new Intent(LoginActivity.this, SyncActivity.class));
-                        finish();
+                        String puser = userLogin.getText().toString();
+                        String ppass = passLogin.getText().toString();
+
+                        ParseUser.logInInBackground(puser, ppass, new LogInCallback()
+                        {
+
+                            public void done(ParseUser user, ParseException e)
+                            {
+                                if (user != null)
+                                {
+                                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                    finish();
+                                } else
+                                {
+                                    // Signup failed. Look at the ParseException to see what happened.
+                                }
+                            }
+                        });
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

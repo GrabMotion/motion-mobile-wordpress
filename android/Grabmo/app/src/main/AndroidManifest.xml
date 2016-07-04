@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.grabmo">
 
-  <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
@@ -19,7 +19,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        
+
         <activity
             android:name=".LoginActivity"
             android:screenOrientation="portrait">
@@ -54,18 +54,18 @@
                 <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
                 <category android:name="com.grabmo" />
             </intent-filter>
-        </receiver>      
+        </receiver>
 
         <meta-data android:name="com.parse.push.notification_icon" android:resource="@drawable/notifications"/>
 
         <meta-data
-       android:name="com.parse.APPLICATION_ID"
-       android:value="fsLv65faQqwqhliCGF7oGqcT8MxPDFjmcxIuonGw" />
+            android:name="com.parse.APPLICATION_ID"
+            android:value="fsLv65faQqwqhliCGF7oGqcT8MxPDFjmcxIuonGw" />
 
-       <meta-data
-           android:name="com.parse.CLIENT_KEY"
-           android:value="T3PK1u0NQ36eZm91jM0TslCREDj8LBeKzGCsrudE" />
-  
+        <meta-data
+            android:name="com.parse.CLIENT_KEY"
+            android:value="T3PK1u0NQ36eZm91jM0TslCREDj8LBeKzGCsrudE" />
+
 
     </application>
 

@@ -14,8 +14,8 @@ import com.parse.SaveCallback;
  */
 public class GrabmoApplication extends Application
 {
-	
-	
+
+
 	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
@@ -26,29 +26,29 @@ public class GrabmoApplication extends Application
 		super.onCreate();
 
 		String appId = "fsLv65faQqwqhliCGF7oGqcT8MxPDFjmcxIuonGw";
-        String appKey = "T3PK1u0NQ36eZm91jM0TslCREDj8LBeKzGCsrudE";
+		String appKey = "T3PK1u0NQ36eZm91jM0TslCREDj8LBeKzGCsrudE";
 
-        Parse.initialize(this, appId, appKey);
+		Parse.initialize(this, appId, appKey);
 
-        //Parse.enableLocalDatastore(this);
+		//Parse.enableLocalDatastore(this);
 
-        Parse.setLogLevel(Log.VERBOSE);
+		Parse.setLogLevel(Log.VERBOSE);
 
-        //ParseAnalytics.trackAppOpenedInBackground();
+		//ParseAnalytics.trackAppOpenedInBackground();
 
-        ParseInstallation.getCurrentInstallation().saveInBackground(new SaveCallback() {
-            
-            @Override
-            public void done(ParseException e)
-            {
-                
-                if (e == null) 
-                {
-                    String devicetoken = (String) ParseInstallation.getCurrentInstallation().get("deviceToken");                       
-                }
-            }
+		ParseInstallation.getCurrentInstallation().saveInBackground(new SaveCallback() {
 
-        });   
+			@Override
+			public void done(ParseException e)
+			{
+
+				if (e == null)
+				{
+					String devicetoken = (String) ParseInstallation.getCurrentInstallation().get("deviceToken");
+				}
+			}
+
+		});
 
 
 	}

@@ -73,7 +73,9 @@ public class SyncActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sync);
 
-        if (KeySaver.isExist(this, "isPaired")) {
+
+        if (KeySaver.isExist(this, "isPaired") || KeySaver.isExist(this, "isLogin"))
+        {
             Intent i = new Intent(SyncActivity.this, MainActivity.class);
             startActivity(i);
             finish();

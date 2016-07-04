@@ -22,14 +22,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Titulo"
-            android:id="@+id/noti_title"
+            android:id="@+id/noti_terminal"
             android:layout_marginTop="5dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="Texto"
-            android:id="@+id/noti_text"
+            android:id="@+id/noti_camera"
             android:layout_marginTop="2dp" />
     </LinearLayout>
 </LinearLayout>
