@@ -9,7 +9,6 @@
 import UIKit
 import Parse
 
-
 class Device 
 {
     var user = User()
@@ -118,6 +117,8 @@ SocketProtocolDelegate
     var mainController:MainViewController?
     
     //var setupTableView : SetupCameraTableViewController!
+        
+    @IBOutlet weak var setupTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -318,7 +319,7 @@ SocketProtocolDelegate
             case Motion.Message_.ActionType.ServerInfoOk.hashValue:
                 
                 self.device.joined = true
-                self.setupTableView.reload()
+                self.setupTableView.reloadData()
 
             break
             

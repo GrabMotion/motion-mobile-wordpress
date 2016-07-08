@@ -26,6 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var ParseClientKey      = "T3PK1u0NQ36eZm91jM0TslCREDj8LBeKzGCsrudE"
     var RestApiKey          = "ZRfqjSe0ju8XejHHmJdsfzsYKYsQYBWsYLU40FDB"
 
+    var localaddrip = String()
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         

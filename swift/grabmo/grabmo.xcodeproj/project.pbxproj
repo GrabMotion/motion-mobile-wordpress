@@ -33,6 +33,7 @@
 		8270A6D51D05C0E700E24FAC /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8270A6D41D05C0E700E24FAC /* LoginViewController.swift */; };
 		8270A6D71D05C85E00E24FAC /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8270A6D61D05C85E00E24FAC /* MainViewController.swift */; };
 		8270A6D91D05CA1C00E24FAC /* SetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8270A6D81D05CA1C00E24FAC /* SetupViewController.swift */; };
+		82F7C1C61D2BEF9400F9D8CA /* SwiftSpinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 82F7C1C51D2BEF9400F9D8CA /* SwiftSpinner.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +92,7 @@
 		8270A6D41D05C0E700E24FAC /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		8270A6D61D05C85E00E24FAC /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		8270A6D81D05CA1C00E24FAC /* SetupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetupViewController.swift; sourceTree = "<group>"; };
+		82F7C1C51D2BEF9400F9D8CA /* SwiftSpinner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftSpinner.swift; sourceTree = "<group>"; };
 		BD62CA7AB4F6E74E9DD9031F /* Pods-grabmo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-grabmo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-grabmo/Pods-grabmo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -145,6 +147,7 @@
 		8219FB3A1D01B48000BC2535 /* grabmo */ = {
 			isa = PBXGroup;
 			children = (
+				82F7C1C41D2BEF8300F9D8CA /* Controls */,
 				825428781D22D6C600316338 /* Protobuf */,
 				825428771D22CFC300316338 /* ObjectiveC */,
 				825428681D22CF8400316338 /* Opencv */,
@@ -258,6 +261,14 @@
 				8270A6D21D05C0D500E24FAC /* RegisterViewController.swift */,
 			);
 			name = Signin;
+			sourceTree = "<group>";
+		};
+		82F7C1C41D2BEF8300F9D8CA /* Controls */ = {
+			isa = PBXGroup;
+			children = (
+				82F7C1C51D2BEF9400F9D8CA /* SwiftSpinner.swift */,
+			);
+			name = Controls;
 			sourceTree = "<group>";
 		};
 		889A3EEFA13E1BA02CBA53C6 /* Pods */ = {
@@ -466,6 +477,7 @@
 				825428601D22CF1700316338 /* Socket.swift in Sources */,
 				8254287A1D22D6E100316338 /* Motion.Motion.proto.swift in Sources */,
 				8270A6CC1D046D6900E24FAC /* PushNotificationViewController.swift in Sources */,
+				82F7C1C61D2BEF9400F9D8CA /* SwiftSpinner.swift in Sources */,
 				825428751D22CFA600316338 /* UIImage+Rotate.m in Sources */,
 				8219FB3C1D01B48000BC2535 /* AppDelegate.swift in Sources */,
 				825428611D22CF1700316338 /* ysocket.swift in Sources */,
