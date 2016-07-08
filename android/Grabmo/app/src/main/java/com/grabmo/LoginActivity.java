@@ -36,14 +36,12 @@ import cz.msebera.android.httpclient.auth.AuthScope;
  **/
 public class LoginActivity extends Activity {
 
-    private static String LOGIN = "http://grabmotion.co/wp-json/wp/v2/user";
     private AsyncHttpClient client;
     private EditText user;
     private EditText pass;
     private EditText first_name;
     private EditText last_name;
     private EditText email;
-    private RequestParams params;
     private View loginInclude;
     private View signUpInclude;
     private TextView toggleLogin;
@@ -51,6 +49,8 @@ public class LoginActivity extends Activity {
 
     private ProgressDialog progressDialogSignUp;
     private ProgressDialog progressDialogLogin;
+
+    private JSONObject WPNewUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +69,8 @@ public class LoginActivity extends Activity {
         user = (EditText) signUpInclude.findViewById(R.id.edit_name);
         pass = (EditText) signUpInclude.findViewById(R.id.edit_pass);
         email = (EditText) signUpInclude.findViewById(R.id.edit_email);
+        first_name = (EditText) signUpInclude.findViewById(R.id.edit_first_name);
+        last_name = (EditText) signUpInclude.findViewById(R.id.edit_last_name);
 
         userLogin = (EditText) loginInclude.findViewById(R.id.edit_name);
         passLogin = (EditText) loginInclude.findViewById(R.id.edit_pass);
@@ -84,7 +86,6 @@ public class LoginActivity extends Activity {
         toggleLogin.setOnClickListener(onToggleListener);
 
         client = new AsyncHttpClient();
-        params = new RequestParams();
     }
 
     View.OnClickListener onToggleListener = new View.OnClickListener() {
@@ -138,9 +139,9 @@ public class LoginActivity extends Activity {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                     try {
-                        final JSONObject WPnewUser = new JSONObject(Utils.decodeUTF8(responseBody));
+                        WPNewUser = new JSONObject(Utils.decodeUTF8(responseBody));
 
-                        if (WPnewUser.has("wp_userid")) {
+                        if (WPNewUser.has("wp_userid")) {
 
                             Thread thread = new Thread() {
 
@@ -175,26 +176,26 @@ public class LoginActivity extends Activity {
                                                 String wpmodified = "";
 
                                                 try {
-                                                    if (WPnewUser.has("wp_link"))
-                                                        wplink = WPnewUser.getString("wp_link");
+                                                    if (WPNewUser.has("wp_link"))
+                                                        wplink = WPNewUser.getString("wp_link");
 
-                                                    if (WPnewUser.has("wp_api_link"))
-                                                        wpapilink = WPnewUser.getString("wp_api_link");
+                                                    if (WPNewUser.has("wp_api_link"))
+                                                        wpapilink = WPNewUser.getString("wp_api_link");
 
-                                                    if (WPnewUser.has("wp_userid"))
-                                                        wpuserid = WPnewUser.getInt("wp_userid");
+                                                    if (WPNewUser.has("wp_userid"))
+                                                        wpuserid = WPNewUser.getInt("wp_userid");
 
-                                                    if (WPnewUser.has("wp_client_id"))
-                                                        wpclientid = WPnewUser.getInt("wp_client_id");
+                                                    if (WPNewUser.has("wp_client_id"))
+                                                        wpclientid = WPNewUser.getInt("wp_client_id");
 
-                                                    if (WPnewUser.has("wp_slug"))
-                                                        wpslug = WPnewUser.getString("wp_slug");
+                                                    if (WPNewUser.has("wp_slug"))
+                                                        wpslug = WPNewUser.getString("wp_slug");
 
-                                                    if (WPnewUser.has("wp_server_url"))
-                                                        wpserverurl = WPnewUser.getString("wp_server_url");
+                                                    if (WPNewUser.has("wp_server_url"))
+                                                        wpserverurl = WPNewUser.getString("wp_server_url");
 
-                                                    if (WPnewUser.has("wp_modified"))
-                                                        wpmodified = WPnewUser.getString("wp_modified");
+                                                    if (WPNewUser.has("wp_modified"))
+                                                        wpmodified = WPNewUser.getString("wp_modified");
 
                                                 } catch (JSONException e1) {
                                                     e1.printStackTrace();
@@ -277,30 +278,26 @@ public class LoginActivity extends Activity {
 
                     KeySaver.saveShare(LoginActivity.this, "isLogin", true);
 
-                    try
-                    {
-
+                    try {
                         JSONObject response = new JSONObject(Utils.decodeUTF8(responseBody));
                         KeySaver.saveShare(LoginActivity.this, "userId", response.getInt("id"));
                         KeySaver.saveShare(LoginActivity.this, "userName", response.getString("first_name"));
                         KeySaver.saveShare(LoginActivity.this, "userEmail", response.getString("email"));
                         KeySaver.saveShare(LoginActivity.this, "userImage", "error");
 
-                        String puser = userLogin.getText().toString();
-                        String ppass = passLogin.getText().toString();
+                        String parseUser = userLogin.getText().toString();
+                        String parsePass = passLogin.getText().toString();
 
-                        ParseUser.logInInBackground(puser, ppass, new LogInCallback()
-                        {
+                        ParseUser.logInInBackground(parseUser, parsePass, new LogInCallback() {
 
-                            public void done(ParseUser user, ParseException e)
-                            {
-                                if (user != null)
-                                {
+                            public void done(ParseUser user, ParseException e) {
+                                if (user != null) {
+                                    progressDialogLogin.dismiss();
                                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                                     finish();
-                                } else
-                                {
-                                    // Signup failed. Look at the ParseException to see what happened.
+                                } else {
+                                    e.printStackTrace();
+                                    // SignUp failed. Look at the ParseException to see what happened.
                                 }
                             }
                         });

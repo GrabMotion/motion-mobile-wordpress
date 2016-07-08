@@ -4,23 +4,19 @@ import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.grabmo.R;
 import com.grabmo.adapter.NotificationAdapter;
 import com.grabmo.model.NotificationList;
 import com.grabmo.utils.Utils;
-import com.joooonho.SelectableRoundedImageView;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.parse.ParseUser;
-import com.wang.avi.AVLoadingIndicatorView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,38 +27,15 @@ import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 
-public class NotificationFragment extends Fragment
-{
-
-    private RecyclerView nRecycleView;
+public class NotificationFragment extends Fragment {
 
     private List<NotificationList> notificationList = new ArrayList<>();
 
-    private RecyclerView mRecyclerView;
-    private GridLayoutManager mLinearLayoutManager;
     private NotificationAdapter nAdapter;
-
-    private AVLoadingIndicatorView mProgress;
-
-    private boolean loading = true;
-    int pastVisibleItems, visibleItemCount, totalItemCount;
-    private View coordinatorLayoutView;
-
-    private KenBurnsView mCoverFavorite;
-
-    private SwipeRefreshLayout mSwipe;
-
-    private SelectableRoundedImageView offlineImage;
-    private SelectableRoundedImageView profileImage;
 
     private ProgressDialog progressDialog;
 
     private static final String BASE_NOTIFICATIONS_URL = "http://grabmotion.co/wp-json/gm/v1/notifications/";
-
-    public NotificationFragment()
-    {
-
-    }
 
     @Nullable
     @Override
@@ -70,22 +43,15 @@ public class NotificationFragment extends Fragment
 
         final View view = inflater.inflate(R.layout.fragment_noti, container, false);
 
-        nRecycleView = (RecyclerView) view.findViewById(R.id.noti_list);
+        RecyclerView mRecycleView = (RecyclerView) view.findViewById(R.id.noti_list);
 
-        String currentuser = ParseUser.getCurrentUser().getObjectId();
+        String currentUser = ParseUser.getCurrentUser().getObjectId();
 
-        AsyncConnection(BASE_NOTIFICATIONS_URL + currentuser);
+        AsyncConnection(BASE_NOTIFICATIONS_URL + currentUser);
 
-
-        nRecycleView.setLayoutManager(new GridLayoutManager(getActivity(), 2, GridLayoutManager.VERTICAL, false));
+        mRecycleView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         nAdapter = new NotificationAdapter(getActivity(), notificationList);
-        nRecycleView.setAdapter(nAdapter);
-
-        /*nAdapter = new NotificationAdapter(getActivity(), notificationList);
-        mLinearLayoutManager = new GridLayoutManager(getActivity(), 2);
-        mLinearLayoutManager.setOrientation(GridLayoutManager.VERTICAL);*/
-        //mRecyclerView.setLayoutManager(mLinearLayoutManager);
-        //mRecyclerView.setAdapter(nAdapter);
+        mRecycleView.setAdapter(nAdapter);
 
         nAdapter.setOnItemClickListener(onItemNotificationClickListener);
 
@@ -95,8 +61,7 @@ public class NotificationFragment extends Fragment
     NotificationAdapter.OnItemClickListener onItemNotificationClickListener = new NotificationAdapter.OnItemClickListener() {
 
         @Override
-        public void onItemClick(View view, int position)
-        {
+        public void onItemClick(View view, int position) {
 
         }
 
@@ -109,23 +74,19 @@ public class NotificationFragment extends Fragment
                                        String instance_media_url,
                                        int instance_elapsed_time,
                                        String recognition_name,
-                                       String locaton_city)
-    {
-        return new NotificationList(instance_id, camera_name, terminal_name, day_label, instance_media_url, instance_elapsed_time, recognition_name, locaton_city);
+                                       String location_city) {
+        return new NotificationList(instance_id, camera_name, terminal_name, day_label, instance_media_url, instance_elapsed_time, recognition_name, location_city);
     }
 
-    private void AsyncConnection(String urlConnection)
-    {
+    private void AsyncConnection(String urlConnection) {
 
-        new Utils.PropertyClient().get(urlConnection, null, new AsyncHttpResponseHandler()
-        {
+        new Utils.PropertyClient().get(urlConnection, null, new AsyncHttpResponseHandler() {
 
             @Override
             public void onStart() {
                 super.onStart();
 
-                if (notificationList.size() > 0)
-                {
+                if (notificationList.size() > 0) {
                     notificationList.clear();
                 }
 
@@ -159,11 +120,10 @@ public class NotificationFragment extends Fragment
                                 terminal.getString("camera_name"),
                                 terminal.getString("terminal_name"),
                                 terminal.getString("day_label"),
-                                Utils.setGlideDrawable("instance_media_url"),
+                                terminal.getString("instance_media_url"),
                                 terminal.getInt("instance_elapsed_time"),
                                 terminal.getString("recognition_name"),
-                                terminal.getString("locaton_city")));
-
+                                terminal.getString("location_city")));
                     }
 
                     nAdapter.notifyDataSetChanged();
@@ -180,6 +140,6 @@ public class NotificationFragment extends Fragment
                 Log.e("responseFail", Utils.decodeUTF8(responseBody));
             }
         });
-}
+    }
 
 }
