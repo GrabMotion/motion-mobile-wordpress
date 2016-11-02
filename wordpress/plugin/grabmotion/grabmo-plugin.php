@@ -11,8 +11,8 @@ Version: 1.2
 Text Domain: grabmo-computer-vision
 */
     
-    register_activation_hook( __FILE__, 'flush_rewrite' );	
-	
+    register_activation_hook( __FILE__, 'flush_rewrite' );  
+  
     function flush_rewrite()
     {
         flush_rewrite_rules();
@@ -306,7 +306,6 @@ Text Domain: grabmo-computer-vision
     add_action('rest_api_init', 'location_add_time_zone');
     add_action('rest_api_init', 'location_add_zip');
 
-
     function digimotion_location_init()
     {
         
@@ -429,18 +428,18 @@ Text Domain: grabmo-computer-vision
     function location_add_city()
     {
         register_rest_field('location',
-                           'locaton_city',
+                           'location_city',
                            array(
-                                 'get_callback'    => 'get_locaton_city',
-                                 'update_callback' => 'update_locaton_city',
+                                 'get_callback'    => 'get_location_city',
+                                 'update_callback' => 'update_location_city',
                                  'schema'          => null,
                                  )
                            );
     }
-    function get_locaton_city($object, $field_name, $request) {
+    function get_location_city($object, $field_name, $request) {
         return get_post_meta($object[ 'id' ], $field_name);
     }
-    function update_locaton_city( $value, $object, $field_name ) {
+    function update_location_city( $value, $object, $field_name ) {
         if ( ! $value || ! is_string( $value ) ) {
             return;
         }
@@ -2784,7 +2783,7 @@ Text Domain: grabmo-computer-vision
       global $wp_json_basic_auth_error;
       return $wp_json_basic_auth_error;
     }
-    add_filter( 'json_authentication_errors', 'json_basic_auth_error' );	
+    add_filter( 'json_authentication_errors', 'json_basic_auth_error' );  
 
 
     ////////////////////
@@ -3540,7 +3539,7 @@ Text Domain: grabmo-computer-vision
                 write_log_file("ID: ".$post->ID); 
 
                 $locaton_as               = get_post_meta($post->ID, 'locaton_as',true);
-                $locaton_city             = get_post_meta($post->ID, 'locaton_city',true);
+                $location_city             = get_post_meta($post->ID, 'location_city',true);
                 $locaton_country          = get_post_meta($post->ID, 'locaton_country',true);
                 $locaton_isp              = get_post_meta($post->ID, 'locaton_isp',true);
                 $locaton_latitude         = get_post_meta($post->ID, 'locaton_latitude',true);
@@ -3552,7 +3551,7 @@ Text Domain: grabmo-computer-vision
                 $location_href            = get_bloginfo('url').'/wp-json/wp/v2/location/'.$post->ID;
                 
                 //write_log_file("locaton_as: ".              $locaton_as);
-                //write_log_file("locaton_city: ".            $locaton_city);
+                //write_log_file("location_city: ".            $location_city);
                 //write_log_file("locaton_country: ".         $locaton_country); 
                 //write_log_file("locaton_isp: ".             $locaton_isp); 
                 //write_log_file("locaton_latitude: ".        $locaton_latitude); 
@@ -3589,7 +3588,7 @@ Text Domain: grabmo-computer-vision
                   $array_terminal   = Array ( 
                       'locaton_id'                  =>  $post->ID,
                       'locaton_as'                  =>  $locaton_as,
-                      'locaton_city'                =>  $locaton_city,
+                      'location_city'                =>  $location_city,
                       'locaton_country'             =>  $locaton_country,
                       'locaton_isp'                 =>  $locaton_isp,
                       'locaton_latitude'            =>  $locaton_latitude,
@@ -3797,13 +3796,16 @@ Text Domain: grabmo-computer-vision
                   $recognitionid  = get_post_meta($dayid, "post_parent", true);
                   $cameraid       = get_post_meta($recognitionid, "post_parent", true);
                   $terminalid     = get_post_meta($cameraid, "post_parent", true);
-                  $locationid     = get_post_meta($terminalid, "post_parent", true);                
+                  $locationid     = get_post_meta($terminalid, "post_parent", true);       
                  
                   $terminal_name        = get_post_meta($terminalid,'terminal_name',true);
                   $camera_name          = get_post_meta($cameraid,'camera_name',true);
 
                   $instance_begintime   = get_post_meta($instanceid,'instance_begintime',true);
                   $instance_endtime     = get_post_meta($instanceid,'instance_endtime',true);  
+
+                  $date  = get_the_date( "Y-M-d h:m:s", $instanceid );
+                  //$date  = get_the_date( "c", $instanceid );
 
                   $instance_elapsed     = strval($instance_endtime) - strval($instance_begintime);
 
@@ -3813,7 +3815,12 @@ Text Domain: grabmo-computer-vision
                   $day_label            = get_post_meta($dayid,'day_label',true);
 
                   $recognition_name     = get_post_meta($recognitionid,'recognition_name',true);          
-                  $locaton_city         = get_post_meta($locationid, 'locaton_city',true);
+                  $location_city         = get_post_meta($locationid, 'location_city',true);
+
+                  $location_lat         =  get_post_meta($locationid, 'locaton_latitude',true);
+                  $location_lon         =  get_post_meta($locationid, 'locaton_longitude',true);
+
+                  $location   = $location_lat.",".$location_lon;
 
                   $array_notification   = Array 
                   (
@@ -3824,7 +3831,9 @@ Text Domain: grabmo-computer-vision
                       'instance_media_url'          =>  $instance_media,              
                       'day_label'                   =>  $day_label,              
                       'recognition_name'            =>  $recognition_name,
-                      'locaton_city'                =>  $locaton_city,            
+                      'location_city'               =>  $location_city,     
+                      'date'                        =>  $date, 
+                      'location'                    =>  $location,      
                   );
 
                   $array_notifications['notifications'][] = $array_notification;
@@ -3866,7 +3875,7 @@ Text Domain: grabmo-computer-vision
           $recognitionid  = get_post_meta($dayid, "post_parent", true);
           $cameraid       = get_post_meta($recognitionid, "post_parent", true);
           $terminalid     = get_post_meta($cameraid, "post_parent", true);
-          $locationid     = get_post_meta($terminalid, "post_parent", true);                
+          $locationid     = get_post_meta($terminalid, "post_parent", true);               
          
           $terminal_name        = get_post_meta($terminalid,'terminal_name',true);
           $camera_name          = get_post_meta($cameraid,'camera_name',true);
@@ -3879,10 +3888,17 @@ Text Domain: grabmo-computer-vision
           $instance_media_id    = get_post_meta($instanceid,'instance_media_id',true);
           $instance_media       = wp_get_attachment_image_src($instance_media_id)[0];
 
+          $date  = get_the_date( "Y-M-d h:m:s", $instanceid );
+
           $day_label            = get_post_meta($dayid,'day_label',true);
 
           $recognition_name     = get_post_meta($recognitionid,'recognition_name',true);          
-          $locaton_city         = get_post_meta($locationid, 'locaton_city',true);
+          $location_city         = get_post_meta($locationid, 'location_city',true);
+
+          $location_lat         =  get_post_meta($locationid, 'locaton_latitude',true);
+          $location_lon         =  get_post_meta($locationid, 'locaton_longitude',true);
+
+          $location   = $location_lat.",".$location_lon;
 
           $array_notification   = Array 
           (
@@ -3893,7 +3909,9 @@ Text Domain: grabmo-computer-vision
               'instance_media_url'          =>  $instance_media,              
               'day_label'                   =>  $day_label,              
               'recognition_name'            =>  $recognition_name,
-              'locaton_city'                =>  $locaton_city,            
+              'location_city'               =>  $location_city,    
+              'date'                        =>  $date,   
+              'location'                    =>  $location,     
           );
 
           $response = new WP_REST_Response( $array_notification );       
